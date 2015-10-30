@@ -1,0 +1,220 @@
+﻿<html>
+
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+
+<div  class="setup_tree_bg_color">
+	
+</div>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	var HTML="";
+	var SelectedItem = "TR_MENU_SYSTEM";
+	
+	
+	function draw_menu_L0(L0Obj,flag)
+	{
+		
+		var HtmlCode=""
+		if(flag == 0)
+			HtmlCode+='<tr id=TR_'+ L0Obj.id + '>';
+		else
+			HtmlCode+='<tr id=TR_'+ L0Obj.id + ' style=display:none >';
+		HtmlCode+='		<td align="right">';
+		HtmlCode+='			<img border="0" src="../images/space.gif"  />';
+		HtmlCode+="		</td>";			
+		HtmlCode+='		<td valign="top" align="left" class='+ L0Obj.MYClass +'>';		
+		HtmlCode+='			<label style="font-size:12px" id=' + L0Obj.id + '>' +  L0Obj.name + '</label>';
+		HtmlCode+='		</td>';
+		HtmlCode+='</tr>';
+		return HtmlCode;
+	
+	}
+		
+	function draw_menu_L1(L1Obj)
+	{
+		var i = 0;
+		var HtmlCode=""
+		HtmlCode+='<tr id=TR_'+  L1Obj.id + ' class="off">';
+		HtmlCode+='		<td align="right">';;
+		HtmlCode+='			<img  id=PLUS_'  +L1Obj.id + ' border="0" src="../images/plus.gif"  />';
+		HtmlCode+="		</td>";			
+		HtmlCode+='		<td valign="top" align="left" class='+ L1Obj.MYClass +'>';		
+		HtmlCode+='			<label style="font-size:12px" id=' + L1Obj.id + '>' +  L1Obj.name + '</label>';
+		HtmlCode+='		</td>';
+		HtmlCode+='</tr>';
+		while(L1Obj.contain[i].name!='END'){
+			HtmlCode+=draw_menu_L0(L1Obj.contain[i],1);
+			i++;
+		}
+		
+		return HtmlCode;
+	
+	}
+	
+	function draw_menu_tree()
+	{
+		var HtmlRet="";
+		var i = 0;
+		HtmlRet='<table border="0" cellspacing="0" cellpadding="0" width="100%" >\n'
+				
+		while(MenuObj[i].level != -1)
+		{
+			if(MenuObj[i].level == 0)
+				HtmlRet += draw_menu_L0(MenuObj[i],0)
+			else if(MenuObj[i].level == 1)	
+				HtmlRet += draw_menu_L1(MenuObj[i])
+			i++;
+		}
+		
+		
+		HtmlRet+='</table>'
+		return HtmlRet;
+	}
+
+
+	var Menu_Json_Admin="[\
+			{level:1,name:'System',id:'MENU_SYSTEM',open:0,contain:[\
+			{name:'System Info',id:'MENU_MAINTAIN_SYSTEM_INFO',MYClass:'off',src:'setup_maintain_system-info.html'},\
+			{name:'END'}\
+			]},\
+		{level:0,name:'Logout',id:'MENU_MAINTAIN_LOGOUT',MYClass:'off'},\
+		{level:-1}\
+		]";
+
+	var MenuObj = eval(Menu_Json_Admin);
+
+	
+	function onLoad()
+	{
+		HTML = draw_menu_tree();
+		document.write(HTML);
+			
+		SetupMouseAction();
+		top.update_language(this);
+	}
+	
+	function MenuMouseOver(){				
+		idget(this.id).cells[1].className = "on";	
+	}	
+	
+	function MenuMouseOut(){			
+		idget(this.id).cells[1].className = "off";	
+	}	
+	
+	function MenuOpen(Obj)
+	{
+		//alert("open");
+		
+		var j = 0;
+		idget("PLUS_"+Obj.id).src="../images/minus.gif";
+		while(Obj.contain[j].name!="END")
+		{					
+			idget("TR_"+ Obj.contain[j].id).style.display='';	
+			j++;
+		}				
+	}
+	
+	function MenuClose(Obj)
+	{
+		//alert("close");
+		var j = 0;
+		idget("PLUS_"+Obj.id).src="../images/plus.gif";
+		while(Obj.contain[j].name!="END")
+		{					
+			idget("TR_"+ Obj.contain[j].id).style.display='none';	
+			j++;
+		}				
+	}
+	//------------------------------------------------------------------------	
+	function LogOutAction(){
+		top.gAccount="";
+		top.gPwd="";
+		top.gUserLevel=-1;
+		top.window.open("/","_self", "", true);
+	}
+//------------------------------------------------------------------------	
+	function SetupLogOutAction(){		
+		idget("TR_MENU_MAINTAIN_LOGOUT").onclick=LogOutAction;
+	}
+	
+	function L1MenuSelect(){	
+		
+	//	if(SelectedItem == this.id)
+		//	return;
+		SelectedItem = this.id;
+								
+		if(MenuObj[idget(SelectedItem).idx].open == 0)
+		{
+			MenuObj[idget(SelectedItem).idx].open = 1;
+			MenuOpen(MenuObj[idget(SelectedItem).idx]);
+		}
+		else
+		{
+			MenuObj[idget(SelectedItem).idx].open = 0;
+			MenuClose(MenuObj[idget(SelectedItem).idx]);
+		}
+		
+		//SelectedItem = this.id;
+		
+	}	
+	
+	function L0OpenHtml()
+	{
+		SelectedItem = this.id;	
+		if(MenuObj[idget(SelectedItem).idx].level == 0)
+			parent.document.getElementById("setup_content").src=MenuObj[idget(SelectedItem).idx].src;
+		else	
+			parent.document.getElementById("setup_content").src=MenuObj[idget(SelectedItem).idx].contain[idget(SelectedItem).sub_idx].src;
+		//alert("open html"+ SelectedItem );
+	}
+	
+	function SetupMouseAction()
+	{
+		var i = 0;
+		var j = 0;
+		while(MenuObj[i].level != -1)
+		{	
+			idget("TR_"+ MenuObj[i].id).idx = i;
+			idget("TR_"+ MenuObj[i].id).onmouseover = MenuMouseOver;
+			idget("TR_"+ MenuObj[i].id).onmouseout = MenuMouseOut;		
+			
+			if(MenuObj[i].level == 0)
+			{
+				idget("TR_"+ MenuObj[i].id).onclick = L0OpenHtml;
+			}	
+			if(MenuObj[i].level == 1)
+			{
+				j = 0;
+				idget("TR_"+ MenuObj[i].id).onclick = L1MenuSelect;
+				while(MenuObj[i].contain[j].name!="END")
+				{
+					idget("TR_"+ MenuObj[i].contain[j].id).idx = i;
+					idget("TR_"+ MenuObj[i].contain[j].id).sub_idx = j;
+					idget("TR_"+ MenuObj[i].contain[j].id).onmouseover = MenuMouseOver;
+					idget("TR_"+ MenuObj[i].contain[j].id).onmouseout = MenuMouseOut;
+					idget("TR_"+ MenuObj[i].contain[j].id).onclick = L0OpenHtml;	
+					j++;
+				}								
+			}
+			i++;			
+		}
+		SetupLogOutAction();
+	}
+	
+	onLoad();
+	
+	frame_extent();
+	
+
+</Script>

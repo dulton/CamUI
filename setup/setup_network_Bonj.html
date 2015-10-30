@@ -1,0 +1,157 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_BONJOUR">Bonjour</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" >
+								<input type="checkbox" id="bonjour_enable" style="width:50px">
+							</td>
+							<td align="left" width="50%">
+								<label id="COMMOM_MSG_ENABLED">Enabled</label>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_BONJOUR_NAME">Friendly Name</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="friendly_name" value="" maxlength="31" style="width:150px" />
+							</td>
+                       </tr>                       			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoBonjourApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetBonjourSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var err0 = "Rules of network name.\n";
+	err0 += "1. Only ASCII A~Z, a~z, 0~9, minus sign (-), underscore (_) and period (.) are allowed.\n";
+	err0 += "2. No blank or space characters are permitted as part of a name.\n";
+	err0 += "3. The last character must not be a minus sign, underscore or period.\n";
+	err0 += "4. The first character is allowed to either a letter or a digit.\n";
+	err0 += "5. No NULL string is allowed";
+	
+	function BonjNameCheck()
+	{
+		var pattern = /^([0-9a-zA-Z.\-_]*)$/;
+		var pattern2 = /[^-_.]$/;
+		
+		if(pattern.test(idget("friendly_name").value) == true)
+		{
+			if(pattern2.test(idget("friendly_name").value) ==  true)
+			{
+				if(idget("friendly_name").value.length == 0)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;	
+	}
+
+	function DoBonjourApply()
+	{
+		if(BonjNameCheck() == false)
+		{
+			alert(err0);
+			GetBonjourSettings();
+			return;	
+		}
+		
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		if(idget("bonjour_enable").checked == true)
+			szSystem = szSystem + "BONJOUR_CONFIG=1," + idget("friendly_name").value ;		
+		else
+			szSystem = szSystem + "BONJOUR_CONFIG=0," + idget("friendly_name").value ;		
+	        	       
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetBonjourSettings();
+	}
+	
+	function GetBonjourSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&BONJOUR_CONFIG" ;
+		
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'BONJOUR_CONFIG' :
+					if(szTmp[1].split(",")[0]=="1"){
+						idget("bonjour_enable").checked = true ;
+					}else{
+						idget("bonjour_enable").checked = false ;
+					}
+					idget("friendly_name").value = szTmp[1].split(",")[1] ;
+					break;									
+			}
+		}	
+		
+	}
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		try { err0 = top.GetXmlLangTagByName("SETTING_NETWORK_NAME_ERR") ; } catch(e) {}
+		GetBonjourSettings();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

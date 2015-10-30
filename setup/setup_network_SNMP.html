@@ -1,0 +1,458 @@
+﻿<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table border="0" class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  colspan="2">
+				<label id="SETTING_SNMP">SNMP Setting</label>
+			</td>
+			<tr>
+				<td colspan="2">
+					<table border="0" align="center" width="100%">
+						<tr >
+							<td align="left" width="20%">
+								<input  type="checkbox" id="SNMP_STATUS" onclick="change_status()"  style="width:40px">							
+								<label id="SETTING_IP_FILTER_STATUS" >Enabled</label>
+							</td>
+						</tr>
+					</table>	
+					<table id="TABLE_SNMP_SETTING" border="0" align="center" width="100%">
+						<tr>
+							<td>
+								<input type="radio" value="1"  id="SNMP_V1V2" name="SNMP_V1_V2_V3" style="width:40px" >
+						        <label id="SETTING_SNMP_V1V2">SNMP V1 / V2</label>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<input type="checkbox" id="V1_Enabled" style="width:40px" value="1">
+								<label id="SETTING_SNMP_V1_ENABLED">V1 Enabled</label>
+							</td>
+							<td align="left" width="50%">
+								<input type="checkbox" id="V2_Enabled" style="width:40px" value="2">
+								<label id="SETTING_SNMP_V2_ENABLED">V2 Enabled</label>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_SNMP_READ_COMMUNITY">Read Community</label>
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="Read_Community" style="margin-left:15px" size="20" maxlength="64">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_SNMP_WRITE_COMMUNITY">Write Community</label>
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="Write_Community" style="margin-left:15px" size="20" maxlength="64">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" value="1" id="SNMP_V3" name="SNMP_V1_V2_V3" style="width:40px" >
+						        <label id="SETTING_SNMP_V3">SNMP V3</label>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_SNMP_SECURITY_NAME">Security Name</label>
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="SecurityName" style="margin-left:15px" size="20" maxlength="64">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%" valign="top">
+								<label id="SETTING_SNMP_PASSWORD">Password</label>
+							</td>
+							<td align="left" width="50%">
+								<input type="password" id="SecurityPwd" style="margin-left:15px" size="20" maxlength="64"><br>
+								&nbsp;&nbsp;&nbsp;<label id="SETTING_SNMP_PASSWORD_WARNING">Must longer than 8 characters</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="TRAP_STATUS"  onclick="trap_status();" style="width:40px">
+						        <label id="SETTING_SNMP_TRAP_ENABLED">Trap Enabled</label>
+							</td>
+						</tr>
+						<tr>						
+							<td colspan="2" align="center">
+								<table id="TRAP_TABLE">
+									<tr>
+										<td align="right" width="50%">
+											<label id="SETTING_SNMP_DESTINATION_IP_ADDRESS">Destination IP address</label>
+										</td>
+										<td align="left" width="50%">
+											<input type="text" id="Trap_IP" style="margin-left:15px" size="20" maxlength="64">
+										</td>
+									</tr>
+									<tr>
+										<td align="right" width="50%">
+											<label id="SETTING_SNMP_TRAP_COMMUNITY">Trap Community</label>
+										</td>
+										<td align="left" width="50%">
+											<input type="text" id="Trap_Community" style="margin-left:15px" size="20" maxlength="64">
+										</td>
+									</tr>
+									<tr>
+										<td align="right" width="50%" valign="top">
+											<label id="SETTING_SNMP_TRAP_AVAILABLE">Available Traps</label>
+										</td>
+										<td align="left" width="50%">
+											<div>
+												<input type="checkbox" id="cold_start" name="SNMP_TRAP_TYPE" value="1" style="width:40px">
+												<label id="SETTING_SNMP_TRAP_COLD_START">Cold Start</label>
+											</div>
+											<div>
+												<input type="checkbox" id="warm_start" name="SNMP_TRAP_TYPE" value="2" style="width:40px">
+												<label id="SETTING_SNMP_TRAP_WARN_START">Warm Start</label>
+											</div>
+											<div>
+												<input type="checkbox" id="auth_fail" name="SNMP_TRAP_TYPE" value="4" style="width:40px">
+												<label id="SETTING_SNMP_TRAP_AUTHENTICATION_FAILURE">Authentication Failure</label>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</td>					
+						</tr>
+						
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td  colspan="2" align="center" >
+					<p>&nbsp;</p>
+				</td>
+			</tr>		
+			<tr>
+				<td align="right" width="50%">
+					<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoSnmpApply()" />&nbsp;&nbsp;&nbsp; 
+				</td>
+				<td align="left" width="50%">
+					&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetSnmpSettings()"/>
+				</td> 
+			</tr>	
+			<tr>
+				<td  colspan="2" align="center" >
+					<p>&nbsp;</p>
+				</td>
+			</tr>		
+			
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+<div id="divError" style="display:none">
+	<label id="COMMON_MSG_NETADDR_ERR"></label>&nbsp;&nbsp;&nbsp;</br>	
+	<label id="SETTING_LOGIN_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>	
+	<label id="SETTING_LOGIN_PWD_ERR"></label>&nbsp;&nbsp;&nbsp;</br>	
+	<label id="SETTING_SNMP_TRAP_AVAILABLE_ERR"></label>&nbsp;&nbsp;&nbsp;</br>	
+	<label id="SETTING_SNMP_V1V2_WANRING"></label>&nbsp;&nbsp;&nbsp;</br>
+	<label id="SETTING_SNMP_V1V2V3_WANRING"></label>&nbsp;&nbsp;&nbsp;</br>
+</div>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var err1 = "Please select at least one of Available Traps.";
+	var err2 = "SNMP V1 and/or V2 must be enbaled.";
+	var err3 = "Please select the SNMP V1/V2 or SNMP V3 enabled.";
+	
+	function change_status()
+	{
+		if(idget("SNMP_STATUS").checked == true)		
+			idget("TABLE_SNMP_SETTING").style.display = "";
+		else	
+			idget("TABLE_SNMP_SETTING").style.display = "none";
+	}
+		
+	function trap_status()
+	{
+		if(idget("TRAP_STATUS").checked == true)		
+			idget("TRAP_TABLE").style.display = "";
+		else	
+			idget("TRAP_TABLE").style.display = "none";
+	}
+	
+	function SnmpVersionState(state)
+	{
+		if(state == "0")
+				idget("SNMP_STATUS").checked = false;
+		else
+		{		
+			switch (state)
+			{
+				case '1':
+					idget("SNMP_V1V2").checked =true;
+					idget("V1_Enabled").checked =true;
+					idget("V2_Enabled").checked =false;
+					idget("SNMP_V3").checked =false;								
+				break;
+				case '2':
+					idget("SNMP_V1V2").checked =true;
+					idget("V1_Enabled").checked =false;
+					idget("V2_Enabled").checked =true;
+					idget("SNMP_V3").checked =false;								
+				break;
+				case '3':
+					idget("SNMP_V1V2").checked =true;
+					idget("V1_Enabled").checked =true;
+					idget("V2_Enabled").checked =true;
+					idget("SNMP_V3").checked =false;								
+				break;
+				case '4':
+					idget("SNMP_V1V2").checked =false;
+					idget("V1_Enabled").checked =false;
+					idget("V2_Enabled").checked =false;
+					idget("SNMP_V3").checked =true;								
+				break;						
+			}	
+			idget("SNMP_STATUS").checked = true;
+		}	
+	}
+	
+	function TrapState(state)
+	{
+		if(state == "0")
+			idget("TRAP_STATUS").checked = false;
+		else
+		{
+			switch(state)
+			{
+				case '1':
+					idget("cold_start").checked =true;
+					idget("warm_start").checked =false;
+					idget("auth_fail").checked =false;					
+				break;
+				case '2':
+					idget("cold_start").checked =false;
+					idget("warm_start").checked =true;
+					idget("auth_fail").checked =false;					
+				break;
+				case '3':
+					idget("cold_start").checked =true;
+					idget("warm_start").checked =true;
+					idget("auth_fail").checked =false;					
+				break;
+				case '4':
+					idget("cold_start").checked =false;
+					idget("warm_start").checked =false;
+					idget("auth_fail").checked =true;					
+				break;
+				case '5':
+					idget("cold_start").checked =true;
+					idget("warm_start").checked =false;
+					idget("auth_fail").checked =true;					
+				break;
+				case '6':
+					idget("cold_start").checked =false;
+					idget("warm_start").checked =true;
+					idget("auth_fail").checked =true;					
+				break;
+				case '7':
+					idget("cold_start").checked =true;
+					idget("warm_start").checked =true;
+					idget("auth_fail").checked =true;					
+				break;
+			}
+		
+			idget("TRAP_STATUS").checked = true;
+		}
+		
+	}
+	
+	function GetSnmpSettings()
+	{
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+        szSystem = szSystem + "SNMP_STATE&SNMP_READ_COMMUNITY&SNMP_WRITE_COMMUNITY&SNMP_TRAP&SNMP_TRAP_NAME&SNMP_TRAP_ADDR&SNMP_TRAP_COMMUNITY&SNMP_PASSWORD" ;
+        var szReturn = doRequest(szSystem) ;
+		
+        szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] )
+			{
+				case 'SNMP_STATE' :										
+					SnmpVersionState(szTmp[1])																				
+					change_status();	
+				break;
+				case 'SNMP_READ_COMMUNITY' :
+					idget("Read_Community").value = szTmp[1] ;
+                    break;
+				case 'SNMP_WRITE_COMMUNITY' :
+					idget("Write_Community").value = szTmp[1] ;
+                    break;
+				case 'SNMP_TRAP_NAME' :				
+					idget("SecurityName").value = szTmp[1] ;
+                    break;	
+				case 'SNMP_PASSWORD' :
+					idget("SecurityPwd").value = szTmp[1] ;
+                    break;
+				case 'SNMP_TRAP_ADDR' :	
+					idget("Trap_IP").value = szTmp[1] ;					
+					break;
+				case 'SNMP_TRAP_COMMUNITY' :	
+					idget("Trap_Community").value = szTmp[1] ;									
+					break;
+				case 'SNMP_TRAP' :		
+					TrapState(szTmp[1]);
+					trap_status();
+					break;
+					
+			}
+			
+		}	
+	
+	}
+	
+	
+	function check_ip_addr()
+	{
+		var pattern = /^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})$/;
+		var flag_ip;
+		var alert_str = "Invalid IP address.";
+		try { alert_str = top.GetXmlLangTagByName("COMMON_MSG_NETADDR_ERR") ; } catch(e) {}
+		flag_ip = pattern.test(idget("Trap_IP").value);
+		if(!flag_ip)
+		{
+			alert(alert_str);	    						
+			return false;
+		}
+		return true;
+	}
+
+	function DoSnmpApply()
+	{
+		var i;
+		var mask;
+		var snmp_state = 0;
+		var trap_state = 0;
+	
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;	
+
+		if(idget("Trap_IP").value != "")
+		{
+			if(check_ip_addr() == false)
+			{
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return false
+			}	
+		}
+		
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		if(idget("SNMP_STATUS").checked == false)	
+		{
+			snmp_state = 0;
+		}
+		else
+		{
+			if(idget("SNMP_V1V2").checked == true)
+			{
+				if(idget("V1_Enabled").checked == false && idget("V2_Enabled").checked == false)
+				{
+					alert(err2);
+					window.setTimeout("top.clean_result(this);", 1000 );		
+					return false;
+				}
+				if(idget("V1_Enabled").checked == true)
+					snmp_state += parseInt(idget("V1_Enabled").value);
+				if(idget("V2_Enabled").checked == true)
+					snmp_state += parseInt(idget("V2_Enabled").value);	
+			
+			
+			}	
+			else if(idget("SNMP_V3").checked == true)
+			{
+				if(top.LoginNameCheck(idget("SecurityName").value) == false)
+				{
+					alert(top.login_name_err0);					
+					window.setTimeout("top.clean_result(this);", 1000 );		
+					return;
+				}
+				if(top.PasswordCheck(idget("SecurityPwd").value) == false)
+				{
+					alert(top.pwd_err0);					
+					window.setTimeout("top.clean_result(this);", 1000 );		
+					return;
+				}					
+				snmp_state = 4;
+			}	
+			else
+			{
+				snmp_state = 0;
+				//alert('Please select the SNMP V1/V2 or SNMP V3 enabled.');
+				alert(err3);
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return;
+			}	
+		}
+		szSystem = szSystem + "&SNMP_STATE="+ snmp_state;		
+		if(idget("TRAP_STATUS").checked == false)
+		{
+			trap_state = 0;
+		}
+		else
+		{
+			if(idget("cold_start").checked == false && idget("warm_start").checked == false && idget("auth_fail").checked == false)
+			{
+				//alert('Please select at least one of the Available Traps.');
+				alert(err1);
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return false;
+			}	
+			
+		
+			if(idget("cold_start").checked == true)
+				trap_state += parseInt(idget("cold_start").value);
+			if(idget("warm_start").checked == true)
+				trap_state += parseInt(idget("warm_start").value);
+			if(idget("auth_fail").checked == true)
+				trap_state += parseInt(idget("auth_fail").value);	
+		}
+		szSystem = szSystem + "&SNMP_READ_COMMUNITY=" + idget("Read_Community").value;					
+		szSystem = szSystem + "&SNMP_WRITE_COMMUNITY=" + idget("Write_Community").value;					
+		szSystem = szSystem + "&SNMP_TRAP=" + trap_state;	
+		szSystem = szSystem + "&SNMP_TRAP_NAME=" + idget("SecurityName").value;					
+		szSystem = szSystem + "&SNMP_PASSWORD=" + idget("SecurityPwd").value;	
+		szSystem = szSystem + "&SNMP_TRAP_ADDR=" + idget("Trap_IP").value;	
+		szSystem = szSystem + "&SNMP_TRAP_COMMUNITY=" + idget("Trap_Community").value;							
+		
+		var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("top.clean_result(this);", 2000 );		
+		GetSnmpSettings();
+	}
+	
+	function update_language()
+	{
+		top.update_language(this);	
+		try { err1 = top.GetXmlLangTagByName("SETTING_SNMP_TRAP_AVAILABLE_ERR") ; } catch(e) {}
+		try { err2 = top.GetXmlLangTagByName("SETTING_SNMP_V1V2_WANRING") ; } catch(e) {}
+		try { err3 = top.GetXmlLangTagByName("SETTING_SNMP_V1V2V3_WANRING") ; } catch(e) {}
+	}
+	
+	function Page_onLoad()
+	{
+			
+		update_language();	
+		GetSnmpSettings();
+	}
+	
+	Page_onLoad();
+	
+</Script>

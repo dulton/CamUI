@@ -1,0 +1,133 @@
+﻿<html>
+
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    <title>Web Configurator</title>
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" >
+<div class=" login_background " style="width:800px; margin-left:auto; margin-right:auto " >
+
+	<div class="titlebar">		
+		<div class="logo_img">
+				WebConfigurator
+		</div>									
+	</div>
+	<div id="functionbar">		
+		
+	</div>
+	
+	<p>&nbsp;</p>
+	<form name="frmLogin">
+		<table  class="setup_table" align="center"   >
+			<tr>
+				<td class="setup_item"  >
+					<label id="ERROR_TITLE">Troubleshooting</label>
+				</td>
+			</tr>		
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>
+			<tr>
+				<td>				
+					<div id="xx">	
+						<table border="0" align="center">
+							
+						<tr>
+							<td colspan="2" align="left">
+                                <label id="ERROR_FOUND_MSG">Please follow these steps</label>
+                            </td>
+                        </tr>
+						<tr>
+							<td colspan="2" align="left">
+                                <label id="ERROR_STEP1">Step1</label>:
+                            </td>
+                        </tr>
+						<tr>
+							<td colspan="2" align="left">
+                                &nbsp;&nbsp;&nbsp;<label id="ERROR_STEP1_MSG">Please download the log message to send to our technical support team.</label></br>
+								<div id="download">
+								</div>								 
+                            </td>
+                        </tr>	
+						<tr>
+							<td colspan="2" align="left">
+                                <label id="ERROR_STEP2">Step2</label>:
+                            </td>
+                        </tr>						
+						<tr>
+							<td colspan="2" align="left">
+                                &nbsp;&nbsp;&nbsp;<label id="ERROR_STEP2_MSG">Go one of following commands to reboot the device</label></br>
+								&nbsp;&nbsp;&nbsp;<label>1. </label><label id="ERROR_CMD1">Reboot camera directly.</label></br>
+								&nbsp;&nbsp;&nbsp;<label>2. </label><label id="ERROR_CMD2">Perform factory default and reboot.</label></br>
+								&nbsp;&nbsp;&nbsp;<label>3. </label><label id="ERROR_CMD3">Perform factory default but keep current networking settings and reboot.</label>
+                            </td>
+                        </tr>	
+						<tr>
+							<td width="25%" style="padding-left:15px">
+								<label id="ERROR_GO_CMD">Go command</label>							
+								<select id="reboot" onchange="reboot_option();" style="margin-left:20px">
+									<Option value="0" id="ERROR_SEL_CMD">Select</Option>
+									<Option value="1">1</Option>
+									<Option value="2">2</Option>
+									<Option value="3">3</Option>
+								</select>
+                            </td>
+                        </tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		
+		</table>
+	</form>
+	<p>&nbsp;</p>
+	<div class="bottom_banner">			
+	</div>
+	
+	<div id="divError" style="display:none">
+		<label id="ERROR_GET_LOG">Download device log message</label></br>
+	</div>	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+	function PageOnload()
+	{
+		top.update_language(this);	
+		var download ="Download device log message";
+		var szTest = "/cgi-bin/test?USER="+"Admin"+"&PWD="+"123456"+"&STAY_TROUBLESHOOTING";
+		doRequest(szTest);
+		try { download = top.GetXmlLangTagByName("ERROR_GET_LOG") ; } catch(e) {}
+		idget("download").innerHTML =  '&nbsp;&nbsp;&nbsp;&nbsp;<a href="/images/tmp/dbg.tgz"  style="font-size:12px" id="download">' + download + '</a>';
+	}
+
+	var reboot_option=function(){
+		if(idget("reboot").value == 0)
+			return;
+		
+	if(idget("reboot").value == 1)		
+		var szSystem = "/cgi-bin/system?USER=admin&PWD=123456&REBOOT";
+	else if(idget("reboot").value == 2)			
+        var szSystem = "/cgi-bin/system?USER=admin&PWD=123456&FACTORY_DEFAULT";
+	else		
+		var szSystem = "/cgi-bin/system?USER=admin&PWD=123456&CONFIG_RESET";
+		
+		
+        var szReturn = doRequest(szSystem) ;
+		
+		
+		idget("xx").innerHTML = "<h1>System is rebooting...</h1>";
+		window.setTimeout("top.load_iframe('/login.html');", 60000 );		
+		
+		
+	}
+	
+	PageOnload();
+</Script>

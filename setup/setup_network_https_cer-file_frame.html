@@ -1,0 +1,44 @@
+﻿<html>
+
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<style>
+		.button4{
+			font-family:Tahoma,Verdana;width:300px;
+			font-size:8.5pt;
+			border-top:#a6b3cc 1px solid;
+			border-left:#a6b3cc 1px solid;
+			border-right:#a6b3cc 1px solid;
+			border-bottom:#a6b3cc 1px solid;
+			COLOR: #000000;
+			background-color:#ffffff;
+			cursor:hand;
+		}
+	</style>    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no"  class="setup_table" style="border-width:0px;text-align:left; ">
+	<div style="width:100%;height:50px;padding-left:5px;"   >
+		<form name="INSTALL_FORM" method="POST" enctype="multipart/form-data"  onsubmit="">	
+			<label id="SETTING_HTTPS_CER_FILE">Certificate File</label> : 
+			<input type="FILE" class="button4" id="URL_CER_IMAGE" name="URL_CER_IMAGE" value="" size="40"><br><br>
+			<input type="button" class="button3" onclick="install()" value="Apply" id="URL_CER_SUBMIT" name="URL_CER_SUBMIT">
+		</form>
+	</div>	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	function install(){						
+		INSTALL_FORM.submit();					
+	}	
+	try { idget("URL_CER_SUBMIT").value = top.GetXmlLangTagByName("BUTTON_APPLY"); } catch(e) {}	
+	 
+	INSTALL_FORM.action = '/cgi-bin/update?HTTPS_CER_SAVE ' ;
+	top.update_language(this);
+		
+</Script>

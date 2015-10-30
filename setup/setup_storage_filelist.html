@@ -1,0 +1,723 @@
+﻿<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+<div style="padding-top:20px;height:680px;overflow:auto">	
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="MENU_STORAGE_FILELIST">File Management</label>
+			</td>
+			
+			<tr>
+				<td>
+					<form name="frmSetting"  style="text-align:left;" onsubmit="stopDef(event);">
+							<div style="width:100%; text-align:right; padding-right:5px; margin-top:0px;">
+								<a href="./setup_storage_filelist_help.htm" target="_blank"><img src="../images/question.png" align="absmiddle" border="0"/></a>
+								<!--<img type="button" src="../images/question.png" onclick="toClick();" style="cursor:pointer; border:2px solid #dedede">-->
+							</div>
+							<div style="text-align:left; margin-left:5%; margin-top:0px;">
+								<input type="checkbox" id="SEARCH_TIME_CHK" onclick="checkedSearchTime(this.checked);">							
+								<label id="SETTING_STORAGE_SEARCH_BY_TIME">Search recordings by time</label>
+							</div>
+							<div id="DIV_SEARCH_BY_TIME1" style="text-align:left; margin-left:10%; margin-top:8px;">
+								<label id="SETTING_DATE_TIME_DATE">Date</label>
+                                <select id="STORAGE_YY"></select>/
+                                <select id="STORAGE_MM"></select>/
+                                <select id="STORAGE_DD"></select>
+					            <select id="STORAGE_HH"></select>:
+								<select id="STORAGE_MIN"></select>:
+								<select id="STORAGE_SS"></select>
+							</div>
+							<div id="DIV_SEARCH_BY_TIME2" style="text-align:left; margin-left:10%; margin-top:8px;">
+								<label id="SETTING_STORAGE_SEARCH_TIME_PERIOD">Time Period</label>
+								<select id="STORAGE_PERIOD"></select>
+								<label id="SETTING_EVENT_MINUTE">minutes</label>
+							</div>
+							<div style="text-align:left; margin-left:5%; margin-top:4px;">
+								<input type="checkbox" id="SEARCH_EVENT_CHK" onclick="checkedSearchEvent(this.checked);">
+								<label id="SETTING_STORAGE_SEARCH_BY_EVENTS">Search recordings by triggered events</label>
+							</div>
+							<div id="DIV_SEARCH_BY_EVENT" style="text-align:left; margin-left:10%; margin-top:8px;">
+								<input type="checkbox" id="SEARCH_DI"><label id="SETTING_STORAGE_SEARCH_BY_DIS">DIs</label>&nbsp;&nbsp;
+								<input type="checkbox" id="SEARCH_MD"><label id="SETTING_STORAGE_SEARCH_BY_MD">Motion</label>&nbsp;&nbsp;
+								<input type="checkbox" id="SEARCH_SCH"><label id="SETTING_STORAGE_SEARCH_SCH">Scheduler</label>&nbsp;&nbsp;
+								<input type="checkbox" id="SEARCH_READY"><label id="SETTING_STORAGE_SEARCH_BY_READY">Ready for Service</label>
+							</div>
+							<div style="text-align:left; margin-left:40px; margin-top:16px;">
+								<input class="button2" type="button" name="BUTTON_SEARCH" value="Search" onclick="doSearch();"/>
+								<img name="Busy" src="../images/busy.gif" style="display:none">
+							</div>
+							<div style="text-align:left; margin-left:30px; margin-top:16px; width: 600px; overflow: hidden; ">
+								<table class="common_table_style table_th" border="0" cellSpacing="0" cellPadding="2" style="height: auto;">
+									<tr>
+										<th width="20px" align="center">
+											<input type="checkbox" id="SELECT_ALL" onclick="selectAll(this.checked);">
+										</th>
+<!--										<th style="width:15px" align="center">
+											<img id="IMAGE_PREVIEW_ALL" src="/images/btzoom_right_on.gif" height="13px" onmousedown="this.src='/images/btzoom_right_down.gif';PreviewStart=1;MediaPreviewContinue();" onmouseup="//PreviewIndex=100;" style="vertical-align:middle;"></img>
+										</th>-->
+										<th width="210px" align="center">
+											<label id="SETTING_STORAGE_SEARCH_FILE_NAME">FileName</label>
+										</th>
+										<th width="124px" align="center">
+											<label id="SETTING_DATE_TIME_START_TIME">Start Time</label>
+										</th>
+										<th width="60px" align="center">
+											<label id="SETTING_STORAGE_SEARCH_LENGTH">Length(Min)</label>
+										</th>
+										<th width="80px" align="center">
+											<label id="SETTING_STORAGE_SEARCH_EVENTS">Events</label>
+										</th>
+										<th width="75px" align="center">
+											<label id="MENU_STORAGE_STATUS">Status</label>
+										</th>
+									</tr>
+								</table>
+							</div>
+							<div id="DIV_FILELIST" style="text-align:left; margin-left:30px; width: 600px; overflow: hidden; height: 380px; overflow-y: auto; ">
+							</div>
+							<div style="text-align:center;">
+								<img id="NAV_HOME" src="../images/home-enable.png" onmousedown="imgChange(this, 'home-hover.png');currentPage=1;doGetFileList ();" onmouseup="imgChange(this, 'home-enable.png')" onmouseout="imgChange(this, 'home-enable.png')" onmousewheel="onArrowMouseWheel();" style="position:relative; top:3px;"></img>
+								<img id="NAV_HOMEX" src="../images/home-disable.png" onmousewheel="onArrowMouseWheel();" style="display:none; position:relative; top:3px;"></img>
+								<img id="NAV_PREV" src="../images/prev-enable.png" onmousedown="imgChange(this, 'prev-hover.png');currentPage--;doGetFileList ();" onmouseup="imgChange(this, 'prev-enable.png')" onmouseout="imgChange(this, 'prev-enable.png')" onmousewheel="onArrowMouseWheel();" style="position:relative; top:3px;"></img>
+								<img id="NAV_PREVX" src="../images/prev-disable.png" onmousewheel="onArrowMouseWheel();" style="display:none; position:relative; top:3px;"></img>
+								<input type="text" id="CURRENT_PAGE" value="1" size="3" onmousewheel="onArrowMouseWheel();" onkeypress="return changePage(event);"/>/<label id="LABEL_TOTAL_PAGES" onmousewheel="onArrowMouseWheel();" ></label>
+
+								<img id="NAV_NEXT" src="../images/next-enable.png" onmousedown="imgChange(this, 'next-hover.png');currentPage++;doGetFileList ();" onmouseup="imgChange(this, 'next-enable.png')" onmouseout="imgChange(this, 'next-enable.png')" onmousewheel="onArrowMouseWheel();" style="position:relative; top:3px;"></img>
+								<img id="NAV_NEXTX" src="../images/next-disable.png" onmousewheel="onArrowMouseWheel();" style="display:none; position:relative; top:3px;"></img>
+								<img id="NAV_END" src="../images/end-enable.png" onmousedown="imgChange(this, 'end-hover.png');currentPage=totalPages;;doGetFileList ();" onmouseup="imgChange(this, 'end-enable.png')" onmouseout="imgChange(this, 'end-enable.png')" onmousewheel="onArrowMouseWheel();" style="position:relative; top:3px;"></img>
+								<img id="NAV_ENDX" src="../images/end-disable.png" onmousewheel="onArrowMouseWheel();" style="display:none; position:relative; top:3px;"></img>
+							</div>
+						</form>					
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<input name="BUTTON_REMOVE" class="button2" type="button" id="BUTTON_REMOVE" value="Apply" onclick="doRemove()" />
+					<img name="Busy" src="../images/busy.gif" style="display:none">
+				</td>
+				
+			</tr>		
+		</tr>				
+	</table>
+	<table>
+		<div id="divError" style="display:">
+			<label id="COMMON_MSG_SET_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_LOGIN_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_LOGIN_PWD_ERR"></label>&nbsp;&nbsp;&nbsp;</br>			
+		</div>	
+	</table>
+</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	function onArrowMouseWheel (e)
+	{
+		var nDelta = 0;
+		if (!e) { // For IE, access the global (window) event object
+			e = window.event;
+		}
+		// cross-bowser handling of eventdata to boil-down delta (+1 or -1)
+		if ( e.wheelDelta ) { // IE and Opera
+			nDelta= e.wheelDelta;
+			if ( window.opera ) {  // Opera has the values reversed
+				nDelta= -nDelta;
+			}
+		}
+		else if (e.detail) { // Mozilla FireFox
+			nDelta= -e.detail;
+		}
+		if (nDelta > 0) {
+			if (currentPage > 1)
+				currentPage--;
+			//HandleMouseSpin( 1, e.clientX, e.clientY );
+		}
+		if (nDelta < 0) {
+			if (currentPage < totalPages)
+				currentPage++;
+			//HandleMouseSpin( -1, e.clientX, e.clientY );
+		}
+		document.getElementById ('CURRENT_PAGE').value = currentPage;
+		doGetFileList ();
+		if ( e.preventDefault ) {  // Mozilla FireFox
+			e.preventDefault();
+		}
+		e.returnValue = false;  // cancel default action
+	}
+
+	function imgChange (img, file)
+	{
+		img.src = "../images/" + file;
+	}
+	
+	function changePage (e)
+	{
+		var key;
+		if(window.event) // IE
+		{
+			key = e.keyCode;
+			//document.getElementById ('LABEL_TOTAL_PAGES').innerHTML += e.keyCode;
+		}
+		else if(e.which) // Netscape/Firefox/Opera
+		{
+			key = e.which;
+			//document.getElementById ('LABEL_TOTAL_PAGES').innerHTML += e.which;
+		}
+		
+		if(key == 13) {
+			//currentPage = String.fromCharCode(key);
+			currentPage = document.getElementById ('CURRENT_PAGE').value;
+			doGetFileList ();
+		
+		   return false;
+		} else
+		   return true;
+ 	}
+	
+	function stopDef(e) {
+		if (e &&e.preventDefault) e.preventDefault();
+		else if (window.event && window.event.returnValue)
+		window.eventReturnValue = false;
+	}
+
+	function checkedSearchTime (x)
+	{
+		document.getElementById('DIV_SEARCH_BY_TIME1').style.display = (x == true) ? "" : "none" ;
+		document.getElementById('DIV_SEARCH_BY_TIME2').style.display = (x == true) ? "" : "none" ;
+		frame_extent();
+	}
+
+	function checkedSearchEvent (x)
+	{
+		document.getElementById('DIV_SEARCH_BY_EVENT').style.display = (x == true) ? "" : "none" ;
+		frame_extent();
+	}
+
+	function toClick()
+	{
+		parent.toPopup('setup_storage_filelist_help.htm');
+	}
+    
+	function selectAll (input)
+	{
+		try {var table = document.getElementById ('FILELIST');} catch(e) {}
+		if (table == null)
+			return;
+		for (var i = 0; i < table.rows.length; i++) {
+			var row = table.rows[i];
+			var cell = row.cells[0];
+			try { 
+				var checkbox = cell.getElementsByTagName('input')[0]; 
+				checkbox.checked = input;
+			} catch (e) {}
+		}
+	}
+	
+	function doSearch ()
+	{
+		/* Show busy */
+		document.getElementById ('CURRENT_PAGE').value = currentPage = 1;
+		document.getElementsByName('Busy')[0].style.display = '';
+		window.setTimeout("doSearchBK();", 100 );
+	}
+
+	function doSearchBK ()
+	{
+        
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd + "&" ;
+		/* SEARCH_TIME */
+        szSystem += "DISK_FILE_SEARCH_TIME=" + 
+			((frmSetting.SEARCH_TIME_CHK.checked == true) ? "1" : "0") + "," +
+			frmSetting.STORAGE_YY.value + "," +
+			frmSetting.STORAGE_MM.value + "," +
+			frmSetting.STORAGE_DD.value + "," +
+			frmSetting.STORAGE_HH.value + "," +
+			frmSetting.STORAGE_MIN.value + "," +
+			frmSetting.STORAGE_SS.value + "," +
+			frmSetting.STORAGE_PERIOD.value;
+		/* SEARCH_EVENT */
+		szSystem +=	"&DISK_FILE_SEARCH_EVENT=" +
+			((frmSetting.SEARCH_EVENT_CHK.checked == true) ? "1" : "0") + ",";
+		var a = [];
+		if (frmSetting.SEARCH_DI.checked == true)
+			a.push ("DI1", "DI2");
+		if (frmSetting.SEARCH_MD.checked == true)
+			a.push ("MD1", "MD2", "MD3", "MDPIR");
+		if (frmSetting.SEARCH_SCH.checked == true)
+			a.push ("SCH");
+		if (frmSetting.SEARCH_READY.checked == true)
+			a.push ("READY");
+		szSystem += (a.length == 0) ? "NONE" : a.join();
+        var szReturn = top.doRequest(szSystem).split('\n') ;
+        var nError = 0 ;
+		var err_str = "" ;
+		for (var i = 0; i < szReturn.length; i++) {
+			if(szReturn[i].indexOf('ERROR')>-1){
+				nError++ ;
+				err_str = err_str + szReturn[0] + "<br>" ;
+			}
+		}
+
+		doGetSetting();
+	}
+
+	function doRemove ()
+	{
+		/* Show busy */
+		document.getElementsByName('Busy')[1].style.display = '';
+		window.setTimeout("doRemoveBK();", 100 );
+	}
+	
+	function doRemoveBK ()
+	{
+		try {var table = document.getElementById ('FILELIST');} catch(e) {}
+		if (table == null)
+			return;
+		var oldLength = table.rows.length;
+		for (var i = table.rows.length - 1; i >= 0; i--) {
+			var row = table.rows[i];
+			var cell = row.cells[0];
+			try {
+				var checkbox = cell.getElementsByTagName('input')[0];
+				if (checkbox.checked == true) {
+					//alert ("Go to remove file" + checkbox.name);
+					doRemoveFile (checkbox.name);
+					doRemoveTableRecord (i);
+				}
+			} catch (e) {}
+		}
+		doGetFileList ();
+		document.getElementById ('SELECT_ALL').checked = false;
+		/* Clear busy icon */
+		var eles = document.getElementsByName('Busy');
+		for (i = 0; i < eles.length; i++)
+			eles[i].style.display = 'none';		
+	}
+
+	function doRemoveFile (name)
+	{        
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd + "&DISK_REMOVE_FILE=" + name;
+        var szReturn = top.doRequest(szSystem).split('\n') ;
+        var nError = 0 ;
+		var err_str = "" ;
+		if(szReturn[0].indexOf('ERROR')>-1){
+			nError++ ;
+			err_str = err_str + szReturn[0] + "<br>" ;
+		}
+        if (nError > 0) {
+			result_str.innerHTML += "<font color='red'>"+ err_str +"</font>" ;
+		} else {
+			result_str.innerHTML = "" ;
+		}
+		return;
+	}
+	
+	function getRecord(name){
+		try {
+			return xmlfilelist.getElementsByTagName(name)[0].getAttribute("VALUE") ;
+		} catch (e) {return "Null"}
+	}
+	
+	function doGetFileList () {
+		//document.getElementById ('DIV_FILELIST').innerHTML = '<img name="FileListBusy" src="../images/busy.gif">';
+		document.getElementsByName('Busy')[0].style.display = '';
+		window.setTimeout("doGetFileListBK();", 100 );
+	}
+
+	function InteractiveArrows () {
+		if (currentPage == totalPages) {
+			if (totalPages == 1) {
+				/* There is only one page, Disable all navigators */
+				disabledArrow('NAV_HOME');
+				disabledArrow('NAV_PREV');
+				disabledArrow('NAV_NEXT');
+				disabledArrow('NAV_END');
+			} else {
+				/* The last page, Disable next/end navigator */
+				enabledArrow('NAV_HOME');
+				enabledArrow('NAV_PREV');
+				disabledArrow('NAV_NEXT');
+				disabledArrow('NAV_END');
+			}
+		} else if (currentPage == 1) {
+			/* The first page, Disable home/prev navigator */
+			disabledArrow('NAV_HOME');
+			disabledArrow('NAV_PREV');
+			enabledArrow('NAV_NEXT');
+			enabledArrow('NAV_END');
+		} else {
+			enabledArrow('NAV_HOME');
+			enabledArrow('NAV_PREV');
+			enabledArrow('NAV_NEXT');
+			enabledArrow('NAV_END');
+		}
+	}
+
+	var PreviewIndex = 0;
+	var PreviewStart = 1;
+
+	function MediaPreviewContinue ()
+	{
+		try { var obj = document.getElementById ("IMAGE_PREVIEW_ALL");} catch (e) {alert ("can't get IMAGE_PREVIEW_ALL object");}
+		try { var file = doc.getElementsByTagName("LOCAL_FILES")[0].getElementsByTagName("FILE");} catch (e) { return;}
+		try { var e = document.getElementById('Preview');} catch (e) {alert ("can't get Preview object");}		
+		if (PreviewStart == 1) {
+			PreviewStart = 0;
+			PreviewIndex = 0;
+		}
+		if (PreviewIndex >= file.length) {
+			obj.src = "/images/btzoom_right_on.gif";
+			e.style.display = 'none';
+			return;
+		}
+		while (file[PreviewIndex].text.slice(-4) == ".raw") {
+			PreviewIndex++;
+			if (PreviewIndex >= file.length) {
+				obj.src = "/images/btzoom_right_on.gif";
+				e.style.display = 'none';
+				return;
+			}
+		}
+		//alert (PreviewIndex);
+		e.style.display = '';
+		e.src = "/storage/" + file[PreviewIndex].text;
+		e.width = '320';
+		e.height = '240';
+		PreviewIndex++;
+		window.setTimeout ("MediaPreviewContinue();", 500);
+		
+	}
+
+	function MediaPreview (filePath)
+	{
+		if (filePath.indexOf (".raw") >= 0) {
+			document.vlc.play();
+			//return;
+		}
+		if (filePath.indexOf (".jpg") == -1)
+			return;
+		var e = document.getElementById('Preview');
+		e.style.display = '';
+		e.src = filePath;
+		e.width = '320';
+		e.height = '240';
+		frame_extent();
+		
+	}
+	
+	
+	function handleGetFileList ()
+	{
+		var j;
+		var status_width = 75;
+		if (doc.readyState != 4) {
+			window.setTimeout("handleGetFileList();", 100 );
+			return;
+		}
+		
+		var xmlDoc=doc.responseXML;		
+		if (xmlDoc.getElementsByTagName("LOCAL_FILES").length < 1) {
+			window.setTimeout("handleGetFileList();", 100 );
+			return;
+		}
+		
+		/* To get total rows */
+		try { var file = xmlDoc.getElementsByTagName("LOCAL_FILES")[0].getElementsByTagName("FILE");} catch (e) { var file = {};}
+		try { var page = xmlDoc.getElementsByTagName("LOCAL_FILES")[0].getElementsByTagName("FILEPAGE");} catch (e) { var page = {};}
+		
+		/* Verify if currentPage is inside ranges */
+		currentPage = parseInt (page[0].getAttribute("CurrentPage"));
+		totalPages = parseInt (document.getElementById ('LABEL_TOTAL_PAGES').innerHTML);
+		if (totalPages == 0)
+			totalPages = 1;
+		if (currentPage < 1 || currentPage > totalPages) {
+			if (currentPage < 1) {
+				currentPage = 1;
+			}
+			if (currentPage > totalPages) {
+				currentPage = totalPages;
+			}
+		}
+	for(j = 0 ; j < 2; j++)	
+	{
+		/* Parsing to table */
+		var data = '';
+		data += '<table id="FILELIST" class="common_table_style table_th" border="0" cellSpacing="0" cellPadding="2" style="height: auto;">';
+		
+		PreviewAll = 0;
+		for (var i = 0; i < file.length; i++) {
+			var ele = file[i];
+			var StartTime = ele.getAttribute("StartTime");
+			var Duration = ele.getAttribute("Duration");
+			Duration = parseInt(Duration / 60) + ((Duration%60) ? 1 : 0);
+			var TriggerBy = ele.getAttribute("TriggerBy");
+			var Size = parseInt (ele.getAttribute("Size"));
+			var Status = ele.getAttribute("Status");
+			var FileName = ele.firstChild.data;
+			var preview = "onmousedown=\"MediaPreview('/storage/" + FileName + "');this.src='/images/btzoom_right_down.gif';\" onmouseup=\"this.src='/images/btzoom_right_on.gif';\" style=\"vertical-align:middle;\"";
+			
+			data += '	<tr>';
+			data += '		<td width="20px" align="center">';
+			if (Status != "Writing")
+				data += '			<input type="checkbox" name="' + FileName + '">';
+			data += '		</td>';
+			/*data += '		<td style="width:15px;" align="center">';
+			if (FileName.slice(-4) == ".jpg") {
+				data += '			<img src="/images/btzoom_right_on.gif" height="13px" ' + preview + '></img>';
+				PreviewAll = 1;
+			}
+			data += '		</td>';*/
+			data += '		<td style="width:210px; word-break:break-all;}" align="center">';
+			data += '			<label><a href="/storage/' + FileName + '"  target="_blank">' + FileName + '</a></label>';
+			data += '		</td>';
+			data += '		<td width="124px" align="center">';
+			data += '			<label>' + StartTime + '</label>';
+			data += '		</td>';
+			data += '		<td width="60px" align="center">';
+			data += '			<label>' + Duration + '</label>';
+			data += '		</td>';
+			data += '		<td style="width:80px; word-break:break-all;}" align="center">';
+			data += '			<label>' + TriggerBy + '</label>';
+			data += '		</td>';
+			
+			data += '		<td width="' + status_width + 'px" align="center">';
+			data += '			<label>' + Status + '</label>';
+			data += '		</td>';
+			data += '	</tr>';
+		}
+		data += '	</table>';
+		/*if (PreviewAll == 0) {
+			document.getElementById('IMAGE_PREVIEW_ALL').style.display = 'none';
+		}*/		
+		document.getElementById ('DIV_FILELIST').innerHTML = data;
+		
+		if(idget("FILELIST").offsetHeight>380)		
+		{
+			status_width= 58;
+			continue;
+		}	
+		else
+			break;
+	}	
+		/* Update current page and total pages */
+		document.getElementById ('CURRENT_PAGE').value = currentPage;
+		/* Clear Remove Page check box */
+		document.getElementById ('SELECT_ALL').checked = false;
+		InteractiveArrows ();
+
+		/* Clear busy icon */
+		var eles = document.getElementsByName('Busy');
+		for (i = 0; i < eles.length; i++)
+			eles[i].style.display = 'none';		
+	}
+
+	function enabledArrow (name)
+	{
+		document.getElementById(name).style.display = '';
+		document.getElementById(name + 'X').style.display = 'none';
+	}
+
+	function disabledArrow (name)
+	{
+		document.getElementById(name).style.display = 'none';
+		document.getElementById(name + 'X').style.display = '';
+	}
+	
+	var doc;
+	var currentPage = 1;
+	var totalPages = 0;
+	var waiting = 0;
+	var DidFileList = 0;
+
+	function handlePollTotalPage ()
+	{
+		/* request DISK_TOTAL_PAGES first */		
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd + "&DISK_TOTAL_PAGES=POLL" ;
+        var szReturn = top.doRequest(szSystem).split('\n');
+		szTmp = top.doSplitValue( szReturn[0] ) ;
+		szConfig = szTmp[1].split(',');
+		if (szConfig[0] == null ||
+				szConfig[1] == null) {
+			return;
+		}
+
+		totalPages = parseInt (szConfig[1]);
+		if (totalPages == 0)
+			totalPages++;
+		document.getElementById ('LABEL_TOTAL_PAGES').innerHTML = totalPages.toString();
+		InteractiveArrows ();
+		if (currentPage > totalPages)
+			currentPage = totalPages;
+		if ((szConfig[0] == "INPROGRESS" && szConfig[1] != "0") ||
+				szConfig[0] == "DONE") {
+			if (DidFileList == 0) {
+				DidFileList = 1;
+				/* Prepare to request DISK_FILE_LIST */
+				var szSystem = "DISK_FILE_LIST=" + currentPage;
+
+				/* Get File List */
+				doc = top.doXMLDOMRequestAsync(szSystem, handleGetFileList) ;
+				window.setTimeout("handleGetFileList();", 100 );
+			}
+		}
+
+		if (szConfig[0] == "INPROGRESS") {
+			waiting++;
+			for (var i = 0; i < waiting; i++)
+				document.getElementById ('LABEL_TOTAL_PAGES').innerHTML += ".";
+			for (var i = 0; i < 5 - waiting; i++)
+				document.getElementById ('LABEL_TOTAL_PAGES').innerHTML += "&nbsp;";
+			if (waiting >= 5)
+				waiting = 0;
+			window.setTimeout ("handlePollTotalPage();", 200);
+		}
+	}
+	
+	function doGetFileListBK () {
+		DidFileList = 0;
+		/* Polling Total Pages first, 
+		   if PROGRESS,(posive) or DONE then querying DISK_FILE_LIST */
+		window.setTimeout ("handlePollTotalPage();", 200);
+	}	
+
+	function doGetSearchConditions ()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&DISK_FILE_SEARCH_TIME&DISK_FILE_SEARCH_EVENT"  ;        
+        var szReturn = top.doRequest(szSystem).split('\n') ;
+
+		for (var i = 0; i < szReturn.length; i++) {
+			szTmp = top.doSplitValue( szReturn[i] ) ;
+			
+			switch ( szTmp[0] ) {
+				case 'DISK_FILE_SEARCH_TIME' :
+					szConfig = szTmp[1].split(',') ;
+					frmSetting.SEARCH_TIME_CHK.checked = (szConfig[0] == 0) ? false : true;
+					checkedSearchTime (frmSetting.SEARCH_TIME_CHK.checked);
+					if (szConfig[1] < 1980 || szConfig[1] > 2100)
+						szConfig[1] = 2012;
+					frmSetting.STORAGE_YY.value = szConfig[1];
+					if (szConfig[2] < 1 || szConfig[2] > 12)
+						szConfig[2] = 1;
+					frmSetting.STORAGE_MM.value = szConfig[2];
+					if (szConfig[3] < 1 || szConfig[3] > 31)
+						szConfig[3] = 1;
+					frmSetting.STORAGE_DD.value = szConfig[3];
+					frmSetting.STORAGE_HH.value = szConfig[4];
+					frmSetting.STORAGE_MIN.value = szConfig[5];
+					frmSetting.STORAGE_SS.value = szConfig[6];
+					if (szConfig[7] < 1 || szConfig[7] > 60)
+						szConfig[7] = 1;
+					frmSetting.STORAGE_PERIOD.value = szConfig[7];
+					break;
+					
+				case 'DISK_FILE_SEARCH_EVENT' :
+					szConfig = szTmp[1].split(',') ;
+					if(szConfig[0] == 'NONE')
+						frmSetting.SEARCH_EVENT_CHK.checked =  false ;
+					else	
+						frmSetting.SEARCH_EVENT_CHK.checked = (szConfig[0] == 0) ? false : true;
+					checkedSearchEvent (frmSetting.SEARCH_EVENT_CHK.checked);
+					/* Default false */
+					frmSetting.SEARCH_DI.checked = false;
+					frmSetting.SEARCH_MD.checked = false;
+					frmSetting.SEARCH_SCH.checked = false;
+					frmSetting.SEARCH_READY.checked = false;
+
+					for (var j = 0; j < szConfig.length; j++) {
+						if (szConfig[j] == "DI1" ||
+								szConfig[j] == "DI2")
+							frmSetting.SEARCH_DI.checked = true;
+						if (szConfig[j] == "MD1" ||
+								szConfig[j] == "MD2" ||
+								szConfig[j] == "MD3" ||
+								szConfig[j] == "MDPIR")
+							frmSetting.SEARCH_MD.checked = true;
+						if (szConfig[j] == "SCH")
+							frmSetting.SEARCH_SCH.checked = true;
+						if (szConfig[j] == "READY")
+							frmSetting.SEARCH_READY.checked = true;
+					}
+					break;
+			}
+		}
+	}
+
+	function doRemoveTableRecord (index)
+	{
+		try {var table = document.getElementById ('FILELIST');} catch(e) {}
+		if (table == null)
+			return;
+		var row = table.rows[index+1];
+		table.deleteRow (index);
+	}
+	
+	function doRemoveAllTableRecord ()
+	{
+		/* Purge the table */
+		try {var table = document.getElementById ('FILELIST');} catch(e) {}
+		if (table == null)
+			return;
+		var i;
+		for (var i = table.rows.length - 1; i >= 0; i--)
+			doRemoveTableRecord (i);
+	}
+
+    function doGetSetting() {
+		doRemoveAllTableRecord ();
+		doGetSearchConditions ();
+		doGetFileList ();
+    }
+	
+	function setupSelectValue() {
+	    for (var i=1980; i <= 2100; i++)
+			frmSetting.STORAGE_YY.add(new Option(i, i));
+		frmSetting.STORAGE_YY.value='2012';
+	    for (var i=1; i <= 12; i++)
+			frmSetting.STORAGE_MM.add(new Option(i, i));
+	    for (var i=1; i <= 31; i++)
+			frmSetting.STORAGE_DD.add(new Option(i, i));
+	    for (var i=0; i <= 23; i++)
+			frmSetting.STORAGE_HH.add(new Option(i, i));
+	    for (var i=0; i <= 59; i++)
+			frmSetting.STORAGE_MIN.add(new Option(i, i));
+	    for (var i=0; i <= 59; i++)
+			frmSetting.STORAGE_SS.add(new Option(i, i));
+	    for (var i=1; i <= 60; i++)
+			frmSetting.STORAGE_PERIOD.add(new Option(i, i));
+	}
+	
+
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);			
+		setupSelectValue();
+		doGetSetting();
+		
+		if(top.gDI == '0')
+		{
+			idget("SEARCH_DI").style.display = 'none';
+			idget("SETTING_STORAGE_SEARCH_BY_DIS").style.display = 'none';			
+		}	
+			
+		if(top.IsIE() == false)				
+			document.styleSheets[0].cssRules[86].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;					
+		else		
+			document.styleSheets[0].rules[85].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;		
+	}
+	
+	Page_onLoad();
+		
+</Script>

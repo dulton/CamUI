@@ -1,0 +1,308 @@
+﻿<html>
+
+<head>  
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=8" />-->
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" onbeforeunload="AudioSteamDisconnet()" >
+	<p>&nbsp;</p>
+	<div style="height:640px;overflow:auto">	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<table  class="setup_item" width="100%" border="0">
+						<tr>
+							<td width="95%" align="center">
+								<!--<label id="SETTING_SOUND_DETECTION ">Sound Detection</label>-->
+								<label id="SELECT_EVENT_TRIGGERED_BY_SOUND">Sound Detection</label>
+							</td>
+							<td width="5%" align="right">
+								<img type="button" src="../images/cross.png" onclick="parent.Close();" style="cursor:pointer;border:2px solid #dedede" title="Close">
+							</td>
+						</tr>
+					</table>	
+				</td>		
+				<tr>	
+					<td>
+						<table border="0" align="center" width="100%">
+							<tr>
+								<td align="center" width="400px" height="124px">
+									<div id="ECM"></div>	
+								</td>						
+							</tr>
+						</table>
+					</td>
+				</tr>				
+				<!--<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>-->	
+				<tr>
+					<td>
+						<form name="frmSetting">
+							<table border="0" align="center" width="90%" class="event_server_table_style table_th">
+								<tr height="30">
+									<th align="center" width="100"><label id="SETTING_VIDEO_MOTION_ENABLE">Enabled</label></th>
+									<th align="center"><label id="SETTING_VIDEO_TRIGGER_INTERVAL">Trigger Interval</label></th>
+									<th align="center"><label id="SETTING_VIDEO_TRIGGER_THRESHOLE">Trigger Threshold</label></th>
+								</tr>
+								<tr height="30">
+									<td align="center"><input type="checkbox" id="SD_ENABLE" onclick="SD_Enable_Onclick()"></td>
+									<td align="center"><select id="SD_TIME"></select></td>
+									<td align="center"><select id="SD_OBJ" ></select><label>%</label></td>
+								</tr>
+							</table>
+							
+							<table border="0" align="center" width="100%">
+							   
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>		
+								<tr>
+									<td align="right">
+										<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+									</td> 
+								</tr>			
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>											   
+							</table>
+						</form>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var Percentage = 0;
+	var PORT_CONTROL;
+	var PORT_VIDEO;
+	
+	HtmSrc = '<object id="oMedia" name="oMedia"  style="padding-top:10px padding-bottom:10px" classid="CLSID:E19E79EC-F62E-40A0-952D-E49AEC7BEC2F" codebase="/control/nvA1Media.cab#Version='+top.gECMversion+'">';	
+	HtmSrc += '</object>'; 
+	idget('ECM').innerHTML=HtmSrc;
+	
+	function clean_result(){		
+		
+		idget("BUTTON_APPLY").disabled = false ;		
+		idget("BUTTON_APPLY").value = "Apply" ;
+		try { idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 	
+	
+	function SD_Enable_Onclick() 
+	{	
+		if(idget("SD_ENABLE").checked == true)
+		{
+			idget("SD_TIME").disabled = false;
+			idget("SD_OBJ").disabled = false;	
+		}
+		else
+		{
+			idget("SD_TIME").disabled = true;
+			idget("SD_OBJ").disabled = true;	
+		}
+	}
+	
+	function DoApply()
+	{	
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;
+		
+        
+		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"+'EVENT_AUDIO_IN_LEVEL_THD=';
+		//var sound_level = (idget("SD_OBJ").value-1)*324;
+		var sound_level = 0;
+		if(idget("SD_OBJ").value == 0)
+			sound_level = 0;
+		else
+			sound_level = (idget("SD_OBJ").value-1)*324+323;
+		if(idget("SD_ENABLE").checked==true)
+			szSystem += 1+','+sound_level+','+idget("SD_TIME").value;
+		else
+			szSystem += 0+','+sound_level+','+idget("SD_TIME").value;
+        var szReturn = top.doRequest(szSystem) ;
+	
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+
+            if(szTmp[0].indexOf('ERROR')>-1){
+				nError++ ;
+				err_str = err_str + szTmp[0] + "<br>" ;
+			}
+        }
+
+        if (nError == 0) {
+			idget("BUTTON_APPLY").value = "Success" ;
+		}
+		else{
+			//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+		}
+
+		idget("oMedia").SetRuntimeAudioObjectSize(1,idget("SD_OBJ").value);
+		window.setTimeout("clean_result();", 2000 );
+		//parent.Close();
+	}
+	
+	function doGetSetting()
+	{
+		//GetConfig();
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+    
+        szSystem = szSystem + "EVENT_AUDIO_IN_LEVEL_THD" ;
+        var szReturn = top.doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+		szTmp = doSplitValue(szReturn[0]);
+		
+		var value = szTmp[1].split(',') ;
+		if(value[0]==1)
+			idget("SD_ENABLE").checked = true;
+		else
+			idget("SD_ENABLE").checked = false;
+		
+		if(value[1]==0)
+			Percentage = 0;
+		else	
+			Percentage = 1 + parseInt(value[1]/324);
+		if(Percentage>100)
+			Percentage = 100;
+			
+		SelectSetOption(idget("SD_OBJ"), Percentage);	
+		SelectSetOption(idget("SD_TIME"), value[2]);
+		SD_Enable_Onclick();
+
+		szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+    
+        szSystem = szSystem + "PORT" ;
+        szReturn = top.doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {            				
+				case "PORT_CONTROL":
+						PORT_CONTROL = parseInt(szTmp[1]);								
+					break;
+				case "PORT_VIDEO":
+						PORT_VIDEO = parseInt(szTmp[1]);						
+					break;			
+            }
+        }	
+	}
+	
+	
+	function ECMSetup()
+	{
+		idget("oMedia").ID = 1 ;
+		idget("oMedia").Channel = 1;
+		idget("oMedia").TCPVideoStreamID = 0;
+		idget("oMedia").RTPVideoTrackNumber =1;	 		
+		idget("oMedia").StreamType = 0;
+		idget("oMedia").MediaType= 0;		//0 : tcp 1:rtp
+		idget("oMedia").DisplayTitleBar(1);				
+		idget("oMedia").MediaURL = document.location.hostname;			
+		idget("oMedia").DeviceType = 0;	//single=0 , quad =1
+		//idget("oMedia").QuadDeviceMode = 0;
+		idget("oMedia").AutoReconnect(1);
+		idget("oMedia").width = 400 ;
+		idget("oMedia").height = 124 ;
+		if(top.guest_preview == 1)
+		{
+			idget("oMedia").MediaUsername = "" ;
+			idget("oMedia").MediaPassword = "" ;
+		}
+		else
+		{
+			idget("oMedia").MediaUsername = top.gAccount ;
+			idget("oMedia").MediaPassword = top.gPwd ;
+		}
+		
+		idget("oMedia").RegisterPort = 6000 ;
+		idget("oMedia").ControlPort = PORT_CONTROL ;
+		idget("oMedia").StreamingPort = PORT_VIDEO ;
+		idget("oMedia").RTSPPort = 7070;
+		idget("oMedia").Connect(0);
+		idget("oMedia").Play();
+			
+		
+		switch(document.URL.split(":")[0]){
+			case "http":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 80;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(0);
+				break;
+			case "https":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 443;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(1);
+				break;
+		}
+		
+		idget("oMedia").EnableAudioMVWindow(1);
+		idget("oMedia").SetRuntimeAudioObjectSize(1,Percentage);
+	}
+	function event_config_digital_update_language()
+	{
+		//try { SETTING_EVENT_CONFIGURATOR_PORT_2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_PORT") ; } catch(e) {}
+		//try { SETTING_EVENT_CONFIGURATOR_ACTIVE_LEVEL_2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_ACTIVE_LEVEL") ; } catch(e) {}
+		top.update_language(this);
+	}
+	
+	/*function GetConfig(){				
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&CAMERA_PAGE";
+		var szReturn = doRequest(szEncoder) ;		
+		CameraConf = eval(szReturn);	
+	}*/		
+
+	function Page_onLoad()
+	{		
+		event_config_digital_update_language();	
+		InsertSelectOptions_Number(idget("SD_TIME"), 0, 300);
+		InsertSelectOptions_Number(idget("SD_OBJ"), 0, 100);		
+		doGetSetting();
+		ECMSetup();
+		
+		if(top.IsIE() == false)		
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;					
+		else
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;		
+	}
+	
+	function AudioSteamDisconnet()
+	{
+		idget("oMedia").EnableAudioMVWindow(1);
+		idget("oMedia").Disconnect();
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

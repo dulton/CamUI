@@ -1,0 +1,349 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	
+	<div style="height:1000px;overflow:auto;padding-top:3px">	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<table  class="setup_item" width="100%" border="0">
+						<tr>
+							<td width="95%" align="center">
+								<label id="SETTING_EVENT_CONFIGURATOR_CMD">Send URL commands</label>
+							</td>
+							<td width="5%" align="right">
+								<img type="button" src="../images/cross.png" onclick="parent.Close();" style="cursor:pointer;border:2px solid #dedede" title="Close">
+							</td>
+						</tr>	
+					</table>
+				</td>					
+				
+				<tr>
+					<td>
+						<form name="frmSetting">
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;">
+								<img id="start_sec1" src="../images/plus.gif" border="0" style="cursor:pointer;display:;" onclick="setup_sec('1','1');" align="absmiddle" /><img id="stop_sec1" src="../images/minus.gif" border="0" style="cursor:pointer;display:none;" onclick="setup_sec('0','1');" align="absmiddle" />
+								<label id="SETTING_EVENT_CONFIGURATOR_CMD_ENABLE" style="font-weight:bold">Send Command 1 to</label>
+								<select name="type1" id="type1">
+									<option value="1" id="SELECT_EVENT_MEDIA_CGI_1">HTTP CGI 1</option>
+									<option value="2" id="SELECT_EVENT_MEDIA_CGI_2">HTTP CGI 2</option>
+								</select>
+								<input class="button3" type="button" id="BUTTON_TEST1" value="Test" onclick="clickTest('1');" style="width:50px;"/>
+							</div>
+							<table id="content1" border="0" cellspacing="5" cellpadding="2" width="100%" style="display:none">
+								<tr>
+									<td align="right" valign="top" width="45%">
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER">Command as event is triggered</label>
+									</td>
+									<td align="left">
+										<input type="text" id="trigger1" name="trigger1" value="" size="40" maxlength="119"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER_DESC">including path of CGI program [max. 119 characters]</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE">Command as event becomes inactive</label>
+									</td>
+									<td align="left">
+										<input type="text" id="inactive1" name="inactive1" value="" size="40" maxlength="119"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE_DESC">including path of CGI program [max. 119 characters]</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100%" colspan="2" style="border-bottom:2px dashed #dedede">&nbsp;</td>
+								</tr>
+							</table>
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;">
+								<img id="start_sec2" src="../images/plus.gif" border="0" style="cursor:pointer;display:;" onclick="setup_sec('1','2');" align="absmiddle" /><img id="stop_sec2" src="../images/minus.gif" border="0" style="cursor:pointer;display:none;" onclick="setup_sec('0','2');" align="absmiddle" />
+								<label id="SETTING_EVENT_CONFIGURATOR_CMD_ENABLE2" style="font-weight:bold">Send Command 2 to</label>
+								<select name="type2" id="type2">
+									<option value="1" id="SELECT_EVENT_MEDIA_CGI_1_2">HTTP CGI 1</option>
+									<option value="2" id="SELECT_EVENT_MEDIA_CGI_2_2">HTTP CGI 2</option>
+								</select>
+								<input class="button3" type="button" id="BUTTON_TEST2" value="Test" onclick="clickTest('2');" style="width:50px;"/>
+							</div>
+							<table id="content2" border="0" cellspacing="5" cellpadding="2" width="100%" style="display:none">
+								<tr>
+									<td align="right" valign="top" width="45%">
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER2">Command as event is triggered</label>
+									</td>
+									<td align="left">
+										<input type="text" id="trigger2" name="trigger2" value="" size="40" maxlength="119"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER_DESC2">including path of CGI program [max. 119 characters]</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE2">Command as event becomes inactive</label>
+									</td>
+									<td align="left">
+										<input type="text" id="inactive2" name="inactive2" value="" size="40" maxlength="119"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE_DESC2">including path of CGI program [max. 119 characters]</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100%" colspan="2" style="border-bottom:2px dashed #dedede">&nbsp;</td>
+								</tr>
+							</table>
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;">
+								<img id="start_sec3" src="../images/plus.gif" border="0" style="cursor:pointer;display:;" onclick="setup_sec('1','3');" align="absmiddle" /><img id="stop_sec3" src="../images/minus.gif" border="0" style="cursor:pointer;display:none;" onclick="setup_sec('0','3');" align="absmiddle" />
+								<label id="SETTING_EVENT_CONFIGURATOR_CMD_ENABLE3" style="font-weight:bold">Send Command 3 to</label>
+								<select name="type3" id="type3">
+									<option value="1" id="SELECT_EVENT_MEDIA_CGI_1_3">HTTP CGI 1</option>
+									<option value="2" id="SELECT_EVENT_MEDIA_CGI_2_3">HTTP CGI 2</option>
+								</select>
+								<input class="button3" type="button" id="BUTTON_TEST3" value="Test" onclick="clickTest('3');" style="width:50px;"/>
+							</div>
+							<table id="content3" border="0" cellspacing="5" cellpadding="2" width="100%" style="display:none">
+								<tr>
+									<td align="right" valign="top" width="45%">
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER3">Command as event is triggered</label>
+									</td>
+									<td align="left">
+										<input type="text" id="trigger3" name="trigger3" value="" size="40" maxlength="119"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER_DESC3">including path of CGI program [max. 119 characters]</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE3">Command as event becomes inactive</label>
+									</td>
+									<td align="left">
+										<input type="text" id="inactive3" name="inactive3" value="" size="40" maxlength="119"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE_DESC3">including path of CGI program [max. 119 characters]</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100%" colspan="2" style="border-bottom:2px dashed #dedede">&nbsp;</td>
+								</tr>
+							</table>
+							
+							<table border="0" align="center" width="100%">
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>		
+								<tr>
+									<td align="right">
+										<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="doSubmits(1,3)" />&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+									</td> 
+								</tr>
+							</table>
+							<div id="divError" style="display:none">
+								<label id="EVENT_ERROR_MESSAGE">Error. Invalid settings.</label>&nbsp;&nbsp;&nbsp;</br>
+								<label id="SETTING_EVENT_CMD_NULL">Please input the URL Command</label>&nbsp;&nbsp;&nbsp;</br>
+								<label id="EVENT_TEST_ERROR">Error. Event Server was not set correctly</label>&nbsp;&nbsp;&nbsp;</br>
+							</div>	
+						</form>
+					</td>
+				</tr>
+			</tr>	
+		</table>
+	</div>	
+	<div  class="setup_bg">	
+	</div>	
+		
+</body>
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var err_message = 'Error. Invalid settings.' ;	
+	var err1 = 'Please input the URL Command' ;
+
+	function setup_sec(x,type){
+		var display ;
+		if(x=="1"){
+			display = '' ;
+			document.getElementById('start_sec'+type).style.display = "none" ;
+			document.getElementById('stop_sec'+type).style.display = "" ;
+		}
+		else{
+			display = 'none' ;
+			document.getElementById('start_sec'+type).style.display = "" ;
+			document.getElementById('stop_sec'+type).style.display = "none" ;
+		}
+		
+		document.getElementById('content'+type).style.display = display ;
+	}
+
+	function clickTest(x){		
+		document.getElementById('BUTTON_TEST'+x).disabled  = true ;		
+		doSubmits(x,x) ;		
+	}
+	
+    function doSubmits(a,b) {
+		
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;			
+		for(var i=a; i<=b; i++){
+			
+			var id,OnCmd,OffCmd ;
+			
+			id = document.getElementById('type'+i).value ;
+			OnCmd = escape(document.getElementById('trigger'+i).value) ;
+			OffCmd = escape(document.getElementById('inactive'+i).value) ;
+			
+			if(OnCmd == '' && OffCmd == '' && document.getElementById('start_sec'+i).style.display == 'none'){
+				alert(err1);
+				window.setTimeout("clean_result();", 2000 );
+				if(a == b){go_back_test(a);}
+				return false;
+			}
+			
+			if(a == b){
+				szSystem = szSystem + 'EVENT_TEST&' ;
+			}
+			
+			if(i > 1 && a != b){				
+				szSystem = szSystem + '&' ;				
+			}
+			
+			OnCmd = '['+ OnCmd.replace(/&/g,'%26') +']';
+			OffCmd = '['+ OffCmd.replace(/&/g,'%26') +']';
+			
+			szSystem = szSystem + 'EVENT_RSPCMD'+i+'='+ id +','+ OnCmd +','+ OffCmd ;
+		}
+		
+        var szReturn = top.doRequest(szSystem) ;
+		
+		var errString = szReturn ;
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = szReturn[nIdx] ;
+			
+            if(szTmp.indexOf('ERROR')>-1){
+				nError++ ;
+			}
+        }
+		
+		if(a == b){
+			
+			if (nError == 0) {
+				document.getElementById('BUTTON_TEST'+a).value = 'OK' ;
+			}
+			else{
+				document.getElementById('BUTTON_TEST'+a).value = 'Fail' ;
+				
+				if(errString.indexOf('ERROR: internal error. Event server is not set correctly')>-1){
+					var test_err = errString ;
+					try { test_err = top.GetXmlLangTagByName("EVENT_TEST_ERROR") ; } catch(e) {}
+					alert(test_err);
+				}
+				else{
+					alert(err_message);
+				}
+			}
+			window.setTimeout("go_back_test("+ a +");", 1000 );
+			window.setTimeout("clean_result();", 2000 );
+			
+		}
+		else{
+		
+			if (nError == 0) {
+				idget("BUTTON_APPLY").value = "Success" ;
+				window.setTimeout("clean_result();", 2000 );
+				//parent.ClosePopup();
+			}
+			else{
+				//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+				alert(err_message);
+				window.setTimeout("clean_result();", 2000 );
+				doGetSetting();
+			}		
+			parent.Close();	
+		}	
+		
+    }
+    
+	function go_back_test(x){
+		document.getElementById('BUTTON_TEST'+x).disabled  = false ;		
+		try { document.getElementById('BUTTON_TEST'+x).value = top.GetXmlLangTagByName("BUTTON_TEST") } catch(e) {document.getElementById('BUTTON_TEST'+x).value = 'Test' ;}
+	}
+	
+	function clean_result(){
+		idget("BUTTON_APPLY").disabled = false ;
+		
+		idget("BUTTON_APPLY").value = "Apply" ;
+		try { idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 
+	
+	function doGetSetting()
+	{
+		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+        
+    
+        szSystem = szSystem + "EVENT_RSPCMD1&EVENT_RSPCMD2&EVENT_RSPCMD3" ;
+        var szReturn = top.doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length-1; nIdx++) {
+            szTmp = top.V2doSplitValue( szReturn[nIdx] ) ;					
+			var id = szTmp[0].replace('EVENT_RSPCMD','').replace('=','');					
+			var value = szTmp[1].split('[') ;					
+			value[0] = value[0].slice(0,1);				
+			document.getElementById('type'+id).value = value[0] ;
+			
+			var OnCmd = value[1];
+			OnCmd = OnCmd.slice(0,OnCmd.length-2);			
+			
+			var OffCmd = value[2];
+			OffCmd = OffCmd.slice(0,OffCmd.length-1);
+			
+			document.getElementById('trigger'+id).value = OnCmd ;
+			document.getElementById('inactive'+id).value = OffCmd ;
+			
+			if(OnCmd!='' || OffCmd!='')
+			{
+				setup_sec(1,id)
+			}
+			
+        }
+		
+	}
+	
+	function event_config_cmd_update_language()
+	{
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE_DESC2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE_DESC") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE_DESC3.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE_DESC") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE3.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_INACTIVE") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER_DESC2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER_DESC") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER_DESC3.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER_DESC") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER3.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_CMD_EVENT_TRIGGER") ; } catch(e) {}
+		try { document.getElementById('BUTTON_TEST1').value = top.GetXmlLangTagByName("BUTTON_TEST") ; } catch(e) {}
+		try { document.getElementById('BUTTON_TEST2').value = top.GetXmlLangTagByName("BUTTON_TEST") ; } catch(e) {}
+		try { document.getElementById('BUTTON_TEST3').value = top.GetXmlLangTagByName("BUTTON_TEST") ; } catch(e) {}
+		try { document.getElementById('SELECT_EVENT_MEDIA_CGI_1_2').text = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_CGI_1") ; } catch(e) {}
+		try { document.getElementById('SELECT_EVENT_MEDIA_CGI_2_2').text = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_CGI_2") ; } catch(e) {}
+		try { document.getElementById('SELECT_EVENT_MEDIA_CGI_1_3').text = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_CGI_1") ; } catch(e) {}
+		try { document.getElementById('SELECT_EVENT_MEDIA_CGI_2_3').text = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_CGI_2") ; } catch(e) {}
+		try { err_message = top.GetXmlLangTagByName("EVENT_ERROR_MESSAGE") ; } catch(e) {}
+		try { err1 = top.GetXmlLangTagByName("SETTING_EVENT_CMD_NULL") ; } catch(e) {}
+		top.update_language(this);
+	}
+	
+	function Page_onLoad()
+	{
+		event_config_cmd_update_language();		
+		doGetSetting();		
+	}
+	
+	Page_onLoad();	
+	
+</Script>

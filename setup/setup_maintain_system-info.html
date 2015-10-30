@@ -1,0 +1,194 @@
+﻿<html>
+
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >	
+<div style="padding-top:10px">
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_SYSTEM_INFO">System Information</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="left" >
+								<label id="SETTING_SYSTEM_INFO1" >System Information :</label>
+							</td>						
+						</tr>
+						<tr>
+							<td >
+								<textarea id="SYSTEM_INFO" rows="8" style="width:710px;font-size:12px;font-family:Arial" readonly="readonly" onkeydown="Dummy('SYSTEM_INFO')"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td align="left" >
+								<label id="SETTING_WAN_STATUS" >WAN Status :</label>
+							</td>						
+						</tr>
+						<tr>
+							<td>
+								<textarea id="WAN_STATUS" rows="8" style="width:710px;font-size:12px;font-family:Arial" readonly="readonly" onkeydown="Dummy('WAN_STATUS')"></textarea>
+							</td>
+						</tr>
+						
+						<tr>
+							<td align="left" >
+								<label id="SETTING_SYSTEM_LOG" >System Log :</label>
+							</td>						
+						</tr>
+						<tr>
+							<td>
+								<textarea id="SYSTEM_LOG" rows="8" style="width:710px;font-size:12px;font-family:Arial" readonly="readonly" onkeydown="Dummy('SYSTEM_LOG')"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="DIV_GET_INFO" style="display:none">
+						
+								<label id="CONFIG_FILE"><b>Config file:</b></label>
+								<div style="height:25px;width:100%;padding-top:5px;padding-left:2px;border-bottom: 0px dashed #999999;">
+									<div style="float:left"><label id="GET_CONFIG_01">The unit's parameters and their current settings.</label></div>
+									<div style="float:right;padding-right:2px;" ><input type="button" class="button2"style="width:150px" id="BUTTON_PARAMETER_INFO" name="BUTTON_PARAMETER_INFO" value="Parameter List" onclick="open_parameter()"></div>
+								</div>
+								<div style="height:25px;width:100%;padding-top:5px;padding-left:2px;">
+								<div style="float:left"><label id="GET_CONFIG_02">Always attach the server report when contacting your support channel.</label></div>
+								<div style="float:right;padding-right:2px;"><input type="button" class="button2" style="width:150px" id="BUTTON_GET_SERVER_REPORT" name="BUTTON_GET_SERVER_REPORT" value="Server Report" onclick="open_server_report()"></div>
+								</div>
+								<div id="DIV_SOFTWARE_LICENSES" style="height:25px;width:100%;padding-top:5px;padding-left:2px;">
+								<div style="float:left"><label id="GET_CONFIG_03">Third party software licenses.</label></div>
+								<div style="float:right;padding-right:2px;"><input type="button" class="button2" style="width:150px" id="BUTTON_SOFTWARE_LICENSES" name="BUTTON_SOFTWARE_LICENSES" value="Show Licenses" onclick="open_software_licenses()"></div>
+								</div>
+								</div>
+							
+							</td>
+						</tr>
+						
+						
+						
+																   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	function Dummy(area)
+	{		
+		if (window.event.keyCode == 27) {
+			idget(area).blur();								
+		}
+		return ;
+	}
+	
+	function doGetSetting() {
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		
+        szSys = szSystem + "SYSTEM_INFO" ;
+        var system_info = doRequest(szSys) ;
+		var system_info = system_info.split('\n') ;
+		var system_info_str = '' ;
+		var fw_version = '' ;
+		var version_type = '' ;
+		
+		for(s=0;s<=system_info.length-1;s++){
+			if(system_info[s].indexOf('Firmware Version')!=-1 ){
+				fw_version = system_info[s].indexOf('AC');
+				if(fw_version==-1){
+					version_type = 'NB' ;
+				}
+				else{
+					version_type = 'AC' ;
+				}
+			}			
+			//if(system_info[s].indexOf('Production')!=-1 && system_info[s].indexOf('ID')!=-1 ){
+			if((system_info[s].indexOf('Production ID')!=-1) || (system_info[s].indexOf('Model Number')!=-1)){
+				if(version_type == 'AC'){
+					system_info_str += system_info[s] + '\n';
+				}
+			}
+			else{	
+				if(s == (system_info.length-1))
+				{
+					system_info_str += system_info[s] ;
+				}
+				else
+				{
+					if((system_info[s].indexOf('Profile ID')!=-1) || (system_info[s].indexOf('Sensor Board')!=-1) || (system_info[s].indexOf('Video Decoder')!=-1) || (system_info[s].indexOf('Video Processor')!=-1) || (system_info[s].indexOf('Video Encoder')!=-1))
+						continue;	
+					system_info_str += system_info[s] + '\n';
+				}
+			}
+		}
+		
+		if(navigator.appName=="Netscape"){
+			idget("SYSTEM_INFO").innerHTML = system_info_str ;
+		}else{
+			idget("SYSTEM_INFO").innerText = system_info_str ;
+		}
+		//if(top.m_authorize=='admin'){
+
+	  if(top.gUserLevel==1){
+			idget("DIV_GET_INFO").style.display='inline' ;		
+		}
+			
+			var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+			szWAN = szSystem + "V2_WAN_STATUS" ;
+					if(navigator.appName=="Netscape"){
+						idget("WAN_STATUS").innerHTML = doRequest(szWAN) ;
+					}else{
+						idget("WAN_STATUS").innerText = doRequest(szWAN) ;
+					}
+			
+			szLog = szSystem + "SYSTEM_LOG" ;
+					if(navigator.appName=="Netscape"){
+						idget("SYSTEM_LOG").innerHTML = doRequest(szLog) ;
+					}else{
+						idget("SYSTEM_LOG").innerText = doRequest(szLog) ;
+					}	
+		
+		/*if(version_type == 'AC'){
+			document.getElementById('DIV_SOFTWARE_LICENSES').style.display = '' ;
+		}
+		else{
+			document.getElementById('DIV_SOFTWARE_LICENSES').style.display = 'none' ;
+		}*/
+    }
+	
+	function open_parameter(){
+		window.open('view_parameter.html','window1','height=600,width=400,scrollbar=0')
+	}
+	
+	function open_server_report(){
+		window.open('view_server_report.html','window2','height=600,width=400,scrollbar=0')
+	}
+	
+	function open_software_licenses(){
+		window.open('../licenses/ThirdPartySoftwareLicence.html','window3','height=600,width=600,scrollbars=yes')
+	}
+	
+	function Page_onLoad()
+	{		
+		top.update_language(this);
+		doGetSetting();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

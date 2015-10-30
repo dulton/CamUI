@@ -1,0 +1,156 @@
+﻿<html>
+
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" scroll="no">
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" border="0" >
+		<tr >
+			<td class="setup_item" colspan=2>
+				<label id="SETTING_SYSTEM_FIRMWARE_UPGRADE">Firmware Upload</label>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</td>
+		</tr>	
+			
+			<!--<tr>
+				<td >
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <label id="SETTING_SYSTEM_FIRMWARE_UPGRADE_CONFIRM">Do you want to do firmware upload?</label>
+					
+				</td>
+			</tr>-->
+			<tr id="TR_SETTING_FW_FROM_LOCAL">
+				<td></td>
+				<td align="left" width="85%">
+					<input type="radio" id="TD_SETTING_FW_FROM_LOCAL"  name="SETTING_FW">
+					<label id="SETTING_FW_FROM_LOCAL">Firmware Upload from Local</label>
+				</td>
+			</tr>
+			<tr id="TR_SETTING_FW_FROM_DOWNLOAD_CENTER">
+				<td></td>
+				<td align="left" width="85%">
+					<input type="radio" id="TD_SETTING_FW_FROM_DOWNLOAD_CENTER"  name="SETTING_FW">
+					<label id="SETTING_FW_FROM_DOWNLOAD_CENTER">Firmware Upload from the Download Center</label>
+				</td>			
+			</tr>
+			<tr id="TR_SETTING_LATEST_FW" style="display:none">
+				<td align="center" width="100%" colspan=2>
+					<label id="SETTING_LATEST_FW"></label>
+				</td>			
+			</tr>
+			<tr>
+				<td align="left">
+					<form name="FIRMWARE_FORM">											
+						<iframe name="file_frame" id="file_frame" src="setup_maintain_firmware-file_frame.html" width="100%" height="80px" frameborder="0"></iframe>							
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td align="left">
+					<form name="FIRMWARE_FORM2">											
+						<iframe id="file_frame2" src="" width="100%" height="200px" frameborder="0"></iframe>							
+					</form>
+				</td>
+			</tr>
+			
+			<tr><td></br></td></tr>
+			<tr>
+				<td align="center"  colspan=2>								
+					<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()"/>
+				</td>
+							
+			</tr>			
+			<tr><td></br></td></tr>		
+	</table>
+	<div  class="setup_bg">	
+	</div>
+	<div id="divError" style="display:none">
+		<label id="ERROR_TO_DOWNLOAD_CENTER"></label>&nbsp;&nbsp;&nbsp; </br> 
+	</div>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+var type = "";
+var vHREF = "";
+var szReturn ="";
+var err = "Fail to connect to the download center";
+
+function DoApply()
+{
+	var vstatus;
+	
+	idget("TR_SETTING_FW_FROM_LOCAL").style.display = "none";
+	idget("TR_SETTING_FW_FROM_DOWNLOAD_CENTER").style.display = "none";
+	idget("BUTTON_APPLY").value = "saving..";
+	idget("BUTTON_APPLY").style.display = "none";	
+	
+	if(idget("TD_SETTING_FW_FROM_LOCAL").checked ==true)
+	{			
+		idget("file_frame").style.display = "";
+	}
+	else//Download Center
+	{
+		idget("file_frame2").src = "setup_maintain_firmware-file_frame_download.html";
+		var szUpdate="/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&CHECK_NEW_FIRMWARE";
+		szReturn = doRequest(szUpdate) ;
+		szReturn=szReturn.split('\n') ;			
+		var i;
+		for(i=0; i<szReturn.length; i++){
+			r=doSplitValue( szReturn[i] ) ;
+			switch(r[0]){
+				case "STATUS":
+					vstatus = r[1];
+					if(r[1]=="ERROR")
+					{						
+						alert(err);
+						break;
+					}
+					break;
+					
+				case "NEW_FIRMWARE_COUNT":
+					if(vstatus!="ERROR")
+					{
+						if(r[1]==0)
+						{
+							idget("TR_SETTING_LATEST_FW").style.display = "";							
+						}	
+						else
+						{
+							idget("file_frame2").style.display = "";
+						}	
+					}
+					else
+					{
+						idget("TR_SETTING_FW_FROM_LOCAL").style.display = "";
+						idget("TR_SETTING_FW_FROM_DOWNLOAD_CENTER").style.display = "";
+						idget("BUTTON_APPLY").style.display = "";
+					}	
+					break;
+				}
+		}	
+		
+	}
+}
+
+function update_language()
+{
+	top.update_language(this);
+	try { err = top.GetXmlLangTagByName("ERROR_TO_DOWNLOAD_CENTER") ; } catch(e) {} //Fail to connect to the download center
+}
+function PageOnload()
+{
+	idget("file_frame").style.display = "none";
+	idget("file_frame2").style.display = "none";
+	idget("TD_SETTING_FW_FROM_LOCAL").checked = true;
+	update_language();
+}
+PageOnload();	
+</Script>

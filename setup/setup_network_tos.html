@@ -1,0 +1,469 @@
+﻿<html>
+
+<head>   
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+<div style="padding-top:10px">	
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_TOS">Type of Service</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr style="display:none">
+							<td align="right" width="50%">
+								<label id="SETTING_TOS_SERVICE">Type of Service</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%" >
+								<select id="VIDEO_TOS_TYPE">
+									<option value="2" id="SELECT_COMMON_ENABLED">Enabled</option>
+									<option value="1" id="SELECT_COMMON_DISABLED">Disabled</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_TOS_PRIORITY">ToS Priority</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="VIDEO_TOS_PRIORITY">
+									<option value="Minimize-Delay" id="SELECT_TOS_MIN_DELAY">Minimize Delay</option>
+					                <option value="Maximize-Throughput" id="SELECT_TOS_MAX_THROUGHPUT">Maximize Throughput</option>
+					                <option value="Maximize-Reliability" id="SELECT_TOS_MAX_RELIABILITY">Maximize Reliability</option>					                
+					                <option value="Normal-Service" id="SELECT_TOS_NORMAL_SERVICE">Normal Service</option>
+								</select>
+							</td>
+                       </tr>                       			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoToSApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetToSSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+</div>	
+<div style="padding-top:10px">	
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_UPnP">UPnP&trade;</label>
+			</td>			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" >
+								<input type="checkbox" id="upnp_enable" style="width:50px">
+							</td>
+							<td align="left" width="50%">
+								<label id="COMMOM_MSG_ENABLED">Enabled</label>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_UPnP_NAME">Friendly Name</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="friendly_name" value="" maxlength="31" style="width:150px" />
+							</td>
+                       </tr>                       			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY2" value="Apply" onclick="DoUPnPApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetUPnPSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>	
+</div>	
+<div style="padding-top:10px">	
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_BONJOUR">Bonjour</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" >
+								<input type="checkbox" id="bonjour_enable" style="width:50px">
+							</td>
+							<td align="left" width="50%">
+								<label id="COMMOM_MSG_ENABLED2">Enabled</label>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_BONJOUR_NAME">Friendly Name</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="bonj_friendly_name" value="" maxlength="31" style="width:150px" />
+							</td>
+                       </tr>                       			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY3" value="Apply" onclick="DoBonjourApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetBonjourSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+</div>	
+
+<div style="padding-top:10px">	
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_ONVIF">ONVIF</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" >
+								<input type="checkbox" id="onvif_enable" style="width:50px">
+							</td>
+							<td align="left" width="50%">
+								<label id="COMMOM_MSG_ENABLED3">Enabled</label>
+							</td>
+						</tr>
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   							
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY4" value="Apply" onclick="DoOnvifApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetOnvifSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>	
+					</table>					
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<table>
+		<div id="divError" style="display:none">
+			<label id="SETTING_NETWORK_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>			
+		</div>	
+	</table>
+</div>
+
+<div  class="setup_bg">	
+</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var err0 = "Rules of network name.\n";
+	err0 += "1. Only ASCII A~Z, a~z, 0~9, minus sign (-), underscore (_) and period (.) are allowed.\n";
+	err0 += "2. No blank or space characters are permitted as part of a name.\n";
+	err0 += "3. The last character must not be a minus sign, underscore or period.\n";
+	err0 += "4. The first character is allowed to either a letter or a digit.\n";
+	err0 += "5. No NULL string is allowed";
+	
+	function UpnpNameCheck()
+	{
+		var pattern = /^([0-9a-zA-Z.\-_]*)$/;
+		var pattern2 = /[^-_.]$/;
+		
+		if(pattern.test(idget("friendly_name").value) == true)
+		{
+			if(pattern2.test(idget("friendly_name").value) ==  true)
+			{
+				if(idget("friendly_name").value.length == 0)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;	
+	}
+
+	function clean_result(id){
+		
+		
+		idget(id).disabled = false ;		
+		idget(id).value = "Apply" ;
+		try { idget(id).value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	}
+	function DoUPnPApply()
+	{		
+		if(UpnpNameCheck() == false)
+		{
+			alert(err0);
+			GetUPnPSettings();
+			return;	
+		}
+		
+		BUTTON_APPLY2.value = "Saving..." ;
+		BUTTON_APPLY2.disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		if(idget("upnp_enable").checked == true)
+			szSystem = szSystem + "UPNP_CONFIG=1," + idget("friendly_name").value ;		
+		else
+			szSystem = szSystem + "UPNP_CONFIG=0," + idget("friendly_name").value ;		
+	        	       
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("clean_result('BUTTON_APPLY2');", 2000 );		
+		GetUPnPSettings();
+	}
+	
+	function GetUPnPSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&UPNP_CONFIG" ;
+		
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'UPNP_CONFIG' :
+					if(szTmp[1].split(",")[0]=="1"){
+						idget("upnp_enable").checked = true ;
+					}else{
+						idget("upnp_enable").checked = false ;
+					}
+					idget("friendly_name").value = szTmp[1].split(",")[1] ;
+					break;									
+			}
+		}	
+		
+	}
+/////////BONJOUR///////////////////////////////////////////////////////////////////	
+	function BonjNameCheck()
+	{
+		var pattern = /^([0-9a-zA-Z.\-_]*)$/;
+		var pattern2 = /[^-_.]$/;
+		
+		if(pattern.test(idget("bonj_friendly_name").value) == true)
+		{
+			if(pattern2.test(idget("bonj_friendly_name").value) ==  true)
+			{
+				if(idget("bonj_friendly_name").value.length == 0)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;	
+	}
+
+	function DoBonjourApply()
+	{
+		if(BonjNameCheck() == false)
+		{
+			alert(err0);
+			GetBonjourSettings();
+			return;	
+		}
+		
+		BUTTON_APPLY3.value = "Saving..." ;
+		BUTTON_APPLY3.disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		if(idget("bonjour_enable").checked == true)
+			szSystem = szSystem + "BONJOUR_CONFIG=1," + idget("bonj_friendly_name").value ;		
+		else
+			szSystem = szSystem + "BONJOUR_CONFIG=0," + idget("bonj_friendly_name").value ;		
+	        	       
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("clean_result('BUTTON_APPLY3');", 2000 );		
+		GetBonjourSettings();
+	}
+	
+	function GetBonjourSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&BONJOUR_CONFIG" ;
+		
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'BONJOUR_CONFIG' :
+					if(szTmp[1].split(",")[0]=="1"){
+						idget("bonjour_enable").checked = true ;
+					}else{
+						idget("bonjour_enable").checked = false ;
+					}
+					idget("bonj_friendly_name").value = szTmp[1].split(",")[1] ;
+					break;									
+			}
+		}	
+		
+	}
+		
+/////////TOS///////////////////////////////////////////////////////////////////	
+	
+	function DoToSApply()
+	{
+		
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		
+		//szSystem +=  "VIDEO_TOS_TYPE=" + idget("VIDEO_TOS_TYPE").value +"&";				
+		szSystem +=  "VIDEO_TOS_PRIORITY=" + idget("VIDEO_TOS_PRIORITY").value ;		
+	        	       
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetToSSettings();
+	}
+	
+	function GetToSSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&VIDEO_TOS_PRIORITY" ;
+		
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {				
+				case 'VIDEO_TOS_PRIORITY' :					
+					SelectSetOption(idget("VIDEO_TOS_PRIORITY"), szTmp[1]);					
+					break;														
+			}
+		}	
+		
+	}
+
+//////////////////Onvif////////////////
+	function DoOnvifApply()
+	{				
+		BUTTON_APPLY4.value = "Saving..." ;
+		BUTTON_APPLY4.disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		if(idget("onvif_enable").checked == true)
+			szSystem = szSystem + "ONVIF_STATE=1";		
+		else
+			szSystem = szSystem + "ONVIF_STATE=0";		
+	        	       
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("clean_result('BUTTON_APPLY4');", 2000 );		
+		GetOnvifSettings();	
+	}
+	
+	function GetOnvifSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&ONVIF_STATE" ;
+		
+		var szReturn = doRequest(szSystem) ;		
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'ONVIF_STATE' :
+					if(szTmp[1]=="1"){
+						idget("onvif_enable").checked = true ;
+					}else{
+						idget("onvif_enable").checked = false ;
+					}
+					
+				break;									
+			}
+		}	
+			
+	}
+	
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		try { err0 = top.GetXmlLangTagByName("SETTING_NETWORK_NAME_ERR") ; } catch(e) {}
+		try { idget("COMMOM_MSG_ENABLED2").innerHTML          = top.GetXmlLangTagByName("COMMOM_MSG_ENABLED");  } catch(e) {}
+		try { idget("COMMOM_MSG_ENABLED3").innerHTML          = top.GetXmlLangTagByName("COMMOM_MSG_ENABLED");  } catch(e) {}
+		GetToSSettings();
+		GetUPnPSettings();
+		GetBonjourSettings();
+		GetOnvifSettings();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

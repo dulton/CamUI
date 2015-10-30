@@ -1,0 +1,679 @@
+﻿<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_DATE_TIME_SETTING">Date Setting</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="left" >
+								<input type="radio" id="DATE_TYPE_1" style="width:50px" name="DATE_TYPE">
+								<label id="SETTING_DATE_TIME_SNTP_NTP_SERVER">SNTP/NTP Server</label>
+							</td>
+							<td align="left" width="50%">
+								&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_DATE_TIME_IP_ADDRESS">IP Address</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">								
+								<input type="text" id="DATE_SNTP_IP" " maxlength="32" />
+							</td>
+						</tr>                       		
+
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_DATE_TIME_SYNC_TIME">Sync Time</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">								
+								<select id="DATE_SNTP_UPDATE">
+                                    <Option value="300" id="SELECT_DATE_TIME_UPDATE_5MINS">5 Min</Option>
+                                    <Option value="3600" id="SELECT_DATE_TIME_UPDATE_1HOUR">1 Hour</Option>
+                                    <Option value="21600" id="SELECT_DATE_TIME_UPDATE_6HOURS">6 Hour</Option>
+                                    <Option value="43200" id="SELECT_DATE_TIME_UPDATE_12HOURS">12 Hour</Option>
+                                    <Option value="86400" id="SELECT_DATE_TIME_UPDATE_1DAY">1 Day</Option>
+                                </select>
+							</td>
+						</tr>      
+
+						<tr>
+							<td colspan="2">
+								<div style="border-bottom:1px dashed #999999;height:1px;"></div>								
+							</td>
+							
+						</tr>
+						
+						<tr>
+							<td align="left" >
+								<input type="radio" id="DATE_TYPE_2" style="width:50px" name="DATE_TYPE">
+								<label id="SETTING_DATE_TIME_SET_MANUALLY">Set Manually</label>
+							</td>
+							<td align="left" width="50%">
+								&nbsp;
+							</td>
+						</tr>						
+			
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_DATE_TIME_DATE">Date</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td>
+								<select id="DATE_MANUAL_DATE_YY">
+									<Option value="2009">2009</Option><Option value="2010">2010</Option>
+                                    <Option value="2011">2011</Option><Option value="2012">2012</Option>
+                                    <Option value="2013">2013</Option><Option value="2014">2014</Option>
+                                    <Option value="2015">2015</Option><Option value="2016">2016</Option>
+                                    <Option value="2017">2017</Option><Option value="2018">2018</Option>
+                                    <Option value="2019">2019</Option><Option value="2020">2020</Option>
+									<Option value="2021">2021</Option><Option value="2022">2022</Option>
+                                    <Option value="2023">2023</Option><Option value="2024">2024</Option>
+									<Option value="2025">2025</Option><Option value="2026">2026</Option>
+									<Option value="2027">2027</Option><Option value="2028">2028</Option>
+									<Option value="2029">2029</Option><Option value="2030">2030</Option>
+									<Option value="2031">2031</Option><Option value="2032">2032</Option>
+									<Option value="2033">2033</Option><Option value="2034">2034</Option>
+									<Option value="2035">2035</Option>
+                                </select>/
+								<select id="DATE_MANUAL_DATE_MM">
+                                    <Option value="01">01</Option><Option value="02">02</Option>
+                                    <Option value="03">03</Option><Option value="04">04</Option>
+                                    <Option value="05">05</Option><Option value="06">06</Option>
+                                    <Option value="07">07</Option><Option value="08">08</Option>
+                                    <Option value="09">09</Option><Option value="10">10</Option>
+                                    <Option value="11">11</Option><Option value="12">12</Option>
+                                </select>/
+                                <select id="DATE_MANUAL_DATE_DD">
+	    				            <Option value="01">01</Option><Option value="02">02</Option>
+	                                <Option value="03">03</Option><Option value="04">04</Option>
+                                    <Option value="05">05</Option><Option value="06">06</Option>
+                                    <Option value="07">07</Option><Option value="08">08</Option>
+                                    <Option value="09">09</Option><Option value="10">10</Option>
+                                    <Option value="11">11</Option><Option value="12">12</Option>
+                                    <Option value="13">13</Option><Option value="14">14</Option>
+                                    <Option value="15">15</Option><Option value="16">16</Option>
+                                    <Option value="17">17</Option><Option value="18">18</Option>
+                                    <Option value="19">19</Option><Option value="20">20</Option>
+                                    <Option value="21">21</Option><Option value="22">22</Option>
+                                    <Option value="23">23</Option><Option value="24">24</Option>
+                                    <Option value="25">25</Option><Option value="26">26</Option>
+                                    <Option value="27">27</Option><Option value="28">28</Option>
+                                    <Option value="29">29</Option><Option value="30">30</Option>
+                                    <Option value="31">31</Option>
+                                </select>
+							</td>
+						</tr>
+
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_DATE_TIME_TIME">Time</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td>
+								<select id="DATE_MANUAL_TIME_HH">
+					                <Option value="00">00</Option><Option value="01">01</Option>
+	                                <Option value="02">02</Option><Option value="03">03</Option>
+	                                <Option value="04">04</Option><Option value="05">05</Option>
+                                    <Option value="06">06</Option><Option value="07">07</Option>
+                                    <Option value="08">08</Option><Option value="09">09</Option>
+                                    <Option value="10">10</Option><Option value="11">11</Option>
+                                    <Option value="12">12</Option><Option value="13">13</Option>
+                                    <Option value="14">14</Option><Option value="15">15</Option>
+                                    <Option value="16">16</Option><Option value="17">17</Option>
+                                    <Option value="18">18</Option><Option value="19">19</Option>
+                                    <Option value="20">20</Option><Option value="21">21</Option>
+                                    <Option value="22">22</Option><Option value="23">23</Option>
+					            </select>:<select id="DATE_MANUAL_TIME_MM">
+					                <Option value="00">00</Option><Option value="01">01</Option>
+	                                <Option value="02">02</Option><Option value="03">03</Option>
+	                                <Option value="04">04</Option><Option value="05">05</Option>
+                                    <Option value="06">06</Option><Option value="07">07</Option>
+                                    <Option value="08">08</Option><Option value="09">09</Option>
+                                    <Option value="10">10</Option><Option value="11">11</Option>
+                                    <Option value="12">12</Option><Option value="13">13</Option>
+                                    <Option value="14">14</Option><Option value="15">15</Option>
+                                    <Option value="16">16</Option><Option value="17">17</Option>
+                                    <Option value="18">18</Option><Option value="19">19</Option>
+                                    <Option value="20">20</Option><Option value="21">21</Option>
+                                    <Option value="22">22</Option><Option value="23">23</Option>
+                                    <Option value="24">24</Option><Option value="25">25</Option>
+                                    <Option value="26">26</Option><Option value="27">27</Option>
+                                    <Option value="28">28</Option><Option value="29">29</Option>
+                                    <Option value="30">30</Option><Option value="31">31</Option>
+                                    <Option value="32">32</Option><Option value="33">33</Option>
+                                    <Option value="34">34</Option><Option value="35">35</Option>
+                                    <Option value="36">36</Option><Option value="37">37</Option>
+                                    <Option value="38">38</Option><Option value="39">39</Option>
+                                    <Option value="40">40</Option><Option value="41">41</Option>
+                                    <Option value="42">42</Option><Option value="43">43</Option>
+                                    <Option value="44">44</Option><Option value="45">45</Option>
+                                    <Option value="46">46</Option><Option value="47">47</Option>
+                                    <Option value="48">48</Option><Option value="49">49</Option>
+                                    <Option value="50">50</Option><Option value="51">51</Option>
+                                    <Option value="52">52</Option><Option value="53">53</Option>
+                                    <Option value="54">54</Option><Option value="55">55</Option>
+                                    <Option value="56">56</Option><Option value="57">57</Option>
+                                    <Option value="58">58</Option><Option value="59">59</Option>
+					            </select>:<select id="DATE_MANUAL_TIME_SS">
+					                <Option value="00">00</Option><Option value="01">01</Option>
+	                                <Option value="02">02</Option><Option value="03">03</Option>
+	                                <Option value="04">04</Option><Option value="05">05</Option>
+                                    <Option value="06">06</Option><Option value="07">07</Option>
+                                    <Option value="08">08</Option><Option value="09">09</Option>
+                                    <Option value="10">10</Option><Option value="11">11</Option>
+                                    <Option value="12">12</Option><Option value="13">13</Option>
+                                    <Option value="14">14</Option><Option value="15">15</Option>
+                                    <Option value="16">16</Option><Option value="17">17</Option>
+                                    <Option value="18">18</Option><Option value="19">19</Option>
+                                    <Option value="20">20</Option><Option value="21">21</Option>
+                                    <Option value="22">22</Option><Option value="23">23</Option>
+                                    <Option value="24">24</Option><Option value="25">25</Option>
+                                    <Option value="26">26</Option><Option value="27">27</Option>
+                                    <Option value="28">28</Option><Option value="29">29</Option>
+                                    <Option value="30">30</Option><Option value="31">31</Option>
+                                    <Option value="32">32</Option><Option value="33">33</Option>
+                                    <Option value="34">34</Option><Option value="35">35</Option>
+                                    <Option value="36">36</Option><Option value="37">37</Option>
+                                    <Option value="38">38</Option><Option value="39">39</Option>
+                                    <Option value="40">40</Option><Option value="41">41</Option>
+                                    <Option value="42">42</Option><Option value="43">43</Option>
+                                    <Option value="44">44</Option><Option value="45">45</Option>
+                                    <Option value="46">46</Option><Option value="47">47</Option>
+                                    <Option value="48">48</Option><Option value="49">49</Option>
+                                    <Option value="50">50</Option><Option value="51">51</Option>
+                                    <Option value="52">52</Option><Option value="53">53</Option>
+                                    <Option value="54">54</Option><Option value="55">55</Option>
+                                    <Option value="56">56</Option><Option value="57">57</Option>
+                                    <Option value="58">58</Option><Option value="59">59</Option>
+					            </select>
+							</td>
+						</tr>
+						
+						
+						<tr>
+							<td colspan="2">
+								<div style="border-bottom:1px dashed #999999;height:1px;"></div>								
+							</td>
+							
+						</tr>						
+						
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>								
+						<tr>
+							<td colspan="2">
+								<label id="SETTING_DATE_TIME_TIME_ZONE">Time Zone</label>
+								<select id="DATE_MANUAL_ZONE">
+                                    <Option value="-12" id="SELECT_DATE_TIME_MINUS_1200">(GMT)-12:00(Eniwetok,Kwajaein)</Option>
+                                    <Option value="-11" id="SELECT_DATE_TIME_MINUS_1100">(GMT)-11:00(Midway lsl,Samoa)</Option>
+                                    <Option value="-10" id="SELECT_DATE_TIME_MINUS_1000">(GMT)-10:00(Hawaii,Aleutian lsl)</Option>
+									<Option value="-09:30" id="SELECT_DATE_TIME_MINUS_0930">(GMT)-09:30(Marquesas Isl.)</Option>
+                                    <Option value="-09" id="SELECT_DATE_TIME_MINUS_0900">(GMT)-09:00(Alaska)</Option>
+                                    <Option value="-08" id="SELECT_DATE_TIME_MINUS_0800">(GMT)-08:00(Las Vegas,San Francisco,Vancouver)</Option>
+                                    <Option value="-07" id="SELECT_DATE_TIME_MINUS_0700">(GMT)-07:00(Calgary,Denver,Salt Lake City)</Option>
+                                    <Option value="-06" id="SELECT_DATE_TIME_MINUS_0600">(GMT)-06:00(Chicago,Dallas,Mexico City)</Option>
+                                    <Option value="-05" id="SELECT_DATE_TIME_MINUS_0500">(GMT)-05:00(New York,Toronto,Washington DC,Cuba)</Option>
+									<Option value="-04:30" id="SELECT_DATE_TIME_MINUS_0430">(GMT)-04:30(Venezuela)</Option>
+                                    <Option value="-04" id="SELECT_DATE_TIME_MINUS_0400">(GMT)-04:00(Charlottetown,Chile,Manaus,Paraguay)</Option>
+                                    <Option value="-03:30" id="SELECT_DATE_TIME_MINUS_0330">(GMT)-03:30(03:30 Labrador, Newfoundland )</Option>
+									<Option value="-03" id="SELECT_DATE_TIME_MINUS_0300">(GMT)-03:00(Brazilia,Sao Paulo)</Option>
+                                    <Option value="-02" id="SELECT_DATE_TIME_MINUS_0200">(GMT)-02:00(Noronha,Mid-Atlantic)</Option>
+                                    <Option value="-01" id="SELECT_DATE_TIME_MINUS_0100">(GMT)-01:00(Azores,Cap Verde lsl)</Option>
+                                    <Option value="+00" id="SELECT_DATE_TIME_PLUS_0000">(GMT)+00:00(Dublin,Lisbon,London,Reykjavik)</Option>
+                                    <Option value="+01" id="SELECT_DATE_TIME_PLUS_0100">(GMT)+01:00(Amsterdam,Berlin,Rome,Stockholm)</Option>
+                                    <Option value="+02" id="SELECT_DATE_TIME_PLUS_0200">(GMT)+02:00(Athens,Egypt,Helsinki)</Option>
+                                    <Option value="+03" id="SELECT_DATE_TIME_PLUS_0300">(GMT)+03:00(lraq,Moscow,Riyadh)</Option>
+									<Option value="+03:30" id="SELECT_DATE_TIME_PLUS_0330">(GMT)+03:30(Iran)</Option>
+                                    <Option value="+04" id="SELECT_DATE_TIME_PLUS_0400">(GMT)+04:00(Abu Dubai,Baku)</Option>
+									<Option value="+04:30" id="SELECT_DATE_TIME_PLUS_0430">(GMT)+04:30(Afghanistan)</Option>
+                                    <Option value="+05" id="SELECT_DATE_TIME_PLUS_0500">(GMT)+05:00(lslamabad,Karachi,Tashkent)</Option>
+									<Option value="+05:30" id="SELECT_DATE_TIME_PLUS_0530">(GMT)+05:30(India, Sri Lanka)</Option>
+									<Option value="+05:45" id="SELECT_DATE_TIME_PLUS_0545">(GMT)+05:45(Nepal)</Option>
+                                    <Option value="+06" id="SELECT_DATE_TIME_PLUS_0600">(GMT)+06:00(Novosibirsk,Omsk)</Option>
+									<Option value="+06:30" id="SELECT_DATE_TIME_PLUS_0630">(GMT)+06:30(Cocos (Keeling) Isl. Myanmar)</Option>
+                                    <Option value="+07" id="SELECT_DATE_TIME_PLUS_0700">(GMT)+07:00(Bangkok,Hanoi,Jakarta)</Option>
+                                    <Option value="+08" id="SELECT_DATE_TIME_PLUS_0800">(GMT)+08:00(Beijing,Hong Kong,Shanghai,Taipei)</Option>
+                                    <Option value="+09" id="SELECT_DATE_TIME_PLUS_0900">(GMT)+09:00(Osaka,Sapporo,Tokyo)</Option>									
+                                    <Option value="+10" id="SELECT_DATE_TIME_PLUS_1000">(GMT)+10:00(Canberra,Hobart,Melboume,Sydney)</Option>
+                                    <Option value="+11" id="SELECT_DATE_TIME_PLUS_1100">(GMT)+11:00(Solomon lsl)</Option>
+									<Option value="+11:30" id="SELECT_DATE_TIME_PLUS_1130">(GMT)+11:30(Norfolk Isl.)</Option>
+                                    <Option value="+12" id="SELECT_DATE_TIME_PLUS_1200">(GMT)+12:00(Auckland,Wellington)</Option>
+									<Option value="+12:45" id="SELECT_DATE_TIME_PLUS_1245">(GMT)+12:45(Chatham Isl.)</Option>
+                                    <Option value="+13" id="SELECT_DATE_TIME_PLUS_1300">(GMT)+13:00(Nukualofa)</Option>
+                                </select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div style="border-bottom:1px dashed #999999;height:1px;"></div>								
+							</td>
+							
+						</tr>
+					   
+						<tr>
+							<td align="left" >
+								<input type="checkbox" id="DAYLIGHT_SAVING_CONFIG" style="width:50px">
+								<label id="SETTING_DATE_TIME_DAY_LIGHT_SAVING">Day Light Saving</label>
+							</td>
+							<td align="left" width="50%">
+								&nbsp;
+							</td>
+						</tr>											   
+					   
+						<tr>
+							<td align="right">
+								<label id="SETTING_DATE_TIME_START_TIME">Start Time</label>
+							</td>
+							<td align="left">
+								<select id="DAYLIGHT_SAVING_START_TYPE">
+									<Option value="1" id="SELECT_DATE_TIME_TYPE1">Type 1</Option>
+									<Option value="2" id="SELECT_DATE_TIME_TYPE2">Type 2</Option>
+                                </select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								&nbsp;
+							</td>
+							<td>
+								<select id="DAYLIGHT_SAVING_START_MM">
+	    				            <Option value= "1" id="SELECT_DATE_TIME_JAN">Jan</Option><Option value= "2" id="SELECT_DATE_TIME_FEB">Feb</Option>
+	                                <Option value= "3" id="SELECT_DATE_TIME_MAR">Mar</Option><Option value= "4" id="SELECT_DATE_TIME_APR">Apr</Option>
+                                    <Option value= "5" id="SELECT_DATE_TIME_MAY">May</Option><Option value= "6" id="SELECT_DATE_TIME_JUN">Jun</Option>
+                                    <Option value= "7" id="SELECT_DATE_TIME_JUL">Jul</Option><Option value= "8" id="SELECT_DATE_TIME_AUG">Aug</Option>
+                                    <Option value= "9" id="SELECT_DATE_TIME_SEP">Sep</Option><Option value="10" id="SELECT_DATE_TIME_OCT">Oct</Option>
+                                    <Option value="11" id="SELECT_DATE_TIME_NOV">Nov</Option><Option value="12" id="SELECT_DATE_TIME_DEC">Dec</Option>
+					            </select>
+								<select id="DAYLIGHT_SAVING_START_WEEK">
+	    				            <Option value="1" id="SELECT_DATE_TIME_FIRST">First</Option><Option value="2" id="SELECT_DATE_TIME_SECOND">Second</Option>
+	                                <Option value="3" id="SELECT_DATE_TIME_THIRD">Third</Option><Option value="4" id="SELECT_DATE_TIME_LAST">Last</Option>
+					            </select>
+								<select id="DAYLIGHT_SAVING_START_WEEKDAY">
+	                                <Option value="1" id="SELECT_DATE_TIME_MON">Mon</Option><Option value="2" id="SELECT_DATE_TIME_TUE">Tue</Option>
+	                                <Option value="3" id="SELECT_DATE_TIME_WED">Wed</Option><Option value="4" id="SELECT_DATE_TIME_THU">Thu</Option>
+                                    <Option value="5" id="SELECT_DATE_TIME_FRI">Fri</Option><Option value="6" id="SELECT_DATE_TIME_SAT">Sat</Option>
+                                    <Option value="7" id="SELECT_DATE_TIME_SUN">Sun</Option>
+					            </select>
+								<select id="DAYLIGHT_SAVING_START_DAY" style="display: ;">
+	    				            <Option value="1">1</Option><Option value="2">2</Option>
+	                                <Option value="3">3</Option><Option value="4">4</Option>
+                                    <Option value="5">5</Option><Option value="6">6</Option>
+                                    <Option value="7">7</Option><Option value="8">8</Option>
+                                    <Option value="9">9</Option><Option value="10">10</Option>
+                                    <Option value="11">11</Option><Option value="12">12</Option>
+                                    <Option value="13">13</Option><Option value="14">14</Option>
+                                    <Option value="15">15</Option><Option value="16">16</Option>
+                                    <Option value="17">17</Option><Option value="18">18</Option>
+                                    <Option value="19">19</Option><Option value="20">20</Option>
+                                    <Option value="21">21</Option><Option value="22">22</Option>
+                                    <Option value="23">23</Option><Option value="24">24</Option>
+                                    <Option value="25">25</Option><Option value="26">26</Option>
+                                    <Option value="27">27</Option><Option value="28">28</Option>
+                                    <Option value="29">29</Option><Option value="30">30</Option>
+                                    <Option value="31">31</Option>
+                                </select>
+								<select id="DAYLIGHT_SAVING_START_TIME">
+	    				            <Option value="00:00">00:00</Option><Option value="01:00">01:00</Option>
+	                                <Option value="02:00">02:00</Option><Option value="03:00">03:00</Option>
+	                                <Option value="04:00">04:00</Option><Option value="05:00">05:00</Option>
+                                    <Option value="06:00">06:00</Option><Option value="07:00">07:00</Option>
+                                    <Option value="08:00">08:00</Option><Option value="09:00">09:00</Option>
+                                    <Option value="10:00">10:00</Option><Option value="11:00">11:00</Option>
+                                    <Option value="12:00">12:00</Option><Option value="13:00">13:00</Option>
+                                    <Option value="14:00">14:00</Option><Option value="15:00">15:00</Option>
+                                    <Option value="16:00">16:00</Option><Option value="17:00">17:00</Option>
+                                    <Option value="18:00">18:00</Option><Option value="19:00">19:00</Option>
+                                    <Option value="20:00">20:00</Option><Option value="21:00">21:00</Option>
+                                    <Option value="22:00">22:00</Option><Option value="23:00">23:00</Option>
+					            </select>
+							</td>
+							
+						</tr>
+						
+						<tr>
+							<td align="right">
+								<label id="SETTING_DATE_TIME_END_TIME">Start Time</label>
+							</td>
+							<td align="left">
+								<select id="DAYLIGHT_SAVING_END_TYPE">
+									<Option value="1" id="SELECT_DATE_TIME_TYPE1_2">Type 1</Option>
+									<Option value="2" id="SELECT_DATE_TIME_TYPE2_2">Type 2</Option>
+                                </select>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								&nbsp;
+							</td>
+							<td>
+								<select id="DAYLIGHT_SAVING_END_MM">
+	    				            <Option value= "1" id="SELECT_DATE_TIME_JAN_2">Jan</Option><Option value= "2" id="SELECT_DATE_TIME_FEB_2">Feb</Option>
+	                                <Option value= "3" id="SELECT_DATE_TIME_MAR_2">Mar</Option><Option value= "4" id="SELECT_DATE_TIME_APR_2">Apr</Option>
+                                    <Option value= "5" id="SELECT_DATE_TIME_MAY_2">May</Option><Option value= "6" id="SELECT_DATE_TIME_JUN_2">Jun</Option>
+                                    <Option value= "7" id="SELECT_DATE_TIME_JUL_2">Jul</Option><Option value= "8" id="SELECT_DATE_TIME_AUG_2">Aug</Option>
+                                    <Option value= "9" id="SELECT_DATE_TIME_SEP_2">Sep</Option><Option value="10" id="SELECT_DATE_TIME_OCT_2">Oct</Option>
+                                    <Option value="11" id="SELECT_DATE_TIME_NOV_2">Nov</Option><Option value="12" id="SELECT_DATE_TIME_DEC_2">Dec</Option>
+                               </select>
+							   <select id="DAYLIGHT_SAVING_END_WEEK">
+	    				            <Option value="1" id="SELECT_DATE_TIME_FIRST_2">First</Option><Option value="2" id="SELECT_DATE_TIME_SECOND_2">Second</Option>
+	                                <Option value="3" id="SELECT_DATE_TIME_THIRD_2">Third</Option><Option value="4" id="SELECT_DATE_TIME_LAST_2">Last</Option>
+					            </select>
+								<select id="DAYLIGHT_SAVING_END_WEEKDAY">
+	    				            <Option value="1" id="SELECT_DATE_TIME_MON_2">Mon</Option><Option value="2" id="SELECT_DATE_TIME_TUE_2">Tue</Option>
+	                                <Option value="3" id="SELECT_DATE_TIME_WED_2">Wed</Option><Option value="4" id="SELECT_DATE_TIME_THU_2">Thu</Option>
+                                    <Option value="5" id="SELECT_DATE_TIME_FRI_2">Fri</Option><Option value="6" id="SELECT_DATE_TIME_SAT_2">Sat</Option>
+                                    <Option value="7" id="SELECT_DATE_TIME_SUN_2">Sun</Option>
+					            </select>
+								<select id="DAYLIGHT_SAVING_END_DAY" style="display:;">
+	    				            <Option value="1">1</Option><Option value="2">2</Option>
+	                                <Option value="3">3</Option><Option value="4">4</Option>
+                                    <Option value="5">5</Option><Option value="6">6</Option>
+                                    <Option value="7">7</Option><Option value="8">8</Option>
+                                    <Option value="9">9</Option><Option value="10">10</Option>
+                                    <Option value="11">11</Option><Option value="12">12</Option>
+                                    <Option value="13">13</Option><Option value="14">14</Option>
+                                    <Option value="15">15</Option><Option value="16">16</Option>
+                                    <Option value="17">17</Option><Option value="18">18</Option>
+                                    <Option value="19">19</Option><Option value="20">20</Option>
+                                    <Option value="21">21</Option><Option value="22">22</Option>
+                                    <Option value="23">23</Option><Option value="24">24</Option>
+                                    <Option value="25">25</Option><Option value="26">26</Option>
+                                    <Option value="27">27</Option><Option value="28">28</Option>
+                                    <Option value="29">29</Option><Option value="30">30</Option>
+                                    <Option value="31">31</Option>
+                                </select>
+								<select id="DAYLIGHT_SAVING_END_TIME">
+	    				            <Option value="00:00">00:00</Option><Option value="01:00">01:00</Option>
+	                                <Option value="02:00">02:00</Option><Option value="03:00">03:00</Option>
+	                                <Option value="04:00">04:00</Option><Option value="05:00">05:00</Option>
+                                    <Option value="06:00">06:00</Option><Option value="07:00">07:00</Option>
+                                    <Option value="08:00">08:00</Option><Option value="09:00">09:00</Option>
+                                    <Option value="10:00">10:00</Option><Option value="11:00">11:00</Option>
+                                    <Option value="12:00">12:00</Option><Option value="13:00">13:00</Option>
+                                    <Option value="14:00">14:00</Option><Option value="15:00">15:00</Option>
+                                    <Option value="16:00">16:00</Option><Option value="17:00">17:00</Option>
+                                    <Option value="18:00">18:00</Option><Option value="19:00">19:00</Option>
+                                    <Option value="20:00">20:00</Option><Option value="21:00">21:00</Option>
+                                    <Option value="22:00">22:00</Option><Option value="23:00">23:00</Option>
+					            </select>
+							</td>
+						</tr>
+					   
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoDateTimeApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="Page_onLoad()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>		
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	
+	function DayLightLayOut(){
+		if(idget("DAYLIGHT_SAVING_START_TYPE").value=="1"){
+			idget("DAYLIGHT_SAVING_START_WEEK").style.display='';
+			idget("DAYLIGHT_SAVING_START_WEEKDAY").style.display='';
+			idget("DAYLIGHT_SAVING_START_DAY").style.display='none';			
+		}else{
+			idget("DAYLIGHT_SAVING_START_WEEK").style.display='none';
+			idget("DAYLIGHT_SAVING_START_WEEKDAY").style.display='none';
+			idget("DAYLIGHT_SAVING_START_DAY").style.display='';			
+		}
+		if(idget("DAYLIGHT_SAVING_END_TYPE").value=="1"){
+			idget("DAYLIGHT_SAVING_END_WEEK").style.display='';
+			idget("DAYLIGHT_SAVING_END_WEEKDAY").style.display='';
+			idget("DAYLIGHT_SAVING_END_DAY").style.display='none';			
+		}else{
+			idget("DAYLIGHT_SAVING_END_WEEK").style.display='none';
+			idget("DAYLIGHT_SAVING_END_WEEKDAY").style.display='none';
+			idget("DAYLIGHT_SAVING_END_DAY").style.display='';			
+		}
+	}
+	idget("DAYLIGHT_SAVING_START_TYPE").onchange=DayLightLayOut;
+	idget("DAYLIGHT_SAVING_END_TYPE").onchange=DayLightLayOut;
+
+	function GetDateTimeSetting()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		szSystem = szSystem + "&DATE&DAYLIGHT_SAVING_CONFIG" ;
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'DATE_TYPE' :
+					if(szTmp[1]=="1"){
+						idget("DATE_TYPE_2").checked = true;
+					}else{
+						idget("DATE_TYPE_1").checked  = true;
+					}					
+					break;
+				case "DATE_SNTP_IP":
+					idget("DATE_SNTP_IP").value = szTmp[1] ;
+					break;							
+				case 'DATE_SNTP_UPDATE' :
+					idget("DATE_SNTP_UPDATE").value = szTmp[1] ;
+					break ;	
+				case 'DATE_MANUAL_DATE' :
+					idget("DATE_MANUAL_DATE_YY").value = szTmp[1].substr(8,4);
+					idget("DATE_MANUAL_DATE_MM").value = szTmp[1].substr(0,2);
+					idget("DATE_MANUAL_DATE_DD").value = szTmp[1].substr(2,2);
+					break ;	
+				case 'DATE_MANUAL_TIME' :
+					idget("DATE_MANUAL_TIME_HH").value = szTmp[1].substr(0,2);
+					idget("DATE_MANUAL_TIME_MM").value = szTmp[1].substr(3,2);
+					idget("DATE_MANUAL_TIME_SS").value = szTmp[1].substr(6,2);
+					break ;	
+				case 'DATE_MANUAL_ZONE' :
+					idget("DATE_MANUAL_ZONE").value = szTmp[1] ;
+					break ;	
+				case 'DAYLIGHT_SAVING_CONFIG' :	
+					szConfig = szTmp[1].split(',') ;
+					//==== Enable/Disable		
+					j = 0 ;					
+					if (szConfig[j] == 0) 
+						idget("DAYLIGHT_SAVING_CONFIG").checked = false ;
+					else 
+						idget("DAYLIGHT_SAVING_CONFIG").checked = true ;
+					//==== Start Type	
+					j++;
+					idget("DAYLIGHT_SAVING_START_TYPE").value = szConfig[j] ;
+					//==== Start Month
+					j++;
+					idget("DAYLIGHT_SAVING_START_MM").value = szConfig[j] ;
+
+					//==== Start Week or Month Day
+					j++;
+					
+					if ( idget("DAYLIGHT_SAVING_START_TYPE").value == 1) {
+						idget("DAYLIGHT_SAVING_START_WEEK").value = szConfig[j] ;
+					}else {
+						idget("DAYLIGHT_SAVING_START_DAY").value = szConfig[j] ;
+					}
+					
+					//==== Start Hour
+					j++;
+					
+					tmp = szConfig[j].split(':') ;					
+					if(tmp[0].length == 1)
+						szConfig[j] = "0"+szConfig[j];
+					
+					idget("DAYLIGHT_SAVING_START_TIME").value = szConfig[j] ;
+					//==== Start Week or N/A
+					if ( idget("DAYLIGHT_SAVING_START_TYPE").value == 1) {
+						j++;
+						idget("DAYLIGHT_SAVING_START_WEEKDAY").value = szConfig[j] ;
+					}
+					
+					//==== End Type
+					j++;
+					idget("DAYLIGHT_SAVING_END_TYPE").value = szConfig[j] ;
+					//==== End Month
+					j++;
+					idget("DAYLIGHT_SAVING_END_MM").value = szConfig[j] ;
+					
+					//==== End Week or Month Day
+					j++;
+					if ( idget("DAYLIGHT_SAVING_END_TYPE").value == 1) {
+						idget("DAYLIGHT_SAVING_END_WEEK").value = szConfig[j] ;
+					}else {
+						idget("DAYLIGHT_SAVING_END_DAY").value = szConfig[j] ;
+					}
+						//==== End Hour
+					j++;
+					tmp = szConfig[j].split(':') ;					
+					if(tmp[0].length == 1)
+						szConfig[j] = "0"+szConfig[j];
+					idget("DAYLIGHT_SAVING_END_TIME").value = szConfig[j] ;
+                
+					//==== End Week or N/A
+					j++;
+					if ( idget("DAYLIGHT_SAVING_END_TYPE").value == 1) {
+						idget("DAYLIGHT_SAVING_END_WEEKDAY").value = szConfig[j] ;
+					}                    
+					
+					break ;	
+			}
+		}	
+	
+	}
+
+	
+	function DoDateTimeApply()
+	{
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;		
+		var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		if(idget("DATE_TYPE_2").checked == true){
+			szSystem += "&DATE_CONFIG=1,";	//a
+			szSystem += idget("DATE_MANUAL_DATE_MM").value + idget("DATE_MANUAL_DATE_DD").value + '0000' + idget("DATE_MANUAL_DATE_YY").value + ',';	//b
+			szSystem += idget("DATE_MANUAL_TIME_HH").value + ':' + idget("DATE_MANUAL_TIME_MM").value + ':' + idget("DATE_MANUAL_TIME_SS").value + ','; //c
+			szSystem += idget("DATE_MANUAL_ZONE").value  ;//d
+			
+		}else{
+			szSystem += "&DATE_CONFIG=2,";	//a
+			szSystem += idget("DATE_SNTP_IP").value + ',';	//b
+			szSystem += idget("DATE_SNTP_UPDATE").value+ ',';//c
+			szSystem += idget("DATE_MANUAL_ZONE").value ;//d			
+			
+		}
+		
+		// DAYLIGHT_SAVING_CONFIG
+		szTmp = '0' ;
+		if (idget("DAYLIGHT_SAVING_CONFIG").checked) szTmp = '1' ;
+		szSystem+="&DAYLIGHT_SAVING_CONFIG=" + szTmp;
+		szSystem+=","+idget("DAYLIGHT_SAVING_START_TYPE").value;
+		if(idget("DAYLIGHT_SAVING_START_TYPE").value==1){
+			szSystem+=","+idget("DAYLIGHT_SAVING_START_MM").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_START_WEEK").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_START_TIME").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_START_WEEKDAY").value;
+		}else{
+			szSystem+=","+idget("DAYLIGHT_SAVING_START_MM").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_START_DAY").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_START_TIME").value;
+		}
+		szSystem+=","+idget("DAYLIGHT_SAVING_END_TYPE").value;
+		if(idget("DAYLIGHT_SAVING_END_TYPE").value==1){
+			szSystem+=","+idget("DAYLIGHT_SAVING_END_MM").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_END_WEEK").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_END_TIME").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_END_WEEKDAY").value;
+		}else{
+			szSystem+=","+idget("DAYLIGHT_SAVING_END_MM").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_END_DAY").value;
+			szSystem+=","+idget("DAYLIGHT_SAVING_END_TIME").value;
+		}
+		
+		var szReturn = doRequest(szSystem) ;
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetDateTimeSetting();
+	}
+	
+	function update_language()
+	{
+		top.update_language(this);
+		try { idget("SELECT_DATE_TIME_TYPE1_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_TYPE1") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_TYPE2_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_TYPE2") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_JAN_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_JAN") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_FEB_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_FEB") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_MAR_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_MAR") ; } catch(e) {}		
+		try { idget("SELECT_DATE_TIME_APR_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_APR") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_MAY_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_MAY") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_JUN_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_JUN") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_JUL_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_JUL") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_AUG_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_AUG") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_SEP_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_SEP") ; } catch(e) {}		
+		try { idget("SELECT_DATE_TIME_OCT_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_OCT") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_NOV_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_NOV") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_DEC_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_DEC") ; } catch(e) {}
+		
+		try { idget("SELECT_DATE_TIME_FIRST_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_FIRST") ; } catch(e) {}		
+		try { idget("SELECT_DATE_TIME_SECOND_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_SECOND") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_THIRD_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_THIRD") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_LAST_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_LAST") ; } catch(e) {}
+		
+		try { idget("SELECT_DATE_TIME_MON_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_MON") ; } catch(e) {}		
+		try { idget("SELECT_DATE_TIME_TUE_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_TUE") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_WED_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_WED") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_THU_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_THU") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_FRI_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_FRI") ; } catch(e) {}		
+		try { idget("SELECT_DATE_TIME_SAT_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_SAT") ; } catch(e) {}
+		try { idget("SELECT_DATE_TIME_SUN_2").text = top.GetXmlLangTagByName("SELECT_DATE_TIME_SUN") ; } catch(e) {}
+		
+	}
+	
+	function Page_onLoad()
+	{
+		update_language();
+		GetDateTimeSetting();
+		DayLightLayOut();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

@@ -1,0 +1,164 @@
+﻿<html>
+
+<head>   
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+  
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_DNS">DNS</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" >
+								<label id="SETTING_DNS_PRIMARY_DNS_SERVER" >
+							</td>
+							<td align="left" width="50%">								
+									<input type="text" id="DNS_PRIMARY_1" size="4" maxlength="3" />.
+									<input type="text" id="DNS_PRIMARY_2" size="4" maxlength="3" />.
+									<input type="text" id="DNS_PRIMARY_3" size="4" maxlength="3" />.
+									<input type="text" id="DNS_PRIMARY_4" size="4" maxlength="3" />
+								
+							</td>
+						</tr>
+						<tr>
+							<td align="right" >
+								<label id="SETTING_DNS_SECONDARY_DNS_SERVER" >
+							</td>
+							<td align="left" width="50%">								
+									<input type="text" id="DNS_SECONDARY_1" size="4" maxlength="3" />.
+									<input type="text" id="DNS_SECONDARY_2" size="4" maxlength="3" />.
+									<input type="text" id="DNS_SECONDARY_3" size="4" maxlength="3" />.
+									<input type="text" id="DNS_SECONDARY_4" size="4" maxlength="3" />								
+							</td>
+						</tr>
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoDNSApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetDNSSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+<div  class="setup_bg">
+	
+</div>	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+
+	function DoDNSApply()
+	{
+		
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;			
+		
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		if(idget("DNS_PRIMARY_1").value!="" || idget("DNS_PRIMARY_2").value!="" || idget("DNS_PRIMARY_3").value!="" || idget("DNS_PRIMARY_4").value!=""){
+			szSystem = szSystem + "DNS_PRIMARY=" + idget("DNS_PRIMARY_1").value ;
+			szSystem = szSystem + "." + idget("DNS_PRIMARY_2").value ;
+			szSystem = szSystem + "." + idget("DNS_PRIMARY_3").value ;
+			szSystem = szSystem + "." + idget("DNS_PRIMARY_4").value;
+		}else{
+			szSystem = szSystem + "DNS_PRIMARY=";
+		}
+		
+		if(idget("DNS_SECONDARY_1").value!="" || idget("DNS_SECONDARY_2").value!="" || idget("DNS_SECONDARY_3").value!="" || idget("DNS_SECONDARY_4").value!=""){
+			szSystem = szSystem + "&DNS_SECONDARY=" + idget("DNS_SECONDARY_1").value ;
+			szSystem = szSystem + "." + idget("DNS_SECONDARY_2").value ;
+			szSystem = szSystem + "." + idget("DNS_SECONDARY_3").value ;
+			szSystem = szSystem + "." + idget("DNS_SECONDARY_4").value ;
+        }else{
+			szSystem = szSystem + "&DNS_SECONDARY=";
+		}
+		        
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetDNSSettings();
+	}
+	
+	function GetDNSSettings()
+	{
+		var i;
+		for(i=1; i<5; i++){
+			idget("DNS_PRIMARY_"+i).value="";
+			idget("DNS_SECONDARY_"+i).value="";
+		}
+		
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+        szSystem = szSystem + "DNS" ;
+        var szReturn = doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'DNS_PRIMARY' :
+                		if(szTmp[1]=="")break;
+                    szDNS_PRIMARY = szTmp[1].split('.');
+                    try {
+                        idget("DNS_PRIMARY_1").value = szDNS_PRIMARY[0] ;
+                        idget("DNS_PRIMARY_2").value = szDNS_PRIMARY[1] ;
+                        idget("DNS_PRIMARY_3").value = szDNS_PRIMARY[2] ;
+                        idget("DNS_PRIMARY_4").value = szDNS_PRIMARY[3] ;
+                    } catch(e) {}
+                    break;
+                case 'DNS_SECONDARY' :
+                		if(szTmp[1]=="")break;
+                    szDNS_SECONDARY = szTmp[1].split('.');
+                    try {
+                        idget("DNS_SECONDARY_1").value = szDNS_SECONDARY[0] ;
+                        idget("DNS_SECONDARY_2").value = szDNS_SECONDARY[1] ;
+                        idget("DNS_SECONDARY_3").value = szDNS_SECONDARY[2] ;
+                        idget("DNS_SECONDARY_4").value = szDNS_SECONDARY[3] ;
+                    } catch(e) {}
+                    break ;
+            }
+        }
+
+		
+	}
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		GetDNSSettings();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

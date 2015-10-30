@@ -1,0 +1,416 @@
+
+<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" border="0">
+		<tr>
+			<td class="setup_item" colspan="2"  >
+				<label id="SETTING_8021x">IEEE 802.1X*</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<input type="checkbox" value="1" id="8021X_ENABLED"  style="margin-left:20px" onclick="change_status()">
+					<label id="SETTING_8021x_ENABLED">Enabled</label>	
+				</td>
+			</tr>
+			<tr id="8021X_SETTINGS">
+				<td colspan="2" align="right">
+					<table width="90%" border="0">
+						<tr>
+							<td width="40%" align="left">
+								<label id="SETTING_8021x_EAPOL_VERSION">EAPOL Version</label>
+							</td>
+							<td>
+								<input type="radio" id="8021X_V1" CHECKED name="Version"><label>V1</label><input type="radio" id="8021X_V2" name="Version"/><label>V2</label>
+							</td>
+						</tr>	
+							<tr>
+								<td>
+									<label id="SETTING_8021x_USERNAME">User Name</label>
+								</td>
+								<td>
+									<input type="text" id="UserName" maxlength="16" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label id="SETTING_8021x_PASSWORD">User Password</label>
+								</td>
+								<td>
+									<input type="password" id="UserPwd" maxlength="16" />
+								</td>
+							</tr>									
+							<tr>
+								<td>
+									<label id="SETTING_8021x_CA_CERTIFICATE">CA Certificate</label>
+								</td>
+								<td >																															
+										<input type="text" id="CA_CER_NAME" maxlength="16" value=""  style="display:none" />
+										<input class="button2" type="button" id="BUTTON_CA_CER_UPLOAD" value="Upload" style="width:80px" onclick="UPLOAD('CA_CER')">
+										<input class="button2" type="button" id="BUTTON_CA_CER_REMOVE" value="Remove" style="width:80px;display:none" onclick="REMOVE('CA_CER')">
+								</td>
+							</tr>									
+							<tr>
+								<td>
+									<label id="SETTING_8021x_USER_CERTIFICATE">User Certificate</label>
+								</td>
+								<td>																					
+									<input type="text" id="USER_CER_NAME" maxlength="16" value=""  style="display:none" />
+									<input class="button2" type="button" id="BUTTON_USER_CER_UPLOAD" value="Upload" style="width:80px" onclick="UPLOAD('USER_CER')">
+									<input class="button2" type="button" id="BUTTON_USER_CER_REMOVE" value="Remove" style="width:80px;display:none" onclick="REMOVE('USER_CER')">											
+								</td>
+							</tr>	
+							
+							<tr>
+								<td>
+									<label id="SETTING_8021x_USER_PRIVATE_KEY">User Private Key</label>
+								</td>
+								<td>											
+							
+									<input type="text" id="USER_KEY" maxlength="16" value=""  style="display:none" />
+									<input class="button2" type="button" id="BUTTON_USER_KEY_UPLOAD" value="Upload" style="width:80px" onclick="UPLOAD('USER_KEY')">
+									<input class="button2" type="button" id="BUTTON_USER_KEY_REMOVE" value="Remove" style="width:80px;display:none" onclick="REMOVE('USER_KEY')">											
+								</td>
+							</tr>															
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="padding-top:15px;"><label id="COMMON_MSG_NEED_SAVE_REBOOT">* New settings will only take effect after [Save & Reboot] </label></div>
+				</td>
+			</tr>
+			<tr>
+				<td  colspan="2">
+					<p>&nbsp;</p>
+				</td>
+			</tr>				
+
+
+			<tr>
+				<td align="right">
+					<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="doApply()" />&nbsp;&nbsp;&nbsp; 
+				</td>
+				<td align="left">
+					&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+				</td> 
+			</tr>												
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>							
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+	<div id="network8021x" style="position:absolute;top:0px;left:0px; width:755px;height:100%;display:none" >			
+			<iframe width="100%" height="100%"  id="install_page" frameborder="0" scrolling="no"></iframe>		
+	</div>	
+	<table>
+		<div id="divError" style="display:none">
+			<label id="SETTING_8021x_USERNAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_8021x_PASSWORD_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_8021x_MISS_CERTIFICATE"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_8021x_MISS_KEY"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_LOGIN_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_LOGIN_PWD_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+		</div>	
+	</table>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var err_msg1 = "Please input the user name.";
+	var err_msg2 = "Please input the user password.";
+	var err_msg3 = "Error. Missing ceritifcates."
+	var err_msg4 = "Error. Missing Privacy Key."
+
+	function change_status()
+	{
+		if(idget("8021X_ENABLED").checked == true)		
+			idget("8021X_SETTINGS").style.display = "";
+		else	
+			idget("8021X_SETTINGS").style.display = "none";		
+	}
+	
+	function Close()
+	{
+		idget("network8021x").style.display="none";
+	}
+	
+	function UPLOAD(type)
+	{		
+		idget("network8021x").style.display="";			
+		switch ( type ) {
+			case 'CA_CER' :				
+				idget("install_page").src = 'setup_network_8021x_ca_cer_install.html';																				
+				break;
+				
+			case 'USER_CER' :
+				idget("install_page").src = 'setup_network_8021x_user_cer_install.html';														
+				break;
+				
+			case 'USER_KEY' :
+				idget("install_page").src = 'setup_network_8021x_user_key_install.html';										
+				break;
+
+		}		
+		
+	}
+	
+	function REMOVE(type)
+	{
+		var szSystem ;
+		switch ( type ) {
+			case 'CA_CER':
+				szSystem = "/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&8021X_CA=remove";			
+				idget("CA_CER_NAME").value = "";
+				break
+			case 'USER_CER':
+				szSystem = "/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&8021X_USERCA=remove";			
+				idget("USER_CER_NAME").value = "";
+				break;
+			case 'USER_KEY':
+				szSystem = "/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&8021X_USERKEY=remove";			
+				idget("USER_KEY").value = "";
+				break;
+			
+		}					
+		var szReturn = doRequest(szSystem) ;	
+		GetCAState();		
+		
+	}
+	
+	function Get8021XState()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;        
+        szSystem = szSystem + "8021X" ;
+        var szReturn = top.doRequest(szSystem) ;
+		
+        szReturn = szReturn.split('\n') ;				
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case '8021X' :
+					var argv=szTmp[1].split(',');
+					if(argv[0] == "1")					
+						idget("8021X_ENABLED").checked = true;										
+					else
+						idget("8021X_ENABLED").checked = false;	
+					change_status();
+					
+					if(argv[1] == "1")  
+						idget("8021X_V1").checked = true;
+					else	
+						idget("8021X_V2").checked = true;
+					idget("UserName").value = argv[2];
+					idget("UserPwd").value = argv[3];
+					
+                    break;                
+            }
+        }	
+	}
+
+	function GetCAState()
+	{
+		var szUpdate = "/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;        
+        szUpdate = szUpdate + "8021X_CA&" ;		
+        var szReturn = top.doRequest(szUpdate) ;
+		
+        szReturn = szReturn.split('\n') ;				
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;            
+            switch ( szTmp[0] ) {
+                case '8021X_CA' :
+					if(szTmp[1] == 'none')
+					{
+//						idget("URL_CA_CER_IMAGE").style.display = "";
+						idget("CA_CER_NAME").style.display = "none";
+						idget("BUTTON_CA_CER_REMOVE").style.display = "none";						
+						idget("BUTTON_CA_CER_UPLOAD").style.display = "";						
+					}
+					else
+					{
+//						idget("URL_CA_CER_IMAGE").style.display = "none";
+						idget("BUTTON_CA_CER_UPLOAD").style.display = "none";						
+						idget("CA_CER_NAME").style.display = "";
+						idget("BUTTON_CA_CER_REMOVE").style.display = "";						
+						idget("CA_CER_NAME").value = szTmp[1];
+					}
+					
+                    break;
+                
+            }
+        }
+		
+		var szUpdate = "/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;        
+        szUpdate = szUpdate + "8021X_USERCA&" ;
+				
+        var szReturn = top.doRequest(szUpdate) ;
+		
+        szReturn = szReturn.split('\n') ;				
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;            
+            switch ( szTmp[0] ) {
+                case '8021X_USERCA' :
+					if(szTmp[1] == 'none')
+					{
+						//idget("URL_USER_CER_IMAGE").style.display = "";
+						idget("USER_CER_NAME").style.display = "none";
+						idget("BUTTON_USER_CER_REMOVE").style.display = "none";
+						idget("BUTTON_USER_CER_UPLOAD").style.display = "";						
+					}
+					else
+					{
+						//idget("URL_USER_CER_IMAGE").style.display = "none";
+						idget("BUTTON_USER_CER_UPLOAD").style.display = "none";
+						idget("USER_CER_NAME").style.display = "";
+						idget("BUTTON_USER_CER_REMOVE").style.display = "";	
+						idget("USER_CER_NAME").value = szTmp[1];
+					}
+					
+                    break;
+                
+            }
+        }		
+
+		var szUpdate = "/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;        
+        szUpdate = szUpdate + "8021X_USERKEY&" ;
+				
+        var szReturn = top.doRequest(szUpdate) ;
+		
+        szReturn = szReturn.split('\n') ;				
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;            
+            switch ( szTmp[0] ) {
+                case '8021X_USERKEY' :
+					if(szTmp[1] == 'none')
+					{
+						//idget("URL_USER_KEY_IMAGE").style.display = "";
+						idget("USER_KEY").style.display = "none";
+						idget("BUTTON_USER_KEY_REMOVE").style.display = "none";						
+						idget("BUTTON_USER_KEY_UPLOAD").style.display = "";
+					}
+					else
+					{
+						//idget("URL_USER_KEY_IMAGE").style.display = "none";
+						idget("BUTTON_USER_KEY_UPLOAD").style.display = "none";
+						idget("USER_KEY").style.display = "";
+						idget("BUTTON_USER_KEY_REMOVE").style.display = "";	
+						idget("USER_KEY").value = szTmp[1];
+						
+					}
+					
+                    break;
+                
+            }
+        }		
+		
+		
+	}
+
+	
+    function doGetSetting() {
+		Get8021XState();
+		GetCAState();        
+    }
+
+
+	function InputValueCheck()
+	{
+		if(top.LoginNameCheck(idget("UserName").value) == false)
+		{
+			alert(top.login_name_err0);
+			idget("UserName").value = "";
+			return false;
+		}
+		if(top.PasswordCheck(idget("UserPwd").value) == false)
+		{
+			alert(top.pwd_err0);
+			idget("UserPwd").value = "";
+			return false;
+		}		
+	
+		if( idget("8021X_ENABLED").checked == true )
+		{		
+			if(idget("CA_CER_NAME").value =="" || idget("USER_CER_NAME").value =="")
+			{
+				alert(err_msg3);
+				return false;
+			
+			}	
+			if(idget("USER_KEY").value =="" )	
+			{
+				alert(err_msg4);
+				return false;			
+			}	
+		}
+		return true;
+	}
+	
+	function doApply()
+	{
+
+		if(InputValueCheck() == false )
+			return;
+			
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;		
+	
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&8021X=";
+		idget("8021X_ENABLED").checked == true ? szSystem += "1,": szSystem += "0,";
+		
+		if(idget("8021X_V1").checked == true)
+			szSystem +="1,";
+		else	
+			szSystem +="2,";
+		szSystem +=	idget("UserName").value + ",";
+		szSystem +=	idget("UserPwd").value;
+		var szReturn = doRequest(szSystem) ;
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		Get8021XState();
+	
+	}
+	
+	function network_8021x_update_langauge()
+	{
+		try { BUTTON_CA_CER_UPLOAD.value = top.GetXmlLangTagByName("BUTTON_UPLOAD"); } catch(e) {}
+		try { BUTTON_USER_CER_UPLOAD.value = top.GetXmlLangTagByName("BUTTON_UPLOAD"); } catch(e) {}
+		try { BUTTON_USER_KEY_UPLOAD.value = top.GetXmlLangTagByName("BUTTON_UPLOAD"); } catch(e) {}
+		try { BUTTON_CA_CER_REMOVE.value = top.GetXmlLangTagByName("BUTTON_REMOVE"); } catch(e) {}
+		try { BUTTON_USER_CER_REMOVE.value = top.GetXmlLangTagByName("BUTTON_REMOVE"); } catch(e) {}
+		try { BUTTON_USER_KEY_REMOVE.value = top.GetXmlLangTagByName("BUTTON_REMOVE"); } catch(e) {}
+		try { err_msg1 = top.GetXmlLangTagByName("SETTING_8021x_USERNAME_ERR") ; } catch(e) {}
+		try { err_msg2 = top.GetXmlLangTagByName("SETTING_8021x_PASSWORD_ERR") ; } catch(e) {}
+		try { err_msg3 = top.GetXmlLangTagByName("SETTING_8021x_MISS_CERTIFICATE") ; } catch(e) {}
+		try { err_msg4 = top.GetXmlLangTagByName("SETTING_8021x_MISS_KEY") ; } catch(e) {}
+		top.update_language(this);
+	}
+	
+	function Page_onLoad()
+	{
+		network_8021x_update_langauge();
+		doGetSetting();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

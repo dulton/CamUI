@@ -1,0 +1,377 @@
+﻿
+<html>
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="/js/selectColor.js"></script>
+</head>
+
+<body id="body_osdpm" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onUnload="PMASKPageUnLoad()" >	
+	<table width="95%" cellspacing="0" cellpadding="1" border="0" style="margin-top:5px;margin-left:auto;margin-right:auto">
+		<tr>
+			<td width="20%" align="left">
+				<label id="GOTO_PRIVACY_MASK">Go to Privacy Mask</label>
+			</td>
+			<td  width="7%" align="left">
+				<select id="GoPMask"></select>				
+			</td>
+			<td width="73%" align="left">
+				<!--<input name="BUTTON_GO" class="button2" type="button" id="BUTTON_GO" value="Go" onclick="Go_Privacy_Mask()" />&nbsp;&nbsp;&nbsp; -->
+				<input id="SETTING_PTZ_PRESET_GOTO" name="SETTING_PTZ_PRESET_GOTO" type="button" value="Go" onclick="Go_Privacy_Mask()">
+			</td>
+		</tr>
+		<tr>
+			<td width="20%" align="left">
+				<label id="TARGET_PRIVACY_MASK">Target Privacy Mask</label>
+			</td>
+			<td colspan="2" width="80%" align="left">
+				<select id="SET_TargetPMask" onchange="Checked_PM_Enabled()">
+					<option value="1">1</option>								
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>								
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>								
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>								
+					<option value="32">32</option>
+				</select>
+			</td>
+		</tr>	
+		<tr>
+			<td  colspan="3">
+				<label id="SETTING_VIDEO_PRIVACE_MASK_WARN" style="display:">(Don't overlap privacy mask regions)</label>
+			</td>	
+		</tr>
+	</table>	
+	<table width="95%" cellspacing="0" cellpadding="1" border="0" style="margin-top:5px;margin-left:auto;margin-right:auto">
+		<tr id="PriMask" style="display:">
+			<td colspan="2" id="PriMask_external" style="display:">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" ><label id="COMMOM_MSG_ENABLED">Enabled</label></th>
+						<!--<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_COLOR_3">Color</label></th>-->						
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_SETUP">Setup</label></th>
+					</tr>
+					<tr>
+						<td align="center"><input type="checkbox" id="ExPriMask_ENABLE"></td>
+						<!--<td align="center" rowspan="4"><div id="ExPM_COLOR"></div></td>	-->				
+						<td align="center"><input type="checkbox" id="PriMask_Setup" onclick="SetupPM()"></td>						
+					</tr>					
+				</table>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+				<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+			</td> 
+		</tr>				
+	</table>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var PMcount = 0;
+	var PMcolor="BLACK";
+	var region = 0;
+	var posX = 0;
+	var posY = 0;
+	var PWidth = 0;
+	var PHeight = 0;
+	var MutipleX = 0;
+	var MutipleY = 0;
+	var ResW = 0;
+	var ResH = 0;
+	var ratio_W;
+	var ratio_H;
+	var Poptions ="";
+	function Go_Privacy_Mask()
+	{
+		var PTZ_PM_CENTRAL_PTZF;
+		PTZ_PM_CENTRAL_PTZF = parent.CameraConf.PTZ_PRIVACY_REGION[idget("GoPMask").value-1].PTZ_PM_CENTRAL_PTZF;
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&PRESET_POSITION="+PTZ_PM_CENTRAL_PTZF ;
+		var szReturn = doRequest(szEncoder) ;
+	}
+	
+	function Checked_PM_Enabled()
+	{
+		var PM_Enable = 0;
+		PM_Enable = parent.CameraConf.PTZ_PRIVACY_REGION[idget("SET_TargetPMask").value-1].PTZ_PM_STATE;
+		if(PM_Enable == 1)
+			idget("ExPriMask_ENABLE").checked = true;
+		else
+			idget("ExPriMask_ENABLE").checked = false;
+	}
+		
+	function SetupPM()
+	{
+		region = idget("SET_TargetPMask").value;
+		parent.idget("oMedia").DisableMousePTZ();
+		parent.StartPriMaskSetup();
+		
+		if(idget("PriMask_Setup").checked == true)
+		{
+			idget("ExPriMask_ENABLE").disabled="";
+			idget("SET_TargetPMask").disabled="disabled";			
+			//parent.idget("oMedia").SetPrivacyMaskSetting(region, 470, 300, 320, 150, 1);	//default	
+			parent.idget("oMedia").SetPrivacyMaskSetting(region, ResW/4*1.5, ResH/4*1.5, ResW/4, ResH/4, 1);	//default
+		}
+		else
+		{
+			idget("SET_TargetPMask").disabled="";
+			idget("ExPriMask_ENABLE").disabled="disabled";
+			//parent.idget("oMedia").SetPrivacyMaskSetting(region, 470, 300, 320, 150, 0);	//default	
+			parent.idget("oMedia").SetPrivacyMaskSetting(region, ResW/4*1.5, ResH/4*1.5, ResW/4, ResH/4, 0);	//default
+			parent.StopPriMaskSetup();
+			parent.idget("oMedia").EnableMousePTZ();
+		}	
+	} 
+
+	function PriMaskInit()
+	{
+		var i
+		for(i=1;i<=32;i++)
+			//parent.idget("oMedia").SetPrivacyMaskSetting(i, 470, 300, 320, 150, 0);
+			parent.idget("oMedia").SetPrivacyMaskSetting(i, ResW/4*1.5, ResH/4*1.5, ResW/4, ResH/4, 0);	//default
+	}	
+	
+	function doReGetSettings()
+	{
+		//DrawPMOsdColor();
+		doGetSettings();		
+	}
+	
+	function DrawPMOsdColor()
+	{
+		var HTML='';				
+		var i = 1;		
+		
+		//if((top.gIspGeneration == "C05") || (top.gIspGeneration == "C03"))
+		if(top.gIspGeneration != "A1_ISP")
+		{			
+			//HTML += '<select id="Region_PM_Color" style="width:100px;font-weight:bold" onchange="this.style.backgroundColor=\'#\'+this.options[this.selectedIndex].value;this.blur();">';
+			HTML += '<select class="selectColor" id="Region_PM_Color" style="width:100px;font-weight:bold" onchange=ColorChange(this)>';
+			HTML += '<option value="ffffff" class="opt_white" name="opt_white"></option>';
+			HTML += '<option value="000000" class="opt_black" name="opt_black"></option>';
+			HTML += '<option value="ff0000" class="opt_red" name="opt_red"></option>';
+			HTML += '<option value="00ff00" class="opt_green" name="opt_green"></option>';
+			HTML += '<option value="0000ff" class="opt_blue" name="opt_blue"></option>';
+			
+			HTML += '</select>';			
+			idget("ExPM_COLOR").innerHTML= HTML;
+			HTML = '';				
+		}					
+	}
+	
+	function ColorChange(Selobj)
+	{	
+		Selobj.style.backgroundColor='#'+Selobj.options[Selobj.selectedIndex].value;		
+		Selobj.blur();
+		switch(Selobj.options[Selobj.selectedIndex].value)
+		{
+			case "ffffff":
+				PMcolor = "WHITE";
+				break;
+			case "000000":
+				PMcolor = "BLACK";
+				break;
+			case "ff0000":
+				PMcolor = "RED";
+				break;
+			case "00ff00":
+				PMcolor = "GREEN";
+				break;
+			case "0000ff":
+				PMcolor = "BLUE";
+				break;
+		}		
+	}
+	
+	function DrawTransparent()
+	{
+		for(i = 1 ; i <=4 ; i++)
+			InsertSelectOptions_Number(idget("Transparent_"+i), 0, 100);
+	}
+	
+	function osd_update_langauge()
+	{
+		top.update_language(this);
+	}
+	
+	function OSDPageUnLoad()
+	{
+		if(top.IsIE()==true)
+			parent.idget("oMedia").DisableMousePTZ();
+		
+		parent.StopPriMaskSetup();		
+		parent.document.getElementById("media_id").disabled = false;
+	}
+	
+	function scale()
+	{
+		ratio_W = ResW/parent.idget("oMedia").width;
+		ratio_H = ResH/(parent.idget("oMedia").height-16);
+		//alert("ratio_W="+ratio_W+","+"ratio_H="+ratio_H);
+		posX = Math.round(parent.pX * ratio_W);
+		posY = Math.round((parent.pY-16) *ratio_H);
+		PWidth = Math.round(parent.pWidth * ratio_W);
+		PHeight = Math.round(parent.pHeight * ratio_H);
+		
+		if((posX+PWidth)>= ResW )		
+			PWidth = PWidth -1;
+		
+		if((posY+PHeight)>= ResH )		
+			PHeight = PHeight -1;	
+		
+	}
+	
+	function DoApply()
+	{
+		if(idget("PriMask_Setup").checked !=true)
+			return;
+			
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&PTZ_PRIVACY_REGIONS=" ;
+		var szReturn ;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;
+		parent.idget("oMedia").GetCurrent3DPrivacyMaskSetting();
+		if(parent.pWidth == 0 )
+		{
+			parent.pID = region;
+			posX = ResW/4*1.5; 
+			posY = ResH/4*1.5; 
+			PWidth = ResW/4; 
+			PHeight = ResH/4;
+		}
+		else{
+			scale(); 
+		}
+		//alert("DoApply nID="+parent.pID +"\n"+"nX="+parent.pX +"\n" +"nY="+parent.pY +"\n" + "nWidth="+parent.pWidth +"\n" +"nHeight="+parent.pHeight);
+		if(idget("ExPriMask_ENABLE").checked !=true)
+		{
+			szEncoder += region+","+0+","+0+","+0+","+PWidth+","+PHeight+","+PMcolor;			
+		}	
+		else
+		{
+			szEncoder += region+","+1+","+posX+","+posY+","+PWidth+","+PHeight+","+PMcolor;
+		}	
+		parent.StopPriMaskSetup();	
+		szReturn = doRequest(szEncoder) ;
+		//alert(szReturn);
+		doReGetSettings();
+		window.setTimeout("top.clean_result(this);", 1000 );	
+		idget("PriMask_Setup").checked = false;
+		parent.idget("oMedia").SetPrivacyMaskSetting(region, parent.pX, parent.pY, parent.pWidth, parent.pHeight, 0);	//default
+		idget("SET_TargetPMask").disabled = "";
+		idget("ExPriMask_ENABLE").disabled="disabled";
+		//parent.StopPriMaskSetup();
+		parent.idget("oMedia").EnableMousePTZ();		
+	}
+	
+	function doGetSettings()
+	{
+		var i;	
+		Poptions = "";		
+		var cmd="/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&PTZ_PRIVACY_REGIONS&VIDEO_RESOLUTION";
+		var szReturn = doRequest(cmd) ;
+		//alert(szReturn);
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+			
+			switch ( szTmp[0] ) 
+			{
+				case 'VIDEO_RESOLUTION' :		
+					szTmp=szTmp[1].substr(1,20);					
+					szTmp=szTmp.split('x');
+					ResW=parseInt(szTmp[0]);
+					ResH=parseInt(szTmp[1]);					
+					break;
+				case 'PTZ_PRIVACY_REGIONS':
+					var TmpID=szTmp[1].split(',');
+					Poptions += TmpID[0]+",";
+					break;
+			}
+		}	
+		if(Poptions==",")
+		{
+			UpdateSelectOptions(idget("GoPMask"), "None");
+			idget("SETTING_PTZ_PRESET_GOTO").style.display = "none";	
+		}	
+		else
+		{
+			Poptions = Poptions.substring(0,Poptions.length-1);
+			UpdateSelectOptions(idget("GoPMask"), Poptions);
+			idget("SETTING_PTZ_PRESET_GOTO").style.display = "";
+		}	
+		parent.GetConfig();
+		$('.selectColor').sSelect({ddMaxHeight : '300px'});			
+	}
+	
+	function PageOnload()
+	{
+		//alert("weith,heigh="+parent.idget("oMedia").width+","+parent.idget("oMedia").height);
+		var PM_Enable = 0;
+		PM_Enable = parent.CameraConf.PTZ_PRIVACY_REGION[0].PTZ_PM_STATE;	
+		if(PM_Enable==1)
+			idget("ExPriMask_ENABLE").checked = true;
+			
+		parent.idget("oMedia").EnableMousePTZ();	
+		parent.idget("oMedia").Start3DPrivacyMaskSetup();
+		
+		idget("ExPriMask_ENABLE").disabled="disabled";
+		//DrawPMOsdColor();	
+		osd_update_langauge();			
+		if(parent.document.getElementById("media_id").value != 1)
+		{
+			parent.document.getElementById("media_id").value = 1;
+			if(top.IsIE()==true)	
+				parent.ECMSetup();					
+		}		
+		parent.document.getElementById("media_id").style.display = "none";				
+		//if(top.IsIE()==true)			
+			//PriMaskInit();	
+			
+		doGetSettings();		
+	}
+	function PMASKPageUnLoad()
+	{
+		if(top.IsIE()==true)
+			parent.idget("oMedia").DisableMousePTZ();
+		parent.StopPriMaskSetup();
+		parent.idget("oMedia").Stop3DPrivacyMaskSetup();
+	}
+	
+	PageOnload();
+</Script>

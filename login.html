@@ -1,0 +1,347 @@
+﻿<html>
+
+<head>
+	<!--[if IE 9]><meta http-equiv="X-UA-Compatible" content="IE=Quirks"></meta><![endif]-->
+	<!--[if IE 8]><meta http-equiv="X-UA-Compatible" content="IE=Quirks;"></meta><![endif]-->
+	<!--[if !IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1;"></meta><![endif]-->
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    <title>Web Configurator</title>
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" >
+<div class=" login_background " style="width:800px; margin-left:auto; margin-right:auto " >
+	<div class="titlebar">	
+		<div  class="banner" >			
+			<!--<div class="logo_img" style=" margin-top:2px; border:1px solid #ff0000;">-->
+			<div class="logo_img">
+				&nbsp;
+			</div>
+		</div>		
+	</div>
+	<div id="functionbar">		
+		
+	</div>
+	
+	<p>&nbsp;</p>
+	<form name="frmLogin">
+		<table  class="setup_table" align="center"   >
+			<tr>
+				<td class="setup_item"  >
+					<label id="LOGIN_USER_LOGIN">Login</label>
+				</td>
+			</tr>		
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>
+			<tr>
+				<td>					
+						<table border="0" align="center">
+							<tr>
+								<td align="right">
+									<label id="LOGIN_ACCOUNT">Account</label>&nbsp;&nbsp;&nbsp; 
+								</td>	
+								<td align="left">
+									<input type="text" id="txt_Account" value="" maxlength="31" size="10"/>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="LOGIN_PASSWORD">Password</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="password" id="txt_Password" value="" maxlength="63" size="10"/>
+								</td>
+							</tr>	
+							<tr>
+								<td align="right">
+										<label id="LOGIN_LANGUAGE">Language</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+	                                <select id="LANGUAGE" onchange="reload_language(this.value);" >
+	                                    <Option value="0" id="SELECT_LANGUAGE_ENGLISH">English</Option>
+	                                    <Option value="1" id="SELECT_LANGUAGE_T_CHINESE">Traditional Chinese</Option>
+	                                    <Option value="2" id="SELECT_LANGUAGE_S_CHINESE">Simplified Chinese</Option>
+										<Option value="3" id="SELECT_LANGUAGE_JAPANESE">Japanese</Option>
+										<Option value="4" id="SELECT_LANGUAGE_SPANISH">Spanish</Option>
+										<Option value="5" id="SELECT_LANGUAGE_ITALIAN">Italian</Option>
+										<Option value="6" id="SELECT_LANGUAGE_GERMAN">German</Option>
+										<Option value="7" id="SELECT_LANGUAGE_PORTUGUESE">Portuguese</Option>
+										<Option value="8" id="SELECT_LANGUAGE_CZECH">Czech</Option>
+										<Option value="9" id="SELECT_LANGUAGE_FRENCH">French</Option>
+										<Option value="11" id="SELECT_LANGUAGE_HUNGARIAN">Hungarian</Option>														
+<!--										<Option value="13" id="SELECT_LANGUAGE_GREEK">Greek</Option>-->
+										<Option value="15" id="SELECT_LANGUAGE_DUTCH">Dutch</Option>
+										<Option value="16" id="SELECT_LANGUAGE_RUSSIAN">Russian</Option>
+<!--										<Option value="17" id="SELECT_LANGUAGE_TURKISH">Turkish</Option>-->
+<!--										<Option value="18" id="SELECT_LANGUAGE_INDONESIAN">Indonesian</Option>-->
+<!--										<Option value="19" id="SELECT_LANGUAGE_SWEDISH">Swedish</Option>-->
+										<Option value="20" id="SELECT_LANGUAGE_POLISH">Polish</Option>
+										<Option value="21" id="SELECT_LANGUAGE_ROMANIAN">Romanian</Option>														
+										<Option value="22" id="SELECT_LANGUAGE_KOREAN">Korean</Option>
+										<Option value="23" id="SELECT_LANGUAGE_THAILAND">Thailand</Option>
+	                                </select>
+								</td>
+							</tr>	
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<input class="button2" type="button" name="BUTTON_LOGIN" id="BUTTON_LOGIN" value="Login" onclick="DoSubmit()"/>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									&nbsp;&nbsp;&nbsp; <input class="button2" type="button" name="BUTTON_RESET" id="BUTTON_RESET" value="Reset"/>
+								</td> 
+							</tr>					
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+						</table>
+					
+				</td>
+			</tr>
+		
+		</table>
+	</form>
+	<p>&nbsp;</p>
+	<div class="bottom_banner">			
+	</div>	
+</div>
+
+<div id="divError" style="display:none">
+	<label id="LOGIN_ERROR">ERROR: bad account/password</label>&nbsp;&nbsp;&nbsp; </br> 
+	<label id="SETTING_LOGIN_NAME_ERR">Rules of login name&#10;
+		1. Only A~Z, a~z, 0~9, @, !, ^, minus sign (-), underscore (_), period (.) and $ are allowed.&#10;
+		2. The first character is allowed to be A~Z, a~z or 0~9 only.</label>&nbsp;&nbsp;&nbsp;</br>
+	<label id="SETTING_LOGIN_PWD_ERR"> Rules of login password&#10;
+        1. Allow 0~9 A~Z a~z&#10;
+        2. Allow special characters ! $ ( ) * + - . ; &lt; = &gt; @ [ ] ^ _ { } | ~ </label>&nbsp;&nbsp;&nbsp;
+</div>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+    
+	var err_msg = "ERROR: bad account/password";
+	idget("LANGUAGE").value = top.gLanguage;
+	
+	function ResetInput(){
+		idget("txt_Account").value="";
+		idget("txt_Password").value="";
+		idget("txt_Account").focus();
+	}
+	idget("BUTTON_RESET").onclick=ResetInput;
+	ResetInput();
+	
+	function DoSubmit()
+	{
+		var szSystem;
+		var szReturn;
+		if(top.LoginNameCheck(idget("txt_Account").value) == false)
+		{
+			alert(top.login_name_err0);
+			idget("txt_Account").value = "";
+			idget("txt_Password").value = "";
+			return;
+		}
+		if(top.PasswordCheck(idget("txt_Password").value) == false)
+		{
+			alert(top.pwd_err0);
+			idget("txt_Password").value = "";
+			return;
+		}		
+
+		szSystem="/cgi-bin/system?";
+		szSystem+="USER="+idget("txt_Account").value;
+		szSystem+="&PWD="+idget("txt_Password").value;
+		szSystem+="&LOGIN";
+		szSystem+="&SYSTEM_INFO";
+		szReturn = doRequest(szSystem) ;
+		szReturn=szReturn.split('\n') ;		
+		var r=szReturn[0].substr(0,5);
+		if(r=="ERROR"){
+			alert(err_msg);
+			ResetInput();
+			return;
+		}else{				
+			r=doSplitValue( szReturn[0] ) ;
+			top.gUserLevel=r[1];
+			top.gAccount=idget("txt_Account").value;
+			top.gPwd=idget("txt_Password").value;			
+			top.load_iframe("/live/live_layout.html");
+		}
+		var i;
+		for(i=0; i<szReturn.length; i++){
+			r=doSplitValue( szReturn[i] ) ;
+			switch(r[0]){
+				case "Serial Port":
+					top.gSerialPorts=parseInt(r[1]);
+					break;
+				case "Audio":
+					top.gAudioType=parseInt(r[1]);
+					break;
+				case "Sensor Board":
+					top.gSensorBoard=r[1].slice(1);
+					break;
+				case "Model Number":
+					top.gModel=r[1].slice(1,8);
+					break;
+				case "DN Control":
+					top.gDNCtrl=r[1].slice(1);						
+					break;		
+				case "DI":
+					top.gDI=r[1].slice(1);						
+					break;
+				case "DO":
+					top.gDO=r[1].slice(1);						
+					break;
+				case "DN Element":
+					top.gDNElement=r[1].slice(1);					
+					break;
+				case "Storage":
+					top.gStorage=r[1].slice(1);	
+					break;						
+				case "ZOOM_CAP":
+					top.gZoom_Capability=r[1].slice(1);
+					break;
+				case "PT_ENABLE":
+					top.gPT_Enable=parseInt(r[1]);
+					break;		
+				case "Unit Type":
+					if(r[1].slice(1)== "Hemispheric Covert Camera")
+						top.gUnitType = 'Hemispheric Camera';
+					else
+						top.gUnitType = r[1].slice(1);	
+					break;
+				case "STREAMING_MODE_CAP":
+					top.gStreamCap = r[1].slice(1);
+					break;	
+				case "ISP_GENERATION":
+					top.gIspGeneration = r[1].slice(1);
+					break;	
+				case "Firmware Version":
+					if((r[1].slice(1).indexOf('AC') > -1))
+						top.gFwType ="AC";
+					else	
+						top.gFwType ="NB";
+					break;	
+				case "HIGH_FRAME_MODE_CAP":
+					top.gHIGH_FRAME_MODE_CAP = r[1].slice(1);
+					if(top.gHIGH_FRAME_MODE_CAP != "None") { 
+						top.gHIGH_FRAME_MODE_CAP = "OFF," +top.gHIGH_FRAME_MODE_CAP;						
+					}	
+					break;
+				case "AUDIO_MIC_OPTIONS":
+					top.gAudioMicOptions  = r[1].slice(1);
+					break;
+				case "AUDIO_IN_LEVEL_OPTION":
+					top.gAudioInLevel = r[1].slice(1);
+					break;	
+				case "MAX_VIDEO_STREAMS":
+					top.gVideoStreams = r[1].slice(1);
+					break;	
+				case "PRIVACY_MASK_TYPE":
+					top.gPMaskType = r[1].slice(1);
+					break;	
+				case "Profile ID":
+					top.gProfileID = r[1].slice(1);
+					break;
+				case "VIDEO_BITRATE_MODE_CAP": 
+					//alert("VIDEO_BITRATE_MODE_CAP="+r[1].slice(1));
+					if(r[1].slice(1).indexOf('CVBR')>-1)
+						top.gCVBR = 1;
+					break;	
+			}
+		}		
+
+		if(top.gUserLevel == 1)
+		{
+			top.gLanguage = idget("LANGUAGE").value ;
+			szSystem="/cgi-bin/system?";
+			szSystem+="USER="+idget("txt_Account").value;
+			szSystem+="&PWD="+idget("txt_Password").value;
+			szSystem+="&LANGUAGE=" + idget("LANGUAGE").value;
+			szReturn = doRequest(szSystem) ;
+		}		
+
+	}
+
+
+
+	
+	function reload_language(x)
+	{
+		top.LoadLangXml(x);
+		top.update_language(this);
+		try { err_msg = top.GetXmlLangTagByName("LOGIN_ERROR") ; } catch(e) {}
+	}
+		
+	function chkKey(e) {
+		var keynum;
+		//alert(window.event.keyCode);
+		if(window.event){ // IE
+			keynum = window.event.keyCode;
+		}else if(e.which){ // Netscape/Firefox/Opera
+			keynum = e.which;
+		}
+		
+		switch (keynum){
+			case 13:
+				DoSubmit();
+			break;
+			case 33:
+				idget("txt_Account").value="admin";
+				idget("txt_Password").value="123456";
+				DoSubmit();
+			break;
+			case 34:
+				top.load_iframe('/setup/setup_layout.html');
+			break;
+		}
+	}
+	
+	function CheckCookie(){
+		var username=getCookie('User');
+		if (username!=null && username!=""){
+			var password=getCookie('Pwd');
+			if(username!="(null)"){
+				idget("txt_Account").value=username;
+				idget("txt_Password").value=password;
+				setCookie("User", "", 1);
+				setCookie("Pwd", "", 1);
+				DoSubmit();
+			}
+		}else{
+			setCookie("User", "", 1);
+			setCookie("Pwd", "", 1);
+		}
+		
+	}
+	CheckCookie();	
+	
+	
+	function Page_onLoad()
+	{	
+		top.isEdge();
+		setTimeout(function(){top.update_language(this); }, 50);		
+		try { top.login_name_err0 = top.GetXmlLangTagByName("SETTING_LOGIN_NAME_ERR") ; } catch(e) {}
+		try { top.pppoe_login_name_err0 = top.GetXmlLangTagByName("SETTING_PPPOE_NAME_ERR") ; } catch(e) {}
+		try { top.pwd_err0 = top.GetXmlLangTagByName("SETTING_LOGIN_PWD_ERR") ; } catch(e) {}
+		try { err_msg = top.GetXmlLangTagByName("LOGIN_ERROR") ; } catch(e) {}
+				
+		idget("LANGUAGE").value = top.gLanguage;
+		document.onkeydown=chkKey;	
+	}
+	
+	Page_onLoad();
+	
+</Script>

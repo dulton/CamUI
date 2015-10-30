@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Format of the Text Overlay</title>
+
+<link rel="stylesheet" type="text/css" href='../css/style.css'>
+<link rel="stylesheet" type="text/css" href='../css/default.css'>
+</head>
+
+<body>
+
+<h3 align="left">Format of the Text Overlay</h3>
+<blockquote align="left">
+    <p>
+        <table border="1" cellpadding="5" width="600" class="mdi_content">
+            <tr>
+                <th scope="col">Setting Method</th>
+                <th scope="col">Description</th>
+            </tr>
+            <tr>
+                <td align="center">%YYYY</td>
+                <td align="left">Year in four digits. For example, 2008</td>
+            </tr>
+            <tr>
+                <td align="center">%YY</td>
+                <td align="left">Year in two digits. For example, 08</td>
+            </tr>
+            <tr>
+                <td align="center">%MM</td>
+                <td align="left">Month in two digits. For example, 01 for January, 12 for December</td>
+            </tr>
+            <tr>
+                <td align="center">%DD</td>
+                <td align="left">date in two digits. 01~31</td>
+            </tr>
+            <tr>
+                <td align="center">%hh</td>
+                <td align="left">hour in two digit. 00~23. Note that, we just support 24-hour indication.</td>
+            </tr>
+            <tr>
+                <td align="center">%mm</td>
+                <td align="left">minutes in two digits. 00~59</td>
+            </tr>
+            <tr>
+                <td align="center">%ss</td>
+                <td align="left">seconds in two digits. 00~59</td>
+            </tr>
+            <tr>
+                <td align="center">%H</td>
+                <td align="left">a hyphen, "-"</td>
+            </tr>
+            <tr>
+                <td align="center">%C</td>
+                <td align="left">a colon, ":"</td>
+            </tr>
+            <tr>
+                <td align="center">%X</td>
+                <td align="left">a slash, "/"</td>
+            </tr>
+            <tr>
+                <td align="center">%N</td>
+                <td align="left">show Camera Name (It might be truncated if maximum OSD length reaches)</td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Examples</h3>
+<blockquote align="left">
+    <ul><li>Show date/time yyyy/mm/dd hh-mm-ss on the video</li></ul>
+    <blockquote align="left">
+        <p>
+            Format of text overlay is %YYYY/%MM/%DD %hh-%mm-%ss or %YYYY%X%MM%X%DD %hh%H%mm%H%ss.
+        </p>
+    </blockquote>
+  
+    <ul><li>Show camera name with pre-defined texts on the video</li></ul>
+    <blockquote align="left">
+        <p>
+            Assume the camera name is MyCamera and the expected texts on the video image is MyCamera-ABCD123<br>
+            Format of text overlay is %N-ABCD123 or %N%HABCD123
+        </p>
+    </blockquote>
+</blockquote>
+<div style="width:100%;text-align:center">
+<input type="button" class="button2" id="BUTTON_BUTTON_CLOSE" value="Close" onclick="window.close();"/>
+</div>
+</body>
+</html>

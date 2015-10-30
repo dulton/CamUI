@@ -1,0 +1,119 @@
+﻿<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_FACTORY_DEFAULT">Factory Default</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="70%">
+						<tr>
+							<td align="left" colspan="2">
+								<input type="radio" name="preserve_value" id="preserve_except" value="1" checked>
+                                <label id="SETTING_FACTORY_DEFAULT_CONFIG">Preserve network setting and HTTP/HTTPS port.</label>								
+                            </td>
+						</tr>
+						<tr>
+							<td align="left" colspan="2">
+								<input type="radio" name="preserve_value" id="preserve_all" value="0">
+                                <label id="SETTING_ALL_FACTORY_DEFAULT_CONFIG">Reset parameters to the original factory settings.</label>								
+                            </td>
+                       </tr>                       			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td colspan="2" align="center">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoFactoryD4()" />
+							
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+
+	function DoFactoryD4()
+	{
+		var alert_str_d = '', alert_str = '' ;
+		alert_str_d = alert_str_d + 'This will restore all server setting to their default value and reboot.\n\n' ;
+		alert_str_d = alert_str_d + 'Are you sure you want to continue?' ;
+		
+		try { alert_str = top.GetXmlLangTagByName("SETTING_FACTORY_DEFAULT_ALERT") ; } catch(e) {alert_str = alert_str_d ;}
+		
+		if(!confirm(alert_str)){
+			return false;
+		}
+		
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;	
+		
+    var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+		if(document.getElementById('preserve_except').checked==true){
+			szSystem += "CONFIG_RESET" ;		//保留WAN&HTTP設定
+		}
+		else{
+			szSystem += "FACTORY_DEFAULT" ;
+		}
+		
+        var szReturn = doRequest(szSystem) ;        
+		
+		window.setTimeout("top.clean_result(this);", 2000 );		
+		CountDown();
+		
+	}
+	var nCount = 1 ;
+    function CountDown() {
+        nCount-- ;
+        
+        if ( nCount == 0) {
+			window.open("","_self");
+			top.opener=null;
+			top.close();
+        }
+        else {
+            window.setTimeout("CountDown();", 1000);
+        }
+    }	
+		
+	function Page_onLoad()
+	{
+		top.update_language(this);			
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

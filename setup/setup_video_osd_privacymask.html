@@ -1,0 +1,971 @@
+﻿
+<html>
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="/js/selectColor.js"></script>
+</head>
+
+<body id="body_osdpm" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onUnload="OSDPageUnLoad()" >	
+	<table width="95%" cellspacing="0" cellpadding="0" border="0" style="margin-top:5px;margin-left:auto;margin-right:auto">
+		<tr id="Option_OSD/PriMask" height="30px">
+			<td colspan="2">
+				
+				<select id="select_type"  onchange="changeType();" >
+					<option value="OSD" selected id="SELECT_OSD_TYPE_OSD">OSD</option>
+					<option value="PM" id="SELECT_OSD_TYPE_PRIVACY_MASK">Privacy Mask</option>
+				</select>
+				<label id="SETTING_VIDEO_PRIVACE_MASK_WARN" style="display:none">(Don't overlap privacy mask regions)</label>
+			</td>
+		</tr>
+		<tr id="TR_Stream" style="display:none">
+			<td align="left">
+				<select id="stream_id" onchange="stream_change()">
+					<option id="SETTING_MEDIA_1" value="1">Stream-1</option>
+					<option id="SETTING_MEDIA_2" value="2">Stream-2</option>
+				<select>
+			<td>
+		</tr>	
+		<tr id="OSD">
+			<td colspan="2">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" width="10%"><label id="SETTING_VIDEO_PRIVACE_MASK_OSD_REGION">Region</label></th>
+						<th align="center" width="10%"><label id="COMMOM_MSG_ENABLED">Enabled</label></th>
+						<th align="center" width="20%"><label id="SETTING_VIDEO_PRIVACE_MASK_COLOR">Color</label></th>
+						<th align="center" width="15%"><label id="SETTING_VIDEO_OSD_TRANSPARENT">Transparent</label></th>
+						<th align="center" width="22%"><label id="SETTING_VIDEO_OSD_POSITION">Position</label></th>						
+						<th align="center" width="20%" style="border-right-width:0px"><label id="SETTING_VIDEO_OSD_FORMAT">Format of Texts</label></th>
+						<th align="center" width="3%" style="border-left-width:0px"><a href="./TextOverlayFormat.html" target="_blank"><img src="../images/question.png" id="osd_help" title="What is it?" border="0"/></a></th>						
+					</tr>
+					<tr>
+						<td align="center"><label>1</label></td>
+						<td align="center"><input type="checkbox" id="OSD1_ENABLE" ></td>
+						<td align="center">
+							<div id="OSD_COLOR_1">
+							</div>							
+						</td>
+						<td align="center"><select id="Transparent_1"></select></td>
+						<td align="center">
+							<select  id="POSITION1">
+								<option value="TOP" id="COMMON_MSG_UPLEFT">Top</option>
+								<option value="BOTTOM" id="COMMON_MSG_DOWNLEFT">Bottom</option>
+								<option value="UPRIGHT" id="COMMON_MSG_UPRIGHT">UpRight</option>
+								<option value="DOWNRIGHT" id="COMMON_MSG_DOWNRIGHT">DownRight</option>
+							</select>
+						</td>												
+						<td colspan="2" align="center"><input  id="FORMAT1" maxlength="52" value="" style="width:220px;" ></td>
+					</tr>
+					<tr>
+						<td align="center"><label>2</label></td>
+						<td align="center"><input type="checkbox" id="OSD2_ENABLE" ></td>
+						<td align="center"><div id="OSD_COLOR_2"></div></td>
+						<td align="center"><select id="Transparent_2"></select></td>
+						<td align="center">
+							<select  id="POSITION2">
+								<option value="TOP" id="COMMON_MSG_UPLEFT_2">Top</option>
+								<option value="BOTTOM" id="COMMON_MSG_DOWNLEFT_2">Bottom</option>
+								<option value="UPRIGHT" id="COMMON_MSG_UPRIGHT_2">UpRight</option>
+								<option value="DOWNRIGHT" id="COMMON_MSG_DOWNRIGHT_2">DownRight</option>
+							</select>
+						</td>						
+						<td colspan="2" align="center"><input  id="FORMAT2" maxlength="52" value="" style="width:220px;"></td>
+					</tr>
+					<tr>
+						<td align="center"><label>3</label></td>
+						<td align="center"><input type="checkbox" id="OSD3_ENABLE" ></td>
+						<td align="center" rowspan="2" ><div id="OSD_COLOR_3"></div></td>
+						<td align="center"><select id="Transparent_3"></select></td>
+						<td align="center">
+							<select  id="POSITION3">
+								<option value="TOP" id="COMMON_MSG_UPLEFT_3">Top</option>
+								<option value="BOTTOM" id="COMMON_MSG_DOWNLEFT_3">Bottom</option>
+								<option value="UPRIGHT" id="COMMON_MSG_UPRIGHT_3">UpRight</option>
+								<option value="DOWNRIGHT" id="COMMON_MSG_DOWNRIGHT_3">DownRight</option>
+							</select>
+						</td>						
+						<td colspan="2" align="center"><input  id="FORMAT3" maxlength="52" value="" style="width:220px;"></td>
+					</tr>
+					<tr>
+						<td align="center"><label>4</label></td>
+						<td align="center"><input type="checkbox" id="OSD4_ENABLE" ></td>
+						
+						<td align="center"><select id="Transparent_4"></select></td>
+						<td align="center">
+							<select  id="POSITION4">
+								<option value="TOP" id="COMMON_MSG_UPLEFT_4">Top</option>
+								<option value="BOTTOM" id="COMMON_MSG_DOWNLEFT_4">Bottom</option>
+								<option value="UPRIGHT" id="COMMON_MSG_UPRIGHT_4">UpRight</option>
+								<option value="DOWNRIGHT" id="COMMON_MSG_DOWNRIGHT_4">DownRight</option>
+							</select>
+						</td>						
+						<td colspan="2" align="center"><input  id="FORMAT4" maxlength="52" value="" style="width:220px;"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr id="OSD_none_S1">
+			<td colspan="2" align="left">
+				<table width="20%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" width="10%"><label id="SETTING_VIDEO_PRIVACE_MASK_OSD_REGION">Region</label></th>
+						<th align="center" width="10%"><label id="COMMOM_MSG_ENABLED">Enabled</label></th>					
+					</tr>
+					<tr>
+						<td align="center"><label>1</label></td>
+						<td align="center"><input type="checkbox" id="OSD_ENABLE_1" ></td>
+					</tr>
+					<tr>
+						<td align="center"><label>2</label></td>
+						<td align="center"><input type="checkbox" id="OSD_ENABLE_2" ></td>
+					</tr>
+					<tr>
+						<td align="center"><label>3</label></td>
+						<td align="center"><input type="checkbox" id="OSD_ENABLE_3" ></td>
+					</tr>
+					<tr>
+						<td align="center"><label>4</label></td>
+						<td align="center"><input type="checkbox" id="OSD_ENABLE_4" ></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr id="PriMask" style="display:none">
+			<td colspan="2" id="PriMask_internal" style="display:none">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_OSD_REGION_2">Region</label></th>
+						<th align="center" ><label id="COMMOM_MSG_ENABLED_2">Enabled</label></th>
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_COLOR_2">Color</label></th>						
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_SETUP">Setup</label></th>
+					</tr>
+					<tr>
+						<td align="center"><label>1</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_1"></td>
+						<td align="center"><div id="PM_COLOR_1"></div></td>					
+						<td align="center"><input type="checkbox" id="PriMask_Setup_1" onclick="SetupPM('1')" onchange="ChangePM('1')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>2</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_2"></td>
+						<td align="center"><div id="PM_COLOR_2"></div></td>					
+						<td align="center"><input type="checkbox" id="PriMask_Setup_2" onclick="SetupPM('2')" onchange="ChangePM('2')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>3</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_3"></td>
+						<td align="center" rowspan="2"><div id="PM_COLOR_3"></div></td>						
+						<td align="center"><input type="checkbox" id="PriMask_Setup_3" onclick="SetupPM('3')" onchange="ChangePM('3')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>4</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_4"></td>
+						<td align="center"><input type="checkbox" id="PriMask_Setup_4" onclick="SetupPM('4')" onchange="ChangePM('4')"></td>							
+					</tr>					
+				</table>
+			</td>
+			
+			<td colspan="2" id="PriMask_external" style="display:none">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_OSD_REGION_3">Region</label></th>
+						<th align="center" ><label id="COMMOM_MSG_ENABLED_3">Enabled</label></th>
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_COLOR_3">Color</label></th>						
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_SETUP_2">Setup</label></th>
+					</tr>
+					<tr>
+						<td align="center"><label>1</label></td>
+						<td align="center"><input type="checkbox" id="ExPriMask_ENABLE_1"></td>
+						<td align="center" rowspan="4"><div id="ExPM_COLOR_1"></div></td>					
+						<td align="center"><input type="checkbox" id="ExPriMask_Setup_1" onclick="SetupPM('1')" onchange="ChangePM('1')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>2</label></td>
+						<td align="center"><input type="checkbox" id="ExPriMask_ENABLE_2"></td>
+						<td align="center"><input type="checkbox" id="ExPriMask_Setup_2" onclick="SetupPM('2')" onchange="ChangePM('2')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>3</label></td>
+						<td align="center"><input type="checkbox" id="ExPriMask_ENABLE_3"></td>
+						<td align="center"><input type="checkbox" id="ExPriMask_Setup_3" onclick="SetupPM('3')" onchange="ChangePM('3')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>4</label></td>
+						<td align="center"><input type="checkbox" id="ExPriMask_ENABLE_4"></td>
+						<td align="center"><input type="checkbox" id="ExPriMask_Setup_4" onclick="SetupPM('4')" onchange="ChangePM('4')"></td>							
+					</tr>					
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+			</td>
+			<td align="left">
+				&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doReGetSettings()"/>
+			</td> 
+		</tr>			
+			
+	</table>
+	<table>
+		<div id="divError" style="display:none">
+			<label id="COMMON_MSG_SET_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+		</div>	
+	</table>
+
+
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var PMcount1 = 0;
+	var PMcount2 = 0;
+	var PMcount3 = 0;
+	var PMcount4 = 0;
+	
+	function stream_change()
+	{
+		//alert("stream_change");
+		parent.idget("media_id").value = idget("stream_id").value;
+		parent.media_change();
+		if(idget("select_type").value=="OSD" && idget("stream_id").value != 1)
+		{
+			idget("OSD_none_S1").style.display="";
+			idget("OSD").style.display = "none";
+		}
+		else
+		{
+			idget("OSD_none_S1").style.display="none";
+			idget("OSD").style.display = "";
+		}	
+	}
+	
+	function ChangePM(region)
+	{
+		if(top.gIspGeneration != "A1_ISP")
+		{
+			switch(region)
+			{
+				case '1':
+					if(idget("ExPriMask_Setup_" + region).checked == true)
+						PMcount1 = 1;
+					else
+						PMcount1 = 0;
+					break;
+				case '2':
+					if(idget("ExPriMask_Setup_" + region).checked == true)
+						PMcount2 = 1;
+					else
+						PMcount2 = 0;
+					break;
+				case '3':
+					if(idget("ExPriMask_Setup_" + region).checked == true)
+						PMcount3 = 1;
+					else
+						PMcount3 = 0;
+					break;
+				case '4':
+					if(idget("ExPriMask_Setup_" + region).checked == true)
+						PMcount4 = 1;
+					else
+						PMcount4 = 0;
+					break;	
+			}		
+		}
+		else
+		{
+			switch(region)
+			{
+				case '1':
+					if(idget("PriMask_Setup_" + region).checked == true)
+						PMcount1 = 1;
+					else
+						PMcount1 = 0;
+					break;
+				case '2':
+					if(idget("PriMask_Setup_" + region).checked == true)
+						PMcount2 = 1;
+					else
+						PMcount2 = 0;
+					break;
+				case '3':
+					if(idget("PriMask_Setup_" + region).checked == true)
+						PMcount3 = 1;
+					else
+						PMcount3 = 0;
+					break;
+				case '4':
+					if(idget("PriMask_Setup_" + region).checked == true)
+						PMcount4 = 1;
+					else
+						PMcount4 = 0;
+					break;
+			}	
+		}	
+		if(PMcount1==0&&PMcount2==0&&PMcount3==0&&PMcount4==0)
+			parent.idget("oMedia").EnableMousePTZ();						
+		if(top.gUnitType == "Hemispheric Camera")
+			parent.idget("oMedia").DisableMousePTZ();
+	}
+	
+	function SetupPM(region)
+	{
+		var SX = parent.CameraConf.PRIVACY_REGION[region - 1].PM_SX;   
+		var SY = parent.CameraConf.PRIVACY_REGION[region - 1].PM_SY;
+		var EX = parent.CameraConf.PRIVACY_REGION[region - 1].PM_EX;
+		var EY = parent.CameraConf.PRIVACY_REGION[region - 1].PM_EY;
+		
+		
+		//if((top.gIspGeneration == "C05") || (top.gIspGeneration == "C03"))
+		if(top.gIspGeneration != "A1_ISP")
+		{
+			if(idget("ExPriMask_Setup_" + region).checked == true)		
+			{
+				parent.idget("oMedia").DisableMousePTZ();
+				parent.StartPriMaskSetup();
+				
+				if ((SX == 0 && SY == 0 && EX == 0 && EY == 0) || (SX==EX) || (SY == EY))
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, 100 * (region - 1) + 5, 100 * (region - 1) + 5, 105, 105, 1);
+				else
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, SX, SY,  EX - SX, EY - SY, 1);
+				
+				idget("ExPriMask_ENABLE_" + region).disabled="";
+				for(i=1;i<=4;i++)
+		        {	
+					idget("ExPM_COLOR_1").disabled="";
+				}						
+			}	
+			else
+			{
+				//parent.idget("oMedia").EnableMousePTZ();
+				if ((SX == 0 && SY == 0 && EX == 0 && EY == 0) || (SX==EX) || (SY == EY))
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, 100 * (region - 1) + 5, 100 * (region - 1) + 5, 105, 105, 0);
+				else	
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, SX, SY,  EX - SX, EY - SY, 0);
+				
+				idget("ExPriMask_ENABLE_" + region).disabled="disabled";
+				for(i=1;i<=4;i++)
+		        {
+					idget("ExPM_COLOR_1").disabled="disabled";			
+				}	
+			}			
+		}
+		else
+		{
+			if(idget("PriMask_Setup_" + region).checked == true)		
+			{
+				parent.idget("oMedia").DisableMousePTZ();
+				parent.StartPriMaskSetup();
+				
+				if ((SX == 0 && SY == 0 && EX == 0 && EY == 0) || (SX==EX) || (SY == EY))
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, 100 * (region - 1) + 5, 100 * (region - 1) + 5, 105, 105, 1);
+				else
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, SX, SY,  EX - SX, EY - SY, 1);
+				
+				idget("PriMask_ENABLE_" + region).disabled="";
+				if(region!=4)
+					idget("PM_COLOR_" + region).disabled="";			
+				else
+					idget("PM_COLOR_" + (region-1) ).disabled="";			
+			}	
+			else
+			{	
+				//parent.idget("oMedia").EnableMousePTZ();
+				if ((SX == 0 && SY == 0 && EX == 0 && EY == 0) || (SX==EX) || (SY == EY))
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, 100 * (region - 1) + 5, 100 * (region - 1) + 5, 105, 105, 0);
+				else	
+					parent.idget("oMedia").SetPrivacyMaskSetting(region, SX, SY,  EX - SX, EY - SY, 0);
+				
+				idget("PriMask_ENABLE_" + region).disabled="disabled";
+				if(region!=4)
+					idget("PM_COLOR_" + region).disabled="disabled";			
+				else
+					idget("PM_COLOR_" + (region-1) ).disabled="disabled";	
+			}
+		}			
+	} 
+
+	function PriMaskInit()
+	{
+		parent.idget("oMedia").SetPrivacyMaskSetting(1, 0, 0, 100, 100, 0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(2, 100, 100, 100, 100, 0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(3, 200, 200, 100, 100, 0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(4, 300, 300, 100, 100, 0);
+	}
+	
+	function changeType()
+	{
+		if(idget("select_type").value == "OSD")
+		{
+			idget("OSD").style.display = "";
+			idget("TR_Stream").style.display = "";
+			if(idget("stream_id").value != 1)
+			{
+				idget("OSD_none_S1").style.display="";
+				idget("OSD").style.display = "none";
+			}
+			else
+			{
+				idget("OSD_none_S1").style.display="none";
+				idget("OSD").style.display = "";
+			}
+			
+			
+			idget("PriMask").style.display = "none";
+			idget("SETTING_VIDEO_PRIVACE_MASK_WARN").style.display = "none";	
+		}
+		else
+		{
+			//alert("A02");
+			idget("OSD").style.display = "none";
+			idget("OSD_none_S1").style.display = "none";
+			idget("TR_Stream").style.display = "none";
+			idget("PriMask").style.display = "";	
+			idget("SETTING_VIDEO_PRIVACE_MASK_WARN").style.display = "";	
+			
+			idget("stream_id").value = 1;
+			//stream_change();
+			parent.idget("media_id").value = idget("stream_id").value;
+			parent.media_change();
+		}
+		doReGetSettings();		
+	}
+	
+	function doReGetSettings()
+	{
+		DrawPMOsdColor();
+		doGetSettings();
+	}
+	
+	function DrawPMOsdColor()
+	{
+		var HTML='';				
+		var i = 1;
+		
+		for(i = 1 ; i <=3 ; i++)
+		{
+			//HTML += '<select id="Region_' + i + '_OSD_Color" style="width:60px;font-weight:bold" onchange="this.style.backgroundColor=\'#\'+this.options[this.selectedIndex].value;this.blur();">'; // onchange method is for firefox and chrome browser	
+			HTML += '<select class="selectColor" id="Region_' + i + '_OSD_Color" style="width:60px;font-weight:bold" onchange=ColorChange(this)>'; // onchange method is for firefox and chrome browser	
+			HTML += '<option value="000000" class="opt_black" name="opt_black"></option>';
+			HTML += '<option value="ff0000" class="opt_red" name="opt_red"></option>';
+			HTML += '<option value="00ff00" class="opt_green" name="opt_green"></option>';
+			HTML += '<option value="0000ff" class="opt_blue" name="opt_blue"></option>';
+
+			HTML += '</select>';			
+			idget('OSD_COLOR_'+ i ).innerHTML= HTML;
+			HTML = '';
+		}
+		
+		//if((top.gIspGeneration == "C05") || (top.gIspGeneration == "C03"))
+		if(top.gIspGeneration != "A1_ISP")
+		{			
+			//HTML += '<select id="Region_1_PM_Color" style="width:100px;font-weight:bold" onchange="this.style.backgroundColor=\'#\'+this.options[this.selectedIndex].value;this.blur();">';
+			HTML += '<select class="selectColor" id="Region_1_PM_Color" style="width:100px;font-weight:bold" onchange=ColorChange(this)>';
+			HTML += '<option value="000000" class="opt_black" name="opt_black"></option>';
+			HTML += '<option value="ff0000" class="opt_red" name="opt_red"></option>';
+			HTML += '<option value="00ff00" class="opt_green" name="opt_green"></option>';
+			HTML += '<option value="0000ff" class="opt_blue" name="opt_blue"></option>';
+			
+			HTML += '</select>';			
+			idget("ExPM_COLOR_1").innerHTML= HTML;
+			HTML = '';			
+		}
+		else
+		{			
+			for(i = 1 ; i <=3 ; i++)
+			{
+				//HTML += '<select id="Region_' + i + '_PM_Color" style="width:100px;font-weight:bold" onchange="this.style.backgroundColor=\'#\'+this.options[this.selectedIndex].value;this.blur();">';
+				HTML += '<select class="selectColor" id="Region_' + i + '_PM_Color" style="width:100px;font-weight:bold" onchange=ColorChange(this)>';				
+				HTML += '<option value="000000" class="opt_black" name="opt_black"></option>';
+				HTML += '<option value="ff0000" class="opt_red" name="opt_red"></option>';
+				HTML += '<option value="00ff00" class="opt_green" name="opt_green"></option>';
+				HTML += '<option value="0000ff" class="opt_blue" name="opt_blue"></option>';
+				
+				HTML += '</select>';			
+				idget('PM_COLOR_'+ i ).innerHTML= HTML;
+				HTML = '';
+			}
+		}			
+	}
+	
+	function ColorChange(Selobj)
+	{
+		Selobj.style.backgroundColor='#'+Selobj.options[Selobj.selectedIndex].value;
+		Selobj.blur();
+	}
+	
+	function DrawTransparent()
+	{
+		for(i = 1 ; i <=4 ; i++)
+			InsertSelectOptions_Number(idget("Transparent_"+i), 0, 100);
+	}
+	
+	function osd_update_langauge()
+	{
+		top.update_language(this);
+		try { idget("osd_help").title = top.GetXmlLangTagByName("SETTING_VIDEO_OSD_FORMAT_NOTICE") ; } catch(e) {}
+		try { idget("COMMON_MSG_UPLEFT_2").text = top.GetXmlLangTagByName("COMMON_MSG_UPLEFT") ; } catch(e) {}
+		try { idget("COMMON_MSG_DOWNLEFT_2").text = top.GetXmlLangTagByName("COMMON_MSG_DOWNLEFT") ; } catch(e) {}
+		try { idget("COMMON_MSG_UPRIGHT_2").text = top.GetXmlLangTagByName("COMMON_MSG_UPRIGHT") ; } catch(e) {}
+		try { idget("COMMON_MSG_DOWNRIGHT_2").text = top.GetXmlLangTagByName("COMMON_MSG_DOWNRIGHT") ; } catch(e) {}
+		try { idget("COMMON_MSG_UPLEFT_3").text = top.GetXmlLangTagByName("COMMON_MSG_UPLEFT") ; } catch(e) {}
+		try { idget("COMMON_MSG_DOWNLEFT_3").text = top.GetXmlLangTagByName("COMMON_MSG_DOWNLEFT") ; } catch(e) {}
+		try { idget("COMMON_MSG_UPRIGHT_3").text = top.GetXmlLangTagByName("COMMON_MSG_UPRIGHT") ; } catch(e) {}
+		try { idget("COMMON_MSG_DOWNRIGHT_3").text = top.GetXmlLangTagByName("COMMON_MSG_DOWNRIGHT") ; } catch(e) {}
+		try { idget("COMMON_MSG_UPLEFT_4").text = top.GetXmlLangTagByName("COMMON_MSG_UPLEFT") ; } catch(e) {}
+		try { idget("COMMON_MSG_DOWNLEFT_4").text = top.GetXmlLangTagByName("COMMON_MSG_DOWNLEFT") ; } catch(e) {}
+		try { idget("COMMON_MSG_UPRIGHT_4").text = top.GetXmlLangTagByName("COMMON_MSG_UPRIGHT") ; } catch(e) {}
+		try { idget("COMMON_MSG_DOWNRIGHT_4").text = top.GetXmlLangTagByName("COMMON_MSG_DOWNRIGHT") ; } catch(e) {}
+		try { idget("SETTING_VIDEO_PRIVACE_MASK_OSD_REGION_2").innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_PRIVACE_MASK_OSD_REGION") ; } catch(e) {}
+		try { idget("SETTING_VIDEO_PRIVACE_MASK_OSD_REGION_3").innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_PRIVACE_MASK_OSD_REGION") ; } catch(e) {}
+		try { idget("COMMOM_MSG_ENABLED_2").innerHTML = top.GetXmlLangTagByName("COMMOM_MSG_ENABLED") ; } catch(e) {}
+		try { idget("COMMOM_MSG_ENABLED_3").innerHTML = top.GetXmlLangTagByName("COMMOM_MSG_ENABLED") ; } catch(e) {}
+		try { idget("SETTING_VIDEO_PRIVACE_MASK_COLOR_2").innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_PRIVACE_MASK_COLOR") ; } catch(e) {}
+		try { idget("SETTING_VIDEO_PRIVACE_MASK_COLOR_3").innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_PRIVACE_MASK_COLOR") ; } catch(e) {}
+		try { idget("SETTING_VIDEO_PRIVACE_MASK_SETUP_2").innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_PRIVACE_MASK_SETUP") ; } catch(e) {}
+	}
+	
+	function OSDPageUnLoad()
+	{
+		if(top.IsIE()==true)
+			parent.idget("oMedia").DisableMousePTZ();
+		
+		parent.StopPriMaskSetup();		
+		parent.document.getElementById("media_id").disabled = false;
+	}
+	
+	function DoApply()
+	{
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd ;
+		var i = 1;
+		var szReturn ;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;	
+					
+		if( idget("select_type").value == 'OSD' )
+		{
+			for( i = 1 ; i <=4; i++)
+			{
+				if(idget("stream_id").value==1)
+				{
+					szEncoder += "&OSD_FORMAT=" + i + ",";
+					if(idget("OSD" + i + "_ENABLE").checked == true)
+						szEncoder += "1,";
+					else
+						szEncoder += "0,";
+					if(i == 4)		
+						szEncoder += idget("Region_" + (i-1) + "_OSD_Color").value + ",";	
+					else	
+						szEncoder += idget("Region_" + i + "_OSD_Color").value + ",";	
+					szEncoder += idget("Transparent_" + i).value+ ",";	
+					szEncoder += idget("POSITION" + i).value + ",";	
+					szEncoder += encodeURI(idget("FORMAT" + i).value) + ",";
+				}
+				else
+				{
+					szEncoder += "&STREAM=" + idget("stream_id").value +"&OSD_FORMAT=" + i + ",";
+					if(idget("OSD_ENABLE_"+i).checked == true)
+						szEncoder += "1";
+					else
+						szEncoder += "0";						
+				}	
+				
+			}
+			//alert(szEncoder);
+			szReturn = doRequest(szEncoder) ;	
+			//alert(szReturn);
+		}
+		else
+		{			
+			//if((top.gIspGeneration == "C05") || (top.gIspGeneration == "C03"))
+			if(top.gIspGeneration != "A1_ISP")
+			{
+				for( i = 1 ; i <=4; i++)
+				{
+					if(idget("ExPriMask_Setup_" + i).checked == true) 
+					{
+						if(idget("ExPriMask_ENABLE_" + i ).checked == true)
+						{			
+							szEncoder += "&PRIVACY_REGION=" + i + ",";
+							szEncoder += "1,";			
+						}	
+						else
+						{
+							szEncoder += "&PRIVACY_REGION=" + i + ",";
+							szEncoder += "0,";
+						}	
+						
+						szEncoder += idget("Region_1_PM_Color").value + ",";	
+						szEncoder += parent.idget("oMedia").GetPrivacyMaskStartX(i) + ",";	
+						szEncoder += parent.idget("oMedia").GetPrivacyMaskStartY(i) + ",";	
+						szEncoder += (parent.idget("oMedia").GetPrivacyMaskStartX(i) + parent.idget("oMedia").GetPrivacyMaskEndX(i)) + ",";				
+						szEncoder += (parent.idget("oMedia").GetPrivacyMaskStartY(i) + parent.idget("oMedia").GetPrivacyMaskEndY(i));	
+						
+						parent.StopPriMaskSetup();
+						/*parent.idget("oMedia").EnableMousePTZ();
+						
+						if(top.gUnitType == "Hemispheric Camera")
+							parent.idget("oMedia").DisableMousePTZ();*/	
+					}				
+					//SetupPM(i);
+				}
+			}
+			else
+			{
+				for( i = 1 ; i <=4; i++)
+				{
+					if(idget("PriMask_Setup_" + i).checked == true) 
+					{
+						if(idget("PriMask_ENABLE_" + i ).checked == true)
+						{			
+							szEncoder += "&PRIVACY_REGION=" + i + ",";
+							szEncoder += "1,";			
+						}	
+						else
+						{
+							szEncoder += "&PRIVACY_REGION=" + i + ",";
+							szEncoder += "0,";
+						}	
+						if(i == 4)	
+							szEncoder += idget("Region_" + (i-1) + "_PM_Color").value + ",";	
+						else
+							szEncoder += idget("Region_" + i + "_PM_Color").value + ",";	
+						szEncoder += parent.idget("oMedia").GetPrivacyMaskStartX(i) + ",";	
+						szEncoder += parent.idget("oMedia").GetPrivacyMaskStartY(i) + ",";	
+						szEncoder += (parent.idget("oMedia").GetPrivacyMaskStartX(i) + parent.idget("oMedia").GetPrivacyMaskEndX(i)) + ",";				
+						szEncoder += (parent.idget("oMedia").GetPrivacyMaskStartY(i) + parent.idget("oMedia").GetPrivacyMaskEndY(i));	
+						
+						parent.StopPriMaskSetup();
+						/*parent.idget("oMedia").EnableMousePTZ();
+						
+						if(top.gUnitType == "Hemispheric Camera")
+							parent.idget("oMedia").DisableMousePTZ();*/	
+					}				
+					//SetupPM(i);
+				}
+			}
+			
+			if(top.gIspGeneration != "A1_ISP")
+			{
+				if( (idget("ExPriMask_Setup_1").checked == true) || (idget("ExPriMask_Setup_2").checked == true) || (idget("ExPriMask_Setup_3").checked == true) || (idget("ExPriMask_Setup_4").checked == true) ) 
+				{
+					szReturn = doRequest(szEncoder) ;	
+				}
+			}
+			else
+			{
+				if( (idget("PriMask_Setup_1").checked == true) || (idget("PriMask_Setup_2").checked == true) || (idget("PriMask_Setup_3").checked == true) || (idget("PriMask_Setup_4").checked == true) ) 
+				{
+					szReturn = doRequest(szEncoder) ;	
+				}
+			}
+			for( i = 1 ; i <=4; i++ )
+			{
+				if(idget("PriMask_Setup_" + i).checked == true)
+					idget("PriMask_Setup_" + i ).checked =false;
+				if(idget("ExPriMask_Setup_" + i).checked == true)
+					idget("ExPriMask_Setup_" + i ).checked =false;	
+			}			
+		}
+		if(szReturn != undefined)
+		{	
+			if(szReturn.indexOf('ERROR') > -1)
+			{
+				var msg = "Error. Invalid settings.";
+				try { msg      	= top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+				alert(msg);
+			}
+		}
+		parent.GetConfig();
+		//doGetSettings();
+		doReGetSettings();
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		parent.idget("oMedia").EnableMousePTZ();						
+		if(top.gUnitType == "Hemispheric Camera")
+			parent.idget("oMedia").DisableMousePTZ();
+	}
+	
+	function doGetSettings()
+	{
+	    var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&STREAM=2&OSD_FORMAT";
+		var szReturn = doRequest(szEncoder) ;
+		//alert(szReturn);
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] )
+			{
+				case 'OSD_FORMAT':
+					value = szTmp[1].split(',') ;
+					if(value[1]==1)
+						idget("OSD_ENABLE_"+value[0]).checked = true;
+					else
+						idget("OSD_ENABLE_"+value[0]).checked = false;
+				break;
+			}
+		}	
+		var i;		
+		for(i = 0 ; i < 4; i++)
+		{
+			if(parent.CameraConf.OSD_CONFIG[i].OSD_STATE == '1')
+				idget("OSD"+(i+1)+"_ENABLE").checked = true;
+			else	
+				idget("OSD"+(i+1)+"_ENABLE").checked = false;
+				
+			SelectSetOption(idget("Transparent_"+ (i+1)), parent.CameraConf.OSD_CONFIG[i].OSD_TRANS);		
+			SelectSetOption(idget("POSITION"+ (i+1)), parent.CameraConf.OSD_CONFIG[i].OSD_POS);					
+			idget("FORMAT"+(i+1)).value = parent.CameraConf.OSD_CONFIG[i].OSD_FORMAT;						
+			
+			if(i==3)
+				break;			
+						
+			if(parent.CameraConf.OSD_CONFIG[i].OSD_COLOR == 'ff0000')
+			{
+				idget("Region_"+(i+1)+"_OSD_Color").value = 'ff0000';
+				idget("Region_"+(i+1)+"_OSD_Color").style.backgroundColor = "#ff0000";	//for firefox and chrome browser
+			}	
+			else if(parent.CameraConf.OSD_CONFIG[i].OSD_COLOR == '00ff00')	
+			{
+				idget("Region_"+(i+1)+"_OSD_Color").value = '00ff00';
+				idget("Region_"+(i+1)+"_OSD_Color").style.backgroundColor = "#00ff00";	//for firefox and chrome browser
+			}	
+			else if(parent.CameraConf.OSD_CONFIG[i].OSD_COLOR == '0000ff')	
+			{
+				idget("Region_"+(i+1)+"_OSD_Color").value = '0000ff';
+				idget("Region_"+(i+1)+"_OSD_Color").style.backgroundColor = "#0000ff";	//for firefox and chrome browser
+			}	
+			else
+			{
+				idget("Region_"+(i+1)+"_OSD_Color").value = '000000';	//no one match, default => black
+				idget("Region_"+(i+1)+"_OSD_Color").style.backgroundColor = "#000000";	//for firefox and chrome browser
+			}
+				
+		}
+	
+		//if((top.gIspGeneration != "C05")&&(top.gIspGeneration != "C33")&&(top.gIspGeneration != "C32"))
+		if(top.gPMaskType == "ENC_MASK")
+		{
+			if(top.IsIE() == true)
+			{
+				for(i = 0 ; i < 4 ; i++)
+				{
+					SetupPM(i+1);
+					//if(top.gIspGeneration == "C05" || top.gIspGeneration == "C03")
+					if(top.gIspGeneration != "A1_ISP")
+					{
+						if(parent.CameraConf.PRIVACY_REGION[i].PM_STATE == '1')
+							idget("ExPriMask_ENABLE_"+ (i+1)).checked = true;
+						else	
+							idget("ExPriMask_ENABLE_"+ (i+1)).checked = false;
+					}
+					else
+					{
+						if(parent.CameraConf.PRIVACY_REGION[i].PM_STATE == '1')
+							idget("PriMask_ENABLE_"+ (i+1)).checked = true;
+						else	
+							idget("PriMask_ENABLE_"+ (i+1)).checked = false;
+					}		
+					if(i==3)
+						break;
+					
+					//if(top.gIspGeneration == "C05" || top.gIspGeneration == "C03")
+					if(top.gIspGeneration != "A1_ISP")
+					{
+						if(i==0)
+						{
+							if(parent.CameraConf.PRIVACY_REGION[i].PM_COLOR == 'ff0000')	//Red
+							{	
+								idget("Region_"+(i+1)+ "_PM_Color").value = 'ff0000';
+								idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#ff0000";	//for firefox and chrome browser
+							}
+							else if(parent.CameraConf.PRIVACY_REGION[i].PM_COLOR == '00ff00')	//Green
+							{				
+								idget("Region_"+(i+1)+ "_PM_Color").value = '00ff00';
+								idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#00ff00";	//for firefox and chrome browser
+							}	
+							else if(parent.CameraConf.PRIVACY_REGION[i].PM_COLOR == '0000ff')	//Blue
+							{
+								idget("Region_"+(i+1)+ "_PM_Color").value = '0000ff';
+								idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#0000ff";	//for firefox and chrome browser
+							}	
+							else
+							{				
+								idget("Region_"+(i+1)+"_PM_Color").value = '000000';	//no one match, default => black
+								idget("Region_"+(i+1)+"_PM_Color").style.backgroundColor = "#000000";	//for firefox and chrome browser
+							}
+						}
+					}
+					else
+					{
+						if(parent.CameraConf.PRIVACY_REGION[i].PM_COLOR == 'ff0000')	//Red
+						{	
+							idget("Region_"+(i+1)+ "_PM_Color").value = 'ff0000';
+							idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#ff0000";	//for firefox and chrome browser
+						}
+						else if(parent.CameraConf.PRIVACY_REGION[i].PM_COLOR == '00ff00')	//Green
+						{	
+							idget("Region_"+(i+1)+ "_PM_Color").value = '00ff00';
+							idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#00ff00";	//for firefox and chrome browser
+						}	
+						else if(parent.CameraConf.PRIVACY_REGION[i].PM_COLOR == '0000ff')	//Blue
+						{
+							idget("Region_"+(i+1)+ "_PM_Color").value = '0000ff';
+							idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#0000ff";	//for firefox and chrome browser
+						}	
+						else
+						{	
+							idget("Region_"+(i+1)+"_PM_Color").value = '000000';	//no one match, default => Black
+							idget("Region_"+(i+1)+"_PM_Color").style.backgroundColor = "#000000";	//for firefox and chrome browser
+						}
+					}		
+				}
+			
+				if(parent.CheckOsdTime() >0)
+					parent.idget("oMedia").SetTitleBarTextLayout(9,12,10,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+				else		
+					parent.idget("oMedia").SetTitleBarTextLayout(9,12,10,19,1,14,3,14,4,18,5,12,6,12,7,0,0,0,0,0);
+			}
+		}	
+	$('.selectColor').sSelect({ddMaxHeight : '300px'});			
+	}
+	
+	function UpdateCss()
+	{
+		/*document.styleSheets[0].rules[88] -> .event_server_table_style td*/
+		if(top.IsIE() == false)
+		{
+			idget("body_osdpm").style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;			
+		}
+		else
+		{		
+			idget("body_osdpm").style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+		}
+	}
+	
+	function OSDPri_UIChange()
+	{
+		//if(top.gIspGeneration == "A1_ISP")
+		if(top.gPMaskType == "ENC_MASK")	
+		{
+			/*if(top.gZoom_Capability == "OPTICAL" || top.gPT_Enable == 1) {
+				idget("Option_OSD/PriMask").style.display = "none";
+				idget("OSD").style.display = "";
+			}	
+			if(top.gSerialPorts==1)
+			{	
+				idget("Option_OSD/PriMask").style.display = "none";
+			}
+			20150413 MingYoung say if PMaskType is not 3D_MASK or PRESET_MASK , Pmask should be open(Confirm by Ann)*/
+			idget("Option_OSD/PriMask").style.display = "";
+			idget("OSD").style.display = "";
+		}
+		if(top.gPMaskType == "3D_MASK" || top.gPMaskType == "PRESET_MASK")
+		{
+			idget("Option_OSD/PriMask").style.display = "none";
+			idget("OSD").style.display = "";
+		}
+		if(top.gStreamMode == "EPTZ")
+		{
+			idget("Option_OSD/PriMask").style.display = "none";
+			idget("OSD").style.display = "";
+		}
+		//alert(idget("select_type").value);
+		changeType();	
+		if(idget("stream_id").value!=1)
+			idget("OSD_none_S1").style.display = "";
+		else
+			idget("OSD_none_S1").style.display = "none";
+	}
+	
+	function PageOnload()
+	{
+		if(top.IsIE()==true)
+		{
+			if(top.gUnitType != "Hemispheric Camera")
+			{
+				if(parent.top.gStreamMode == "EPTZ")//FishEye's EPTZ
+				{	
+					parent.idget("oMedia").EnableRelativePTZ();
+				}
+				else //gStreamMode != "EPTZ"			
+				{
+					if(parent.top.gZoom_Capability != "None") 
+					{
+						if(parent.top.gPT_Enable != 1)//ZoomOnly
+							parent.idget("oMedia").SetMousePTZOnlyZoom(1);
+							
+						parent.idget("oMedia").EnableMousePTZ();
+					}
+					else //ZoomCap=None
+					{
+						if(parent.top.gPT_Enable == 1)
+						{
+							//parent.parentWin.idget("oMedia").SetMousePTZOnlyPT(1);
+							parent.idget("oMedia").EnableMousePTZ();
+						}
+					}
+				}
+			}	
+		}	
+			
+		for(i=1;i<=4;i++) {
+			idget("PriMask_ENABLE_" + i).disabled="disabled";			
+		}
+		for(i=1;i<=3;i++) {
+			idget("PM_COLOR_" + i).disabled="disabled";
+		}
+		if(top.IsIE() == false)
+			idget("select_type").style.display = "none";
+		OSDPri_UIChange();
+		
+		//osd_update_langauge();
+		
+		//if((top.gIspGeneration == "C05") || (top.gIspGeneration == "C03"))
+		if((top.gIspGeneration !="A1_ISP"))
+		{
+			idget("PriMask_external").style.display = "";
+			idget("PriMask_internal").style.display = "none";
+		}
+		else
+		{
+			idget("PriMask_external").style.display = "None";
+			idget("PriMask_internal").style.display = "";
+		}
+		DrawPMOsdColor();
+		DrawTransparent();
+		
+
+		if(parent.document.getElementById("media_id").value != 1)
+		{
+			parent.document.getElementById("media_id").value = 1;
+			if(top.IsIE()==true)	
+				parent.ECMSetup();					
+		}		
+		parent.document.getElementById("media_id").style.display = "none";				
+		if(top.IsIE()==true)			
+			PriMaskInit();	
+			
+		doGetSettings();
+		osd_update_langauge();
+		UpdateCss();
+		if(top.gUnitType == "Hemispheric Camera")
+		{
+			if(top.IsIE()==true)
+				parent.idget("oMedia").DisableMousePTZ();
+		}
+	}
+	
+	PageOnload();
+	
+	
+</Script>

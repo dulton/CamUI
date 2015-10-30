@@ -1,0 +1,137 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="MENU_STORAGE_STATUS">Status</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<form id="frmSetting">
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td width="50%" align="right">
+								<label id="SETTING_STORAGE_MEDIA_TYPE">Storage Media Type</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td width="50%" align="left">
+								<input type="text" name="MEDIA_TYPE" value="Unknown Media" readonly style="background-color:#e0e0e0;border:1px solid #a6b9cc">
+								
+							</td>
+						</tr>
+						<tr>
+							<td width="50%" align="right">
+								<label id="SETTING_STORAGE_CAPACITY">Capacity</label><label>(GB)</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td width="50%" align="left">
+								<input type="text" name="FREE" readonly style="background-color:#e0e0e0;border:1px solid #a6b9cc" size="5" value="0.0"/>/
+								<input type="text" name="TOTAL" readonly style="background-color:#e0e0e0;border:1px solid #a6b9cc" size="5" value="0.0"/>
+								<label id="SETTING_STORAGE_FREE">Free</label>/
+								<label id="SETTING_STORAGE_TOTAL">Total</label>
+							</td>
+						</tr>
+						<tr>
+							<td width="50%" align="right">
+								<label id="SETTING_STORAGE_PERCENTAGE_OF_USAGE">Percentage of Usage</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td width="50%" align="left">
+								<input type="text" name="PERCENTAGE" readonly style="background-color:#e0e0e0;border:1px solid #a6b9cc" size=3 value=""/><label>%</label>															
+							</td>
+						</tr>						
+						<tr>
+							<td width="50%" align="right">
+								<label id="SETTING_STORAGE_FILE_SYSTEM">File System</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td width="50%" align="left">
+								<input type="text" name="FILE_SYSTEM" readonly style="background-color:#e0e0e0;border:1px solid #a6b9cc" value=""/>
+							</td>
+						</tr>	
+						<tr>
+							<td width="50%" align="right">
+								<label id="MENU_STORAGE_STATUS2">Status</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td width="50%" align="left">
+								<input type="text" name="FILE_SYSTEM_STATUS" readonly style="background-color:#e0e0e0;border:1px solid #a6b9cc" value=""/>
+							</td>
+						</tr>																						   
+					</table>
+					</form>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+    function doGetSetting() {
+        
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+    
+        szSystem = szSystem + "DISK_INFO" ;
+        var szReturn = top.doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+
+		szTmp = top.doSplitValue( szReturn[0] ) ;
+		
+		switch ( szTmp[0] ) {
+			case 'DISK_INFO' :
+				szConfig = szTmp[1].split(',') ;
+				var State = szConfig[0];
+				var Type = szConfig[1];
+				var FreeSize = szConfig[2];
+				var TotalSize = szConfig[3];
+				var FileSystem = szConfig[4];
+				
+				/* State */
+				frmSetting.FILE_SYSTEM_STATUS.value = (State == 0) ? "Unmounted" : "Normal" ;
+				
+				/* Type */
+				frmSetting.MEDIA_TYPE.value = (Type == "SD") ? "Micro SD" : "HDD";
+				
+				/* FreeSize, TotalSize */
+				var GB = 1024 * 1024;
+				frmSetting.FREE.value = (FreeSize / GB).toFixed(2);
+				frmSetting.TOTAL.value = (TotalSize / GB).toFixed(2);								
+				var percent;
+				percent = 100 -  (FreeSize * 100 / TotalSize);				
+				frmSetting.PERCENTAGE.value = percent.toFixed(2);
+				if(frmSetting.PERCENTAGE.value == "NaN")
+					frmSetting.PERCENTAGE.value = "0";
+				/* FileSystem */
+				frmSetting.FILE_SYSTEM.value = FileSystem;
+				break;
+
+		}
+    }
+    
+	function Page_onLoad()
+	{
+		top.update_language(this);		
+		try { idget("MENU_STORAGE_STATUS2").innerHTML = top.GetXmlLangTagByName("MENU_STORAGE_STATUS") ; } catch(e) {}
+		
+		doGetSetting();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

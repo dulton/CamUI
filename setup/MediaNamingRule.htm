@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Postfix of Naming Rule for Media File Name and Upload Path</title>
+</head>
+
+<body>
+<h3 align="left">Postfix of Naming Rule for Media File Name and Upload Path</h3>
+
+The file name and upload path of the media in the event handler could be assigned automatically based on naming rule here.
+
+<h3 align="left">Naming Rule</h3>
+<blockquote align="left">
+    <p>
+        <table border="1" cellpadding="5" width="600">
+            <tr>
+                <th scope="col" width="25%"><font size="-1">Symbol</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+                <th scope="col"><font size="-1">Example</font></th>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%YYYY</font></td>
+                <td align="left"><font size="-1">Year in four digits.</font></td>
+                <td align="left"><font size="-1">2010</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%YY</font></td>
+                <td align="left"><font size="-1">Year in two digits</font></td>
+                <td align="left"><font size="-1">10</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%MM</font></td>
+                <td align="left"><font size="-1">Month in two digits.</font></td>
+                <td align="left"><font size="-1">01 for January, 12 for December</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%DD</font></td>
+                <td align="left"><font size="-1">date in two digits.</font></td>
+                <td align="left"><font size="-1">01~31</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%hh</font></td>
+                <td align="left"><font size="-1">hour in two digit.</font></td>
+                <td align="left"><font size="-1">00~23. Only 24-hour format is supported.</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%mm</font></td>
+                <td align="left"><font size="-1">minutes in two digits.</font></td>
+                <td align="left"><font size="-1">00~59</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%ss</font></td>
+                <td align="left"><font size="-1">ss_nnn where ss is two digits for second. 00~59 and nnn is three digits for millisecond.</font></td>
+                <td align="left"><font size="-1">33_440 where 33 is the second and 440 is the millisecond</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%W</font></td>
+                <td align="left"><font size="-1">a underscore character.</font></td>
+                <td align="left"><font size="-1">_</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%N</font></td>
+                <td align="left"><font size="-1">
+                    camera name. Refer to Host Configuration Page<br>
+                    Note: The space characters ' ' in the camera name will be transformed into the underscore characters.
+                </font></td>
+                <td align="left"><font size="-1">Camera-1</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">%Y</font></td>
+                <td align="left"><font size="-1">
+                    counter for occurrence of upload. It starts from 1.<br>
+                    The counter will be reset to 1 when a new upload occurs.
+                </font></td>
+                <td align="left"><font size="-1">1,2,3,4,5,...</font></td>
+            </tr>
+            <tr>
+                <td align="center"><font size="-1">0~9, A~Z, a~z, -, _</font></td>
+                <td align="left"><font size="-1">
+                    User defined file name and upload path.
+                </font></td>
+                <td align="left"><font size="-1">&nbsp;</font></td>
+            </tr>
+            <tr>
+                <td align="left" colspan="3"><font size="-1">
+                    Note that the extension file name will be appended by device automatically based on the type of media.<br>
+                    Therefore, you do not need to give the extension file name in the Media File Name field.<br>
+                    <font color="red">The first character in the file name and upload path has NOT be "%".</font>
+                </font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Examples</h3>
+<blockquote align="left">
+    <ul><li>Set upload path to Img_YYYY-MM-DD folder and snapshot image file name is Snap_hhmmss_Counter</li></ul>
+    <blockquote align="left">
+        <p>
+            Upload Path = Img_%YYYY-%MM-%DD<br>
+            Media File Name = Snap_%hh%mm%ss_%Y<br>
+            Output :<br>
+                <blockquote align="left">
+                    Assume there 3 snapshots in one second upload. The upload happens at 10:31:30 on 2010/08/10.<br>
+                    Three files should be seen in<br>
+                    1. Img_2010-08-10/Snap_103130_021_1.jpg<br>
+                    2. Img_2010-08-10/Snap_103130_421_2.jpg<br>
+                    3. Img_2010-08-10/Snap_103130_821_3.jpg
+                </blockquote>
+        </p>
+    </blockquote>
+  
+    <ul><li>Set upload path to Camera Name folder in the Camera folder and video raw data file name is video_YYMMDD_hhmmss</li></ul>
+    <blockquote align="left">
+        <p>
+            Upload Path = Camera/%N<br>
+            Media File Name = video_%YY%MM%DD_%hh%mm%ss<br>
+            Output :<br>
+                <blockquote align="left">
+                    Assume there 10 seconds in one video upload. The upload happens at 10:31:30 on 2010/08/15.<br>
+                    And the camera name is "Front Gate"<br>
+                    One vide raw data files should be seen in<br>
+                    1. Camera/Front_Gate/video_100815_103130_120.raw<br>
+                </blockquote>
+        </p>
+    </blockquote>
+</blockquote>
+<div style="text-align:center">
+<input type="button" class="button3" id="BUTTON_BUTTON_CLOSE" value="Close" onclick="window.close();"/>
+</div>
+</body>
+</html>

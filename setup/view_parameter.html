@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='../css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+<body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
+<XML id="xmlLang"></XML>
+<form id="frmSetting">
+<textarea id="infomation" rows="35" style="width: 100%;" readonly="yes"></textarea>
+<div style="padding-top:5px;text-align:center">
+<input type="button" class="button2" value="Close" onclick="window.close()">
+</div>
+</form>
+</body> 
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+    function doGetSetting() {
+        var szSystem = "/cgi-bin/update?USER="+ opener.top.gAccount +"&PWD="+ opener.top.gPwd+"&";
+        szSys = szSystem + "CONFIG_GET" ;
+				if(navigator.appName=="Netscape"){
+					idget("infomation").innerHTML = doRequest(szSys) ;
+				}else{
+					idget("infomation").innerText = doRequest(szSys) ;
+				}
+    }
+    
+    function Page_onLoad() {
+        doGetSetting();
+        frame_extent();
+    }
+    
+    Page_onLoad();
+</Script>

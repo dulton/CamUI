@@ -1,0 +1,187 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" onbeforeunload="CalibrationDisconnet()">	
+<div style="padding-top:3px">
+	<table id="setuptbl" class="setup_table" align="center" border="0">
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_VIDEO_CAMERA_CALIBRATION">Camera Calibration</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="center" >
+								<div id="ECM"></div>	
+							</td>						
+						</tr>						
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">						
+						<tr height="35px">
+							<td colspan="2" align="center">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+						</tr>
+						
+					</table>
+				</td>
+			</tr>			
+		</tr>				
+	</table>
+</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">	
+	HtmSrc = '<object id="oMedia" name="oMedia"  style="padding-top:10px" classid="CLSID:E19E79EC-F62E-40A0-952D-E49AEC7BEC2F" codebase="/control/nvA1Media.cab#Version='+top.gECMversion+'">';	
+	HtmSrc += '</object>'; 
+	idget('ECM').innerHTML=HtmSrc;
+	
+	function DoApply()
+	{
+		var ApplyEl = idget("BUTTON_APPLY");
+		idget("oMedia").SetFishEyeCircle(0, 0, 0, 0, 0);
+		ApplyEl.value = "Saving..."
+		ApplyEl.disabled = true ;
+		window.setTimeout("clean_result_Setting();", 1000 );	
+	}
+	
+	function clean_result_Setting(){
+		var ApplyEl = idget("BUTTON_APPLY");
+		
+		if(ApplyEl.disabled == true)
+		{
+			ApplyEl.disabled = false ;		
+			ApplyEl.value = idget("BUTTON_APPLY").value ;
+		}
+		try { idget('BUTTON_APPLY').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	}
+	
+	function CalibrationDisconnet()
+	{
+		idget("oMedia").DisableFisheyeCircle();
+		idget("oMedia").Disconnect();
+	}
+	
+	function GetFisheyeCeneter()
+	{
+		var bValid; 
+		var bCenterX;
+		var bCenterY;
+		var bRadius;
+		var bImageWidth;
+		var bImageHeight;
+		var VIDEO_RESOLUTION_Width;
+		var VIDEO_RESOLUTION_Height;
+		
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&FISHEYE_IMAGE_CENTER";			
+		var szReturn = doRequest(szEncoder);
+		szReturn=szReturn.split('\n') ;	
+		szTmp = top.doSplitValue( szReturn[0] ) ;
+		szTmp2 = szTmp[1].split(',');
+		bValid = szTmp2[0];
+		if (bValid == 1) {			
+			bCenterX = szTmp2[1];
+			bCenterY = szTmp2[2];
+			bRadius = szTmp2[3];
+			bImageWidth = szTmp2[4];
+			bImageHeight = szTmp2[5];			
+			//alert("bCenterX,bCenterY,bRadius,bImageWidth,bImageHeight="+bCenterX+","+bCenterY+","+bRadius+","+bImageWidth+","+bImageHeight);
+			idget("oMedia").ResetFisheyeCircle(bCenterX, bCenterY, bRadius, bImageWidth, bImageHeight);	
+		}
+		else
+			idget("oMedia").ResetFisheyeCircle(0,0,0,0,0);
+	}
+	
+	function EnableFisheyeCircle()
+	{
+		idget("oMedia").EnableFisheyeEx = 0;
+		idget("oMedia").EnableFisheyeCircle();
+	}
+	
+	function ECM_Setup()
+	{
+		idget("oMedia").ID = 1 ;
+		idget("oMedia").Channel = 1;
+		idget("oMedia").TCPVideoStreamID = 0;
+		idget("oMedia").RTPVideoTrackNumber =1;	 		
+		idget("oMedia").StreamType = 0;
+		idget("oMedia").MediaType= 0;		//0 : tcp 1:rtp
+		idget("oMedia").DisplayTitleBar(1);				
+		idget("oMedia").MediaURL = document.location.hostname;			
+		idget("oMedia").DeviceType = 0;	//single=0 , quad =1
+		//idget("oMedia").QuadDeviceMode = 0;
+		//idget("oMedia").AutoReconnect(1);
+		idget("oMedia").width = 640 ;
+		idget("oMedia").height = 480 ;		
+		idget("oMedia").MediaUsername = top.gAccount ;
+		idget("oMedia").MediaPassword = top.gPwd ;		
+		idget("oMedia").RegisterPort = 6000 ;
+		idget("oMedia").ControlPort = CameraConf.PORT_CONTROL ;
+		idget("oMedia").StreamingPort = CameraConf.PORT_VIDEO ;
+		idget("oMedia").RTSPPort = 7070;
+		idget("oMedia").Connect(0);
+		idget("oMedia").Play();
+			
+		
+		switch(document.URL.split(":")[0]){
+			case "http":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 80;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(0);
+				break;
+			case "https":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 443;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(1);
+				break;
+		}
+	}
+	
+	function doGetSetting(){				
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&CAMERA_PAGE";
+		var szReturn = doRequest(szEncoder) ;		
+		CameraConf = eval(szReturn);	
+	}
+	function update_language() {
+		top.update_language(this);	
+		//try { idget('SETTING_VIDEO_CEIL_ANGLE2').innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_CEIL_ANGLE") ; } catch(e) {}
+		//try { top.sss = top.GetXmlLangTagByName("SELECT_COMMON_DISABLED") ; } catch(e) {}
+	}
+	
+	function Page_onLoad()
+	{	
+		update_language();		
+		doGetSetting();
+		ECM_Setup();
+		EnableFisheyeCircle();
+		window.setTimeout("GetFisheyeCeneter();", 1000 );
+		//GetFisheyeCeneter();				
+	}
+	
+	Page_onLoad();
+		
+	
+</Script>
+

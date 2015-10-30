@@ -1,0 +1,229 @@
+﻿<html>
+
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_VIDEO_AUDIO">Audio</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_VIDEO_AUDIO_IN">Audio In</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="audio_in" onchange="AudioEnableOnChange()">
+									<option value="0" id="SELECT_COMMON_DISABLED">Disabled</option>
+									<option value="1" id="SELECT_COMMON_ENABLED">Enabled</option>
+								</select>
+							</td>
+						</tr>
+						<tr id="TR_MIC" style="display:none">
+							<td align="right" width="50%">
+								<label id="SETTING_MICROPHONE_TYPE">Microphone Type</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="AUDIO_MIC_TYPE">
+									<option value="PASSIVE" id="SELECT_MICROPHONE_TYPE_PASSIVE">Passive</option>
+									<option value="ACTIVE" id="SELECT_MICROPHONE_TYPE_ACTIVE">Active</option>
+								</select>
+							</td>
+						</tr>
+						<tr id="TR_Audio_In_Level" style="display:none">
+							<td align="right" width="50%">
+								<label id="SETTING_AUDIO_IN_LEVEL">Audio In Level</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="AUDIO_IN_LEVEL">
+									
+								</select>
+							</td>
+                       </tr>
+						<tr id="TR_SENSITIVE" style="display:none">
+							<td align="right" width="50%">
+								<label id="SETTING_VIDEO_AUDIO_IN_SENSITITY">Audio In Sensitivity</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="AUDIO_IN_SENSITIVITY">
+									<option value="HIGH" id="SELECT_AUDIO_IN_SEN_HIGH">High</option>
+									<option value="LOW" id="SELECT_AUDIO_IN_SEN_LOW">Low</option>
+								</select>
+							</td>
+						</tr>
+						<tr id="TR_Audio_Out">
+							<td align="right" width="50%">
+								<label id="SETTING_VIDEO_AUDIO_OUT_VOLUME">Audio Out Volume</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="AUDIO_OUT_VOLUME">
+									
+								</select>
+							</td>
+                       </tr>     
+						<tr >
+							<td align="right">
+								<label id="SETTING_AUDIO_FORMAT">Audio Format</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								<select size="1" id="AUDIO_IN_FORMAT">
+									<option value="PCM">PCM</option>
+									<option value="G711A">G.711A</option>
+									<option value="G711U">G.711U</option>
+									<!--<option value="G726">G.726</option>-->
+								</select>
+							</td>
+						</tr>   													   
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetAudioSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	/*function Switch_AUDIO_IN_FORMAT()
+	{
+		top.gAUDIO_IN_FORMAT = idget("AUDIO_IN_FORMAT").value;
+	}*/
+	
+	function DoApply()
+	{		
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		
+		szSystem +=  "V2_AUDIO_ENABLED=" + idget("audio_in").value +"&";				
+		szSystem +=  "AUDIO_IN_SENSITIVITY=" + idget("AUDIO_IN_SENSITIVITY").value + "&";		
+		szSystem +=  "AUDIO_OUT_VOLUME=" + idget("AUDIO_OUT_VOLUME").value  +  "&";
+		szSystem +=  "AUDIO_IN_FORMAT=" + idget("AUDIO_IN_FORMAT").value +  "&";
+		/*if(idget("AUDIO_IN_FORMAT").value=="G726")
+			szSystem +=  "AUDIO_IN_FORMAT=" + "G711U" +  "&";
+		else
+			szSystem +=  "AUDIO_IN_FORMAT=" + idget("AUDIO_IN_FORMAT").value +  "&";*/
+		szSystem +=  "AUDIO_MIC_TYPE=" + idget("AUDIO_MIC_TYPE").value +  "&";		
+	    szSystem +=  "AUDIO_IN_LEVEL=" + idget("AUDIO_IN_LEVEL").value;	
+		
+        var szReturn = doRequest(szSystem) ;	
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetAudioSettings();
+	}
+	
+	function GetAudioSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		szSystem += "&V2_AUDIO_ENABLED";
+		szSystem += "&AUDIO_IN_SENSITIVITY";
+		szSystem += "&AUDIO_OUT_VOLUME";
+		szSystem += "&AUDIO_IN_FORMAT";
+		szSystem += "&AUDIO_MIC_TYPE";
+		szSystem += "&AUDIO_IN_LEVEL";
+		
+		var szReturn = doRequest(szSystem) ; //alert(szReturn);
+		
+		szReturn = szReturn.split('\n') ;
+	
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue(szReturn[nIdx]);
+			switch ( szTmp[0] ) {
+				case 'V2_AUDIO_ENABLED' :
+					SetSelectedValue(idget("audio_in"), szTmp[1]);
+					top.gAudioInpt = szTmp[1];
+					break;
+				case 'AUDIO_IN_SENSITIVITY' :
+					SetSelectedValue(idget("AUDIO_IN_SENSITIVITY"), szTmp[1]);
+					break ;
+				case 'AUDIO_OUT_VOLUME' :
+					SetSelectedValue(idget("AUDIO_OUT_VOLUME"), szTmp[1]);
+					break ;
+				case 'AUDIO_IN_FORMAT' :
+					SetSelectedValue(idget("AUDIO_IN_FORMAT"), szTmp[1]);
+					/*if(top.gAUDIO_IN_FORMAT!="G726")
+						SetSelectedValue(idget("AUDIO_IN_FORMAT"), szTmp[1]);
+					else
+						idget("AUDIO_IN_FORMAT").value="G726";*/
+					break ;	
+				case 'AUDIO_MIC_TYPE' :
+					SetSelectedValue(idget("AUDIO_MIC_TYPE"), szTmp[1]);
+					break ;	
+				case 'AUDIO_IN_LEVEL' :
+					SetSelectedValue(idget("AUDIO_IN_LEVEL"), szTmp[1]);
+					break ;	
+			}
+		} 
+		AudioEnableOnChange();
+	}
+	
+	function AudioEnableOnChange(){
+		switch(idget("audio_in").value){
+			default:
+			case "0":
+				idget("TR_SENSITIVE").style.display="none";
+				idget("TR_MIC").style.display="none";
+				idget("TR_Audio_In_Level").style.display="none";
+				break;
+			case "1":
+				if(top.gAudioMicOptions==2)
+					idget("TR_MIC").style.display="";
+				if(top.gAudioInLevel == "LEVELS")
+					idget("TR_Audio_In_Level").style.display="";
+				if(top.gAudioInLevel == "MICBOOST")
+					idget("TR_SENSITIVE").style.display="";
+				break;
+		}
+		
+	}
+	
+	
+	function Page_onLoad()
+	{
+		if(top.gAudioType == '0' || top.gAudioType == '1')
+			idget("TR_Audio_Out").style.display="none";
+		InsertSelectOptions_Number(idget("AUDIO_OUT_VOLUME"), 0, 100);
+		InsertSelectOptions_Number(idget("AUDIO_IN_LEVEL"), 0, 100);
+		top.update_language(this);
+		GetAudioSettings();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

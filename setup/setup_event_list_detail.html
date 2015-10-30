@@ -1,0 +1,835 @@
+﻿<html>
+
+<head>   
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<div style="height:640px;overflow:auto">	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<table  class="setup_item" width="100%" border="0">
+						<tr>
+							<td width="95%" align="center">
+								<label id="SETTING_EVENT_LIST">Event List</label><label id="LISTID"></label>
+							</td>
+							<td width="5%" align="right">
+								<img type="button" src="../images/cross.png" onclick="parent.Close();" style="cursor:pointer;border:2px solid #dedede" title="Close">
+							</td>
+						</tr>	
+					</table>
+				</td>					
+				<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>	
+				<tr>
+					<td>
+						<form name="frmSetting">
+							<table border="0" align="center" width="100%">
+								<tr>
+									<td align="right" width="35%">
+										<label id="COMMOM_MSG_ENABLED">Enabled</label>
+									</td>
+									<td align="left">
+										<input type="checkbox" name="enable" value="0" >
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_LIST_CYCLE_TIME">Active on</label>
+									</td>
+									<td align="left">
+										<input type="checkbox" name="day" value="1">
+										<label id="SETTING_EVENT_LIST_MON">Mon</label>
+										<input type="checkbox" name="day" value="2">
+										<label id="SETTING_EVENT_LIST_TUE">Tue</label>
+										<input type="checkbox" name="day" value="3">
+										<label id="SETTING_EVENT_LIST_WED">Wed</label>
+										<input type="checkbox" name="day" value="4">
+										<label id="SETTING_EVENT_LIST_THR">Thr</label><br>
+										<input type="checkbox" name="day" value="5">
+										<label id="SETTING_EVENT_LIST_FRI">Fri</label>
+										<input type="checkbox" name="day" value="6">
+										<label id="SETTING_EVENT_LIST_SAT">Sat</label>
+										<input type="checkbox" name="day" value="7">
+										<label id="SETTING_EVENT_LIST_SUN">Sun</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="SETTING_EVENT_LIST_START_TIME">Time</label>
+									</td>
+									<td align="left" >
+										<div id="div_start_time" style="float:left"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="SETTING_EVENT_LIST_DURATION">Duration</label>
+									</td>
+									<td align="left" >
+										<div id="div_duration_time" style="float:left"></div>
+										<label id="SETTING_EVENT_LIST_DURATION_DESC" style="float:left">(max. 168:00 hours)</label>							
+										<div style="clear:both"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="SETTING_EVENT_LIST_TRIGGER_BY">Triggered by</label>
+									</td>
+									<td align="left" id="TD_TRIGGER_BY">
+										<!--<select name="trigger_by" onclick="changeTrigger();">
+											<option value="SCH">Time Interval</option>
+											<option value="DI">DIs</option>
+											<option value="MD">Motion</option>
+											<option id="Sound_Detection" value="AUDIO_IN" style="display:none">Sound Detection</option>
+											<option value="VLOSS">Video Loss</option>
+											<option value="NIGHT">Night</option>
+											<option value="READY">Ready</option>
+											<option value="STOP">Stop</option>
+										</select>-->
+									</td>
+								</tr>
+								<tr id="TR_ONCE_EVERY" style="display:none">
+									<td align="right">
+										<label id="SETTING_EVENT_LIST_ONCE_EVERY">Once Every</label>
+									</td>
+									<td align="left">
+										<input type="text" name="once_every" value="" size="3">
+										<label id="SETTING_EVENT_MINUTE">Minutes</label>
+									</td>
+								</tr>
+								<tr id="TR_TRIGGER_BY_DI" style="display:none">
+									<td align="right">
+										<label id="SETTING_EVENT_LIST_TRIGGER_BY_ID">Trigger by DI</label>
+									</td>
+									<td align="left">
+										<div style="float:left">
+											<input type="checkbox" name="DIn" value="DI1">
+											<label id="SETTING_EVENT_LIST_DI1">DI1</label>
+										</div>
+										<div id="DIV_DI2" style="float:left;display:none">
+											<input type="checkbox" name="DIn" value="DI2">
+											<label id="SETTING_EVENT_LIST_DI2">DI2</label>
+										</div>
+										<div id="DIV_DI3" style="float:left;display:none">
+											<input type="checkbox" name="DIn" value="DI3">
+											<label id="SETTING_EVENT_LIST_DI3">DI 3</label>
+										</div>
+										<div id="DIV_DI4" style="float:left;display:none">
+											<input type="checkbox" name="DIn" value="DI4">
+											<label id="SETTING_EVENT_LIST_DI4">DI 4</label>
+										</div>
+										<div style="clear:both"></div>
+									</td>
+								</tr>
+								<tr id="TR_TRIGGER_BY_MOTION" style="display:none">
+									<td align="right">
+										<label id="SETTING_EVENT_LIST_TRIGGER_BY_MOTION">Trigger by Motion</label>
+									</td>
+									<td align="left">
+										<input type="checkbox" name="MDn" value="MD1">
+										<label id="SETTING_EVENT_LIST_MD1">Region 1</label>
+										<input type="checkbox" name="MDn" value="MD2">
+										<label id="SETTING_EVENT_LIST_MD2">Region 2</label><br/>
+										<input type="checkbox" name="MDn" value="MD3">
+										<label id="SETTING_EVENT_LIST_MD3">Region 3</label>			
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_LIST_RESPONSE">Response To</label>
+									</td>
+									<td align="left">
+										<div id="DIV_DIGITAL_OUTPUT">
+											<input type="checkbox" name="digital_output" value="1" onclick="clickItem(this,'DIV_DIGITAL_OUTPUT_SUB');">
+											<label id="SETTING_EVENT_LIST_DIGITAL_OUTPUT">Digital Output</label>
+										</div>
+										<div id="DIV_DIGITAL_OUTPUT_SUB" style="padding-left:30px;display:none;">
+											<div style="float:left">
+												<input type="checkbox" name="DOn" value="DO1">
+												<label id="SETTING_EVENT_LIST_RSPDO1">DO1</label>
+											</div>
+											<div id="DIV_DO2" style="float:left;display:none">
+												<input type="checkbox" name="DOn" value="DO2">
+												<label id="SETTING_EVENT_LIST_RSPDO2">DO2</label>
+											</div>
+											<div style="clear:both"></div>
+										</div>
+										<div id="DIV_SEND_NOTIFICATION_MSG">
+											<input type="checkbox" name="send_message" value="1" onclick="clickItem(this,'DIV_SEND_NOTIFICATION_MSG_SUB');">
+											<label id="SETTING_EVENT_LIST_SEND_NOTIFICATION_MSG">Send notification message</label>
+										</div>
+										<div id="DIV_SEND_NOTIFICATION_MSG_SUB" style="padding-left:30px;display:none;">
+											<input type="checkbox" name="message" value="MSG1">
+											<label id="SETTING_EVENT_LIST_RSPMSG1">Message 1</label>
+											<input type="checkbox" name="message" value="MSG2">
+											<label id="SETTING_EVENT_LIST_RSPMSG2">Message 2</label><br/>
+											<input type="checkbox" name="message" value="MSG3">
+											<label id="SETTING_EVENT_LIST_RSPMSG3">Message 3</label>
+										</div>
+										<div id="DIV_UPLOAD_VIDEO_SNAPSHOP">
+											<input type="checkbox" name="send_image" value="1" onclick="clickItem(this,'DIV_UPLOAD_VIDEO_SNAPSHOP_SUB');">
+											<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD">Upload video/snapshots</label>
+										</div>
+										<div id="DIV_UPLOAD_VIDEO_SNAPSHOP_SUB" style="padding-left:30px;display:none;">
+											<input type="checkbox" name="image" value="IMG1">
+											<label id="SETTING_EVENT_LIST_RSPIMG1">Image 1</label>
+											<input type="checkbox" name="image" value="IMG2">
+											<label id="SETTING_EVENT_LIST_RSPIMG2">Image 2</label><br/>
+											<input type="checkbox" name="image" value="IMG3">
+											<label id="SETTING_EVENT_LIST_RSPIMG3">Image 3</label>
+										</div>
+										<div id="DIV_CHANGE_MOTION" style="display:none">
+											<input type="checkbox" name="send_region" value="1" onclick="clickItem(this,'DIV_CHANGE_MOTION_SUB');">
+											<label id="SETTING_EVENT_LIST_CHANGE_MOTION">Change Motion Detection Profile</label>
+											<div id="DIV_CHANGE_MOTION_SUB" style="padding-left:30px;display:none;">
+												<input type="checkbox" name="region" value="MD1">
+												<label id="SETTING_EVENT_LIST_RSPMD1">Region 1</label>
+												<input type="checkbox" name="region" value="MD2">
+												<label id="SETTING_EVENT_LIST_RSPMD2">Region 2</label><br/>
+												<input type="checkbox" name="region" value="MD3">
+												<label id="SETTING_EVENT_LIST_RSPMD3">Region 3</label>												
+											</div>
+										</div>
+										<div id="DIV_SEND_URL_CMD">
+											<input type="checkbox" name="send_url_cmd" value="1" onclick="clickItem(this,'DIV_SEND_URL_CMD_SUB');">
+											<label id="SETTING_EVENT_LIST_SEND_URL_CMD">Send URL command</label>
+										</div>
+										<div id="DIV_SEND_URL_CMD_SUB" style="padding-left:30px;display:none;">
+											<input type="checkbox" name="url_cmd" value="CMD1">
+											<label id="SETTING_EVENT_LIST_RSPCMD1">URL Command 1</label>
+											<input type="checkbox" name="url_cmd" value="CMD2">
+											<label id="SETTING_EVENT_LIST_RSPCMD2">URL Command 2</label><br/>
+											<input type="checkbox" name="url_cmd" value="CMD3">
+											<label id="SETTING_EVENT_LIST_RSPCMD3">URL Command 3</label>
+										</div>
+										<div id="DIV_DAY_NIGHT_MODE" style="display:none">
+											<input type="checkbox" name="send_dn_mode" value="1" onclick="clickItem(this,'DIV_DAY_NIGHT_MODE_SUB');">
+											<label id="SETTING_EVENT_LIST_DN_MODE">Change Day / Night mode</label>
+											<div id="DIV_DAY_NIGHT_MODE_SUB" style="padding-left:30px;display:none;">
+												<input type="radio" name="dn_mode" value="DAY">
+												<label id="SETTING_EVENT_LIST_RSPDAY">DAY</label>
+												<input type="radio" name="dn_mode" value="NIGHT">
+												<label id="SETTING_EVENT_LIST_RSPNIGHT">NIGHT</label>
+											</div>
+										</div>
+										<div id="DIV_SEND_ANS" style="display:none">
+											<input type="checkbox" id="send_ans">
+											<label id="SETTING_EVENT_LIST_ANS">Send message to the notification server </label>
+										</div>
+									</td>
+								</tr>
+							 </table>  
+							 <table border="0" align="center" width="100%">
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>		
+								<tr>
+									<td align="right">
+										<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+									</td> 
+								</tr>			
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>											   
+							</table>
+							<table>
+								<div id="divError" style="display:none">
+									<label id="EVENT_ERROR_MESSAGE"></label>&nbsp;&nbsp;&nbsp;</br>							
+								</div>	
+							</table>
+						</form>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	//var CameraConf;
+	var audio_in = 0;
+	var ans_notify_state = 0;
+	 
+	if(top.gDO == '0'){
+		document.getElementById('DIV_DIGITAL_OUTPUT').style.display='none';
+		document.getElementById('DIV_DIGITAL_OUTPUT_SUB').style.display='none';
+	}
+	
+	if(top.gDI == '2'){
+		document.getElementById('DIV_DI2').style.display='';
+	}
+	if(top.gDI == '3'){
+		document.getElementById('DIV_DI2').style.display='';
+		document.getElementById('DIV_DI3').style.display='';
+	}
+	if(top.gDI == '4'){
+		document.getElementById('DIV_DI2').style.display='';
+		document.getElementById('DIV_DI3').style.display='';
+		document.getElementById('DIV_DI4').style.display='';
+	}
+	
+	if(top.gDO == '2'){
+		document.getElementById('DIV_DO2').style.display='';
+	}
+	
+	var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+	szSystem += "&V2_AUDIO_ENABLED";		
+	var szReturn = doRequest(szSystem) ; 
+	//alert(szReturn);
+	szReturn = szReturn.split('\n') ;
+	szTmp = doSplitValue(szReturn[0]);
+	audio_in = szTmp[1];
+	
+	var cb = [] ;
+	cb[cb.length] = '<select name="trigger_by" onclick="changeTrigger();">' ;
+	cb[cb.length] = '<option value="SCH" id="SELECT_EVENT_TRIGGERED_BY_SCH">Scheduler</option>' ;
+	if(top.gDI != '0'){
+		cb[cb.length] = '<option value="DI" id="SELECT_EVENT_TRIGGERED_BY_DI">DIs</option>' ;
+	}
+	cb[cb.length] = '<option value="MD" id="SELECT_EVENT_TRIGGERED_BY_MD">Motion</option>' ;
+	
+	if(audio_in==1){
+		cb[cb.length] ='<option value="AUDIO_IN" id="SELECT_EVENT_TRIGGERED_BY_SOUND">Sound Detection</option>' ;
+	}	
+	if(top.gDNCtrl!="None"){
+		cb[cb.length] = '<option value="NIGHT" id="SELECT_EVENT_TRIGGERED_BY_NIGHT">Switch to night mode</option>' ;
+	}	
+	cb[cb.length] = '<option value="READY" id="SELECT_EVENT_TRIGGERED_BY_READY">Ready for service</option>' ;
+	cb[cb.length] = '<option value="STOP" id="SELECT_EVENT_TRIGGERED_BY_STOP">Service is not available</option>' ;
+	if (top.gStorage != "None") {
+		//cb[cb.length] = '<option value="DISK_LOW" id="SELECT_EVENT_TRIGGERED_BY_DISKLOW">Run out storage space</option>' ;
+		cb[cb.length] = '<option value="DISK_ERR" id="SELECT_EVENT_TRIGGERED_BY_DISKERR">Fail to write storage</option>' ;
+		cb[cb.length] = '<option value="DISK_REMOVE" id="SELECT_EVENT_TRIGGERED_BY_DISKREMOVE">Remove storage media</option>' ;
+	}
+	cb[cb.length] = '</select>' ;
+	
+	document.getElementById('TD_TRIGGER_BY').innerHTML = cb.join('');
+	var listId = parent.listId ;
+	
+	document.getElementById('LISTID').innerHTML = listId;	
+
+		var cb = [] ;
+	cb[cb.length] = '<select name="start_time_hour">' ;
+	for(var x=0; x<=23; x++){
+		var vv ;
+		if(x<10){
+			vv = '0'+ x ;
+		}
+		else{
+			vv = x ;
+		}
+		cb[cb.length] = '<option value="'+ vv +'">'+ vv +'</option>' ;
+	}
+	cb[cb.length] = '</select>' ;
+	cb[cb.length] = '<label>:</label>' ;
+	cb[cb.length] = '<select name="start_time_min">' ;
+	for(var y=0; y<=59; y++){
+		var vv ;
+		if(y<10){
+			vv = '0'+ y ;
+		}
+		else{
+			vv = y ;
+		}
+		cb[cb.length] = '<option value="'+ vv +'">'+ vv +'</option>' ;
+	}
+	cb[cb.length] = '</select>' ;
+	
+	document.getElementById('div_start_time').innerHTML = cb.join('');
+	
+	
+	var cb = [] ;
+	cb[cb.length] = '<select name="duration_time_hour">' ;
+	for(var x=0; x<=168; x++){
+		var vv ;
+		if(x<10){
+			vv = '0'+ x ;
+		}
+		else{
+			vv = x ;
+		}
+		cb[cb.length] = '<option value="'+ vv +'">'+ vv +'</option>' ;
+	}
+	cb[cb.length] = '</select>' ;
+	cb[cb.length] = '<label>:</label>' ;
+	cb[cb.length] = '<select name="duration_time_min">' ;
+	for(var y=0; y<=59; y++){
+		var vv ;
+		if(y<10){
+			vv = '0'+ y ;
+		}
+		else{
+			vv = y ;
+		}
+		cb[cb.length] = '<option value="'+ vv +'">'+ vv +'</option>' ;
+	}
+	cb[cb.length] = '</select>' ;
+	
+	document.getElementById('div_duration_time').innerHTML = cb.join('');
+	
+	function changeTrigger()
+	{
+		//ans_notify_state =1;
+		var szTmp;
+		var VIDEO_DAYNIGHT_MODE="";
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&VIDEO_DAYNIGHT_MODE";
+		var szReturn = doRequest(szEncoder) ;				
+		szReturn = szReturn.split('\n') ;
+		szTmp = top.doSplitValue( szReturn[0] ) ;
+		VIDEO_DAYNIGHT_MODE = szTmp[1];
+		var szValue = document.frmSetting.trigger_by.value ;
+		
+		document.getElementById('TR_TRIGGER_BY_DI').style.display = 'none' ;
+		document.getElementById('TR_TRIGGER_BY_MOTION').style.display = 'none' ;
+		document.getElementById('DIV_CHANGE_MOTION').style.display = 'none' ;		
+		document.getElementById('TR_ONCE_EVERY').style.display = 'none' ;
+		idget("DIV_SEND_ANS").style.display="none";	
+		
+		if(top.gDNCtrl != "None" || VIDEO_DAYNIGHT_MODE == "AUTO")
+			document.getElementById('DIV_DAY_NIGHT_MODE').style.display = '' ;
+		else						
+			document.getElementById('DIV_DAY_NIGHT_MODE').style.display = 'none' ;	
+		
+		switch ( szValue ) {
+            case 'SCH' :
+				document.getElementById('DIV_CHANGE_MOTION').style.display = '' ;
+				document.getElementById('TR_ONCE_EVERY').style.display = '' ;
+				break;
+				
+			case 'DI' :
+				document.getElementById('TR_TRIGGER_BY_DI').style.display = '' ;
+				document.getElementById('DIV_CHANGE_MOTION').style.display = '' ;
+				//if(ans_notify_state==1)  /*don't care server is register or enabled*/
+					idget("DIV_SEND_ANS").style.display="";
+				break;
+				
+			case 'MD' :
+				document.getElementById('TR_TRIGGER_BY_MOTION').style.display = '' ;
+				//if(ans_notify_state==1)  /*don't care server is register or enabled*/
+					idget("DIV_SEND_ANS").style.display="";
+				break;
+				
+			case 'VLOSS' :
+				break;
+				
+			case 'NIGHT' :				
+				document.getElementById('DIV_CHANGE_MOTION').style.display = '' ;	
+				document.getElementById('DIV_DAY_NIGHT_MODE').style.display = 'none' ;	
+				break;
+				
+			case 'READY' :
+				break;
+				
+			case 'STOP' :
+				break;
+				
+			case 'AUDIO_IN' :
+				break;	
+		}
+		
+	}
+	
+	
+	function clickItem(x,id)
+	{		
+		if(x.checked == true)
+			document.getElementById(id).style.display = '' ;		
+		else
+			document.getElementById(id).style.display = 'none' ;		
+	}
+	
+	function clean_result(){		
+		
+		idget("BUTTON_APPLY").disabled = false ;		
+		idget("BUTTON_APPLY").value = "Apply" ;
+		try { idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 	
+	
+	function DoApply()
+	{
+		idget("BUTTON_APPLY").value =  top.GetXmlLangTagByName("BUTTON_SAVE") ;
+		idget("BUTTON_APPLY").disabled = true ;
+		
+		var entry,state,wday,sHHSMM,dHHdMM,EventSrc,EventOutput;
+		entry = listId ;
+		state = ((document.frmSetting.enable.checked) ? 1 : 0) ;
+		
+		wday = '' ;
+		var weekday = document.frmSetting.day ;
+		for(var i=0; i<=weekday.length-1; i++)
+		{
+			if(weekday[i].checked == true){
+				wday = wday + '' + weekday[i].value ;
+			}
+		}
+		
+		sHHSMM = document.frmSetting.start_time_hour.value + ':' + document.frmSetting.start_time_min.value ;
+		dHHdMM = document.frmSetting.duration_time_hour.value + ':' + document.frmSetting.duration_time_min.value ;
+		
+		EventSrc = '' ;
+		switch ( document.frmSetting.trigger_by.value ) {
+            
+			case 'DI' :
+				var items = document.frmSetting.DIn ;
+				for(var j=0; j<=items.length-1; j++){
+					if(items[j].checked == true){
+						EventSrc = EventSrc +'|'+ items[j].value ;
+					}
+				}
+				//alert("EventSrc ="+EventSrc);
+				break;
+				
+			case 'MD' :
+				var items = document.frmSetting.MDn ;
+				for(var j=0; j<=items.length-1; j++){
+					if(items[j].checked == true && items[j].style.display == ''){
+						EventSrc = EventSrc +'|'+ items[j].value ;
+					}
+				}
+				break;
+
+			default:
+				EventSrc = EventSrc +'|'+ document.frmSetting.trigger_by.value ;
+		}
+
+		if(EventSrc != ''){
+			EventSrc = EventSrc.substring(1, EventSrc.length) ;
+		}
+		
+		EventOutput = '' ;
+		
+		if(document.frmSetting.digital_output.checked == true){
+			var items = document.frmSetting.DOn ;
+			for(var j=0; j<=items.length-1; j++){
+				if(items[j].checked == true){
+					EventOutput = EventOutput +'|'+ items[j].value ;
+				}
+			}
+		}
+		
+		if(document.frmSetting.send_message.checked == true){
+			var items = document.frmSetting.message ;
+			for(var j=0; j<=items.length-1; j++){
+				if(items[j].checked == true){
+					EventOutput = EventOutput +'|'+ items[j].value ;
+				}
+			}
+		}
+		
+		if(document.frmSetting.send_image.checked == true){
+			var items = document.frmSetting.image ;
+			for(var j=0; j<=items.length-1; j++){
+				if(items[j].checked == true){
+					EventOutput = EventOutput +'|'+ items[j].value ;
+				}
+			}
+		}
+		
+		if(document.frmSetting.send_region.checked == true &&
+				document.getElementById('DIV_CHANGE_MOTION').style.display == '')
+		{
+			var items = document.frmSetting.region ;
+			for(var j=0; j<=items.length-1; j++){
+				if(items[j].checked == true){
+					EventOutput = EventOutput +'|'+ items[j].value ;
+				}
+			}
+		}
+		
+		if(document.frmSetting.send_url_cmd.checked == true){
+			var items = document.frmSetting.url_cmd ;
+			for(var j=0; j<=items.length-1; j++){
+				if(items[j].checked == true){
+					EventOutput = EventOutput +'|'+ items[j].value ;
+				}
+			}
+		}
+		
+		if(document.frmSetting.send_dn_mode.checked == true){
+			var items = document.frmSetting.dn_mode ;
+			for(var j=0; j<=items.length-1; j++){
+				if(items[j].checked == true){
+					EventOutput = EventOutput +'|'+ items[j].value ;
+				}
+			}
+		}	
+		
+		if(idget("send_ans").checked==true){
+			EventOutput = EventOutput +'|'+ "ANS" ;
+		}	
+		
+		if(EventOutput != ''){
+			EventOutput = EventOutput.substring(1, EventOutput.length) ;
+		}
+		
+		//alert(EventOutput);
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+		szSystem = szSystem + 'EVENT_CONFIG='+ entry +','+ state +','+ wday +','+ sHHSMM +','+ dHHdMM + ',' + EventSrc + ',' + EventOutput   ;
+		//alert(szSystem);
+		if(document.frmSetting.trigger_by.value == "SCH"){
+			szSystem = szSystem + ',' + document.frmSetting.once_every.value ;
+		}
+		
+        var szReturn = top.doRequest(szSystem) ;
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+		//alert(szReturn);
+        for (var nIdx=0; nIdx< szReturn.length; nIdx++) {
+           
+            if(szReturn[nIdx].indexOf('ERROR')>-1){
+				nError++ ;
+			}
+        }
+        if (nError == 0) {
+			idget("BUTTON_APPLY").value = "Success" ;
+			window.setTimeout("clean_result();", 2000 );
+			parent.doGetSetting();
+											
+		}
+		else{
+			//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+			window.setTimeout("clean_result();", 2000 );
+			alert(err_message);
+			return;
+			//doGetSetting();
+		}
+		
+		doGetSetting();		
+		parent.Close();
+	}
+	
+	function doGetSetting()
+	{
+		/*var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&CAMERA_PAGE";
+		var szReturn = doRequest(szEncoder) ;		
+		CameraConf = eval(szReturn);*/			
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+    
+        szSystem = szSystem + "&EVENT_CONFIG";
+        var szReturn = top.doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		//alert(szReturn);
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'EVENT_CONFIG' :
+					var value = szTmp[1].split(',') ;
+					//alert("value="+value);
+					if(value[0] == listId){
+						//state
+						if(value[1] == '1'){
+							document.frmSetting.enable.checked = true ;
+						}
+						else{
+							document.frmSetting.enable.checked = false ;
+						}
+						
+						//weekday
+						var weekday = value[2].split('') ;
+						var days = document.frmSetting.day ;
+						for(var j=0; j<=days.length-1; j++){
+							days[j].checked = false ;
+						}
+						
+						for(var i=0; i<=weekday.length-1; i++){
+							days[parseInt(weekday[i])-1].checked = true ;
+						}
+						
+						//sHH:sMM
+						var sHHMM = value[3].split(':');
+						document.frmSetting.start_time_hour.value = sHHMM[0] ;
+						document.frmSetting.start_time_min.value = sHHMM[1] ;
+						
+						//dHH:MM
+						var dHHMM = value[4].split(':');
+						document.frmSetting.duration_time_hour.value = dHHMM[0] ;
+						document.frmSetting.duration_time_min.value = dHHMM[1] ;
+						
+						//eventSrc
+						var eventSrc = value[5] ;
+						var eventSrcSplit=eventSrc.split('|');
+						//alert(eventSrc);
+						
+						if(eventSrc == 'VLOSS'){
+							document.frmSetting.trigger_by.value = 'VLOSS' ;
+						}
+						else if(eventSrc == 'SCH'){
+							document.frmSetting.trigger_by.value = 'SCH' ;
+						}
+						else if(eventSrc == 'NIGHT'){
+							document.frmSetting.trigger_by.value = 'NIGHT' ;
+						}
+						else if(eventSrc == 'AUDIO_IN'){
+							document.frmSetting.trigger_by.value = 'AUDIO_IN' ;
+						}
+						else if(eventSrc == 'READY'){
+							document.frmSetting.trigger_by.value = 'READY' ;
+						}
+						else if(eventSrc == 'STOP'){
+							document.frmSetting.trigger_by.value = 'STOP' ;
+						}
+						else if(eventSrc == 'NONE'){
+							document.frmSetting.trigger_by.value = 'SCH' ;
+						}
+						else if(eventSrc == 'DISK_LOW'){
+							document.frmSetting.trigger_by.value = 'DISK_LOW' ;
+						}
+						else if(eventSrc == 'DISK_ERR'){
+							document.frmSetting.trigger_by.value = 'DISK_ERR' ;
+						}
+						else if(eventSrc == 'DISK_REMOVE'){
+							document.frmSetting.trigger_by.value = 'DISK_REMOVE' ;
+						}
+						else if(eventSrcSplit[0].slice(0,2)=="DI"){
+							document.frmSetting.trigger_by.value = 'DI' ;
+							var i;
+							for(i=0; i<eventSrcSplit.length; i++){
+								document.frmSetting.DIn[parseInt(eventSrcSplit[i].slice(2,3))-1].checked = true ;
+							}
+						}
+						else{
+							document.frmSetting.trigger_by.value = 'MD' ;
+							var i;
+							for(i=0; i<eventSrcSplit.length; i++){
+								document.frmSetting.MDn[parseInt(eventSrcSplit[i].substring(2,eventSrcSplit[i].length))-1].checked = true ;
+								}							
+						}
+						changeTrigger();
+						
+						//EventOutput
+						var EventOutput = '|' + value[6] ;
+						//alert(EventOutput);
+						document.frmSetting.digital_output.checked = false ;
+						for(var a=1; a<=2; a++){
+							if(EventOutput.indexOf('|DO'+a)>-1){
+								document.frmSetting.DOn[a-1].checked = true ;
+								document.frmSetting.digital_output.checked = true ;
+							}
+							else{
+								document.frmSetting.DOn[a-1].checked = false ;
+							}
+						}
+						clickItem(document.frmSetting.digital_output,'DIV_DIGITAL_OUTPUT_SUB');
+						
+						document.frmSetting.send_message.checked = false ;
+						for(var b=1; b<=3; b++){
+							if(EventOutput.indexOf('|MSG'+b)>-1){
+								document.frmSetting.message[b-1].checked = true ;
+								document.frmSetting.send_message.checked = true ;
+							}
+							else{
+								document.frmSetting.message[b-1].checked = false ;
+							}
+							
+						}
+						clickItem(document.frmSetting.send_message,'DIV_SEND_NOTIFICATION_MSG_SUB');
+						
+						document.frmSetting.send_image.checked = false ;
+						for(var c=1; c<=3; c++){
+							if(EventOutput.indexOf('|IMG'+c)>-1){
+								document.frmSetting.image[c-1].checked = true ;
+								document.frmSetting.send_image.checked = true ;
+							}
+							else{
+								document.frmSetting.image[c-1].checked = false ;
+							}
+						}
+						clickItem(document.frmSetting.send_image,'DIV_UPLOAD_VIDEO_SNAPSHOP_SUB');
+						
+						document.frmSetting.send_region.checked = false ;
+						for(var d=1; d<=3; d++){
+							if(EventOutput.indexOf('|MD'+d)>-1){
+								document.frmSetting.region[d-1].checked = true ;
+								document.frmSetting.send_region.checked = true ;
+							}
+							else{
+								document.frmSetting.region[d-1].checked = false ;
+							}
+						}
+												
+						
+						clickItem(document.frmSetting.send_region,'DIV_CHANGE_MOTION_SUB');
+						
+						document.frmSetting.send_url_cmd.checked = false ;
+						for(var e=1; e<=3; e++){
+							if(EventOutput.indexOf('|CMD'+e)>-1){
+								document.frmSetting.url_cmd[e-1].checked = true ;
+								document.frmSetting.send_url_cmd.checked = true ;
+							}
+							else{
+								document.frmSetting.url_cmd[e-1].checked = false ;
+							}
+						}
+						clickItem(document.frmSetting.send_url_cmd,'DIV_SEND_URL_CMD_SUB');												
+						
+						if(value.length == 8){
+							document.frmSetting.once_every.value = value[7] ;
+						}
+						else
+							document.frmSetting.once_every.value = 5 ;
+							
+						document.frmSetting.send_dn_mode.checked = false ;
+						
+						
+						if(EventOutput.indexOf('|DAY')>-1){
+							document.frmSetting.dn_mode[0].checked = true ;
+							document.frmSetting.dn_mode[1].checked = false ;
+							document.frmSetting.send_dn_mode.checked = true ;
+						}		
+						if(EventOutput.indexOf('|NIGHT')>-1){
+							document.frmSetting.dn_mode[1].checked = true ;
+							document.frmSetting.dn_mode[0].checked = false ;
+							document.frmSetting.send_dn_mode.checked = true ;
+						}
+						clickItem(document.frmSetting.send_dn_mode,'DIV_DAY_NIGHT_MODE_SUB');	
+						
+						if(EventOutput.indexOf('|ANS')>-1)
+							idget("send_ans").checked = true;
+ 					}
+				
+					break; 
+            }
+        }		
+	}
+	
+	var err_message = 'Error. Invalid settings.' ;
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		if(top.gAudioType == '0')
+		{
+			idget("SETTING_EVENT_CONFIGURATOR_UPLOAD").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_NOAUDIO");  
+		}
+		
+		
+		try { err_message = top.GetXmlLangTagByName("EVENT_ERROR_MESSAGE") ; } catch(e) {}
+		doGetSetting();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>    
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+<body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
+<img id="snapshot"  ></img>
+</body> 
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+		
+	function PageOnload()
+	{
+		var tmp1;
+		if(location.port != '')
+			tmp1 = location.protocol + "//"+location.host +":" +location.port + "/cgi-bin/encoder?USER=" + opener.top.gAccount  + "&PWD="+ opener.top.gPwd  + "&CHANNEL=" + opener.NowPlayingMedia + "&SNAPSHOT" ;
+		else
+			tmp1 = location.protocol + "//"+location.host  + "/cgi-bin/encoder?USER=" + opener.top.gAccount + "&PWD="+ opener.top.gPwd + "&CHANNEL=" + opener.NowPlayingMedia + "&SNAPSHOT" ;   
+		
+		idget("snapshot").src = tmp1;
+	}
+		
+	PageOnload();
+</Script>

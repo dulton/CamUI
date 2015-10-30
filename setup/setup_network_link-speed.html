@@ -1,0 +1,117 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_LINK_SPEED_AND_DUPLEX">Speed &amp; Duplex</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_LINK_SPEED_WAN_SPEED">Network Speed</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+                                <select size="1" id="SPEED_WAN">
+                                    <option value="0" id="SELECT_SPEED_DUPLEX_AUTO">Auto Detect</option>
+                                    <option value="1" id="SELECT_SPEED_DUPLEX_100M_FULL_DUPLEX">100Mbps/Full Duplex</option>
+                                    <option value="2" id="SELECT_SPEED_DUPLEX_100M_HALF_DUPLEX">100Mbps/Half Duplex</option>
+                                    <option value="3" id="SELECT_SPEED_DUPLEX_10M_FULL_DUPLEX">10Mbps/Full Duplex</option>
+                                    <option value="4" id="SELECT_SPEED_DUPLEX_10M_HALF_DUPLEX">10Mbps/Half Duplex</option>
+                                </select>
+							</td>
+						</tr>
+
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoSpeedWanApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetSpeedWanSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+
+
+	function DoSpeedWanApply()
+	{
+		
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+				
+		szSystem +=  "SPEED_WAN=" + idget("SPEED_WAN").value ;		
+	        	       
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetSpeedWanSettings();
+	}
+	
+	function GetSpeedWanSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&SPEED_WAN" ;
+		
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'SPEED_WAN' :					
+					idget("SPEED_WAN").value = szTmp[1] ;					
+					break;													
+			}
+		}	
+		
+	}
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		GetSpeedWanSettings();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

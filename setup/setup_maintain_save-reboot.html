@@ -1,0 +1,94 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_SYSTEM_REBOOT">Reboot</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="left" colspan="2">
+								<label id="SETTING_SYSTEM_REBOOT_STRING">Click apply to save all settings and reboot this device.</label><br>
+                                <label id="SETTING_SYSTEM_REBOOT_WAIT">Please wait 30 seconds for system reboot. And the window will close in 3 seconds.</label>
+                            </td>
+						</tr>
+						    			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td colspan="2" align="center">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoSaveReboot()" />
+							
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+
+	function DoSaveReboot()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        szSystem += "SAVE_REBOOT" ;
+
+        var szReturn = doRequest(szSystem) ;
+        		
+		window.setTimeout("CountDown();", 1000);
+		
+	}
+	var nCount = 1 ;
+    function CountDown() {
+        nCount-- ;
+        
+        if ( nCount == 0) {
+			window.open("","_self");
+			top.opener=null;
+			top.close();
+        }
+        else {
+            window.setTimeout("CountDown();", 1000);
+        }
+    }	
+		
+	function Page_onLoad()
+	{
+		top.update_language(this);			
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

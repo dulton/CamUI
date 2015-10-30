@@ -1,0 +1,623 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<form name="frmDdns" >
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<label id="SETTING_DDNS">DDNS</label>
+				</td>
+				<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>	
+				<tr>
+					<td>
+						<table border="0" align="center" width="100%">
+							<tr id="TR_DDNS_ENABLE">
+								<td align="right" width="50%">
+									<input type="checkbox" id="ddns_enable" style="margin-right:2px" >
+								</td>
+								<td align="left" width="50%">
+									<label id="COMMOM_MSG_ENABLED">Enabled</label>
+								</td>
+							</tr>
+							
+							<tr id="TR_DDNS_PLANET" style="display:none">
+								<td align="right" width="50%">
+									<label id="SETTING_DDNS_2">DDNS</label>
+								</td>
+								<td align="left"  width="50%">
+									<select id="DDNS_PLANET" style="margin-left:5px" onchange="DDNS_Planet_Change()">
+										<Option value="0">Disabled</Option>
+									    <Option value="1">Easy DDNS</Option>
+									    <Option value="2">Dynamic DDNS</Option>
+									</select>
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right"  width="50%">
+									<label id="SETTING_DDNS_SERVICE_ISP">As a service / As a protocol reference</label>
+								</td>
+								<td align="left"  width="50%">
+									<select id="DDNS_SERVICE" style="margin-left:5px" onchange="DDNS_Service_Change()">
+									</select>
+								</td>
+							</tr>
+							
+							<tr id="TR_SETTING_DDNS_HOST_NAME">
+								<td align="right">
+									<label id="SETTING_DDNS_HOST_NAME">Host Name</label>
+								</td>
+								<td align="left">
+									<input type="text" id="DDNS_HOSTNAME"  style="margin-left:5px" maxlength="127" />
+								</td>
+							</tr>
+							
+							<tr id="TR_SETTING_DDNS_USER_NAME">
+								<td align="right"  width="50%">
+									<label id="SETTING_DDNS_USER_NAME">User Name</label>
+								</td>
+								<td align="left"  width="50%">
+									<input type="text" id="DDNS_USERNAME"  style="margin-left:5px" maxlength="31" />
+								</td>
+							</tr>
+							
+							<tr id="TR_SETTING_DDNS_PASSWORD_2">
+								<td align="right"  width="50%">
+									<label id="SETTING_DDNS_PASSWORD_2">Password</label>
+								</td>
+								<td align="left"  width="50%">
+									<input type="password" id="DDNS_PASSWORD" style="margin-left:5px" maxlength="31" />
+								</td>
+							</tr>
+							
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>		
+							<tr>
+								<td align="right"  width="50%">
+									<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoDDNSApply()" />&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left"  width="50%">
+									&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetDDNSSettings()"/>
+								</td> 
+							</tr>			
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>											   
+						</table>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</form>
+	<form name="frmP2P" >
+		<table  id="Tab_P2P" class="setup_table" align="center"  border="0" style="display:none">
+			<tr>
+				<td class="setup_item"  >
+					<label id="SETTING_P2P">P2P</label>
+				</td>
+				<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>	
+				<tr>
+					<td>
+						<table border="0" align="center" width="100%">
+							<tr>
+								<td align="right" >
+									<input type="checkbox" id="p2p_enable" style="margin-right:2px" >
+								</td>
+								<td align="left" width="50%">
+									<label id="COMMOM_MSG_ENABLED_2">Enabled</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="SETTING_P2P_PORTAL_ADDR">P2P Protal Address</label>
+								</td>
+								<td align="left">
+									<input type="text" id="P2P_PORTAL_ADDR"  style="margin-left:5px" maxlength="32" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="SETTING_P2P_PORTAL_PORT">P2P Protal Port</label>
+								</td>
+								<td align="left">
+									<input type="text" id="P2P_PORTAL_PORT"  style="margin-left:5px" maxlength="24" />
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right">
+									<label id="SETTING_P2P_USER_NAME">User Name</label>
+								</td>
+								<td align="left">
+									<input type="text" id="P2P_USERNAME"  style="margin-left:5px" maxlength="32" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="SETTING_P2P_PASSWORD">Password</label>
+								</td>
+								<td align="left">
+									<input type="password" id="P2P_PASSWORD" style="margin-left:5px" maxlength="64" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="SETTING_P2P_UUID_STATUS">UUID Status</label>
+								</td>
+								<td align="left" width="20px">
+									<input type="text" id="P2P_UUID_STATUS" style="margin-left:5px" maxlength="15" readonly="readonly" />
+									<input class="button2" type="button" id="SETTING_P2P_APPLY_UUID"  style="display:none" onclick="DoP2PApply('1')" />&nbsp;&nbsp;&nbsp; 
+								</td>
+							</tr>
+							
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>		
+							<tr>
+								<td align="right">
+									<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY2" value="Apply" onclick="DoP2PApply('2')" />&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET2" value="Reset" onclick="GetP2PSettings()"/>
+								</td> 
+							</tr>			
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>											   
+						</table>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</form>
+	<div  class="setup_bg">	
+	</div>
+	
+	<div id="divError" style="display:none">
+		<label id="SETTING_P2P_APPLY_UUID_ERR">Error message of Apply an UUID button</label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="COMMON_MSG_SET_ERR">Error message of all P2P configurations which they are NULL or incorrect values</label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="SETTING_LOGIN_NAME_ERR">Rules of login name.\n 1. Only A~Z, a~z, 0~9, minus sign (-), underscore (_), period (.) and $ are allowed.\n 2. The first character is allowed to A~Z or a~z or 0~9 only.</label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="SETTING_LOGIN_PWD_ERR">Rules of login password.\n 1. Allow 0~9 A~Z a~z\n 2. Allow special characters ! $ ( ) * + - . ; < = > @ [ ] ^ _ { } | ~ </label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="SETTING_NETWORK_NAME_ERR">Rules of networking name.\n 1. Only A~Z, a~z, 0~9, minus sign (-), underscore (_), period (.) are allowed.\n 2. No blank or space characters are permitted as part of a name 3. The last character must not be a minus sign, underscore or period. 4. The first character is allowed to either a letter or a digit. 5. No NULL string is allowed.</label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="SETTING_PLANET_NETWORK_ERR">1. 6~16 characters&#10; 2. Only ASCII A~Z, a~z, 0~9, minus sign (-)&#10; 3. The last character must not be a minus sign&#10; 4. The first character is allowed to be either a letter or a digit</label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="SETTING_PLANET_NAME_PWD_ERR"> 1. 6~16 characters&#10;  2. Only ASCII A~Z, a~z, 0~9&#10;</label>&nbsp;&nbsp;&nbsp;</br>
+	</div>	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var err_msg = "Error message of Apply an UUID button";
+	var err_msg2 = "Error message of all P2P configurations which they are NULL or incorrect values";
+	var planet_login_name_pwd_err0 = "1. 6~16 characters 2. Only ASCII A~Z, a~z, 0~9";	
+	var planet_networking_name_err0 = "1. 6~16 characters 2. Only ASCII A~Z, a~z, 0~9, minus sign (-) 3. The last character must not be a minus sign 4. The first character is allowed to be either a letter or a digit";	
+	var DDNS_CAP;
+	
+    function DDNS_Service_Change()
+	{
+		if(idget("DDNS_SERVICE").value =="mediacss" || idget("DDNS_SERVICE").value =="smmaas" || idget("DDNS_SERVICE").value =="vmsaas")
+		{
+			idget("DDNS_HOSTNAME").disabled = true;
+		}
+		else
+		{
+			idget("DDNS_HOSTNAME").disabled = false;
+		}	
+	}
+	
+	function DoP2PApply(button)
+	{
+		if(idget("p2p_enable").checked == true)
+		{
+			if(top.LoginNameCheck(idget("P2P_USERNAME").value) == false)
+			{
+				alert(top.login_name_err0);					
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return;
+			}
+			if(top.PasswordCheck(idget("P2P_PASSWORD").value) == false)
+			{
+				alert(top.pwd_err0);					
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return;
+			}
+			if(top.NetworkingCheck(idget("P2P_PORTAL_ADDR").value) == false)	
+			{
+				alert(top.networking_name_err0);					
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return;
+			}
+		}
+		
+		
+		//idget("BUTTON_APPLY2").value = "Saving..." ; 
+		idget("BUTTON_APPLY2").value = top.GetXmlLangTagByName("BUTTON_SAVE") ; 
+		idget("BUTTON_APPLY2").disabled = true ;			
+		
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+		if(idget("p2p_enable").checked == false)
+			szSystem = szSystem + "P2P_CONFIG=0" ;
+		else
+		{
+			szSystem = szSystem + "P2P_CONFIG=1," ;
+			szSystem = szSystem +  idget("P2P_PORTAL_ADDR").value  + ",";
+			szSystem = szSystem +  idget("P2P_PORTAL_PORT").value  + ",";
+			szSystem = szSystem +  idget("P2P_USERNAME").value + ",";
+			szSystem = szSystem +  idget("P2P_PASSWORD").value + ",";
+			szSystem = szSystem +  "0";
+		}	
+		
+        var szReturn = doRequest(szSystem) ;		
+		if(szReturn.indexOf("ERROR") >  -1)
+		{
+			if(button == 1)
+			{
+				try { err_msg = top.GetXmlLangTagByName("SETTING_P2P_APPLY_UUID_ERR") ; } catch(e) {}
+				alert(err_msg);
+			}
+			if(button == 2)	
+			{
+				try { err_msg2 = top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+				alert(err_msg2);
+			}
+			window.setTimeout("clean_result_p2p();", 1000 );		
+			return;
+		}
+		
+		window.setTimeout("clean_result_p2p();", 2000 );	
+		GetP2PSettings();
+	}
+	
+	function clean_result_p2p(){
+		idget("BUTTON_APPLY2").disabled = false ;		
+		idget("BUTTON_APPLY2").value = "Apply" ;		
+		try { idget("BUTTON_APPLY2").value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 
+	
+	function HostNameCheck(name)
+	{
+		var pattern = /^([0-9a-zA-Z-]*)$/;
+		var pattern2 = /^[0-9a-zA-Z]/;
+		var pattern3 = /[-]/;
+		
+		if(pattern.test(name) == true)
+		{
+			if(pattern2.test(name) ==  true)
+			{
+				if(name.length == 0)
+					return false;
+			}
+			
+			if(pattern3.test(name.substring(name.length-1)) == false)//3. The last character must not be a minus sign(-), underscore(_) or period(.)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+		else
+			return false;		
+	}
+	
+	function UserNamePwdCheck(name)
+	{
+		var pattern = /^([0-9a-zA-Z]*)$/;
+					
+		if(pattern.test(name) ==  true)
+		{
+			return true;
+		}
+		else
+			return false;
+		
+	}
+	
+	function DoDDNSApply()
+	{
+		if(DDNS_CAP != "planet")
+		{
+			if(idget("ddns_enable").checked == true)
+			{
+				if(top.LoginNameCheck(idget("DDNS_USERNAME").value) == false)
+				{
+					alert(top.login_name_err0);					
+					window.setTimeout("top.clean_result(this);", 1000 );		
+					return;
+				}
+				if(top.PasswordCheck(idget("DDNS_PASSWORD").value) == false)
+				{
+					alert(top.pwd_err0);					
+					window.setTimeout("top.clean_result(this);", 1000 );		
+					return;
+				}							
+			}
+		}
+		else
+		{
+			if(idget("DDNS_PLANET").value==2)
+			{
+				//alert(idget("DDNS_HOSTNAME").value.length);
+				if(idget("DDNS_HOSTNAME").value.length<6 || idget("DDNS_HOSTNAME").value.length>16)
+				{	
+					alert(planet_networking_name_err0);
+					return;
+				}
+				else
+				{					
+					if(HostNameCheck(idget("DDNS_HOSTNAME").value) == false)
+					{
+						alert(planet_networking_name_err0);	
+						window.setTimeout("top.clean_result(this);", 1000 );		
+						return;
+					}
+				}	
+				
+				if(idget("DDNS_USERNAME").value.length<6 || idget("DDNS_USERNAME").value.length>16)
+				{	
+					alert(planet_login_name_pwd_err0);
+					return;
+				}
+				else
+				{
+					if(UserNamePwdCheck(idget("DDNS_USERNAME").value) == false)
+					{
+						alert(planet_login_name_pwd_err0);
+						window.setTimeout("top.clean_result(this);", 1000 );		
+						return;
+					}
+				}	
+
+				if(idget("DDNS_PASSWORD").value.length<6 || idget("DDNS_PASSWORD").value.length>16)
+				{
+					alert(planet_login_name_pwd_err0);
+					return;
+				}
+				else
+				{				
+					if(UserNamePwdCheck(idget("DDNS_PASSWORD").value) == false)
+					{
+						alert(planet_login_name_pwd_err0);
+						window.setTimeout("top.clean_result(this);", 1000 );		
+						return;
+					}
+				}	
+			}
+			
+			if(idget("DDNS_PLANET").value==1)
+			{
+				if(idget("DDNS_USERNAME").value=="")
+					idget("DDNS_USERNAME").value = "myname";
+					
+				if(idget("DDNS_PASSWORD").value=="")
+					idget("DDNS_PASSWORD").value = "mypasswd";	
+			}		
+			
+		}
+		
+		
+		//idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_SAVE") ; 
+		idget("BUTTON_APPLY").disabled = true ;			
+		
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        if(DDNS_CAP != "planet")
+		{
+			if(idget("ddns_enable").checked == true)
+				szSystem = szSystem + "DDNS_CONFIG=2," ;
+			else
+				szSystem = szSystem + "DDNS_CONFIG=1," ;
+		}
+		else
+		{
+			szSystem = szSystem + "DDNS_CONFIG_PLANET=" + idget("DDNS_PLANET").value + ",";
+		}	
+			       
+        szSystem = szSystem +  idget("DDNS_HOSTNAME").value  + ",";
+		szSystem = szSystem +  idget("DDNS_SERVICE").value  + ",";
+        szSystem = szSystem +  idget("DDNS_USERNAME").value + ",";
+        szSystem = szSystem +  idget("DDNS_PASSWORD").value  ;
+		var szReturn = doRequest(szSystem) ;
+		//alert(szReturn);	
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetDDNSSettings();
+	}
+	
+	function DDNS_Planet_Change()
+	{
+		if(idget("DDNS_PLANET").value!="2")
+		{
+			idget("TR_SETTING_DDNS_HOST_NAME").style.display = "none";
+			idget("TR_SETTING_DDNS_USER_NAME").style.display = "none";
+			idget("TR_SETTING_DDNS_PASSWORD_2").style.display = "none";			
+		}
+		else
+		{
+			idget("TR_SETTING_DDNS_HOST_NAME").style.display = "";
+			idget("TR_SETTING_DDNS_USER_NAME").style.display = "";
+			idget("TR_SETTING_DDNS_PASSWORD_2").style.display = "";	
+		}
+	}
+	
+	function GetDDNSSettings()
+	{
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+        szSystem = szSystem + "DDNS&DDNS_CAP&DDNS_CONFIG_PLANET" ;
+        var szReturn = doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+       // alert(szReturn);
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'DDNS_TYPE' :
+					if(szTmp[1] == "2")
+						idget("ddns_enable").checked = true;
+					else	
+						idget("ddns_enable").checked = false;
+                    break;
+                case 'DDNS_SERVICE' :
+                    idget("DDNS_SERVICE").value = szTmp[1] ;
+                    break ;
+                case 'DDNS_HOSTNAME' :
+                    idget("DDNS_HOSTNAME").value = szTmp[1] ;
+                    break ;
+                case 'DDNS_USERNAME' :
+                    idget("DDNS_USERNAME").value = szTmp[1] ;
+                    break ;
+                case 'DDNS_PASSWORD' :
+                    idget("DDNS_PASSWORD").value = szTmp[1] ;
+                    break ;
+				 case 'DDNS_CAP' :
+                    if(szTmp[1]=="planet") //for OEM:Planet use
+					{
+						DDNS_CAP = szTmp[1];
+						UpdateSelectOptions_2(idget('DDNS_SERVICE'),"planet","planetDDNS.com");
+						idget("TR_DDNS_ENABLE").style.display = "none";
+						idget("TR_DDNS_PLANET").style.display = "";			
+					}
+                    break ;	
+				 case 'DDNS_CONFIG_PLANET' :
+                    //alert(szTmp[1] );
+					var DDNS_CONFIG = szTmp[1].split(',') ;
+					//alert(DDNS_CONFIG[0]+"\n"+DDNS_CONFIG[1]+"\n"+DDNS_CONFIG[2]+"\n"+DDNS_CONFIG[3]+"\n"+DDNS_CONFIG[4]);
+					idget("DDNS_PLANET").value = DDNS_CONFIG[0];
+					idget("DDNS_HOSTNAME").value = DDNS_CONFIG[1];
+					idget("DDNS_USERNAME").value = DDNS_CONFIG[3];
+					idget("DDNS_PASSWORD").value = DDNS_CONFIG[4];
+					DDNS_Planet_Change();
+                    break ;	
+            }
+        }		
+		
+	}
+	
+	function GetP2PSettings()
+	{
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+        szSystem = szSystem + "P2P_CONFIG" ;
+        var szReturn = doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+		if(szReturn.indexOf("ERROR") >  -1)
+		{
+			try { err_msg2 = top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+			alert(err_msg2);
+			return;	
+		}
+		
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'P2P_CONFIG' :
+					szTmpValue = szTmp[1].split(',') ;
+					var P2PState = szTmpValue[0];
+					var PortalAddr = szTmpValue[1];
+					var PortalPort = szTmpValue[2];
+					var AccountName = szTmpValue[3];
+					var AccountPwd = szTmpValue[4];
+					var UuidStatus = szTmpValue[5];
+					
+					if(P2PState == 1)
+						idget("p2p_enable").checked = true;
+					else
+						idget("p2p_enable").checked = false;
+					
+					idget("P2P_PORTAL_ADDR").value = PortalAddr;
+					idget("P2P_PORTAL_PORT").value = PortalPort;
+					idget("P2P_USERNAME").value = AccountName;
+					idget("P2P_PASSWORD").value = AccountPwd;
+					
+					if(UuidStatus == 1)
+						idget("P2P_UUID_STATUS").value = top.GetXmlLangTagByName("COMMON_MSG_VALID") ;	
+					else
+						idget("P2P_UUID_STATUS").value = top.GetXmlLangTagByName("COMMON_MSG_NONE") ;                    
+					
+					if((P2PState == 1) && (PortalAddr != null) && (AccountName != null) && (AccountPwd != null) && (UuidStatus == 0))
+					{
+						idget("SETTING_P2P_APPLY_UUID").style.display="";			
+					}	
+					else{
+						idget("SETTING_P2P_APPLY_UUID").style.display="none";	
+					}	
+					break;	
+            }
+        }		
+		
+	}
+	
+	function doGetSettings()
+	{
+		GetDDNSSettings();
+		GetP2PSettings();
+	}
+	
+	function update_language()
+	{
+		top.update_language(this);
+		try { document.getElementById('SETTING_DDNS_2').innerHTML = top.GetXmlLangTagByName("SETTING_DDNS") ; } catch(e) {}
+		try { document.getElementById('SETTING_DDNS_PASSWORD_2').innerHTML = top.GetXmlLangTagByName("SETTING_DDNS_PASSWORD") ; } catch(e) {}
+		try { document.getElementById('COMMOM_MSG_ENABLED_2').innerHTML = top.GetXmlLangTagByName("COMMOM_MSG_ENABLED") ; } catch(e) {}
+		try { document.getElementById('SETTING_P2P_USER_NAME').innerHTML = top.GetXmlLangTagByName("SETTING_DDNS_USER_NAME") ; } catch(e) {}
+		try { document.getElementById('SETTING_P2P_PASSWORD').innerHTML = top.GetXmlLangTagByName("SETTING_DDNS_PASSWORD") ; } catch(e) {}
+		try { document.getElementById('SETTING_P2P_APPLY_UUID').value = top.GetXmlLangTagByName("SETTING_P2P_APPLY_UUID") ; } catch(e) {}
+		try { document.getElementById('BUTTON_APPLY2').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		try { document.getElementById('BUTTON_RESET2').value = top.GetXmlLangTagByName("BUTTON_RESET") ; } catch(e) {}
+		try { top.login_name_err0 = top.GetXmlLangTagByName("SETTING_LOGIN_NAME_ERR") ; } catch(e) {}
+		try { top.pwd_err0 = top.GetXmlLangTagByName("SETTING_LOGIN_PWD_ERR") ; } catch(e) {}
+		try { top.networking_name_err0 = top.GetXmlLangTagByName("SETTING_NETWORK_NAME_ERR") ; } catch(e) {}
+		try { planet_login_name_pwd_err0 = top.GetXmlLangTagByName("SETTING_PLANET_NAME_PWD_ERR") ; } catch(e) {}
+		try { planet_networking_name_err0 = top.GetXmlLangTagByName("SETTING_PLANET_NETWORK_ERR") ; } catch(e) {}
+	}
+	
+	function Page_onLoad()
+	{
+		if(top.gFwType!="AC")//NB
+		{
+			UpdateSelectOptions_2(idget('DDNS_SERVICE'),"dyndns,ezip,pgpow,dhs,ods,easydns,dyns,zoneedit",
+			"members.dyndns.org,www.ez-ip.net,www.penguinpowered.com,members.dhs.org,update.ods.org,members.easydns.com,www.dyns.com,www.zoneedit.com");
+		}
+		else//AC
+		{
+			UpdateSelectOptions_2(idget('DDNS_SERVICE'),"dyndns,ezip,pgpow,dhs,ods,easydns,dyns,zoneedit,mediacss,smmaas,vmsaas",
+			"members.dyndns.org,www.ez-ip.net,www.penguinpowered.com,members.dhs.org,update.ods.org,members.easydns.com,www.dyns.com,www.zoneedit.com,mediacss.com,smmaas.com,vmsaas.com");
+		}	
+		idget("P2P_UUID_STATUS").disabled = true;
+		update_language();
+		doGetSettings();	
+		DDNS_Service_Change();	
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

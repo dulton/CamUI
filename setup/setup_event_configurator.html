@@ -1,0 +1,153 @@
+<html>
+
+<head>
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_EVENT_CONFIGURATOR">Event Configurator</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td align="center" >
+					<table border="0" cellspacing="0" cellpadding="0" width="70%" class="event_server_table_style">
+							
+							<tr id="TR_DIGITAL">
+								<td align="left">
+									<label id="BUTTON_DIGITAL">Digital I/O ports</label><input type="button" id="btnDigital" value="Edit" class="button3" onclick="toClick('1')">
+								</td>							
+							</tr>
+							<tr id="TR_SOUND" style="display:none">
+								<td align="left">
+									<label id="SELECT_EVENT_TRIGGERED_BY_SOUND">Sound Detection</label><input type="button" id="btnSound" value="Edit" class="button3" onclick="toClick('2')">
+								</td>							
+							</tr>
+							<tr>
+								<td align="left">
+									<label id="BUTTON_NOTIFICATION">Notification message</label><input id="btnMessage" type="button"  value="Edit" class="button3" onclick="toClick('3')">
+								</td>							
+							</tr>
+							<tr>
+								<td align="left">
+									<label id="BUTTON_UPLOAD_VIDEO_SNAPSHOT">Upload video/snapshot and Audio</label><input id="btnUpload" type="button"  value="Edit" class="button3" onclick="toClick('4')">
+								</td>								
+							</tr>
+							<tr>
+								<td align="left">
+									<label id="BUTTON_SEND_URL">Send URL commands</label><input type="button" id="btnCommands"  value="Edit" class="button3" onclick="toClick('5')">
+								</td>
+							</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>				
+			
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+	<div id="event" style="position:absolute;top:0px;left:0px; width:595px;height:640px;display:none" >			
+			<iframe width="100%" height="100%"  id="event_setup_page" frameborder="0" scrolling="no"></iframe>		
+	</div>	
+	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+	if(top.gDI == 0 && top.gDO == 0){
+		document.getElementById('TR_DIGITAL').style.display='none';
+	}
+
+	function Close()
+	{
+		idget("event").style.display="none";
+	}
+	
+	function toClick(type)
+	{		
+		idget("event").style.display="";			
+		switch ( type ) {
+			case '1' :				
+				idget("event_setup_page").src = 'setup_event_configurator_digital.html';																				
+				break;
+				
+			case '2' :				
+				idget("event_setup_page").src = 'setup_event_configurator_sound.html';																				
+				break;	
+				
+			case '3' :
+				idget("event_setup_page").src = 'setup_event_configurator_message.html';														
+				break;
+				
+			case '4' :				
+				idget("event_setup_page").src = 'setup_event_configurator_upload.html';										
+				break;
+				
+			case '5' :				
+				idget("event_setup_page").src = 'setup_event_configurator_command.html';										
+				break;
+		}		
+		
+	}
+	
+
+	function event_config_update_languate()
+	{
+		top.update_language(this);
+		if(top.gAudioType == '0')
+			try {idget("BUTTON_UPLOAD_VIDEO_SNAPSHOT").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_NOAUDIO");  } catch(e) {}		
+		try{idget("btnDigital").value = top.GetXmlLangTagByName("BUTTON_EDIT");  } catch(e) {}		
+		try{idget("btnMessage").value = top.GetXmlLangTagByName("BUTTON_EDIT"); } catch(e) {}		
+		try{idget("btnUpload").value = top.GetXmlLangTagByName("BUTTON_EDIT");} catch(e) {}		
+		try{idget("btnCommands").value = top.GetXmlLangTagByName("BUTTON_EDIT");} catch(e) {}
+		try{idget("btnSound").value = top.GetXmlLangTagByName("BUTTON_EDIT");  } catch(e) {}		
+	}
+	
+	function Page_onLoad()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		szSystem += "&V2_AUDIO_ENABLED";		
+		var szReturn = doRequest(szSystem) ; //alert(szReturn);
+		szReturn = szReturn.split('\n') ;
+		szTmp = doSplitValue(szReturn[0]);
+		top.gAudioInpt = szTmp[1];
+	    
+		if(top.IsIE() == true)
+		{
+			if(top.gAudioInpt == 1)
+				idget("TR_SOUND").style.display="";
+			else
+				idget("TR_SOUND").style.display="none";
+		}
+		else
+			idget("TR_SOUND").style.display="none";
+			
+		event_config_update_languate();
+		
+		if(top.IsIE() == false)		
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+		else
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

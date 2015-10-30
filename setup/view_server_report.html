@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='../css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+<body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
+<XML id="xmlLang"></XML>
+<form id="frmSetting">
+<textarea id="infomation" rows="35" style="width: 100%;" readonly="yes"></textarea>
+<div style="padding-top:5px;text-align:center">
+<input type="button" class="button2" value="Close" onclick="window.close()">
+</div>
+</form>
+</body> 
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+    function doGetSetting() {
+        var szSystem = "/cgi-bin/system?USER="+ opener.top.gAccount +"&PWD="+ opener.top.gPwd+"&";
+        szSys = szSystem + "SERVER_REPORT" ;
+        
+		 
+		var system_info_str = '' ;
+		var fw_version = '' ;
+		var version_type = '' ;
+
+		var system_info = doRequest(szSys) ;
+		var system_info = system_info.split('\n') ;
+		
+		for(s=0;s<=system_info.length-1;s++){
+			if(system_info[s].indexOf('Firmware')!=-1 && system_info[s].indexOf('Version')!=-1 ){
+				//system_info[s] = 'Firmware Version = A1D-310-V4.02.00-NB';
+				fw_version = system_info[s].indexOf('AC');
+				if(fw_version==-1){
+					version_type = 'NB' ;
+				}
+				else{
+					version_type = 'AC' ;
+				}
+			}
+			
+			if(system_info[s].indexOf('Production ID')!=-1 || system_info[s].indexOf('Model Number')!=-1 ){
+				if(version_type == 'AC'){
+					system_info_str = system_info_str + system_info[s] + '\n'
+				}
+			}
+			else{
+				system_info_str = system_info_str + system_info[s] + '\n'
+			}
+		}
+			if(navigator.appName=="Netscape"){
+				idget("infomation").innerHTML = system_info_str ;
+			}else{
+				idget("infomation").innerText = system_info_str ;
+			}
+    }
+    
+    function Page_onLoad() {
+        doGetSetting();
+        frame_extent();
+    }
+    
+    Page_onLoad();
+</Script>

@@ -1,0 +1,85 @@
+﻿
+<html>
+<head>   
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" >	
+
+<table width="500" cellspacing="0" cellpadding="0" border="0" style="margin-top:10px">
+	<tr>
+		<td width="50%" align="right">
+			<label id="SETTING_VIDEO_STREAM_MODE">Stream Mode</label>
+		</td>
+		<td width="50%" align="left">
+			<select id="VIDEO_STREAM"></Select>
+		</td>
+	</tr>
+	<tr>
+		<td  colspan="2" align="center" >
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+		</td>
+	</tr>				
+	<tr>
+		<td align="right">
+			<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+		</td>
+		<td align="left">
+			&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSettings()"/>
+		</td> 
+	</tr>			
+</table>
+
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+	function  DoApply()
+	{
+		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&" ;
+    
+        szSystem = szSystem + "VIDEO_STREAM=" +  idget("VIDEO_STREAM").value;
+        var szReturn = doRequest(szSystem) ;	
+        doGetSettings();
+	}
+	
+	function doGetSettings()
+	{
+		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&" ;
+		var CurrentMode;
+        szSystem = szSystem + "VIDEO_STREAM" ;
+        var szReturn = doRequest(szSystem) ;	
+        szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'VIDEO_STREAM' :					
+					SetSelectedValue(idget("VIDEO_STREAM"),szTmp[1]);
+					CurrentMode = szTmp[1];
+					break;                
+            }
+        }
+	
+		if(CurrentMode != "DUAL")
+			parent.document.getElementById("media_id").style.display = "none";
+		else	
+			parent.document.getElementById("media_id").style.display = "";
+	}
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		UpdateSelectOptions_2(idget("VIDEO_STREAM"), "SINGLE,DUAL", "Single,Dual");
+		doGetSettings()
+	}
+	Page_onLoad();
+</Script>

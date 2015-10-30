@@ -1,0 +1,1080 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" onbeforeunload="SteamDisconnet()">	
+<div style="padding-top:3px">
+	<table id="setuptbl" class="setup_table" align="center" border="0">
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_VIDEO_FISHEYE_OPTION">Camera Option</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="center" >
+								<div id="ECM"></div>	
+								<div id="player"></div>
+							</td>						
+						</tr>						
+					</table>
+				</td>
+			</tr>
+					
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td width="50%" align="right">
+								<label id="SETTING_VIDEO_LINE_FREQUENCY">Line Frequency</label><label style="margin-left:0px">*</label>
+							</td>
+							<td width="50%" align="left">
+								<select id="LINE_FREQ" onchange="LineFreqOnChange()">
+									<option value="50HZ">50Hz</option>
+									<option value="60HZ">60Hz</option>
+								</select>
+							</td>
+						</tr>
+
+						<tr id="TR_MOUNT_TYPE" align="center">
+							<td width="50%" align="right">
+								<label id="SETTING_VIDEO_MOUNTING_TYPE">Mounting Type</label>
+							</td>
+							<td width="50%" align="left">
+								<select id="VIDEO_MOUNTING" onchange="SwitchMountType()">
+									<!--<option id="SELECT_FISHEYE_WALL" value="WALL">Wall</option>
+									<option id="SELECT_FISHEYE_CEILLING" value="CEILING">Ceiling</option>
+									<option id="SELECT_FISHEYE_GROUND" style="display:none" >Ground</option>-->
+								</Select>
+							</td>
+						</tr>
+						
+						<tr id="TR_INSTALL" style="display:none">
+							<td align="right">
+								<label id="SETTING_VIDEO_INSTALLATION_ANGLE">Installation Angle</label><label id="AngleRange">[0<sup>o</sup>~65<sup>o</sup>]</label>
+							</td>
+							<td align="left">
+								<input id="InstallAngle" type="text" size="3" value="0">
+								<input class="button2" type="button" id="BUTTON_ANGLE_APPLY" value="Apply"/>
+							</td>
+						</tr>
+						
+						<tr id="TR_ROTATE" style="display:none">
+							<td width="50%" align="right">
+								<label id="SETTING_VIDEO_ROTATION_DEGREE">Rotation Degree per Click</label>
+							</td>
+							<td width="50%" align="left">
+								<table cellspacing="0" cellpadding="0" border="0">
+									<tr>
+										<td>
+											&nbsp;<input id="RotateStep" type="text" size="3" value=1>&nbsp;
+										</td>
+										<td>
+											<input id="brotateL" type="image" src="/images/rotateL.png" onclick="DoRotate('L')">
+											<input id="brotateR" type="image" src="/images/rotateR.png" onclick="DoRotate('R')">
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+						<tr id="TR_TILT_ANGLE" style="display:none">
+							<td colspan="2" align="center">
+								<table border="0" width="100%">
+									<tr>
+										<td width="50%" align="right">
+											<label id="COMMON_MSG_TOP">Top</label><label>:</label><label id="SETTING_VIDEO_CEIL_ANGLE">Tilt Angle</label><label>[0<sup>o</sup>~90<sup>o</sup>]</label>
+										</td>
+										<td align="left">
+											&nbsp;<input id="TiltAngle1" type="text" size="3" value="90">
+											<input class="button2" type="button" id="BUTTON_TILT_ANGLE_APPLY1" value="Apply" onclick="SetTiltAngle('1')" />
+										</td>
+									</tr>
+									<tr>
+										<td width="50%" align="right">
+											<label id="COMMON_MSG_BOTTOM">Bottom</label><label>:</label><label id="SETTING_VIDEO_CEIL_ANGLE2">Tilt Angle</label><label>[0<sup>o</sup>~90<sup>o</sup>]</label>
+										</td>
+										<td align="left">
+											&nbsp;<input id="TiltAngle2" type="text" size="3" value="90">
+											<input class="button2" type="button" id="BUTTON_TILT_ANGLE_APPLY2" value="Apply" onclick="SetTiltAngle('2')" />
+										</td>
+									</tr>
+								</table>	
+							</td>
+						</tr>
+						
+						<tr id="TR_Dashed" style="display:none">
+							<td colspan="2">
+								<div style="border-bottom:1px dashed #999999;height:1px;"></div>								
+							</td>							
+						</tr>
+						
+						<tr id="TR_STREAM_MODE" style="display:">
+							<td width="50%" align="right">
+								<label id="SETTING_VIDEO_STREAM_MODE">Stream Mode</label>
+							</td>
+							<td align="left">
+								<select id="VIDEO_STREAM" onchange="SwitchVIDEO_STREAM_Mode()">
+									<!--<option id="SELECT_STREAMING_MODE_PANORAMA" value="DUAL">Panorama View</option>
+									<option id="SELECT_STREAMING_MODE_FISHEYE_VIEW" value="FISHEYE_VIEW">FISHEYE_VIEW</option>
+									<option id="SELECT_STREAMING_MODE_EPTZ" value="EPTZ">EPTZ</option>-->
+								</select>
+							</td>
+						</tr>
+						
+						<tr id="TR_MAX_VIDEO_STREAMS" style="display:">
+							<td width="50%" align="right">
+								<label id="SETTING_MAX_VIDEO_STREAMS">Video Streams</label>
+							</td>
+							<td align="left">
+								<select id="VIDEO_STREAMS">
+									<option value="1">1</option>
+									<option value="2">2</option>
+								</select>
+							</td>
+						</tr>
+						
+						<tr id="TR_EXTREME_FRAM_MODE" style="display:none">
+							<td width="50%" align="right">
+								<label id="SETTING_HIGH_FRAME_MODE">High Frame Mode</label>
+							</td>
+							<td align="left">
+								<select id="HIGH_FRAM_MODE_STATUS">
+								</select>
+							</td>
+						</tr>
+						
+						<tr>
+							<td  colspan="2" align="left" >
+									<label id="COMMON_MSG_NEED_SAVE_REBOOT"> * New settings will only take effect after [Save &amp; Reboot]</label>
+								</td>
+						</tr>
+						
+						<tr id="TR_apply" height="35px">
+							<td colspan="2" align="center">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+						</tr>
+						
+					</table>
+				</td>
+			</tr>
+			
+			
+			
+		</tr>				
+	</table>
+</div>	
+	<div  class="setup_bg">	
+	</div>	
+	<div id="divError" style="display:none">
+		<label id="COMMON_MSG_SET_ERR"></label>&nbsp;&nbsp;&nbsp;</br>	
+		<label id="SETTING_VIDEO_MOUNTING_TYPE_ERR"></label>&nbsp;&nbsp;&nbsp;</br>	
+	</div>	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var CameraConf;
+	var EcmWidthWithMotionWindow = 633;
+	var EcmHieghtWithoutMotionWindow = 300;
+	var StreamConnectOK = 0;
+	var MountType = "";
+	var CurrentMode;
+	var err1 = 'Error. Invalid settings.';
+	var TiltAngle1_tmp;
+	var TiltAngle2_tmp;
+	var RotateDegree = idget('RotateStep').value;
+	var TiltAngle;
+	var InstallWallAngle;
+	var MountingType ;
+	var FISHEYE_ROTATE_ABS = 0;
+	var err2 = 'Error. You have to set Streaming Mode to Dual before you change Mounting Type';
+	
+	HtmSrc = '<object id="oMedia" name="oMedia"  style="padding-top:10px" classid="CLSID:E19E79EC-F62E-40A0-952D-E49AEC7BEC2F" codebase="/control/nvA1Media.cab#Version='+top.gECMversion+'">';	
+	HtmSrc += '</object>'; 
+	//alert(HtmSrc);
+	idget('ECM').innerHTML=HtmSrc;
+	
+	function LineFreqOnChange()
+	{
+		var cmd;
+		cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&LINE_FREQ="+ idget("LINE_FREQ").value;
+		doRequest(cmd);
+		doGetSetting();		
+	}
+	
+	function clean_result_Setting(){
+		var ApplyEl_1 = idget("BUTTON_TILT_ANGLE_APPLY1");
+		var ApplyEl_2 = idget("BUTTON_TILT_ANGLE_APPLY2");
+		var ApplyEl = idget("BUTTON_ANGLE_APPLY");
+		
+		if(ApplyEl_1.disabled == true)
+		{
+			ApplyEl_1.disabled = false ;		
+			//ApplyEl_1.value = "Apply" ;
+			ApplyEl_1.value = idget("BUTTON_TILT_ANGLE_APPLY1").value ;
+		}
+		if(ApplyEl_2.disabled == true)
+		{
+			ApplyEl_2.disabled = false ;		
+			//ApplyEl_2.value = "Apply" ;
+			ApplyEl_2.value = idget("BUTTON_TILT_ANGLE_APPLY2").value ;
+		}
+		if(ApplyEl.disabled == true)
+		{
+			ApplyEl.disabled = false ;		
+			//ApplyEl.value = "Apply" ;
+			ApplyEl.value = idget("BUTTON_ANGLE_APPLY").value ;
+		}
+		try { idget('BUTTON_TILT_ANGLE_APPLY1').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		try { idget('BUTTON_TILT_ANGLE_APPLY2').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		try { idget('BUTTON_ANGLE_APPLY').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		//try { ApplyEls[0].value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 
+	
+	function SetTiltAngle(angle_id)
+	{
+		var cmd = "";
+		var ApplyEl_1 = idget("BUTTON_TILT_ANGLE_APPLY1");
+		var ApplyEl_2 = idget("BUTTON_TILT_ANGLE_APPLY2");
+		if(idget("TiltAngle1").value<0 || idget("TiltAngle1").value>90 || idget("TiltAngle2").value<0 || idget("TiltAngle2").value>90)
+		{	
+			alert(err1);
+			if(top.gIspGeneration != "A1_ISP")
+			{
+				var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&FISHEYE_CEILING_ANGLE";			
+				var szReturn = doRequest(szEncoder);
+				szReturn=szReturn.split('\n') ;
+				var values = doSplitValue(szReturn[0]);
+				var tmp=values[1].split(",");
+				TiltAngle1_tmp = tmp[1];
+				idget("TiltAngle1").value = TiltAngle1_tmp;
+				TiltAngle2_tmp = tmp[2];
+				idget("TiltAngle2").value = TiltAngle2_tmp;
+			}	
+			else
+			{
+				TiltAngle = getCookie("TiltAngle");	
+				if(TiltAngle.indexOf("NaN")> -1 || TiltAngle == "")
+					TiltAngle = "90,90";	//default : Top&Bottom TiltAngle	.									
+					
+				tmp = TiltAngle.split(",");
+				idget("TiltAngle1").value = tmp[0];
+				idget("TiltAngle2").value = tmp[1];
+			}	
+			return;
+		}
+		else
+		{
+			if(top.gIspGeneration == "A1_ISP")
+			{
+				if(angle_id == '1')
+				{
+					idget("oMedia").SetFisheyeRotationAngle(1, 2, 0, idget("TiltAngle1").value);
+					TiltAngleCookie = idget("TiltAngle1").value + ',' + idget("TiltAngle2").value;
+					setCookie("TiltAngle",TiltAngleCookie);
+					ApplyEl_1.value = "Saving..."
+					ApplyEl_1.disabled = true ;
+				}
+				else
+				{
+					idget("oMedia").SetFisheyeRotationAngle(0, 2, 0, idget("TiltAngle2").value);
+					TiltAngleCookie = idget("TiltAngle1").value + ',' + idget("TiltAngle2").value;
+					setCookie("TiltAngle",TiltAngleCookie);
+					ApplyEl_2.value = "Saving..."
+					ApplyEl_2.disabled = true ;
+				}
+			}
+			else
+			{
+				if(angle_id == '1')
+				{
+					cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;		
+					cmd +="&FISHEYE_CEILING_ANGLE=0,"+ idget("TiltAngle1").value+','+TiltAngle2_tmp;
+					TiltAngle1_tmp = idget("TiltAngle1").value;
+					ApplyEl_1.value = "Saving..."
+					ApplyEl_1.disabled = true ;
+				}	
+				else
+				{
+					cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;			
+					cmd +="&FISHEYE_CEILING_ANGLE=1,"+ TiltAngle1_tmp+','+idget("TiltAngle2").value;	
+					TiltAngle2_tmp = idget("TiltAngle2").value;
+					ApplyEl_2.value = "Saving..."
+					ApplyEl_2.disabled = true ;
+				}
+				var sz = doRequest(cmd);
+			}	
+		}			
+		window.setTimeout("clean_result_Setting();", 1000 );	
+	}
+	
+	function DoRotate(Dir){
+		if(isNaN(idget('RotateStep').value) == true)
+		{
+			alert(err1);
+			return;
+		}	
+		
+		var tmp = parseInt(idget('RotateStep').value,10);
+	
+		if(tmp > 180 || tmp < 0)
+		{
+			alert(err1);
+			idget('RotateStep').value = RotateDegree;
+			return;
+		}
+		RotateDegree = idget('RotateStep').value;
+		
+		if(top.gIspGeneration == "A1_ISP")
+		{	
+			if(Dir=="L")
+			{
+				FISHEYE_ROTATE_ABS = parseInt(FISHEYE_ROTATE_ABS) - parseInt(RotateDegree);
+				if(FISHEYE_ROTATE_ABS < -180)
+				{
+					FISHEYE_ROTATE_ABS = parseInt(360) - parseInt(Math.abs(FISHEYE_ROTATE_ABS));
+				}
+				idget("oMedia").SetFisheyeRotationAngle(0, 0, FISHEYE_ROTATE_ABS, 0);
+				idget("oMedia").SetFisheyeRotationAngle(1, 0, FISHEYE_ROTATE_ABS, 0);
+
+			}	
+			else
+			{
+				FISHEYE_ROTATE_ABS = parseInt(FISHEYE_ROTATE_ABS) + parseInt(RotateDegree);
+				if(FISHEYE_ROTATE_ABS > 180)
+				{
+					FISHEYE_ROTATE_ABS = parseInt(Math.abs(FISHEYE_ROTATE_ABS)) - parseInt(360);
+				}
+				idget("oMedia").SetFisheyeRotationAngle(0, 0, FISHEYE_ROTATE_ABS, 0);
+				idget("oMedia").SetFisheyeRotationAngle(1, 0, FISHEYE_ROTATE_ABS, 0);
+			}
+				
+		}
+		
+		var cmd="/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		cmd+="&FISHEYE_ROTATE=";			
+		
+		if(Dir=="L")
+			cmd+="-";
+		else
+			cmd+="+";
+		cmd+=tmp;			
+		//alert("cmd from user = "+cmd);
+		var szreturn=doRequest(cmd);	
+		//alert("szreturn = "+szreturn);
+				
+	}
+	
+	idget("BUTTON_ANGLE_APPLY").onclick=SetWallMountConfig;
+	function SetWallMountConfig()
+	{	
+		var ApplyEl = idget("BUTTON_ANGLE_APPLY");
+		if(isNaN(idget('InstallAngle').value) == true)
+		{		
+			alert(err1);
+			return;
+		}
+		
+		if(idget('InstallAngle').value < 0 || idget('InstallAngle').value > 65)
+		{		
+			alert(err1);
+			GetFisheyeInstallConfig();
+			return;
+		}
+		
+		if(top.gIspGeneration == "A1_ISP")
+		{
+			ApplyEl.value = "Saving..."
+			idget("oMedia").SetFisheyeRotationAngle(0, 1, 0, idget("InstallAngle").value);
+			InstallWallAngleCookie = idget('InstallAngle').value;
+			setCookie("InstallWallAngle",InstallWallAngleCookie);
+			ApplyEl.disabled = true ;
+		}
+		else
+		{			
+			var cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+			cmd = cmd + "&FISHEYE_INSTALL=" + idget("VIDEO_MOUNTING").value + ',';
+			
+
+			ApplyEl.value = "Saving..."
+			ApplyEl.disabled = true ;	
+			
+			var tmp =idget('InstallAngle').value*100;
+			cmd += tmp;
+
+			frame_extent();	
+			doRequest(cmd);
+				
+			//window.setTimeout("clean_result_Setting();", 1000 );	
+		}
+		window.setTimeout("clean_result_Setting();", 1000 );	
+	}
+	
+	function SwitchMountType()
+	{
+		if(top.gStreamMode!="DUAL")
+		{
+			GetFisheyeInstallConfig();
+			alert(err2);			
+			return;
+		}	
+		UIMountType();		
+		var cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		cmd = cmd + "&FISHEYE_INSTALL=" + idget("VIDEO_MOUNTING").value + "," + idget("InstallAngle").value*100;
+		var szReturn = doRequest(cmd);
+	}					
+	
+	function GetConfig(){						
+		GetStreamMode();
+		if( top.gUnitType ==  "Hemispheric Camera") 
+		{	
+			/*if(idget("VIDEO_STREAM").value == "DUAL" || idget("VIDEO_STREAM").value == "SINGLE") 
+			{
+				GetFisheyeInstallConfig();	
+			}*/
+			GetFisheyeInstallConfig();	
+		}
+		SwitchVIDEO_STREAM_Mode();
+		
+		szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&SYSTEM_INFO";
+		szReturn = doRequest(szSystem) ;
+		szReturn=szReturn.split('\n') ;
+		
+		for(i=0; i<szReturn.length; i++){
+			r=doSplitValue( szReturn[i] ) ;
+			switch(r[0]){	
+			case "MAX_VIDEO_STREAMS":
+				top.gVideoStreams = r[1].slice(1);
+				idget("VIDEO_STREAMS").value = top.gVideoStreams;
+				break;			
+			}
+		}
+		
+		if(top.gHIGH_FRAME_MODE_CAP != "None")
+		{
+			szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&SYSTEM_INFO";
+			szReturn = doRequest(szSystem) ;
+			szReturn=szReturn.split('\n') ;
+			for(i=0; i<szReturn.length; i++){
+				r=doSplitValue( szReturn[i] ) ;
+				switch(r[0]){
+				case "HIGH_FRAME_MODE_CAP":
+					top.gHIGH_FRAME_MODE_CAP = r[1].slice(1);
+					if(top.gHIGH_FRAME_MODE_CAP != "None") { 
+						top.gHIGH_FRAME_MODE_CAP = "OFF," +top.gHIGH_FRAME_MODE_CAP;						
+					}	
+					break;				
+				}
+			}	
+			
+			top.gHIGH_FPS_MODE = top.gHIGH_FRAME_MODE_CAP.replace("OFF",top.sss);
+			top.gHIGH_FPS_MODE = top.gHIGH_FPS_MODE.replace("720","1280x720");
+			top.gHIGH_FPS_MODE = top.gHIGH_FPS_MODE.replace("1080","1920x1080");
+			top.gHIGH_FPS_MODE = top.gHIGH_FPS_MODE.replace("P60"," 60FPS");
+			top.gHIGH_FPS_MODE = top.gHIGH_FPS_MODE.replace("P50"," 50FPS");
+			top.gHIGH_FPS_MODE = top.gHIGH_FPS_MODE.replace("P100"," 100FPS");
+			
+			UpdateSelectOptions_2(idget("HIGH_FRAM_MODE_STATUS"), top.gHIGH_FRAME_MODE_CAP, top.gHIGH_FPS_MODE);
+			var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&HIGH_FPS_MODE";			
+			var szReturn = doRequest(szEncoder);
+			szReturn=szReturn.split('\n') ;
+			szTmp = top.doSplitValue( szReturn[0] ) ;
+			idget("HIGH_FRAM_MODE_STATUS").value = szTmp[1] ;
+			top.gHighFpsMode = szTmp[1] ;
+		}
+		update_language();
+	}
+	function doGetSetting()
+	{
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&CAMERA_PAGE";
+		var szReturn = doRequest(szEncoder) ;		
+		CameraConf = eval(szReturn);
+		
+		szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&LINE_FREQ";
+		szReturn = doRequest(szEncoder) ;		
+		szReturn = szReturn.split('\n') ;
+		szTmp = top.doSplitValue( szReturn[0] ) ;				
+		SelectSetOption(idget("LINE_FREQ"),szTmp[1]);
+	}
+	function GetStreamMode() {
+		UpdateSelectOptionsWithId(idget("VIDEO_STREAM"), top.gStreamCap, "SELECT_STREAMING_MODE_");
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&VIDEO_STREAM";			
+		var szReturn = doRequest(szEncoder);
+		szReturn=szReturn.split('\n') ;
+		szTmp = top.doSplitValue( szReturn[0] ) ;
+		SelectSetOption(idget("VIDEO_STREAM"), szTmp[1]);
+		CurrentMode = szTmp[1];		
+		idget("VIDEO_STREAMS").value = top.gVideoStreams;
+	}
+	
+	function GetFisheyeInstallConfig(){
+		
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&FISHEYE_INSTALL";
+		var szReturn = doRequest(szEncoder);
+		var responseText=szReturn.split('\n') ;
+		var values = doSplitValue(responseText[0]);
+		var tmp=values[1].split(",");
+		SetSelectedValue(idget("VIDEO_MOUNTING"),tmp[0]);
+		
+		if(top.gIspGeneration != "A1_ISP")
+		{	
+			idget("InstallAngle").value = tmp[1]/100;
+		}
+		else
+		{
+			InstallWallAngle = getCookie("InstallWallAngle");	
+			if(InstallWallAngle.indexOf("NaN")> -1 || InstallWallAngle == "")
+			{
+				InstallWallAngle = 0;	
+					//default : InstallWallAngle 										
+			}
+		
+			idget("InstallAngle").value = InstallWallAngle;	
+			idget("oMedia").SetFisheyeRotationAngle(0, 1, 0, idget("InstallAngle").value);			
+		}	
+	}
+	
+	function GetFisheyeCeilingConfig(){
+		if(top.gIspGeneration != "A1_ISP")
+		{
+			var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&FISHEYE_CEILING_ANGLE";			
+			var szReturn = doRequest(szEncoder);
+			szReturn=szReturn.split('\n') ;
+			var values = doSplitValue(szReturn[0]);
+			var tmp=values[1].split(",");
+			TiltAngle1_tmp = tmp[1];
+			idget("TiltAngle1").value = TiltAngle1_tmp;
+			TiltAngle2_tmp = tmp[2];
+			idget("TiltAngle2").value = TiltAngle2_tmp;
+		}
+		else
+		{
+			TiltAngle = getCookie("TiltAngle");	
+			if(TiltAngle.indexOf("NaN")> -1 || TiltAngle == "")
+			{
+				TiltAngle = "90,90";	//default : Top&Bottom TiltAngle	.									
+			}				
+			tmp = TiltAngle.split(",");
+			idget("TiltAngle1").value = tmp[0];
+			idget("TiltAngle2").value = tmp[1];
+			//idget("oMedia").SetFisheyeRotationAngle(1, 2, 0, idget("TiltAngle1").value);
+			//idget("oMedia").SetFisheyeRotationAngle(0, 2, 0, idget("TiltAngle2").value);
+		}		
+	}
+	
+	function UIMountType(){			
+		//if (top.gIspGeneration == "C02" ) {
+		if (top.gIspGeneration == "C02" || top.gIspGeneration == "A1_ISP") {
+			if (idget("VIDEO_STREAM").value == "DUAL" || idget("VIDEO_STREAM").value == "SINGLE") {
+				switch(idget("VIDEO_MOUNTING").value){
+					case "WALL":
+						//idget("TR_MOUNT_TYPE").style.display="";
+						idget('TR_INSTALL').style.display="";
+						idget("TR_ROTATE").style.display="none";
+						idget("TR_TILT_ANGLE").style.display="none";
+					break;
+					case "CEILING":		
+						//idget("TR_MOUNT_TYPE").style.display="";
+						idget('TR_INSTALL').style.display="none";
+						idget("TR_ROTATE").style.display="";
+						idget("TR_TILT_ANGLE").style.display="";
+					break;	
+					case "GROUND":
+						//idget("TR_MOUNT_TYPE").style.display="";
+						idget('TR_INSTALL').style.display="none";
+						idget("TR_ROTATE").style.display="";
+						idget("TR_TILT_ANGLE").style.display="";
+					break;
+				}
+			}
+			else {
+				//idget("TR_MOUNT_TYPE").style.display="none";
+				idget('TR_INSTALL').style.display="none";
+				idget("TR_ROTATE").style.display="none";
+				idget("TR_TILT_ANGLE").style.display="none";
+			}
+		}
+		else {
+			//idget("TR_MOUNT_TYPE").style.display="";
+			idget('TR_INSTALL').style.display="none";
+			idget("TR_ROTATE").style.display="none";
+			idget("TR_TILT_ANGLE").style.display="none";			
+		}
+		if(top.IsIE() == true)
+		{
+			if (top.gIspGeneration == "A1_ISP") 
+			{				
+				switch(idget("VIDEO_MOUNTING").value)
+				{
+					case "WALL":
+						idget("oMedia").FisheyeMode = 1;
+						idget("oMedia").SetFisheyeRotationAngle(0, 1, 0, idget("InstallAngle").value);
+					break;
+					case "CEILING":	
+						idget("oMedia").FisheyeMode = 4;
+						idget("oMedia").SetFisheyeRotationAngle(1, 2, 0, idget("TiltAngle1").value);
+						idget("oMedia").SetFisheyeRotationAngle(0, 2, 0, idget("TiltAngle2").value);
+					break;	
+					case "GROUND":
+						idget("oMedia").FisheyeMode = 7;
+						idget("oMedia").SetFisheyeRotationAngle(1, 2, 0, idget("TiltAngle1").value);
+						idget("oMedia").SetFisheyeRotationAngle(0, 2, 0, idget("TiltAngle2").value);					
+					break;
+				}	
+					
+			}
+		}	
+	}
+	
+	function UIChange() {
+		if( top.gUnitType ==  "Hemispheric Camera") 
+		{
+			UIMountType();	
+			if(idget("TR_MOUNT_TYPE").style.display=="")
+				idget("TR_Dashed").style.display="";
+			else
+				idget("TR_Dashed").style.display="none";	
+			if(top.gIspGeneration == "A1_ISP")
+			{
+				idget("TR_STREAM_MODE").style.display='none';
+				idget("TR_apply").style.display='none';
+				idget("TR_Dashed").style.display="none";
+			}	
+		}
+		else
+		{
+			idget("TR_STREAM_MODE").style.display='none';
+			idget("TR_MOUNT_TYPE").style.display="none";
+			idget("TR_Dashed").style.display="none";
+		}	
+		
+		if(top.gHIGH_FRAME_MODE_CAP != "None") 
+		{
+			idget("TR_EXTREME_FRAM_MODE").style.display='';
+			idget("TR_STREAM_MODE").style.display='none';
+			idget("TR_MOUNT_TYPE").style.display="none";
+			idget("TR_Dashed").style.display="none";
+		}
+		else
+		{
+			if( top.gUnitType !=  "Hemispheric Camera")
+				idget("TR_apply").style.display="none";
+		}	
+		
+	}
+	
+	function SwitchVIDEO_STREAM_Mode()
+	{
+		/*if(idget("VIDEO_STREAM").value =="SINGLE")
+			idget("TR_MAX_VIDEO_STREAMS").style.display="none";	
+		else
+			idget("TR_MAX_VIDEO_STREAMS").style.display="";*/	
+		idget("TR_MAX_VIDEO_STREAMS").style.display="none";	
+		if( top.gUnitType == "Hemispheric Camera")
+		{
+			if(idget("VIDEO_STREAM").value == "DUAL" || idget("VIDEO_STREAM").value == "SINGLE") 
+			{
+				GetFisheyeInstallConfig();
+				//UIMountType();
+				UIChange();
+			}
+			else
+			{
+				idget('TR_INSTALL').style.display="none";
+				idget("TR_ROTATE").style.display="none";
+				idget("TR_TILT_ANGLE").style.display="none";
+			}	
+		}	
+		if(idget("TR_MOUNT_TYPE").style.display=="")
+			idget("TR_Dashed").style.display="";
+		else
+			idget("TR_Dashed").style.display="none";				
+	}
+	
+	/*function HighFpsModeChange()
+	{
+		cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&HIGH_FPS_MODE=";
+        cmd += idget("HIGH_FRAM_MODE_STATUS").value;
+		top.gHighFpsMode = idget("HIGH_FRAM_MODE_STATUS").value;
+		szreturn = doRequest(cmd);
+		Page_onLoad();
+	}*/
+	
+	function DoApply()
+	{
+		var szEncoder ="";
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;	
+		
+		var cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		cmd = cmd + "&VIDEO_STREAM=" + idget("VIDEO_STREAM").value + "," +idget("VIDEO_STREAMS").value;
+		var SzReturn = doRequest(cmd);	
+		top.gStreamMode = idget("VIDEO_STREAM").value;
+		top.gVideoStreams = idget("VIDEO_STREAMS").value;
+		
+		if(top.IsIE()==false)
+		{
+			SetupPlayer("track1");
+		}	
+		/*if( top.gUnitType ==  "Hemispheric Camera") 
+		{	
+			if(idget("VIDEO_STREAM").value == "DUAL" || idget("VIDEO_STREAM").value == "SINGLE") {
+				GetFisheyeInstallConfig();	
+			}
+			if (top.gIspGeneration == "C02") 
+				GetFisheyeCeilingConfig();
+		}*/	
+		UIChange();
+		if(idget("TR_EXTREME_FRAM_MODE").style.display == "")
+		{
+			var cmd2 = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&HIGH_FPS_MODE=";
+			cmd2 += idget("HIGH_FRAM_MODE_STATUS").value;
+			top.gHighFpsMode = idget("HIGH_FRAM_MODE_STATUS").value;
+			var SzReturn2 = doRequest(cmd2);
+			Page_onLoad();		
+		}			
+		window.setTimeout("top.clean_result(this);", 2000 );			
+	}	
+	
+	function SetObjectWidth(){			
+		var res=CameraConf.CHANNEL[0].VIDEO_RESOLUTION.split('x');		
+		
+		res[0]=res[0].substr(1);		
+		if(top.IsIE() == true)
+			return parseInt(parseInt(res[0])*(EcmHieghtWithoutMotionWindow-16)/parseInt(res[1]) );		//16 : title bar
+		else	
+			return parseInt(parseInt(res[0])*(EcmHieghtWithoutMotionWindow)/parseInt(res[1]) );		
+	}
+	function SetObjectHeight(){				
+		var ratio ;
+		var res=CameraConf.CHANNEL[0].VIDEO_RESOLUTION.split('x');		
+		res[0]=res[0].substr(1);		
+		ratio = res[0]/res[1];
+		ratio = ratio.toFixed(2);
+		
+		if(ratio == 1.33)
+			EcmWidthWithMotionWindow = 583;
+		else	
+			EcmWidthWithMotionWindow = 633;
+		
+		return parseInt(parseInt(res[1])*(EcmWidthWithMotionWindow-203)/parseInt(res[0]) ) +16;		//203 Md window Width, 16:title bar
+	}
+
+	
+	function EnableEcmMotionWindow (MdEnbled)
+	{
+		if(top.IsIE()==false)
+			return;
+		if(MdEnbled == 1)
+		{	
+			idget("oMedia").EnableMVWindow(1);
+			idget("oMedia").width= EcmWidthWithMotionWindow;			
+			idget("oMedia").height= SetObjectHeight();			
+		}
+		else
+		{
+			idget("oMedia").EnableMVWindow(0);
+			idget("oMedia").width=SetObjectWidth();			
+			idget("oMedia").height=EcmHieghtWithoutMotionWindow;
+			
+		}
+	
+	}
+	
+
+	function ECMSetup(){	
+			var CH=1;						
+			EnableEcmMotionWindow(0);			
+			
+			idget("oMedia").style.display='';
+
+			idget("oMedia").ID=CH; 
+			idget("oMedia").Channel = CH;
+			CH--;
+			idget("oMedia").TCPVideoStreamID = CH; //(VIDEO_MEDIA.value-1) 
+			idget("oMedia").MediaType = 0;			
+			idget("oMedia").MediaURL      = document.location.hostname ;
+			idget("oMedia").MediaUsername = top.gAccount ;
+			idget("oMedia").MediaPassword = top.gPwd ;
+			switch(document.URL.split(":")[0]){
+				case "http":
+					if(document.location.port == ""){
+						idget("oMedia").HttpPort      = 80;
+					}else{
+						idget("oMedia").HttpPort      = document.location.port;
+					}
+					idget("oMedia").EnableHTTPS(0);
+					break;
+				case "https":
+					if(document.location.port == ""){
+						idget("oMedia").HttpPort      = 443;
+					}else{
+						idget("oMedia").HttpPort      = document.location.port;
+					}
+					idget("oMedia").EnableHTTPS(1);
+					break;
+			}
+			idget("oMedia").RegisterPort  = 6000 ;
+			idget("oMedia").ControlPort   = CameraConf.PORT_CONTROL;
+			idget("oMedia").StreamingPort = CameraConf.PORT_VIDEO;
+			idget("oMedia").DisplayTitleBar(1);
+			if(CheckOsdTime() >0){
+				idget("oMedia").SetTitleBarTextLayout(9,12,10,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);								
+			}		
+			else
+			idget("oMedia").SetTitleBarTextLayout(9,12,10,19,1,14,3,14,4,18,5,12,6,12,7,0,0,0,0,0);
+			idget("oMedia").StretchToFit = 1 ;
+			idget("oMedia").AutoReconnect(1);
+			idget("oMedia").Connect(0);			
+			idget("oMedia").DisablePIRMotionDetection();			
+			idget("oMedia").DisableMotionDetection();							
+			idget("oMedia").Mute = 1 ;
+			idget("oMedia").Play();
+	}
+
+	//getVLC() and doGo() are copied from  C:\Program Files\VideoLAN\VLC\sdk\activex\test.html
+	function getVLC(name)
+	{
+		if (window.document[name])
+		{
+			return window.document[name];
+		}
+		if (navigator.appName.indexOf("Microsoft Internet")==-1)
+		{
+			if (document.embeds && document.embeds[name])
+				return document.embeds[name];
+		}
+		else // if (navigator.appName.indexOf("Microsoft Internet")!=-1)
+		{
+			return document.getElementById(name);
+		}
+	}
+
+	function doGo(targetURL,Cache)
+	{
+		var vlc = getVLC("vlc");
+
+		if( vlc )
+		{
+			vlc.playlist.items.clear();
+			while( vlc.playlist.items.count > 0 )
+			{
+				// clear() may return before the playlist has actually been cleared
+				// just wait for it to finish its job
+			}
+			//var options = [":rtsp-tcp"];
+			var options = ":network-caching="+Cache;
+			var itemId = vlc.playlist.add(targetURL,"",options);
+			options = [];
+			if( itemId != -1 )
+			{
+				// play MRL
+				vlc.playlist.playItem(itemId);            
+			}
+			else
+			{
+				alert("cannot play at the moment !");
+			}        
+		}
+	}
+	
+	function GetCacheBufferTime(stream)
+	{
+		var time;
+		var fps;
+		if(stream == "track1")
+			fps = CameraConf.CHANNEL[0].VIDEO_FPS;
+		else	
+			fps = CameraConf.CHANNEL[1].VIDEO_FPS;
+			
+		switch(fps)	
+		{
+			case '1':
+				time = 6000;
+				break;
+			case '3':	
+				time = 2000;
+				break;
+			case '5':
+				time = 1000;
+				break;
+			case '10':	
+			case '15':	
+			case '30':	
+				time = 500;
+				break;
+			default:
+				time = 1000;
+				break;
+		}
+		return time;
+	}
+	
+	
+	function CheckOsdTime()
+	{
+		var osd_time = 0;
+		var i = 0;
+		var osd_format = "";
+		for(i = 0 ; i < 4 ; i++)
+		{
+			if(CameraConf.OSD_CONFIG[i].OSD_STATE == '1')
+			{
+				osd_format = CameraConf.OSD_CONFIG[i].OSD_FORMAT;
+				if(osd_format.indexOf('%YYYY')>-1 || osd_format.indexOf('%YY')>-1 || osd_format.indexOf('%MM')>-1 || osd_format.indexOf('%DD')>-1 || osd_format.indexOf('%hh')>-1 || osd_format.indexOf('%mm')>-1 || osd_format.indexOf('%ss')>-1)
+					osd_time++ ;				
+			}			
+		}
+		
+		if(osd_time > 0)
+			return 1;
+		else
+			return 0;
+	}
+	
+	function doVclCmd()
+	{	
+		var cache ;			
+		var url = '';				
+		var track = "track1";	
+		cache = GetCacheBufferTime(track);
+		url = 'rtsp://'+ top.gAccount + ':' + top.gPwd + '@' + location.hostname + ':' + CameraConf.PORT_RTSP + '/'+ track;
+		doGo(url,cache);
+	}
+	
+	function SetupPlayer(track)
+	{
+		var HTML = '';		
+		var ResW = SetObjectWidth();
+		var sAgent = navigator.userAgent.toLowerCase();
+		
+		if(sAgent.indexOf("safari")==-1 || sAgent.indexOf("chrome")!=-1)
+		{
+			//VLC player			
+			HTML = '<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" WIDTH=' + ResW + ' HEIGHT='+ EcmHieghtWithoutMotionWindow + ' id="vlc" events="True">';
+			HTML += '<param name="MRL" value="" />' ;
+			HTML += '<param name="ShowDisplay" value="True" />' ;
+			HTML += '<param name="AutoLoop" value="False" />' ;
+			HTML += '<param name="AutoPlay" value="False" />' ;
+			HTML += '<param name="Volume" value="50" />' ;
+			HTML += '<param name="toolbar" value="False" />' ;
+			HTML += '<param name="StartTime" value="0" />' ;
+			HTML += '<EMBED pluginspage="http://www.videolan.org"  type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2"' + ' width=' +  ResW + ' height='+ EcmHieghtWithoutMotionWindow + ' toolbar="False"  name="vlc"></EMBED>';
+			HTML += '</OBJECT>';		
+			idget("player").innerHTML = HTML;	
+			window.setTimeout("doVclCmd();", 100 );	
+		}
+		else
+		{
+			/*QuickTime Player*/
+			HTML = '<OBJECT id="oMedia" name="oMedia" CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" WIDTH=' + ResW + ' HEIGHT='+ EcmHieghtWithoutMotionWindow + ' codebase="http://www.apple.com/qtactivex/qtplugin.cab">';
+			HTML += '<PARAM name="QTSRC" VALUE="rtsp://' + location.hostname + ':' + CameraConf.PORT_RTSP +'">' ;
+			HTML += '<PARAM name="AUTOPLAY" VALUE="true">';
+			HTML += '<PARAM name="CONTROLLER" VALUE="true">';
+			HTML += '<embed src="/control/sample.mov" qtsrc="rtsp://' + location.hostname + ':' + CameraConf.PORT_RTSP + '/'+ track + '"' + ' width=' +  ResW + ' height='+ EcmHieghtWithoutMotionWindow + ' scale="ASPECT" target="myself" controller="true" autoplay="true"></embed>';
+			HTML += '</OBJECT>';			
+			idget("player").innerHTML = HTML;	
+		}			
+	}
+	
+	function update_language() {
+		top.update_language(this);	
+		try { idget('SETTING_VIDEO_CEIL_ANGLE2').innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_CEIL_ANGLE") ; } catch(e) {}
+		try { top.sss = top.GetXmlLangTagByName("SELECT_COMMON_DISABLED") ; } catch(e) {}
+		try { idget('BUTTON_ANGLE_APPLY').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		try { idget('BUTTON_TILT_ANGLE_APPLY1').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		try { idget('BUTTON_TILT_ANGLE_APPLY2').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		try { err1 = top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+		try { err2 = top.GetXmlLangTagByName("SETTING_VIDEO_MOUNTING_TYPE_ERR") ; } catch(e) {}
+		//try { idget('BUTTON_TILT_ANGLE_APPLY2').value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+		//BUTTON_ANGLE_APPLY
+	}
+	
+	function SteamDisconnet()
+	{
+		if(top.IsIE() == true)
+			oMedia.Disconnect();
+	}
+	
+	function Page_onLoad()
+	{
+		if( top.gUnitType ==  "Hemispheric Camera")
+		{
+			var MountingTypeOption;
+			
+			if (top.gIspGeneration == "A1_ISP" ||top.gIspGeneration == "C02")
+			{	
+				MountingTypeOption = "WALL,CEILING,GROUND";
+				UpdateSelectOptionsWithId(idget("VIDEO_MOUNTING"), MountingTypeOption, "SELECT_FISHEYE_");
+			}	
+			else
+			{
+				MountingTypeOption = "WALL,CEILING";
+				UpdateSelectOptionsWithId(idget("VIDEO_MOUNTING"), MountingTypeOption, "SELECT_FISHEYE_");
+			}			
+		}
+		
+		doGetSetting();	
+		update_language();		
+		
+		//if( top.gUnitType ==  "Hemispheric Camera")
+		GetConfig();
+		UIChange();	
+		
+		if( top.gUnitType ==  "Hemispheric Camera")	
+			GetFisheyeCeilingConfig();	
+
+		if(top.IsIE() == true)
+		{
+			ECMSetup();
+			
+			if (top.gIspGeneration == "A1_ISP" && top.gUnitType ==  "Hemispheric Camera")
+			{
+				idget("oMedia").EnableFisheyeEx = 1 ;
+				idget("oMedia").FisheyeModule = top.gFisheyeModule ;
+				FISHEYE_ROTATE_ABS = CameraConf.FISHEYE_ROTATE;
+			
+				switch(idget("VIDEO_MOUNTING").value){
+					case "WALL":
+						idget("oMedia").FisheyeMode = 1;
+						idget("oMedia").SetFisheyeRotationAngle(0, 1, 0, idget("InstallAngle").value);
+					break;
+					case "CEILING":		
+						idget("oMedia").FisheyeMode = 4;
+						idget("oMedia").SetFisheyeRotationAngle(1, 2, 0, idget("TiltAngle1").value);
+						idget("oMedia").SetFisheyeRotationAngle(0, 2, 0, idget("TiltAngle2").value);
+						idget("oMedia").SetFisheyeRotationAngle(0, 0, FISHEYE_ROTATE_ABS, 0);
+						idget("oMedia").SetFisheyeRotationAngle(1, 0, FISHEYE_ROTATE_ABS, 0);	
+					break;	
+					case "GROUND":
+						idget("oMedia").FisheyeMode = 7;
+						idget("oMedia").SetFisheyeRotationAngle(1, 2, 0, idget("TiltAngle1").value);
+						idget("oMedia").SetFisheyeRotationAngle(0, 2, 0, idget("TiltAngle2").value);
+						idget("oMedia").SetFisheyeRotationAngle(0, 0, FISHEYE_ROTATE_ABS, 0);
+						idget("oMedia").SetFisheyeRotationAngle(1, 0, FISHEYE_ROTATE_ABS, 0);	
+					break;
+				}
+			}	
+		}	
+		else
+		{
+			SetupPlayer("track1");
+			idget("oMedia").style.display = "none";
+		}				
+	}
+	
+	Page_onLoad();
+		
+	
+</Script>
+

@@ -1,0 +1,120 @@
+﻿<html>
+
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+	<!--[if IE 9]><meta http-equiv="X-UA-Compatible" content="IE=Quirks"></meta><![endif]-->
+    <script type="text/javascript" src="/js/js.js"></script>
+    <title>Web Configurator</title>
+</head>
+
+<body  id="SetupLayoutMainBody" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
+<div id="bg1" class="background" style="height:870px; width:960px ; margin-left:auto; margin-right:auto " >
+	<div class="titlebar">	
+		<div  class="banner" >			
+			<div class="logo_img" >
+				&nbsp;
+			</div>
+		</div>		
+	</div>
+	<div id="functionbar">	
+		<div id="pager2">
+			<div id="LIVE" class="live_off" onclick="top.load_iframe('/live/live_layout.html')"></div>
+			<div id="SETUP" class="setup_on" onclick="top.load_iframe('/setup/setup_layout.html')"></div>
+		</div>	
+	</div>	
+	<div>
+	<table  width="100%" height="80%" border="0"   cellpadding="0" >
+		<tr >
+			<td width="200px" valign="top" height="100%" class="setup_tree_border">
+				<iframe  id="setup_tree" style="height:100%" frameborder="0" scrolling="no" width="100%"  ></iframe>							
+			</td>
+			<td width="auto" valign="top" height="100%">			
+				<iframe  id="setup_content" style="height:100%" frameborder="0" scrolling="no" width="100%"  ></iframe>
+			<td>
+		</tr>
+	</table>
+	</div>
+	<div class="bottom_banner" >			
+	</div>
+	
+</div>
+	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">	
+	idget("LIVE").onmouseover = livemouseover;
+	idget("LIVE").onmouseout = livemouseout;
+	function livemouseover()
+	{
+		idget("LIVE").className = "live_on";
+	}
+	function livemouseout()
+	{
+		idget("LIVE").className = "live_off";
+	}
+	
+	function DisableLiveButton()
+	{	
+		idget("LIVE").className = "live_disable";
+		idget("LIVE").disabled = true;
+	}
+	function EnableLiveButton()
+	{		
+		idget("LIVE").className = "live_off";
+		idget("LIVE").disabled = false;
+	}
+	
+	function DisableSetupButton()
+	{	
+		idget("SETUP").className = "setup_disable";
+		idget("SETUP").disabled = true;
+	}
+	function EnableSetupButton()
+	{		
+		idget("SETUP").className = "setup_on";
+		idget("SETUP").disabled = false;
+	}
+	
+	function IE_version()
+	{
+		//if(navigator.appVersion.indexOf("MSIE 10") > -1)
+		if(document.documentMode >= 10)
+		{
+			//It'is IE 10			
+			idget("LIVE").style.marginLeft = 45;
+			idget("SETUP").style.marginLeft = 90;
+		}
+		if(document.documentMode == 9){
+			var tmp= document.getElementById("pager2");
+			tmp.className = tmp.className + "OlderIE9Style";
+		}
+	}
+	
+	function Page_onLoad()
+	{		
+		top.update_language(this);
+		
+		if(top.IsIE() == false)
+		{
+			idget("pager2").style.marginLeft = 45;
+		}
+		
+		IE_version();
+		
+		if(top.gUserLevel == 1)
+		{		
+			idget("setup_tree").src = "setup_tree.html";
+			idget("setup_content").src = "setup_host.html";		
+		}
+		else
+		{
+			idget("setup_tree").src = "setup_tree_guest.html";
+			idget("setup_content").src = "setup_maintain_system-info.html";		
+		}
+	}
+	Page_onLoad();
+
+</Script>

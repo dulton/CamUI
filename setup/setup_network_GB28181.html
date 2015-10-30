@@ -1,0 +1,493 @@
+<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_GB28181">RTP</label>
+			</td>
+			<!--<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>-->
+			<form name="frmSetting">	
+				<tr>
+					<td>
+						<table border="0" align="center" width="100%">
+							<tr>
+								<td align="left" width="50%">
+									<input type="checkbox" id="GB28181_state" style="width:20px" onchange="Switch_GB_UI()">
+									<label id="SELECT_COMMON_ENABLED"></label>
+								</td>
+								<td align="right">
+									<label id="COMMON_MSG_STATUS">Status</label>
+									<input type="text" id="GB28181_Status"  size="10" style="margirn-left:10px">
+									<input name="BUTTON_REFRESH" class="button2" type="button" id="BUTTON_REFRESH" value="Refresh" onclick="DoRefresh()" />
+								</td>	
+							</tr>
+						</table>	
+						<table id="div_GB28181_SERVER_SETTINGS"  border="0" align="center" width="100%">
+							<!--<td>-->
+								<tr>
+									<td align="left" colspan=2>
+										<label id="SETTING_GB28181_SERVER_SETTINGS">GB28181 Server Settings</label>&nbsp;&nbsp;&nbsp; 
+									</td>
+								</tr>
+								<tr>
+									<td align="right" width="50%">
+										<label id="SETTING_GB28181_SERVER_ID">Server ID</label>&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										<input type="text" name="SipSrvID" value="" size="23" maxlength="20">
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="COMMON_MSG_NETWORK_ADDRESS">Network Address</label>&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										<input type="text" name="SipSrvAddr" value="" size="20" maxlength="63">
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="COMMON_MSG_NETWORK_PORT">Network Port</label>&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										<input type="text" name="SipSrvPort" value="" size="2" maxlength="5">
+									</td>
+								</tr>
+							<!--<td>-->
+						</table>
+						<table id="div_GB28181_DEVICE_SETTINGS" border="0" align="center" width="100%">
+							<tr>
+								<td colspan="2">
+									<div style="margin-top:10px; border-bottom:2px solid #999999;height:1px;"></div>								
+								</td>							
+							</tr>
+							<tr>
+								<td align="left" colspan=2>
+									<label id="SETTING_GB28181_DEVICE_SETTINGS">GB28181 Devices Settings</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+							</tr>
+							<tr>
+								<td align="right" width="50%">
+									<label id="SETTING_GB28181_USER_ID">User ID</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" name="SipUserID" value="" size="23" maxlength="20">
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="LOGIN_PASSWORD">Password</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" name="SipUserPwd" value="" size="20" maxlength="63">
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="COMMON_MSG_NETWORK_PORT">Network Port</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" name="SipHostPort" value="" size="2" maxlength="5">
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="COMMON_MSG_VIDEO_STREAM">Video Stream</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<select name="SipStreamIndex">
+										<option value="1">1</option>
+										<option value="2">2</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div style="margin-top:10px; border-bottom:2px solid #999999;height:1px;"></div>								
+								</td>							
+							</tr>	
+						</table>
+						<table id="div_GB28181_DI" border="0" align="center" width="100%">
+							<tr>
+								<td align="left" colspan=2>
+									<label id="SETTING_GB28181_NOTIFICATIONS_DI"></label>
+								</td>
+							</tr>
+							<tr>
+								<td colspan=2 align="center">
+									<div id="Noti_DI"></div>
+								</td>
+							</tr>
+						</table>
+						<table id="TR_APPLY" border="0" align="center" width="100%">	
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>		
+							<tr>
+								<td align="right">
+									<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetSettings()"/>
+								</td> 
+							</tr>			
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>											   
+						</table>
+						<table>
+							<div id="divError" style="display:none">
+								<label id="COMMON_MSG_SET_ERR">Error. Invalid settings.</label>&nbsp;&nbsp;&nbsp;</br>
+								<label id="SETTING_NETWORK_NAME_ERR">
+									Rules of network name&#10;
+									1. Only ASCII A~Z, a~z, 0~9, minus sign (-), underscore (_) and period (.) are allowed.&#10;
+									2. No blank or space characters are permitted as part of a name.&#10;
+									3. The last character must not be a minus sign, underscore or period.&#10;
+									4. The first character is allowed to be either a letter or a digit.&#10;
+									5. No NULL string is allowed
+								</label>&nbsp;&nbsp;&nbsp;</br>
+								<label id="SETTING_LOGIN_PWD_ERR">
+									 Rules of login password&#10;
+									 1. Allow 0~9 A~Z a~z&#10;
+									 2. Allow special characters ! $ ( ) * + - . ; &lt; = &gt; @ [ ] ^ _ { } | ~
+								</label>&nbsp;&nbsp;&nbsp;</br>	
+							</div>
+						</table>
+					</td>
+				</tr>
+			</form>	
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+	var err;
+	
+	function Switch_GB_UI()
+	{
+		if(idget("GB28181_state").checked == true)
+		{
+			idget("div_GB28181_SERVER_SETTINGS").style.display="";
+			idget("div_GB28181_DEVICE_SETTINGS").style.display="";
+			if(top.gDI!=0)
+				idget("div_GB28181_DI").style.display="";
+			
+			//idget("TR_APPLY").style.display="";
+		}
+		else
+		{
+			idget("div_GB28181_SERVER_SETTINGS").style.display="none";
+			idget("div_GB28181_DEVICE_SETTINGS").style.display="none";
+			idget("div_GB28181_DI").style.display="none";
+			//idget("TR_APPLY").style.display="none";
+		}		
+	}
+	
+	function clean_result(){
+		idget("BUTTON_REFRESH").disabled = false ;
+		try{idget("BUTTON_REFRESH").value = top.GetXmlLangTagByName("BUTTON_REFRESH") ; } catch(e) {}
+	}
+	
+	function DoRefresh()
+	{
+		//BUTTON_APPLY.value = "Saving..." ;
+		idget("BUTTON_REFRESH").value = top.GetXmlLangTagByName("BUTTON_SAVE") ; 
+		idget("BUTTON_REFRESH").disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd + "&GB28181_STATUS";	        	       
+        var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'GB28181_STATUS' :
+					if(szTmp[1]==0)
+						try { idget("GB28181_Status").value = top.GetXmlLangTagByName("SETTING_GB28181_DISCONNECTED") ; } catch(e) {}
+					if(szTmp[1]==1)
+						try { idget("GB28181_Status").value = top.GetXmlLangTagByName("SETTING_GB28181_CONNECTING") ; } catch(e) {}
+					if(szTmp[1]==2)
+						try { idget("GB28181_Status").value = top.GetXmlLangTagByName("SETTING_GB28181_CONNECTED") ; } catch(e) {}			
+				break;	
+			}
+		}		
+		window.setTimeout("clean_result();", 500 );	
+	}
+	
+	function ID_Check(name)
+	{
+		var pattern = /^[0-9]/;
+		
+		if(pattern.test(name) == true)
+		{
+			if(name.length !=20)
+				return false;
+			else
+				return true;
+		}
+		else
+			return false;		
+	}
+	
+	function PortCheck(value)
+	{
+		var pattern = /^\d*[0-9]?$/ ;
+		if(value == ''){
+			return false ;
+		}
+		else{
+			if(pattern.test(value)!=true){
+				return false ;
+			}
+			else{			
+				if(value>=1 && value <=65535){
+					
+				}
+				else{					
+					return false ;
+				}				
+			}
+		}
+	}
+	
+	function DoApply()
+	{
+		var state_DI;
+		var stateGB;
+		idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_SAVE") ; 
+		idget("BUTTON_APPLY").disabled = true ;
+		
+		if(idget("GB28181_state").checked ==true)
+		{
+			/*check server settings*/
+			if(ID_Check(document.frmSetting.SipSrvID.value) == false)
+			{
+				alert(err);	
+				document.frmSetting.SipSrvID.focus();	
+				window.setTimeout("top.clean_result(this);", 500 );		
+				return;
+			}
+			
+			if(top.NetworkingCheck(document.frmSetting.SipSrvAddr.value)==false)
+			{
+				alert(top.networking_name_err0);
+				document.frmSetting.SipSrvAddr.focus();	
+				window.setTimeout("top.clean_result(this);", 500 );		
+				return;
+			}
+			
+			if(PortCheck(document.frmSetting.SipSrvPort.value) == false)
+			{
+				alert(err);	
+				document.frmSetting.SipSrvPort.focus();	
+				window.setTimeout("top.clean_result(this);", 500 );		
+				return;
+			}
+			
+			/*check Device settings*/
+			if(ID_Check(document.frmSetting.SipUserID.value) == false)
+			{
+				alert(err);	
+				document.frmSetting.SipUserID.focus();	
+				window.setTimeout("top.clean_result(this);", 500 );		
+				return;
+			}
+			
+			if(top.PasswordCheck(document.frmSetting.SipUserPwd.value)==false)
+			{
+				//alert(err);
+				alert(top.pwd_err0);	
+				document.frmSetting.SipUserPwd.focus();	
+				window.setTimeout("top.clean_result(this);", 500 );		
+				return;
+			}
+			
+			if(PortCheck(document.frmSetting.SipHostPort.value) == false)
+			{
+				alert(err);	
+				document.frmSetting.SipHostPort.focus();	
+				window.setTimeout("top.clean_result(this);", 500 );		
+				return;
+			}
+			
+			/*check DI settings*/
+			if(top.gDI!=0)
+			{
+				for(i=1;i<=top.gDI;i++)
+				{
+					if(ID_Check(idget("SipDI_ID"+i).value) == false)
+					{
+						alert(err);	
+						document.frmSetting.SipUserID.focus();	
+						window.setTimeout("top.clean_result(this);", 500 );		
+						return;
+					}
+				}
+			}
+		}
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		if(idget("GB28181_state").checked == false)
+		{
+			stateGB = 0;
+			szSystem += "&GB28181_STATE=" + stateGB;
+			var szReturn = doRequest(szSystem) ;
+		}
+		else
+		{
+			stateGB = 1;		
+			szSystem += "&GB28181_STATE=" + stateGB;
+			szSystem += "&GB28181_CONFIG_SERVER=" + document.frmSetting.SipSrvAddr.value +","+ document.frmSetting.SipSrvPort.value +","+ document.frmSetting.SipSrvID.value;
+			szSystem += "&GB28181_CONFIG_CLIENT=" + document.frmSetting.SipUserID.value +","+ document.frmSetting.SipUserPwd.value+","+ document.frmSetting.SipHostPort.value +","+ document.frmSetting.SipStreamIndex.value;
+			if(top.gDI!=0)
+			{
+				for(i=1;i<=top.gDI;i++)
+				{
+					if(idget("DI_State"+i).checked == true)
+						state_DI = 1;
+					else
+						state_DI = 0;
+					szSystem += "&GB28181_DI=" + i +","+ state_DI +"," + idget("SipDI_ID"+i).value;				
+				}
+			}
+			//alert(szSystem);
+			var szReturn = doRequest(szSystem) ;
+		}
+		//alert(szSystem);		
+		//alert(szReturn);
+		if(szReturn.indexOf("ERROR")!=-1)
+			alert(err);
+			
+		window.setTimeout("top.clean_result(this);", 500 );	
+		window.setTimeout("GetSettings();", 1000 );			
+		//GetSettings();
+	}
+	
+	function GetSettings()
+	{
+		var i;
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&GB28181_STATE" + "&GB28181_CONFIG_SERVER" + "&GB28181_CONFIG_CLIENT" + "&GB28181_STATUS" + "&GB28181_DI";
+		var szReturn = doRequest(szSystem) ;
+		//alert(szReturn);
+		//szReturn = "GB28181_STATE=0"+"\n"+"GB28181_CONFIG_SERVER='10.0.0.1,5060,34020000002000000001'"+"\n"+"GB28181_CONFIG_CLIENT='34020000001320000001,password,5060,1'"+"\n"+"GB28181_STATUS=0"+"\n"+"GB28181_DI='1,0,34020000001340000001'";
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'GB28181_STATE' :
+					//szTmp[1]=1;
+					if(szTmp[1]==1)
+						idget("GB28181_state").checked = true ;
+					else
+					{
+						idget("GB28181_state").checked = false ;
+						idget("div_GB28181_SERVER_SETTINGS").style.display="none";
+						idget("div_GB28181_DEVICE_SETTINGS").style.display="none";
+						idget("div_GB28181_DI").style.display="none";
+						//idget("TR_APPLY").style.display="none";
+					}	
+					break;									
+				case 'GB28181_CONFIG_SERVER' :	
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.SipSrvAddr.value = value[0];
+					document.frmSetting.SipSrvPort.value = value[1];
+					document.frmSetting.SipSrvID.value = value[2];		
+					break;		
+				case 'GB28181_CONFIG_CLIENT' :	
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.SipUserID.value = value[0];
+					document.frmSetting.SipUserPwd.value = value[1];
+					document.frmSetting.SipHostPort.value = value[2];
+					document.frmSetting.SipStreamIndex.value = value[3];					
+					break;
+				case 'GB28181_STATUS' :
+					if(szTmp[1]==0)
+						try { idget("GB28181_Status").value = top.GetXmlLangTagByName("SETTING_GB28181_DISCONNECTED") ; } catch(e) {}
+					if(szTmp[1]==1)
+						try { idget("GB28181_Status").value = top.GetXmlLangTagByName("SETTING_GB28181_CONNECTING") ; } catch(e) {}
+					if(szTmp[1]==2)
+						try { idget("GB28181_Status").value = top.GetXmlLangTagByName("SETTING_GB28181_CONNECTED") ; } catch(e) {}			
+					break;
+				case 'GB28181_DI' :	
+					var value = szTmp[1].split(',') ;
+					i = value[0];
+					if(value[1]==1){
+						idget("DI_State"+i).checked = true;	
+					}	
+					idget("port_DI"+i).innerText = "DI"+i;
+					idget("SipDI_ID"+i).value = value[2];		
+					break;
+			}
+		}
+	}
+	
+	function DrawNotificationDITable()
+	{		
+		var HTML="";
+		var i = 0;
+		
+		HTML += '<table width="90%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:0px">'
+		HTML += '<tr>'
+		HTML += '<th align="center" width="124px"><label id="SELECT_COMMON_ENABLED"></label></th>'
+		HTML += '<th align="center" width="227.1px"><label id="SETTING_EVENT_CONFIGURATOR_PORT"></label></th>'
+		HTML += '<th align="center" width="227.1px"><label id="SETTING_GB28181_ID"></label></th>'				
+		HTML += '</tr>'
+		for(i = 1 ; i <= top.gDI ; i++)
+		{
+			HTML += '<tr>'
+			HTML += '<td align="center">'	
+			HTML +=	'<input type="checkbox" id="DI_State'+i+'" style="width:20px"></td>'	
+			HTML += '<td align="center"><label id="port_DI'+i+'"></td>'
+			HTML += '<td align="center"><input type="text" id="SipDI_ID'+i+'" value="" size="23" maxlength="20"></td>'
+			HTML += '</tr>'	
+		}
+		HTML += '</table>'
+		document.getElementById("Noti_DI").innerHTML =  HTML;
+	}
+	
+	function update_language()
+	{
+		top.update_language(this);
+		try { err = top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+	}
+	function Page_onLoad()
+	{
+		idget("GB28181_Status").disabled = true;
+		DrawNotificationDITable();			
+		update_language();			
+		GetSettings();	
+		if(top.gDI==0)
+		{
+			idget("div_GB28181_DI").style.display="none";
+			//idget("Noti_DI").style.display="none";
+		}	
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

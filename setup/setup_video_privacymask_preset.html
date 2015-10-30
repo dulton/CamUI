@@ -1,0 +1,462 @@
+﻿
+<html>
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="/js/selectColor.js"></script>
+</head>
+
+<body id="body_osdpm" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onUnload="OSDPageUnLoad()" >	
+	<table width="95%" cellspacing="0" cellpadding="0" border="0" style="margin-top:5px;margin-left:auto;margin-right:auto">
+		<tr height="20px">
+			<td width="23%" align="left">
+				<label id="PTZ_PRESET_POINT">Preset Point</label>
+			</td>
+			<td align="left">
+				<select id="GoPresetPoint" onclick="Go_Preset_Point()"></select>				
+			</td>
+			<!--<td  align="left">
+				<input id="SETTING_PTZ_PRESET_GOTO" name="SETTING_PTZ_PRESET_GOTO" type="button" value="Go" onclick="Go_Preset_Point()">
+			</td>-->
+		</tr>
+        <tr height="20px">
+			<td  colspan="2">
+				<label id="SETTING_VIDEO_PRIVACE_MASK_WARN">(Don't overlap privacy mask regions)</label>
+			</td>	
+		</tr>
+		<tr id="PriMask" style="display:">
+			<td colspan="3" id="PriMask_internal" style="display:">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_OSD_REGION">Region</label></th>
+						<th align="center" ><label id="COMMOM_MSG_ENABLED">Enabled</label></th>
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_COLOR">Color</label></th>						
+						<th align="center" ><label id="SETTING_VIDEO_PRIVACE_MASK_SETUP">Setup</label></th>
+					</tr>
+					<tr>
+						<td align="center"><label>1</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_1"></td>
+						<td align="center"><div id="PM_COLOR_1"></div></td>					
+						<td align="center"><input type="checkbox" id="PriMask_Setup_1" onclick="SetupPM('1')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>2</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_2"></td>
+						<td align="center"><div id="PM_COLOR_2"></div></td>					
+						<td align="center"><input type="checkbox" id="PriMask_Setup_2" onclick="SetupPM('2')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>3</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_3"></td>
+						<td align="center" rowspan="2"><div id="PM_COLOR_3"></div></td>						
+						<td align="center"><input type="checkbox" id="PriMask_Setup_3" onclick="SetupPM('3')"></td>						
+					</tr>
+					<tr>
+						<td align="center"><label>4</label></td>
+						<td align="center"><input type="checkbox" id="PriMask_ENABLE_4"></td>
+						<td align="center"><input type="checkbox" id="PriMask_Setup_4" onclick="SetupPM('4')"></td>							
+					</tr>					
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<p>&nbsp;</p>
+			</td>
+		</tr>
+	</table>
+	<table width="95%" cellspacing="0" cellpadding="0" border="0" style="margin-top:5px;margin-left:auto;margin-right:auto">	
+		<tr>			
+			<td align="right">
+				<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+			</td>
+			<td align="left">
+				&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doReGetSettings()"/>
+			</td>
+		</tr>			
+	</table>
+	<table>
+		<div id="divError" style="display:none">
+			<label id="COMMON_MSG_SET_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+		</div>	
+	</table>
+
+
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var PresetObjList = [] ;
+	var PM_go_count = 0;
+	var PresetPoint = 0;
+	var PresetPonitNow = 0;
+	var SX = 0;   
+	var SY = 0;
+	var EX = 0;
+	var EY = 0;
+	
+	function Go_Preset_Point()
+	{
+		if(idget("GoPresetPoint").value != PresetPonitNow || PM_go_count==0)
+		{
+			var cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd ;
+			if(idget("GoPresetPoint").value==0)
+			{
+				cmd+="&MOVE=HOME";	
+			}
+			else
+			{
+				cmd+="&PTZ_PRESET_GO="+idget("GoPresetPoint").value;
+			}		
+			
+			PresetPonitNow = idget("GoPresetPoint").value;
+			var Result = doRequest(cmd);
+			//idget("GoPresetPoint").blur();
+			PM_go_count = 1; //aleady moved
+			Get_PM_Setting();
+		}		
+	}
+	
+	function Get_PM_Setting()
+	{
+		DrawPMOsdColor();
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd 
+		szEncoder += "&PRESET_PRIVACY_REGIONS="+idget("GoPresetPoint").value;
+		szReturn = doRequest(szEncoder) ;
+		//alert(szReturn);	
+		
+		/*alert("region1="+parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_COLOR+"\n"+
+			  "region2="+parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[1].PM_COLOR+"\n"+
+			  "region3="+parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[2].PM_COLOR+"\n"+
+			  "region4="+parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[3].PM_COLOR);*/
+		for(i = 0 ; i < 4; i++)
+		{
+			if(parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[i].PM_STATE == 1)
+				idget("PriMask_ENABLE_" + (i+1) ).checked = true;
+			else
+				idget("PriMask_ENABLE_" + (i+1) ).checked = false;
+			
+			if(i==3)
+				break;
+			if(parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[i].PM_COLOR == 'ff0000')	//Red
+			{	
+				idget("Region_"+(i+1)+ "_PM_Color").value = 'ff0000';
+				idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#ff0000";	//for firefox and chrome browser
+			}
+			if(parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[i].PM_COLOR == '00ff00')	//Green
+			{		
+				idget("Region_"+(i+1)+ "_PM_Color").value = '00ff00';
+				idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#00ff00";	//for firefox and chrome browser
+			}	
+			if(parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[i].PM_COLOR == '0000ff')	//Blue
+			{
+				idget("Region_"+(i+1)+ "_PM_Color").value = '0000ff';
+				idget("Region_"+(i+1)+ "_PM_Color").style.backgroundColor = "#0000ff";	//for firefox and chrome browser
+			}	
+			if(parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[i].PM_COLOR == '000000')
+			{		
+				idget("Region_"+(i+1)+"_PM_Color").value = '000000';	//no one match, default => black
+				idget("Region_"+(i+1)+"_PM_Color").style.backgroundColor = "#000000";	//for firefox and chrome browser
+			}	
+		}		
+		$('.selectColor').sSelect({ddMaxHeight : '300px'});	
+	}
+	
+	function SetupPM(region)
+	{
+		idget("GoPresetPoint").disabled = true;
+														
+		if(idget("PriMask_Setup_" + region).checked == true)		
+		{
+			var SX = parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[region-1].PM_SX;   
+			var SY = parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[region-1].PM_SY;
+			var EX = parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[region-1].PM_EX;
+			var EY = parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[region-1].PM_EY;	
+			parent.StartPriMaskSetup();
+			
+			if ((SX == 0 && SY == 0 && EX == 0 && EY == 0) || (SX==EX) || (SY == EY))
+				parent.idget("oMedia").SetPrivacyMaskSetting(region, 100 * (region - 1) + 5, 100 * (region - 1) + 5, 105, 105, 1);
+			else
+				parent.idget("oMedia").SetPrivacyMaskSetting(region, SX, SY,  EX - SX, EY - SY, 1);
+			
+			idget("PriMask_ENABLE_" + region).disabled="";		
+		}	
+		else
+		{	
+			if ((SX == 0 && SY == 0 && EX == 0 && EY == 0) || (SX==EX) || (SY == EY))
+				parent.idget("oMedia").SetPrivacyMaskSetting(region, 100 * (region - 1) + 5, 100 * (region - 1) + 5, 105, 105, 0);
+			else	
+				parent.idget("oMedia").SetPrivacyMaskSetting(region, SX, SY,  EX - SX, EY - SY, 0);
+			
+			idget("PriMask_ENABLE_" + region).disabled="disabled";			
+			idget("GoPresetPoint").disabled = false;	
+		}
+		
+		//if(PM_go_count==0)
+			//idget("GoPresetPoint").disabled = false;		
+	} 
+
+	function PriMaskInit()
+	{
+		parent.idget("oMedia").SetPrivacyMaskSetting(1, 0, 0, 100, 100, 0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(2, 100, 100, 100, 100, 0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(3, 200, 200, 100, 100, 0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(4, 300, 300, 100, 100, 0);
+	}
+	
+	function doReGetSettings()
+	{
+		DrawPMOsdColor();
+		Get_PM_Setting();
+		/*alert("region1="+parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_SX+","+
+			            +parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_SY+","+
+						+parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_EX+","+
+						+parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_EY*/
+		parent.idget("oMedia").SetPrivacyMaskSetting(1, parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_SX, 
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_SY,
+ 		                                                parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_EX,
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[0].PM_EY,
+														0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(2, parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[1].PM_SX, 
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[1].PM_SY,
+ 		                                                parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[1].PM_EX,
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[1].PM_EY,
+														0);
+		parent.idget("oMedia").SetPrivacyMaskSetting(3, parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[2].PM_SX, 
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[2].PM_SY,
+ 		                                                parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[2].PM_EX,
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[2].PM_EY,
+														0);		
+		parent.idget("oMedia").SetPrivacyMaskSetting(4, parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[3].PM_SX, 
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[3].PM_SY,
+ 		                                                parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[3].PM_EX,
+														parent.CameraConf.PRESET_NUM[idget("GoPresetPoint").value].PRESET_PRIVACY_REGION[3].PM_EY,
+														0);
+		for(i=0;i<4;i++)
+		{
+			SetupPM(i+1);
+		}	
+	}
+	
+	function DrawPMOsdColor()
+	{
+		var HTML='';				
+		var i = 1;
+					
+		for(i = 1 ; i <=3 ; i++)
+		{
+			HTML += '<select class="selectColor" id="Region_' + i + '_PM_Color" style="width:100px;font-weight:bold" onchange=ColorChange(this)>';				
+			HTML += '<option value="000000" class="opt_black" name="opt_black"></option>';			
+			HTML += '<option value="ff0000" class="opt_red" name="opt_red"></option>';
+			HTML += '<option value="00ff00" class="opt_green" name="opt_green"></option>';
+			HTML += '<option value="0000ff" class="opt_blue" name="opt_blue"></option>';
+			
+			
+			HTML += '</select>';			
+			idget('PM_COLOR_'+ i ).innerHTML= HTML;
+			HTML = '';
+		}					
+	}
+	
+	function ColorChange(Selobj)
+	{
+		Selobj.style.backgroundColor='#'+Selobj.options[Selobj.selectedIndex].value;
+		Selobj.blur();
+	}
+	
+	function osd_update_langauge()
+	{
+		top.update_language(this);
+	}
+	
+	function OSDPageUnLoad()
+	{
+		parent.StopPriMaskSetup();		
+		parent.document.getElementById("media_id").disabled = false;
+	}
+	
+	function DoApply()
+	{
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd ;
+		var i = 1;
+		var szReturn ;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;	
+					
+		for( i = 1 ; i <=4; i++)
+		{
+			if(idget("PriMask_Setup_" + i).checked == true) 
+			{
+				if(idget("PriMask_ENABLE_" + i ).checked == true)
+				{			
+					szEncoder += "&PRESET_PRIVACY_REGIONS="+idget("GoPresetPoint").value + "," + i + ",";
+					szEncoder += "1,";			
+				}	
+				else
+				{
+					szEncoder += "&PRESET_PRIVACY_REGIONS="+idget("GoPresetPoint").value + ","+ i + ",";
+					szEncoder += "0,";
+				}	
+				if(i == 4)	
+					szEncoder += idget("Region_" + (i-1) + "_PM_Color").value + ",";	
+				else
+					szEncoder += idget("Region_" + i + "_PM_Color").value + ",";	
+				szEncoder += parent.idget("oMedia").GetPrivacyMaskStartX(i) + ",";	
+				szEncoder += parent.idget("oMedia").GetPrivacyMaskStartY(i) + ",";	
+				szEncoder += (parent.idget("oMedia").GetPrivacyMaskStartX(i) + parent.idget("oMedia").GetPrivacyMaskEndX(i)) + ",";				
+				szEncoder += (parent.idget("oMedia").GetPrivacyMaskStartY(i) + parent.idget("oMedia").GetPrivacyMaskEndY(i));	
+				
+					
+			}	
+		}
+		
+		if( (idget("PriMask_Setup_1").checked == true) || (idget("PriMask_Setup_2").checked == true) || (idget("PriMask_Setup_3").checked == true) || (idget("PriMask_Setup_4").checked == true) ) 
+		{
+			szReturn = doRequest(szEncoder) ;	
+			//alert(szReturn);
+		}
+		
+		for( i = 1 ; i <=4; i++ )
+		{
+			idget("PriMask_ENABLE_" + i ).disabled = true ;	
+			if(idget("PriMask_Setup_" + i).checked == true)
+			{
+				idget("PriMask_Setup_" + i ).checked =false;
+				idget("PriMask_ENABLE_" + i ).checked = false ;	
+			}		
+		}			
+		
+		if(szReturn != undefined)
+		{	
+			if(szReturn.indexOf('ERROR') > -1)
+			{
+				var msg = "Error. Invalid settings.";
+				try { msg      	= top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+				alert(msg);
+			}
+		}
+		idget("GoPresetPoint").disabled = false;
+		parent.GetConfig();
+		//doGetSettings();
+		parent.StopPriMaskSetup();
+		doReGetSettings();													
+		window.setTimeout("top.clean_result(this);", 2000 );	
+	}
+	
+	function doGetSettings()
+	{		
+		$('.selectColor').sSelect({ddMaxHeight : '300px'});			
+	}
+	
+	function UpdateCss()
+	{
+		/*document.styleSheets[0].rules[88] -> .event_server_table_style td*/
+		if(top.IsIE() == false)
+		{
+			idget("body_osdpm").style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;			
+		}
+		else
+		{		
+			idget("body_osdpm").style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+		}
+	}
+	
+	function PresetGetConfig(){
+		var cmd = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+			cmd+="&PTZ_PRESET_GET"
+		var Presets = doRequest(cmd).split("\n");
+		var i;
+		var idx;
+		var tourpresets=document.getElementById('GoPresetPoint');
+		
+
+		while (tourpresets.options.length > 0 ) {
+			tourpresets.remove(0);
+		}
+		
+		for(i=0;i<=0;i++)
+		{
+			var o=document.createElement('option');
+			o.value=i;
+				
+			if(i==0) {
+				o.id="PTZ_HOME_POS";
+				o.text="HOME";
+			}	
+			try{
+				tourpresets.add(o,null); // standards compliant
+			}catch(ex){
+				tourpresets.add(o); // IE only
+			}
+		}
+		
+		for(i in Presets){
+			Preset=Presets[i].split("'")[1];
+			if(Preset==undefined) continue;
+			Preset=Preset.split(",");
+			idx=Preset[0];
+			//alert("idx="+idx);
+			if(idx>32 || idx<1) continue;
+
+			var o=document.createElement('option');
+			o.text=Preset[8];
+			o.value=Preset[0];
+			//alert("o.id = "+o.id+"\n" + "o.text = "+o.text +"\n"+"o.value = "+o.value);
+			PresetObjList[PresetObjList.length] = {index:Preset[0],name:Preset[8]} ;
+			if(idx<=16)
+			{
+				try{
+					tourpresets.add(o,null); // standards compliant
+				}catch(ex){
+					tourpresets.add(o); // IE only
+				}
+			}	
+		}
+	}
+	
+	function PageOnload()
+	{
+		idget("GoPresetPoint").disabled = false;
+	
+		if(top.IsIE()==true)
+		{	
+			PresetGetConfig();
+			idget("GoPresetPoint").value = 0;
+			Go_Preset_Point();
+			PresetPonitNow = idget("GoPresetPoint").value;
+		}	
+			
+		for(i=1;i<=4;i++) {
+			idget("PriMask_ENABLE_" + i).disabled="disabled";			
+		}
+		for(i=1;i<=3;i++) {
+			idget("PM_COLOR_" + i).disabled="disabled";
+		}
+		
+		osd_update_langauge();
+		DrawPMOsdColor();
+		
+
+		if(parent.document.getElementById("media_id").value != 1)
+		{
+			parent.document.getElementById("media_id").value = 1;
+			if(top.IsIE()==true)	
+				parent.ECMSetup();					
+		}		
+		parent.document.getElementById("media_id").style.display = "none";				
+		if(top.IsIE()==true)			
+			PriMaskInit();	
+			
+		Get_PM_Setting();
+		UpdateCss();
+	}
+	
+	PageOnload();
+	
+	
+</Script>

@@ -1,0 +1,605 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>	
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+	<link rel="stylesheet" type="text/css" href='/css/tab.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+		
+			var _showTab = 0;
+			$('ul.tabs li').eq(_showTab).addClass('active');
+			$('.tab_content').hide().eq(_showTab).show();				
+			$('ul.tabs li').click(function() {		
+				var $this = $(this),
+				_clickTab = $this.find('a').attr('href');			
+				$this.addClass('active').siblings('.active').removeClass('active');			
+				$(_clickTab).stop(false, true).fadeIn().siblings().hide();
+				return false;
+			}).find('a').focus(function(){
+				this.blur();
+			});
+		});
+	</script>	    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onbeforeunload="SteamDisconnet()">	
+<div style="padding-top:3px">
+	<table id="setuptbl" class="setup_table" align="center" border="0">
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_VIDEO_ADVANCE">Video</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="center" >
+								<div id="ECM"></div>	
+								<div id="player"></div>
+							</td>						
+						</tr>
+						<tr id="TR_Stream">
+							<td align="center">
+								<select id="media_id" onchange="media_change()">
+									<option value="1">Stream-1</option>
+									<option value="2">Stream-2</option>
+								<select>
+							<td>
+						</tr>
+						<tr>
+							<td align="center">
+								<div class="abgne_tab">
+									<ul class="tabs">
+										<!--<li  id="TabStreamMode" onclick="LoadPage('STREAM')" ><a href="#TabStreamModeContent"><label id="SETTING_VIDEO_STREAM_MODE" style="font-size:11px;">Stream Mode</label></a></li>-->
+										<li  id="TabCompression" onclick="LoadPage('COMPRESS')" ><a  href="#TabSetupVideoContent"><label id="SETTING_VIDEO_COMPRESSION" style="font-size:11px">Compression</label></a></li>
+										<li  id="TabMotion" onclick="LoadPage('MD')" ><a  href="#TabSetupVideoContent"><label id="SETTING_VIDEO_MD" style="font-size:11px">Motion Detection</label></a></li>
+										<li  id="TabDN" onclick="LoadPage('DN')" ><a href="#TabSetupVideoContent"><label id="SETTING_VIDEO_DAYNIGHT" style="font-size:11px">Day/Night</label></a></li>
+										<li  id="TabImage" onclick="LoadPage('IMAGE')"><a href="#TabSetupVideoContent"><label id="SETTING_VIDEO_IMAGE" style="font-size:11px">Image</label></a></li>
+										<li  id="TabExpWB" onclick="LoadPage('EXP')"><a href="#TabSetupVideoContent"><label id="SETTING_VIDEO_EXP_WB" style="font-size:11px">Exposure/White Balance</label></a></li>
+										<li  id="TabOsdPM" style="display:none" onclick="LoadPage('OSDPM')"><a href="#TabSetupVideoContent"><label id="MENU_VIDEO_AND_AUDIO_PRIVACE_MASK" style="font-size:11px">OSD/Privacy Mask</label></a></li>
+										<li  id="TabOsd" style="display:none" onclick="LoadPage('OSDPM')"><a href="#TabSetupVideoContent"><label id="SELECT_OSD_TYPE_OSD" style="font-size:11px">OSD</label></a></li>
+										<li  id="Tab3DPM" style="display:none" onclick="LoadPage('3DPM')"><a href="#TabSetupVideoContent"><label id="SELECT_OSD_TYPE_PRIVACY_MASK" style="font-size:11px">Privacy Mask</label></a></li>
+										<li  id="TabPresetPM" style="display:none" onclick="LoadPage('PRESETPM')"><a href="#TabSetupVideoContent"><label id="SELECT_OSD_TYPE_PRIVACY_MASK2" style="font-size:11px">Privacy Mask</label></a></li>
+									</ul>
+									<div class="tab_container">										
+										<div id="TabSetupVideoContent" class="tab_content">
+											<iframe  id="setup_video_page"  src="setup_video_compress.html" style="height:280px;width:100%" frameborder="0" scrolling="no"   ></iframe>							
+										</div>
+									</div>	
+								</div>
+							</td>
+						</tr>																   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+</div>	
+	<div  id="bg2" class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var CameraConf;
+	var EcmWidthWithMotionWindow = 633;
+	var EcmHieghtWithoutMotionWindow = 280;
+	var StreamConnectOK = 0;
+	var pID, nBtn, pX, pY, pWidth, pHeight = 0;
+	HtmSrc = '<object id="oMedia" name="oMedia"  classid="CLSID:E19E79EC-F62E-40A0-952D-E49AEC7BEC2F" codebase="/control/nvA1Media.cab#Version='+top.gECMversion+'">';	
+	HtmSrc += '</object>'; 
+	//alert(HtmSrc);
+	idget('ECM').innerHTML=HtmSrc;
+	
+	function MDPresetModeFrameExtent()
+	{
+		idget("setuptbl").style.width = 760;
+		parent.document.getElementById("bg1").style.width = "1000px";
+		parent.document.getElementById("setup_content").style.width = "800px";
+		document.getElementById("bg2").style.width = "795px";
+	}
+	
+	function MDPresetModeFrameRecover()
+	{
+	
+		idget("setuptbl").style.width = 600;
+		document.getElementById("bg2").style.width = "635px";
+		parent.document.getElementById("setup_content").style.width = "640px";
+		parent.document.getElementById("bg1").style.width = "840px";
+	}
+	
+	
+	function media_change()
+	{
+		if(top.IsIE() == true)		
+			ECMSetup();		
+		else
+		{
+			if(idget("media_id").value == 1)
+				SetupPlayer("track1");
+			else
+				SetupPlayer("track2");	
+		}
+	}
+	
+	function LoadPage(page)	
+	{
+		//  TBD
+		// if(MDPRESETMODE)  
+		//    MDPresetModeFrameRecover();
+		switch (page){
+			/*case 'STREAM':  //Dual streaming is always available in A1 platform, I reserve one page for fisheye camera. (Like KCM-3911,camera option page)
+				idget("stream_mode").src = "setup_video_stream.html";
+				break;*/
+			case 'COMPRESS':
+				idget("setup_video_page").src = "setup_video_compress.html";
+				break;	
+			case 'MD':
+				// if(MDPRESETMODE)
+				//		idget("motion").src = "setup_video_mdpreset.html";
+				//else
+				idget("setup_video_page").src = "setup_video_motion.html";
+				break;
+			case 'DN':
+				idget("setup_video_page").src = "setup_video_daynight.html";
+				break;	
+			case 'IMAGE':
+				idget("setup_video_page").src = "setup_video_image.html";
+				break;	
+			case 'EXP':
+				idget("setup_video_page").src = "setup_video_exp.html";
+				break;		
+			case 'OSDPM':
+				idget("setup_video_page").src = "setup_video_osd_privacymask.html";
+				break;	
+			case '3DPM':
+				idget("setup_video_page").src = "setup_video_privacymask_3D.html";
+				break;	
+			case 'PRESETPM':
+				idget("setup_video_page").src = "setup_video_privacymask_preset.html";
+				break;			
+		}
+		
+	}
+
+	
+	
+	function GetConfig(){
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&CAMERA_PAGE";
+		var szReturn = doRequest(szEncoder) ;		
+		CameraConf = eval(szReturn);	
+	}
+	
+	function SetObjectWidth(){		
+		var ch = idget("media_id").value - 1; 
+		var res=CameraConf.CHANNEL[ch].VIDEO_RESOLUTION.split('x');		
+		
+		res[0]=res[0].substr(1);		
+		if(top.IsIE() == true)
+			return parseInt(parseInt(res[0])*(EcmHieghtWithoutMotionWindow-16)/parseInt(res[1]) );		//16 : title bar
+		else	
+			return parseInt(parseInt(res[0])*(EcmHieghtWithoutMotionWindow)/parseInt(res[1]) );		
+	}
+	function SetObjectHeight(){		
+		var ch = idget("media_id").value - 1; 
+		var ratio ;
+		var res=CameraConf.CHANNEL[ch].VIDEO_RESOLUTION.split('x');		
+		res[0]=res[0].substr(1);		
+		ratio = res[0]/res[1];
+		ratio = ratio.toFixed(2);
+		
+		if(ratio == 1.33)
+			EcmWidthWithMotionWindow = 583;
+		else	
+			EcmWidthWithMotionWindow = 633;
+		
+		return parseInt(parseInt(res[1])*(EcmWidthWithMotionWindow-203)/parseInt(res[0]) ) +16;		//203 Md window Width, 16:title bar
+	}
+
+	
+	function EnableEcmMotionWindow (MdEnbled)
+	{
+		if(top.IsIE()==false)
+			return;
+		if(MdEnbled == 1)
+		{	
+			idget("oMedia").EnableMVWindow(1);
+			idget("oMedia").width= EcmWidthWithMotionWindow;			
+			idget("oMedia").height= SetObjectHeight(); 
+			
+		}
+		else
+		{
+			idget("oMedia").EnableMVWindow(0);
+			idget("oMedia").width=SetObjectWidth();			
+			idget("oMedia").height=EcmHieghtWithoutMotionWindow;
+			
+		}
+	
+	}
+	
+	function StartPriMaskSetup()
+	{
+		if(top.IsIE()==false)
+			return;
+		idget("oMedia").StartPrivacyMaskSetup();		
+	}
+	function StopPriMaskSetup()
+	{
+		if(top.IsIE()==false)
+			return;
+		idget("oMedia").StopPrivacyMaskSetup();		
+	}
+	
+	function ECMSetup()
+	{
+		var CH=idget("media_id").value;						
+		EnableEcmMotionWindow(0);			
+		
+		idget("oMedia").style.display='';
+
+		idget("oMedia").ID=CH; 
+		idget("oMedia").Channel = CH;
+		CH--;
+		idget("oMedia").TCPVideoStreamID = CH; //(VIDEO_MEDIA.value-1) 
+		idget("oMedia").MediaType = 0;			
+		idget("oMedia").MediaURL      = document.location.hostname ;
+		idget("oMedia").MediaUsername = top.gAccount ;
+		idget("oMedia").MediaPassword = top.gPwd ;
+		switch(document.URL.split(":")[0]){
+			case "http":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 80;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(0);
+				break;
+			case "https":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 443;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(1);
+				break;
+		}
+		idget("oMedia").RegisterPort  = 6000 ;
+		idget("oMedia").ControlPort   = CameraConf.PORT_CONTROL;
+		idget("oMedia").StreamingPort = CameraConf.PORT_VIDEO;
+		idget("oMedia").DisplayTitleBar(1);
+		if(CheckOsdTime() >0){
+			idget("oMedia").SetTitleBarTextLayout(9,12,10,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);								
+		}		
+		else
+		idget("oMedia").SetTitleBarTextLayout(9,12,10,19,1,14,3,14,4,18,5,12,6,12,7,0,0,0,0,0);
+		idget("oMedia").StretchToFit = 1 ;
+		idget("oMedia").AutoReconnect(1);
+		idget("oMedia").Connect(0);			
+		idget("oMedia").DisablePIRMotionDetection();			
+		idget("oMedia").DisableMotionDetection();							
+		idget("oMedia").Mute = 1 ;
+		idget("oMedia").Play();
+	}
+
+	//getVLC() and doGo() are copied from  C:\Program Files\VideoLAN\VLC\sdk\activex\test.html
+	function getVLC(name)
+	{
+		if (window.document[name])
+		{
+			return window.document[name];
+		}
+		if (navigator.appName.indexOf("Microsoft Internet")==-1)
+		{
+			if (document.embeds && document.embeds[name])
+				return document.embeds[name];
+		}
+		else // if (navigator.appName.indexOf("Microsoft Internet")!=-1)
+		{
+			return document.getElementById(name);
+		}
+	}
+
+	function doGo(targetURL,Cache)
+	{
+		var vlc = getVLC("vlc");
+
+		if( vlc )
+		{
+			vlc.playlist.items.clear();
+			while( vlc.playlist.items.count > 0 )
+			{
+				// clear() may return before the playlist has actually been cleared
+				// just wait for it to finish its job
+			}
+			//var options = [":rtsp-tcp"];
+			var options = ":network-caching="+Cache;
+			var itemId = vlc.playlist.add(targetURL,"",options);
+			options = [];
+			if( itemId != -1 )
+			{
+				// play MRL
+				vlc.playlist.playItem(itemId);            
+			}
+			else
+			{
+				alert("cannot play at the moment !");
+			}        
+		}
+	}
+	
+	function GetCacheBufferTime(stream)
+	{
+		var time;
+		var fps;
+		if(stream == "track1")
+			fps = CameraConf.CHANNEL[0].VIDEO_FPS;
+		else	
+			fps = CameraConf.CHANNEL[1].VIDEO_FPS;
+			
+		switch(fps)	
+		{
+			case '1':
+				time = 6000;
+				break;
+			case '3':	
+				time = 2000;
+				break;
+			case '5':
+				time = 1000;
+				break;
+			case '10':	
+			case '15':	
+			case '30':	
+				time = 500;
+				break;
+			default:
+				time = 1000;
+				break;
+		}
+		return time;
+	}
+	
+	
+	function CheckOsdTime()
+	{
+		var osd_time = 0;
+		var i = 0;
+		var osd_format = "";
+		for(i = 0 ; i < 4 ; i++)
+		{
+			if(CameraConf.OSD_CONFIG[i].OSD_STATE == '1')
+			{
+				osd_format = CameraConf.OSD_CONFIG[i].OSD_FORMAT;
+				if(osd_format.indexOf('%YYYY')>-1 || osd_format.indexOf('%YY')>-1 || osd_format.indexOf('%MM')>-1 || osd_format.indexOf('%DD')>-1 || osd_format.indexOf('%hh')>-1 || osd_format.indexOf('%mm')>-1 || osd_format.indexOf('%ss')>-1)
+					osd_time++ ;				
+			}			
+		}
+		
+		if(osd_time > 0)
+			return 1;
+		else
+			return 0;
+	}
+	
+	function doVclCmd()
+	{	
+		var cache ;			
+		var url = '';				
+		var track ='';
+		if(idget("media_id").value==1)
+			track ="track1";
+		else
+			track ="track2";
+		cache = GetCacheBufferTime(track);
+
+		url = 'rtsp://'+ top.gAccount + ':' + top.gPwd + '@' + location.hostname + ':' + CameraConf.PORT_RTSP + '/'+ track;
+		doGo(url,cache);
+	}
+	
+	function SetupPlayer(track)
+	{		
+		var HTML = '';		
+		var ResW = SetObjectWidth();
+		var sAgent = navigator.userAgent.toLowerCase();
+		
+		if(sAgent.indexOf("safari")==-1 || sAgent.indexOf("chrome")!=-1)
+		{
+			//VLC player	
+			HTML = '<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" WIDTH=' + ResW + ' HEIGHT='+ EcmHieghtWithoutMotionWindow + ' id="vlc" events="True">';
+			HTML += '<param name="MRL" value="" />' ;
+			HTML += '<param name="ShowDisplay" value="True" />' ;
+			HTML += '<param name="AutoLoop" value="False" />' ;
+			HTML += '<param name="AutoPlay" value="False" />' ;
+			HTML += '<param name="Volume" value="50" />' ;
+			HTML += '<param name="toolbar" value="False" />' ;
+			HTML += '<param name="StartTime" value="0" />' ;
+			HTML += '<EMBED pluginspage="http://www.videolan.org"  type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2"' + ' width=' +  ResW + ' height='+ EcmHieghtWithoutMotionWindow + ' toolbar="False"  name="vlc"></EMBED>';
+			HTML += '</OBJECT>';		
+			idget("player").innerHTML = HTML;	
+			window.setTimeout("doVclCmd();", 100 );
+		}
+		else
+		{
+			/*QuickTime Player*/
+			HTML = '<OBJECT id="oMedia" name="oMedia" CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" WIDTH=' + ResW + ' HEIGHT='+ EcmHieghtWithoutMotionWindow + ' codebase="http://www.apple.com/qtactivex/qtplugin.cab">';
+			HTML += '<PARAM name="QTSRC" VALUE="rtsp://' + location.hostname + ':' + CameraConf.PORT_RTSP +'">' ;
+			HTML += '<PARAM name="AUTOPLAY" VALUE="true">';
+			HTML += '<PARAM name="CONTROLLER" VALUE="true">';
+			HTML += '<embed src="/control/sample.mov" qtsrc="rtsp://' + location.hostname + ':' + CameraConf.PORT_RTSP + '/'+ track + '"' + ' width=' +  ResW + ' height='+ EcmHieghtWithoutMotionWindow + ' scale="ASPECT" target="myself" controller="true" autoplay="true"></embed>';
+			HTML += '</OBJECT>';			
+			idget("player").innerHTML = HTML;	
+		}			
+	}
+	
+	function UpdateCss()
+	{
+	/*		
+		document.styleSheets[1].rules[6] -> ul.tabs li a:hover
+		document.styleSheets[1].rules[7] -> ul.tabs li.active
+		document.styleSheets[0].imports[0].rules[5]  -> setup_table 
+	*/
+		if(top.IsIE() == false)
+		{		
+			document.styleSheets[1].cssRules[3].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+			document.styleSheets[1].cssRules[5].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+			document.styleSheets[1].cssRules[6].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+			document.styleSheets[1].cssRules[6].style.borderBottomColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+			document.styleSheets[1].cssRules[7].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+		
+		}
+		else
+		{
+			document.styleSheets[1].rules[4].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;//ie	
+			document.styleSheets[1].rules[6].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;//ie	
+			document.styleSheets[1].rules[7].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;//ie	
+			document.styleSheets[1].rules[7].style.borderBottomColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;//ie	
+			document.styleSheets[1].rules[8].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;//ie	
+		}
+	}
+	
+	function OSDPri_UIChange()
+	{
+		//top.gPMaskType = "PRESET_MASK";
+		if(top.gPMaskType == "ENC_MASK") 
+		{			
+			/*if(top.gZoom_Capability == "OPTICAL" || top.gPT_Enable == 1 || top.gSerialPorts==1) //no PMask
+			{
+				idget("TabOsdPM").style.display = "none";
+				idget("TabOsd").style.display = "";
+			}			
+			else//OSD/PMask
+			{				
+				idget("TabOsdPM").style.display = "";
+				idget("TabOsd").style.display = "none";
+			}
+			20150413 MingYoung say if PMaskType is not 3D_MASK or PRESET_MASK , Pmask should be open(Confirm by Ann)*/
+			idget("TabOsdPM").style.display = "";
+			idget("TabOsd").style.display = "none";
+		}
+		if(top.gPMaskType == "3D_MASK") //separate osd and PMask page
+		{
+			idget("TabOsdPM").style.display = "none";
+			idget("TabOsd").style.display = "";
+			idget("Tab3DPM").style.display = "";
+		}
+		if(top.gPMaskType == "PRESET_MASK")
+		{
+			idget("TabOsd").style.display = "";
+			idget("TabPresetPM").style.display = "";
+		}
+		if(top.gStreamMode == "EPTZ")
+		{
+			idget("TabOsdPM").style.display = "none";
+			idget("TabOsd").style.display = "";
+		}
+	}
+	
+	function video_update_language()
+	{
+		top.update_language(this);
+		try { idget("SELECT_OSD_TYPE_PRIVACY_MASK2").innerHTML =  top.GetXmlLangTagByName("SELECT_OSD_TYPE_PRIVACY_MASK") ; } catch(e) {} 
+		/*var tmp = top.GetXmlLangTagByName("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK") ;
+		var pt;
+		var strlength;
+		if(top.gLanguage == 1) {
+			pt = tmp.indexOf("與");
+			strlength = tmp.length;			
+			tmp2 = tmp.substring(pt+1,strlength);
+			tmp = tmp.substring(0,pt);			
+			try { idget("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK2").innerHTML =  tmp} catch(e) {}
+			try { idget("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK3").innerHTML =  tmp2} catch(e) {}
+			try { idget("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK4").innerHTML =  tmp2} catch(e) {}
+		}
+		else
+		{	
+			pt = tmp.indexOf("/");
+			strlength = tmp.length;
+			tmp2 = tmp.substring(pt+1,strlength);
+			tmp = tmp.substring(0,pt);			
+					
+			try { idget("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK2").innerHTML =  tmp} catch(e) {}
+			try { idget("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK3").innerHTML =  tmp2} catch(e) {}
+			try { idget("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK4").innerHTML =  tmp2} catch(e) {}
+		}*/		
+	}
+	
+	function Page_onLoad()
+	{	
+		if(top.gStreamMode=="SINGLE" || top.gVideoStreams == 1)
+			idget("TR_Stream").style.display="none";
+		else
+			idget("TR_Stream").style.display="";
+		OSDPri_UIChange();
+		video_update_language();		
+			
+		if(top.IsIE() == false)
+		{
+			idget("TabMotion").style.display = "none";	
+			idget("Tab3DPM").style.display = "none";			
+			idget("MENU_VIDEO_AND_AUDIO_PRIVACE_MASK").innerHTML = top.GetXmlLangTagByName("SELECT_OSD_TYPE_OSD");
+		}	
+		if(top.gStreamMode=="EPTZ")
+			idget("TabMotion").style.display = "none";
+	
+		
+		GetConfig();
+		if((top.gDNCtrl == "None") || (CameraConf.VIDEO_EXPOSURE_MODE =="MANUAL"))
+			idget("TabDN").style.display = "none";
+		
+		if(top.IsIE() == true) {		
+			ECMSetup();
+			
+			if(top.gPT_Enable == 1 || top.gZoom_Capability == "OPTICAL" || top.gStreamMode == "EPTZ") 
+			{
+				idget("oMedia").DisableMousePTZ();
+				idget("oMedia").SetPTZAddressID(1);
+				idget("oMedia").PTZVendor="ACTi";
+				idget("oMedia").PTZProtocol="VISCA";
+				
+				idget("oMedia").EnablePTZ();
+				//idget("oMedia").EnableMousePTZ();
+			}	
+		}
+		else
+		{
+			SetupPlayer("track1");
+			idget("oMedia").style.display = "none";
+		}	
+		
+		UpdateCss();	
+	}
+	
+	Page_onLoad();
+
+	function SteamDisconnet()
+	{
+		//alert("SteamDisconnet");
+		oMedia.Disconnect();
+	}
+	function StreamStatus()
+	{				
+		StreamConnectOK = 1;
+		return;
+	}
+	
+	function OnPMMouseKeyUp(nID, nBtn, nX, nY, nWidth, nHeight)
+	{
+		pID = nID;
+		pX = nX;
+		pY = nY;
+		pWidth = nWidth;
+		pHeight = nHeight;	
+		//alert(" OnPMMouseKeyUp nID="+nID +"\n"+"nX="+nX +"\n" +"nY="+nY +"\n" + "nWidth="+nWidth +"\n" +"nHeight="+nHeight);		
+	}
+	
+</Script>
+<script for="oMedia" event="OnStreamOK()">StreamStatus();</script>
+<script for="oMedia" event="OnPMMouseKeyUp(nID, nBtn, nX, nY, nWidth, nHeight)">OnPMMouseKeyUp(nID, nBtn, nX, nY, nWidth, nHeight);</script>

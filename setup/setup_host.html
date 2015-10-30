@@ -1,0 +1,485 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0"  onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<form name="frmHost">
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<label id="SETTING_HOST_HOST">Host</label>
+				</td>
+				<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>	
+				<tr>
+					<td>
+						<table border="0" align="center" width="100%">
+							<tr>
+								<td align="right" width="50%">
+									<label id="SETTING_HOST_HOST_NAME">Host Name</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left" width="50%">
+									<input type="text" id="LAN_HOSTNAME" maxlength="67" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<label id="SETTING_HOST_LANGUAGE">Language</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<select id="LANGUAGE">
+										<Option value="0" id="SELECT_LANGUAGE_ENGLISH">English</Option>
+											<Option value="1" id="SELECT_LANGUAGE_T_CHINESE">Traditional Chinese</Option>
+											<Option value="2" id="SELECT_LANGUAGE_S_CHINESE">Simplified Chinese</Option>
+											<Option value="3" id="SELECT_LANGUAGE_JAPANESE">Japanese</Option>
+											<Option value="4" id="SELECT_LANGUAGE_SPANISH">Spanish</Option>
+											<Option value="5" id="SELECT_LANGUAGE_ITALIAN">Italian</Option>
+											<Option value="6" id="SELECT_LANGUAGE_GERMAN">German</Option>
+											<Option value="7" id="SELECT_LANGUAGE_PORTUGUESE">Portuguese</Option>
+											<Option value="8" id="SELECT_LANGUAGE_CZECH">Czech</Option>
+											<Option value="9" id="SELECT_LANGUAGE_FRENCH">French</Option>
+											<Option value="11" id="SELECT_LANGUAGE_HUNGARIAN">Hungarian</Option>														
+	<!--										<Option value="13" id="SELECT_LANGUAGE_GREEK">Greek</Option>-->
+											<Option value="15" id="SELECT_LANGUAGE_DUTCH">Dutch</Option>
+											<Option value="16" id="SELECT_LANGUAGE_RUSSIAN">Russian</Option>
+	<!--										<Option value="17" id="SELECT_LANGUAGE_TURKISH">Turkish</Option>
+											<Option value="18" id="SELECT_LANGUAGE_INDONESIAN">Indonesian</Option>
+											<Option value="19" id="SELECT_LANGUAGE_SWEDISH">Swedish</Option>-->
+											<Option value="20" id="SELECT_LANGUAGE_POLISH">Polish</Option>
+											<Option value="21" id="SELECT_LANGUAGE_ROMANIAN">Romanian</Option>
+											<Option value="22" id="SELECT_LANGUAGE_KOREAN">Korean</Option>
+											<Option value="23" id="SELECT_LANGUAGE_THAILAND">Thailand</Option>
+									</select>
+									<input type="hidden" id="LANGUAGE_TMP" value="0">
+								</td>
+							</tr>						
+							<tr>
+								<td align="right">
+									<label id="SETTING_HOST_CAMERA_NAME">Camera Name</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" id="VIDEO_CAMERA_NAME" maxlength="127" />
+								</td>
+							</tr>	
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>		
+							<tr>
+								<td align="right">
+									<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoHostApply()" />&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetHostSettings()"/>
+								</td> 
+							</tr>			
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>						
+						</table>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+		
+	</form>
+	<form name="frmSerial" >
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<label id="SETTING_HOST_SERIAL_SETTING">Serial Setting</label>
+				</td>			
+			</tr>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>			
+			<tr>
+				<td>
+					<table border="0" align="center"  width="100%">
+						<tr>
+							<td align="right" width="50%">
+                                <label id="SETTING_HOST_SERIAL_PORT_CONTROL">Serial Port Control</label>&nbsp;&nbsp;&nbsp; 
+                            </td>
+							<td align="left" width="50%">
+                                <select size="1" id="SERIAL_SETTING1">
+                                    <option value="8N1">8,None,1</option>
+                                    <option value="8O1">8,Odd,1</option>
+                                    <option value="8E1">8,Even,1</option>
+                                    <option value="8N2">8,None,2</option>
+                                    <option value="8O2">8,Odd,2</option>
+                                    <option value="8E2">8,Even,2</option>
+                                    <option value="7N2">7,None,2</option>
+                                    <option value="7O2">7,Odd,2</option>
+                                    <option value="7E2">7,Even,2</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td align="right">
+                                <label id="SETTING_HOST_SERIAL_PORT_BAUD_RATE">Serial Port Baud Rate</label>&nbsp;&nbsp;&nbsp; 
+                            </td><td align="left">
+                                <select size="1" id="SERIAL_SETTING2">
+                                    <option value="2400">2400</option>
+                                    <option value="4800">4800</option>
+                                    <option value="9600">9600</option>
+                                    <option value="19200">19200</option>
+                                    <option value="38400">38400</option>
+                                    <option value="57600">57600</option>
+                                    <option value="115200">115200</option>
+                                </select>
+                            </td>
+                        </tr>		
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">								
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoSerialApply()"/>&nbsp;&nbsp;&nbsp;
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetSerialSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>												
+					</table>
+				</td>
+			</tr>			
+		</table>
+	</form>
+	<form name="frmGPS" >
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<label id="SETTING_GPS_POSITION">GPS Position</label>
+				</td>			
+			</tr>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" width="50%">
+								<input  type="checkbox" id="GPS_STATUS" onclick="GPSstatus_change()">&nbsp;&nbsp;&nbsp;
+							</td>
+							<td align="left" width="50%">
+								<label id="SELECT_COMMON_ENABLED" > </label>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_GPS_LATITUDE">Degree of Latitude</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="GPS_LATITUDE" maxlength="20" />
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_GPS_LONGTITUDE">Degree of Longtitude</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="text" id="GPS_LONGTITUDE" maxlength="21" />
+							</td>
+						</tr>		
+						<tr>
+							<td align="center"  colspan="2" width="100%">
+								<label id="SETTING_GPS_POSITION_FORMAT">Format of GPS Position : ddd.dddd or -ddd.dddd</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+						</tr>
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">								
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoGpsApply()"/>&nbsp;&nbsp;&nbsp;
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetGpsSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+					</table>
+					<table>
+						<div id="divError" style="display:none">
+							<label id="SETTING_HOST_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+							<label id="SETTING_LOGIN_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+							<label id="SETTING_PPPOE_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+							<label id="SETTING_LOGIN_PWD_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+						</div>	
+					</table>	
+				</td>
+			</tr>	
+		</table>	
+	</form>
+	<p>&nbsp;</p>
+	<div  class="setup_bg">	
+	</div>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var err0 = "Rules of host name.\n";
+	err0 += "1. Only ASCII A~Z, a~z, 0~9, minus sign (-) and period (.) are allowed.\n";
+	err0 += "2. No blank or space characters are permitted as part of a name.\n";
+	err0 += "3. The last character must not be a minus sign or period.\n";
+	err0 += "4. Single character name is not allowed.\n";
+	err0 += "5. The first character is allowed to either a letter or a digit.";
+
+//-- clean_result_host ###########################################################################
+	function clean_result_host(){
+		var ApplyEls = document.getElementsByName("BUTTON_APPLY");
+		
+		ApplyEls[0].disabled = false ;		
+		ApplyEls[0].value = "Apply" ;
+		try { ApplyEls[0].value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 
+	function clean_result_serial(){
+		var ApplyEls = document.getElementsByName("BUTTON_APPLY");
+		
+		ApplyEls[1].disabled = false ;		
+		ApplyEls[1].value = "Apply" ;
+		try { ApplyEls[1].value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 
+	function clean_result_gps(){
+		var ApplyEls = document.getElementsByName("BUTTON_APPLY");
+		
+		ApplyEls[2].disabled = false ;		
+		ApplyEls[2].value = "Apply" ;
+		try { ApplyEls[2].value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	}
+	
+	function HostNameCheck()
+	{
+		var pattern = /^([0-9a-zA-Z.\-]*)$/;
+		var pattern2 = /[^-.]$/;
+		
+		if(pattern.test(idget("LAN_HOSTNAME").value) == true)
+		{
+			if(pattern2.test(idget("LAN_HOSTNAME").value) ==  true)
+			{
+				if(idget("LAN_HOSTNAME").value.length == 1)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+		
+	}
+	
+	function DoHostApply()
+	{
+		var szCmd;	
+		var szReturn;
+		var ApplyEls = document.getElementsByName("BUTTON_APPLY");	
+		
+		if(HostNameCheck() == false)
+		{
+			alert(err0);			
+			GetHostSettings();
+			return;
+		}
+		ApplyEls[0].value = "Saving..."
+		ApplyEls[0].disabled = true ;		
+
+		szCmd="/cgi-bin/system?";
+		szCmd+="USER="+top.gAccount;
+		szCmd+="&PWD="+top.gPwd;			
+		szCmd+="&LANGUAGE="+document.frmHost.LANGUAGE.value;
+		szCmd+="&LAN_HOSTNAME="+document.frmHost.LAN_HOSTNAME.value;
+		
+		szReturn = doRequest(szCmd) ;		
+
+		if(idget("LANGUAGE").value != idget("LANGUAGE_TMP").value)
+		{
+			top.LoadLangXml(idget("LANGUAGE").value);	
+			top.gLanguage = idget("LANGUAGE").value;
+			top.update_language(this);
+			try { err0 = top.GetXmlLangTagByName("SETTING_HOST_NAME_ERR") ; } catch(e) {}		
+			try { top.login_name_err0 = top.GetXmlLangTagByName("SETTING_LOGIN_NAME_ERR") ; } catch(e) {}
+			try { top.pppoe_login_name_err0 = top.GetXmlLangTagByName("SETTING_PPPOE_NAME_ERR") ; } catch(e) {}
+			try { top.pwd_err0 = top.GetXmlLangTagByName("SETTING_LOGIN_PWD_ERR") ; } catch(e) {}
+			parent.document.getElementById("setup_tree").src = "setup_tree.html";	//reload setup_tree.html for multi-language							
+		}	
+	
+		
+		szCmd="/cgi-bin/encoder?";
+		szCmd+="USER="+top.gAccount;
+		szCmd+="&PWD="+top.gPwd;			
+		szCmd+="&VIDEO_CAMERA_NAME="+encodeURI(document.frmHost.VIDEO_CAMERA_NAME.value);
+		szReturn = doRequest(szCmd) ;		
+		
+		window.setTimeout("clean_result_host();", 2000 );	
+														
+						
+		GetHostSettings();	
+	
+	}
+		
+	
+	function DoSerialApply()
+	{
+		var ApplyEls = document.getElementsByName("BUTTON_APPLY");
+		ApplyEls[1].value = "Saving..."
+		ApplyEls[1].disabled = true ;			
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		szEncoder+="SERIAL_SETTING="+idget("SERIAL_SETTING1").value+","+idget("SERIAL_SETTING2").value;
+		var szReturn = doRequest(szEncoder) ;
+		window.setTimeout("clean_result_serial();", 2000 );	
+		GetSerialSettings();
+	}
+	
+	function GetHostSettings()
+	{
+		var szCmd;
+	
+		var szReturn;
+
+
+		szCmd="/cgi-bin/system?";
+		szCmd+="USER="+top.gAccount;
+		szCmd+="&PWD="+top.gPwd;			
+		szCmd+="&LANGUAGE";
+		szCmd+="&LAN_HOSTNAME";
+		
+		szReturn = doRequest(szCmd) ;
+		szReturn = szReturn.split('\n') ;
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'LAN_HOSTNAME' :                    					
+					document.frmHost.LAN_HOSTNAME.value = szTmp[1] ;
+                    break;
+                case 'LANGUAGE' :
+					document.frmHost.LANGUAGE.value = szTmp[1] ;
+					document.frmHost.LANGUAGE_TMP.value = szTmp[1] ;						
+                    break ;
+            }
+        }		
+		
+		szCmd="/cgi-bin/encoder?";
+		szCmd+="USER="+top.gAccount;
+		szCmd+="&PWD="+top.gPwd;			
+		szCmd+="&VIDEO_CAMERA_NAME";
+		szReturn = doRequest(szCmd) ;		
+		szReturn = szReturn.split('\n') ;
+		szTmp = doSplitValue( szReturn[0] ) ;
+		if( szTmp[0] == 'VIDEO_CAMERA_NAME')
+			document.frmHost.VIDEO_CAMERA_NAME.value = szTmp[1] ;
+	
+	}
+	
+	function GetSerialSettings()
+	{
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		szEncoder+="SERIAL_SETTING";
+		var szReturn = doRequest(szEncoder) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case "SERIAL_SETTING":
+					var argv=szTmp[1].split(',');
+					SelectSetOption(idget("SERIAL_SETTING1"), argv[0]);
+					SelectSetOption(idget("SERIAL_SETTING2"), argv[1]);
+					break;
+			}
+		}	
+	}
+	
+	function GPSstatus_change()
+	{
+		if(idget("GPS_STATUS").checked==false)
+		{
+		}
+	}
+	
+	function DoGpsApply()
+	{
+		var ApplyEls = document.getElementsByName("BUTTON_APPLY");
+		ApplyEls[2].value = "Saving..."
+		ApplyEls[2].disabled = true ;
+		var szcmd = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&GPS_POSITION="
+		if(idget("GPS_STATUS").checked==false)
+			szcmd +="0,";
+		else
+			szcmd +="1,";	
+			
+		szcmd += idget("GPS_LATITUDE").value+","+idget("GPS_LONGTITUDE").value;
+		//alert("szcmd="+szcmd);
+		var szReturn = doRequest(szcmd) ;
+		//alert("szReturn="+szReturn);
+		window.setTimeout("clean_result_gps();", 2000 );	
+		GetGpsSettings();
+	}
+	
+	function GetGpsSettings()
+	{
+		var szcmd = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&GPS_POSITION";
+		var szReturn = doRequest(szcmd) ;
+		szReturn = szReturn.split('\n') ;
+		//alert("szReturn="+szReturn);
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case "GPS_POSITION":
+					var argv=szTmp[1].split(',');
+					if(argv[0]==1)
+						idget("GPS_STATUS").checked = true;
+					else
+						idget("GPS_STATUS").checked = false;
+					idget("GPS_LATITUDE").value = argv[1];
+					idget("GPS_LONGTITUDE").value = argv[2];		
+					break;
+			}
+		}
+	}
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);		
+		try { err0 = top.GetXmlLangTagByName("SETTING_HOST_NAME_ERR") ; } catch(e) {}		
+		GetHostSettings();
+		GetSerialSettings();
+		GetGpsSettings();
+		
+		if(top.gSerialPorts == '0')
+			document.frmSerial.style.display = "none"	;			
+	}
+	Page_onLoad();
+	
+</Script>

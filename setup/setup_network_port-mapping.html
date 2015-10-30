@@ -1,0 +1,468 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0"  onload="frame_extent()" >
+	<table border="0">		
+		<td height="20px" >		
+		</td>		
+	</table>
+	
+	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<label id="SETTING_PORT_MAPPING">Port Mapping</label>
+				</td>
+				
+				<tr>
+					<td>
+						<table border="0" align="center" width="100%">
+							<tr>
+								<td align="right" width="50%">
+									<label id="SETTING_PORT_MAPPING_HTTP">HTTP Port*</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left" width="50%">
+									<input type="text" id="PORT_HTTP"  maxlength="24" value=""/>
+								</td>
+							</tr>
+                        
+							<tr>
+								<td align="right">
+									<label id="SETTING_PORT_MAPPING_HTTPS">HTTPS Port*</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" id="PORT_HTTPS"  maxlength="24" value=""/>
+								</td>
+							</tr>	
+
+							<tr>
+								<td align="right">
+									<label id="SETTING_PORT_MAPPING_SEARCH1">Search Server Port 1</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" id="PORT_SEARCH_1" maxlength="24" value=""/>
+								</td>
+							</tr>								
+						
+							<tr>
+								<td align="right">
+									<label id="SETTING_PORT_MAPPING_SEARCH2">Search Server Port 2</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" id="PORT_SEARCH_2" maxlength="24" value=""/>
+								</td>
+							</tr>								
+
+							<tr>
+								<td align="right">
+									<label id="SETTING_PORT_MAPPING_CONTROL">Video Control Port</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" id="PORT_CONTROL" maxlength="24" value=""/>
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right">
+									<label id="SETTING_PORT_MAPPING_STREAMING">Video Streaming Port</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" id="PORT_VIDEO" maxlength="24" value=""/>
+								</td>
+							</tr>
+<!-- ########################################################################################################### -->							
+							
+							<tr>
+								<td align="right">
+									<label id="SETTING_PORT_MAPPING_RTSP">RTSP Port</label>&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									<input type="text" id="PORT_RTSP" maxlength="24" value=""/>
+								</td>
+							</tr>														
+													
+							
+							<tr width="100%" >
+								<td colspan="2">
+									<table  border="0" width="100%">
+					
+										<td width="25%">
+											<label id="SETTING_PORT_MULTICAST" >Multicast Setting</label>
+										</td>
+										<td width="75%">
+										<div style="padding-left:5px;border-bottom: 1px dashed #999999;">
+											</div>
+										</td>
+						
+									</table>
+								</td>
+							</tr>		
+
+							
+							<tr>
+								<td colspan="2" align="center">
+									<table width="90%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+										<tr>
+											<th align="center" width="15%"><label ></label></th>
+											<th align="center" width="20%"><label id="SETTING_BY_REQUESTS">By Requests</label></th>
+											<th align="center" width="25%"><label id="SETTING_PORT_MAPPING_MULTICAST_IP">Multicast IP</label></th>
+											<th align="center" width="20%"><label id="SETTING_NETWORK_PORT">Network Port</label></th>
+											<th align="center" width="20%"><label id="SETTING_PORT_MAPPING_MULTICAST_TTL">Multicast TTL</label></th>													
+										</tr>									
+										<tr>
+											<td align="center"><label id="SETTING_MEDIA_1">Stream 1</label></td>
+											<td align="center"><input type="checkbox" id="Request_Enable_1" ></td>
+											<td align="center"><input type="text" id="MULTICAST_IP_1" size="16" maxlength="16" value=""/></td>
+											<td align="center"><input type="text" id="NETWORK_POR_1" size="8" maxlength="24" value=""/></td>
+											<td align="center"><input type="text" id="TTL_1" size="8" maxlength="24" value=""/></td>												
+										</tr>										
+										<tr>
+											<td align="center"><label id="SETTING_MEDIA_2">Stream 2</label></td>
+											<td align="center"><input type="checkbox" id="Request_Enable_2" ></td>
+											<td align="center"><input type="text" id="MULTICAST_IP_2" size="16" maxlength="16" value=""/></td>
+											<td align="center"><input type="text" id="NETWORK_POR_2" size="8" maxlength="24" value=""/></td>
+											<td align="center"><input type="text" id="TTL_2" size="8" maxlength="24" value=""/></td>												
+										</tr>
+										<tr  id="AduioSetting">
+											<td align="center"><label id="SETTING_VIDEO_AUDIO">Audio</label></td>
+											<td align="center"><input type="checkbox" id="Request_Enable_3" ></td>
+											<td align="center"><input type="text" id="MULTICAST_IP_3" size="16" maxlength="16" value=""/></td>
+											<td align="center"><input type="text" id="NETWORK_POR_3" size="8" maxlength="24" value=""/></td>
+											<td align="center"><input type="text" id="TTL_3" size="8" maxlength="24" value=""/></td>												
+										</tr>																				
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" align="left" style="padding-left:30px">
+									<label id="SETTING_PORT_MAPPING_MULTICAST_IP_2">Multicast IP</label><label>[&nbsp;224.5.0.1&nbsp;~&nbsp;239.255.255.255&nbsp;]</label>
+								</td>								
+							</tr>
+							<tr>
+								<td colspan="2" align="left" style="padding-left:30px">
+									<label id="SETTING_PORT_MAPPING_MULTICAST_TTL_2">Multicast TTL</label><label>[&nbsp;1~255&nbsp;]</label>
+								</td>								
+							</tr>
+														
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>									
+							<tr>
+								<td  colspan="2" align="left" >
+									<label id="COMMON_MSG_NEED_SAVE_REBOOT"> * New settings will only take effect after [Save &amp; Reboot]</label>
+								</td>
+							</tr>	
+							
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>		
+							<tr>
+								<td align="right">
+									<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoPortMapApply()" />&nbsp;&nbsp;&nbsp; 
+								</td>
+								<td align="left">
+									&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetPortMapSettings()"/>
+								</td> 
+							</tr>			
+							<tr>
+								<td  colspan="2" align="center" >
+									<p>&nbsp;</p>
+								</td>
+							</tr>						
+									
+						</table>
+					</td>
+				</tr>
+			</tr>				
+		</table>		
+	<p>&nbsp;</p>
+	<div  class="setup_bg">	
+	</div>	
+	<div id="divError" style="display:none">
+		<label id="COMMON_MSG_SET_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="SETTING_PORT_MAPPING_ADDRESS_WARNING"></label>&nbsp;&nbsp;&nbsp;</br>
+		<label id="SETTING_PORT_MAPPING_TTL_WARNING"></label>&nbsp;&nbsp;&nbsp;</br>
+	</div>	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var tmp_http;
+	var tmp_https;
+	var pattern=/^(((22[5-9]|23[0-9]).(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9]).(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9]).(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9]))|((224).(((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[6-9]).(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9]).(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9]))|((5).(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9]).(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])))))$/;
+	var err0 ='Error. Invalid settings.'
+	var err1 = 'Bad Multicast IP Address.' ;
+	var err2 = 'Bad Multicast TTL.' ;
+	try { alert_string = top.GetXmlLangTagByName("COMMON_ALERT_NEED_SAVE_REBOOT") ; } catch(e) {
+		alert_string = 'Please [Save Reboot] the device to activate these settings' ;
+	}
+	
+	function PortCheck()
+	{
+		var i = 0 ;
+		var j = 0;
+		var PortId = new Array("PORT_HTTP","PORT_HTTPS","PORT_SEARCH_1","PORT_SEARCH_2","PORT_CONTROL","PORT_VIDEO",
+								"PORT_RTSP","NETWORK_POR_1","NETWORK_POR_2","NETWORK_POR_3"
+							);
+		
+		for(i = 0 ; i < PortId.length ; i++)
+		{
+			if((idget(PortId[i]).value > 65535) ||  (idget(PortId[i]).value < 1))		
+				return false;
+				//alert(idget(PortId[i]).value);
+			
+		}
+		
+		for(i = 0 ; i < PortId.length ; i++)
+		{	
+			for(j=(i+1) ; j < PortId.length ; j++)
+			{
+				if(idget(PortId[i]).value == idget(PortId[j]).value)		
+				{	
+					if(i<=6){
+						return false;
+					}
+					else //for Multicast Setting different IP can set same Port
+					{
+						if(idget(PortId[i]).value == idget(PortId[j]).value)		
+						{	
+							if(idget("MULTICAST_IP_"+(i-6)).value == idget("MULTICAST_IP_"+(j-6)).value)
+							{
+								return false;	
+							}	
+						}
+					}			
+				}	
+			}
+		}
+		return true;
+	}
+	
+	
+	function  CheckMultiCastIpPort()
+	{
+		var strMulti_cast_ip ,i;
+		for(i = 1 ; i <= 3; i++)
+		{
+			strMulti_cast_ip = idget("MULTICAST_IP_"+i).value;
+			flag_ip=pattern.test(strMulti_cast_ip);
+			if(!flag_ip)
+			{
+				alert(err1 + strMulti_cast_ip);
+				return false;
+			}	
+		
+			if(idget("TTL_"+i).value < 1 || idget("TTL_"+i).value > 255){
+				alert(err2);				
+				return false;
+			}			
+		}
+		return true;
+	}
+	
+	function DoPortMapApply()
+	{
+		
+		var szCmd;	
+		var szReturn;
+		var tmp="";
+		var ApplyEls = document.getElementsByName("BUTTON_APPLY");
+				
+		
+		if(CheckMultiCastIpPort() == false)
+		{
+			GetPortMapSettings();
+			return;
+		}
+		
+		if (PortCheck() == false)
+		{
+			alert(err0);
+			GetPortMapSettings();
+			return;
+		}	
+		
+		ApplyEls[0].value = "Saving..."
+		ApplyEls[0].disabled = true ;		
+
+		szCmd="/cgi-bin/system?";
+		szCmd+="USER="+top.gAccount;
+		szCmd+="&PWD="+top.gPwd;			
+		
+		szCmd += "&PORT_HTTP=" + idget("PORT_HTTP").value ;
+		szCmd += "&PORT_HTTPS=" + idget("PORT_HTTPS").value ;
+		szCmd += "&PORT_SEARCH=" + idget("PORT_SEARCH_1").value + "," + idget("PORT_SEARCH_2").value;		
+		szCmd += "&PORT_CONTROL=" + idget("PORT_CONTROL").value ;
+		szCmd += "&PORT_VIDEO=" + idget("PORT_VIDEO").value ;		
+		szCmd += "&V2_PORT_RTSP=" + idget("PORT_RTSP").value ;				
+		szCmd += "&MULTICAST_CONFIG_VIDEO=" + idget("MULTICAST_IP_1").value +","+ idget("NETWORK_POR_1").value+","+ idget("TTL_1").value;				
+		szCmd += "&MULTICAST_CONFIG_AUDIO=" + idget("MULTICAST_IP_3").value +","+ idget("NETWORK_POR_3").value+","+ idget("TTL_3").value;				
+		
+		if(idget("Request_Enable_1").checked == true )
+			tmp = "V1";
+			
+		if(tmp!="")
+		{
+			if(idget("Request_Enable_2").checked == true )
+				tmp += ",V2";						
+		}	
+		else
+		{
+			if(idget("Request_Enable_2").checked == true )
+				tmp += "V2";						
+		}
+		if(tmp!="")
+		{
+			if(idget("Request_Enable_3").checked == true )
+				tmp += ",A1";						
+		}	
+		else
+		{
+			if(idget("Request_Enable_3").checked == true )
+				tmp += "A1";						
+		}
+		if(tmp == "")
+			tmp = "NONE";
+		szCmd += "&MULTICAST_BY_RTSP=" + tmp  ;								
+		
+		szReturn = doRequest(szCmd) ;		
+		
+		szCmd="/cgi-bin/system?";
+		szCmd+="USER="+top.gAccount;
+		szCmd+="&PWD="+top.gPwd;			
+		szCmd += "&CHANNEL=2&MULTICAST_CONFIG_VIDEO="+ idget("MULTICAST_IP_2").value +","+  idget("NETWORK_POR_2").value+","+ idget("TTL_2").value;				 ;				
+		szReturn = doRequest(szCmd) ;		
+		
+		if(idget("PORT_HTTP").value!=tmp_http || idget("PORT_HTTPS").value!=tmp_https){
+			alert(alert_string);
+		}
+		
+		window.setTimeout("top.clean_result(this);", 2000 );	
+					
+		//setTimeout("top.update_language(this)",100);							
+		GetPortMapSettings();		
+	}
+	
+
+	
+	function GetPortMapSettings()
+	{
+		var tmp2;
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		szSystem += "CHANNEL=1&PORT&PORT_HTTPS&V2_PORT_RTSP&MULTICAST_BY_RTSP&MULTICAST_CONFIG_VIDEO&MULTICAST_CONFIG_AUDIO" ;
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'PORT_HTTP' :
+                    idget("PORT_HTTP").value = szTmp[1] ;
+										tmp_http = szTmp[1] ;
+                    break;
+				case 'PORT_HTTPS' :
+                    idget("PORT_HTTPS").value = szTmp[1] ;
+										tmp_https = szTmp[1] ;
+                    break;	
+                case 'PORT_SEARCH_1' :
+                    idget("PORT_SEARCH_1").value = szTmp[1] ;
+                    break ;
+                case 'PORT_SEARCH_2' :
+                    idget("PORT_SEARCH_2").value = szTmp[1] ;
+                    break ;                
+                case 'PORT_CONTROL' :
+                    idget("PORT_CONTROL").value = szTmp[1] ;
+                    break ;
+                case 'PORT_VIDEO' :
+                    idget("PORT_VIDEO").value = szTmp[1] ;
+                    break ;
+
+				case 'V2_PORT_RTSP' :
+                    idget("PORT_RTSP").value = szTmp[1] ;
+                    break ;					
+								
+				case 'MULTICAST_BY_RTSP':				
+					if(szTmp[1].indexOf("V1") > -1 || szTmp[1].indexOf("ALL") > -1)					
+						idget("Request_Enable_1").checked = true;					
+					if(szTmp[1].indexOf("V2") > -1 || szTmp[1].indexOf("ALL") > -1)					
+						idget("Request_Enable_2").checked = true;
+					if(szTmp[1].indexOf("A1") > -1 || szTmp[1].indexOf("ALL") > -1)					
+						idget("Request_Enable_3").checked = true;
+					if(szTmp[1].indexOf("NONE") > -1)
+					{
+						idget("Request_Enable_1").checked = false;					
+						idget("Request_Enable_2").checked = false;					
+						idget("Request_Enable_3").checked = false;					
+					}	
+					break;
+				case 'MULTICAST_CONFIG_VIDEO':
+					idget("MULTICAST_IP_1").value = szTmp[1].split(',')[0];
+					idget("NETWORK_POR_1").value = szTmp[1].split(',')[1];
+					idget("TTL_1").value = szTmp[1].split(',')[2];					
+					
+					break;
+				case 'MULTICAST_CONFIG_AUDIO':
+					idget("MULTICAST_IP_3").value = szTmp[1].split(',')[0];
+					idget("NETWORK_POR_3").value = szTmp[1].split(',')[1];
+					idget("TTL_3").value = szTmp[1].split(',')[2];					
+					break;	
+					
+			}
+		}	
+		
+		szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		szSystem += "CHANNEL=2&MULTICAST_CONFIG_VIDEO" ;
+		szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {									
+				case 'MULTICAST_CONFIG_VIDEO':
+					idget("MULTICAST_IP_2").value = szTmp[1].split(',')[0];
+					idget("NETWORK_POR_2").value = szTmp[1].split(',')[1];
+					idget("TTL_2").value = szTmp[1].split(',')[2];					
+					break;	
+			}
+		}
+		
+		
+	}
+	
+	function UpdatePortMappingLanguage()
+	{
+		top.update_language(this);
+		try { document.getElementById('SETTING_PORT_MAPPING_MULTICAST_IP_2').innerHTML = top.GetXmlLangTagByName("SETTING_PORT_MAPPING_MULTICAST_IP") ; } catch(e) {}
+		try { document.getElementById('SETTING_PORT_MAPPING_MULTICAST_TTL_2').innerHTML = top.GetXmlLangTagByName("SETTING_PORT_MAPPING_MULTICAST_TTL") ; } catch(e) {}	
+		try { err0 = top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+		try { err1 = top.GetXmlLangTagByName("SETTING_PORT_MAPPING_ADDRESS_WARNING") ; } catch(e) {}
+		try { err2 = top.GetXmlLangTagByName("SETTING_PORT_MAPPING_TTL_WARNING") ; } catch(e) {}		
+	}
+	
+	function Page_onLoad()
+	{
+		if(top.gAudioType == '0')
+		{					
+			idget("AduioSetting").style.display = "none";
+		}
+		
+		UpdatePortMappingLanguage();
+		
+		GetPortMapSettings();
+		
+			
+	}
+	Page_onLoad();
+	
+	
+</Script>

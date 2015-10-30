@@ -1,0 +1,693 @@
+﻿<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=8;IE=9;IE=edge,chrome=1" />
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+	<link rel="stylesheet" type="text/css" href='/css/tab.css'>
+	<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/utility.js"></script>
+	<title>Web Configurator</title>
+	<script type="text/javascript">
+		//---1st section of scripts ---//
+	</script>
+</head>
+
+<body  topmargin="5px" leftmargin="5px" rightmargin="0" bottommargin="0" link="#00615F" vlink="#00615F" alink="#00615F"  scroll="auto">
+	<table border="0" class="setup_table" align="left" style="width:auto;height:auto">
+		<tr>
+			<td class="setup_item">
+				<label >PTZ</label>
+			</td>
+			<tr>
+				<td valign="top">				
+					<div class="abgne_tab" style="width:360px">
+						<ul class="tabs">					
+							<li  id="TabPreset" onclick="setTimeout(function(){ doGetSettings_PtzPreset();}, 10);"><a href="#TabSetupPtzPresetContent" ><label id="SETTING_VIDEO_PRESET" style="font-size:11px">Preset</label></a></li>
+							<li  id="TabTour" style="display:none"><a href="#TabSetupPtzTourContent" ><label id="SETTING_PTZ_TOUR_CURRENT" style="font-size:11px">Tour</label></a></li>
+							<li  id="TabScan" style="display:none"><a href="#TabSetupPtzScanContent" ><label id="PTZ_SCAN_CONTROL"  style="font-size:11px">Scan Control</label></a></li>
+						</ul>
+						<div class="tab_container">							
+							<div id="TabSetupPtzPresetContent" class="tab_content">
+								<div width="100%" height="auto" id="preset_frame"  frameborder="0" scrolling="no"   >
+									<body id="body_preset" topmargin="5" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onload="frame_extent_2_PtzPreset()" >	
+										<table id="SaveHome" style="display:none" width="100%" border="0">
+											<tr style="background-color:#BBBBBB">
+												<td align="left" colspan="3">
+													<label style="font-weight: bold" id="SETTING_PTZ_SAVE_HOME">Save current position to home position</label>
+												</td>
+											</tr>	
+											<tr>
+												<td align="left">
+													<input id="BUTTON_SAVE_CUTTENT" name="BUTTON_APPLY" type="button" value="Save" class="button2" onclick="DoSaveHome('1')"/>
+													<input id="BUTTON_REMOVE_CUTTENT" name="BUTTON_REMOVE" type="button" value="Remove" class="button2" onclick="DoSaveHome('0')"/>
+												</td>
+												<td align="center">
+													<input id="home_pos" style="display:" onclick="GoHome()" type="image" src="/images/eye.gif">
+												</td>
+											</tr>
+										</table>
+										
+										<table id="Vender_Protocol" style="display:none" width="100%" border="0">
+											<tr id="PtzVendor1" style="background-color:#BBBBBB">
+												<td colspan="2" align="left">																			
+													<label style="font-weight: bold" id="SETTING_PTZ_VENDOR">PTZ Vendor</label>																				
+												</td>
+											</tr>
+											<tr id="PtzVendor2">
+												<td colspan="2" align="left">
+													<select id="PTZ_VENDOR"></select>
+													<label id="PTZ_ADDR">Addr</label>
+													<select id="sPTZ_ADDR"></select>
+												</td>
+											</tr>
+										</table>
+										
+										<table id="PT_Control" style="display:none" width="100%" border="0">
+											<tr  style="background-color:#BBBBBB">
+												<td colspan="2" align="left">																			
+													<label style="font-weight: bold" id="SETTING_PTZ_TOUR_PAN">Pan</label><label>& </label><label style="font-weight: bold" id="SETTING_PTZ_TOUR_TILT">Tilt</label>																				
+												</td>
+											</tr>
+											
+											<tr id="trPTZ_AUTO_SPEED" style="display:none">
+												<td align="left" colspan="2">
+													<label id="PTZ_AUTO_SPEED">Auto pan/tilt speed</label>
+												
+													<select id="sAutoSpeed" onchange="PtzAutoSpeedOnChange()">
+														<option value="0" id="SELECT_COMMON_DISABLED">Disable</option>
+														<option value="1" id="COMMOM_MSG_ENABLED">Enable</option>									
+													</select>
+												</td>
+											</tr>
+											
+											<tr id="trPTZ_AUTO_FLIP" style="display:none">
+												<td align="left" colspan="2">
+													<label id="PTZ_AUTO_FLIP">Auto-Flip</label>
+												
+													<select id="sAutoFilp" onchange="ApplyAutoFilp()">
+														<option value="0" id="SELECT_COMMON_DISABLED2">Disable</option>
+														<option value="1" id="COMMOM_MSG_ENABLED2">Enable</option>									
+													</select>
+												</td>
+											</tr>	
+											
+											<tr id="trPT_Control" height="110px" style="display:none">
+												<td width="35%" align="center" valign="top">
+													<div class="button_row">
+														<div class="upleft button_pt" onMouseDown="PTMove('UPLEFT');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>										
+														<div class="up button_pt"onMouseDown="PTMove('UP');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>
+														<div class="upright button_pt" onMouseDown="PTMove('UPRIGHT');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();"></div>
+													</div>
+													<div class="button_row">
+														<div class="left button_pt" onMouseDown="PTMove('LEFT');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>										
+														<div class="center button_pt" onMouseDown="PTMove('HOME');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>
+														<div class="right button_pt" onMouseDown="PTMove('RIGHT');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>
+													</div>
+													<div class="button_row">
+														<div class="downleft button_pt" onMouseDown="PTMove('DOWNLEFT');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>										
+														<div class="down button_pt" onMouseDown="PTMove('DOWN');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>
+														<div class="downright button_pt" onMouseDown="PTMove('DOWNRIGHT');" onMouseUp="PTMoveStop();" onmouseout="PTMoveStop();" ></div>
+													</div>
+												</td>
+												<td id="tdPT_Speed"  width="65%" align="left" style="display:none">
+													<table width="100%" border="0">
+														<tr>
+															<td width="60%" align="right">
+																<label id="PTZ_PAN_TILT_SPEED">Pan/Tilt Speed</label>
+															</td>
+															<td width="40%" align="left">
+																<select id="sPanTiltSpeed" onchange="PtzSpeedOnChange()">
+																	<option value="1">1</option>
+																	<option value="2">2</option>
+																	<option value="3" selected>3</option>
+																	<option value="4">4</option>
+																	<option value="5">5</option>										
+																</select>
+															</td>
+														</tr>														
+													</table>
+												</td>								
+											</tr>		
+										</table>	
+										
+										<table  id="Zoom_Control" style="display:none" width="100%">
+											<tr  style="background-color:#BBBBBB">
+												<td colspan="2" align="left">
+													<label id="SETTING_PTZ_ZOOM_CONTROL" style="font-weight: bold">Zoom Control</label>
+												</td>
+											</tr>
+											<tr id="trPTZ_Zoom_Ratio" style="display:none">
+												<td align="left" colspan="2">
+													<label id="ZOOM_RATIO_LIMIT">Zoom Ratio Limit</label>
+												
+													<select id="sZoomRatio" onchange="ApplyZoomRatio()">							
+													</select>
+												</td>
+											</tr>
+											<tr id="trPTZ_Zoom_Ratio_ZI" style="display:none">
+												<td align="left" colspan="2">
+													<label id="ZOOM_RATIO">Zoom Ratio</label>
+													<input type="text" id="wide" size="2" maxlength="5" onchange="DoZoomRatioRange()">
+													<label>~</label>
+													<input type="text" id="tele" size="2" maxlength="5" onchange="DoZoomRatioRange()">
+													<label style="margin-left:5px; margin-right:5px;">(</label>
+													<label id="tip1" size="2" style="margin-left:0px; margin-right:0px;"></label>
+													<label style="margin-left:2px; margin-right:2px;">~</label>
+													<label id="tip2" size="2" style="margin-left:0px; margin-right:0px;"></label>
+													<label>)</label>
+												</td>	
+											</tr>
+											<tr id="trPTZ_Digital_Zoom" style="display:none">
+												<td align="left" colspan="2">
+													<label id="SETTING_PTZ_DIGITAL_ZOOM">Digital Zoom</label>
+												
+													<select id="sDigitalZoom" onchange="ApplyDigitalZoom()">
+														<option value="0" id="SELECT_COMMON_DISABLED3">Disable</option>
+														<option value="1" id="COMMOM_MSG_ENABLED3">Enable</option>									
+													</select>
+												</td>
+											</tr>
+											<tr id="trSpeed" style="display:none">
+												<td width="40%" align="left">
+													<label id="COMMON_MSG_SPEED">Speed</label>
+												</td>
+												<td  width="60%" align="left">
+													<select id="sZoomSpeed" onchange="ZoomSpeedOnChange()">
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5" selected>5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+													</select>
+												</td>
+											</tr>				
+											<tr id="trContinuedZoom" >
+												<td width="50%" align="left">
+													<label id="SETTING_PTZ_CONTINUED_ZOOM">Continued Zooming</label>
+												</td>
+												<td width="50%" align="left" valign="center">
+													<input id="bZoomContTele" type="image" onmousedown="DoZoomContTele()" onmouseup="DoZoomContStop()"  src="/images/tele.gif">
+													<input id="bZoomContWide" type="image" onmousedown="DoZoomContWide()" onmouseup="DoZoomContStop()"  src="/images/wide.gif">
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" align="left">
+													<label id="COMMON_MSG_STEP_SIZES">Step Size</label>
+												</td>
+												<td width="50%" align="left">
+													<input id="ZoomStep" type="text" size="4" value="100">
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" align="left">
+													<label id="SETTING_PTZ_STEPPED_ZOOM">Stepped Zooming</label>
+												</td>
+												<td width="50%" align="left">
+													<input id="bZoomStepTele" type="image" onmousedown="DoZoomStepTele()" src="/images/tele.gif">
+													<input id="bZoomStepWide" type="image" onmousedown="DoZoomStepWide()" src="/images/wide.gif">
+													</td>
+											</tr>	
+										</table>
+										
+										<table id="Focus_Control" style="display:none" width="100%" border="0">
+											<tr bgcolor="#bbbbbb">
+												<td colspan="2" align="left">
+													<label id="SETTING_PTZ_FOCUS_CONTROL" style="font-weight: bold">Focus Control</label>
+												</td>
+											</tr>
+											<tr>
+												<td align="left" width="70%">
+													<label id="COMMON_MSG_MODE">Mode</label>
+														<select id="sFocusMode" onchange="DoFocusMode()">
+															<option value="MANUAL" id="SELECT_VIDEO_EXPOSURE_MODE_MANUAL">MANUAL</option>
+															<option value="ZOOM_AF" id="SELECT_PTZ_AUTO_ZOOM">Auto Refocus after Zoom</option>
+														</select>
+												</td>
+												<td align="left" width="30%">
+													<input type="button" value="Refocus" name="PTZ_REFOCUS"  class="button2" id="bRefocus"  onclick="DoRefocus()">
+												</td>
+											</tr>
+											<tr id="trFocusStep">
+												<td align="left" >
+													<label id="COMMON_MSG_STEP_SIZES_2">Step Size</label>
+												</td>
+												<td align="left" >
+													<select id="sFocusStepSize">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5" selected>5</option>
+													</select>
+												</td>
+											</tr>							
+											<tr id="trSteppedFoscusing">
+												<td align="left" >
+													<label id="SETTING_PTZ_FOCUS_STEPPED">Stepped Focusing</label>
+												</td>
+												<td align="left" >
+													<input id="bFocusSteppedNear" type="image" onmousedown="DoFocusStepNear()"  src="/images/focusin.gif">
+													<input id="bFocusSteppedFar" type="image" onmousedown="DoFocusStepFar()" src="/images/focusout.gif">
+												</td>
+											</tr>
+										</table>
+										
+										<table id="Rotate_Control" width="100%" border="0" style="display:none">
+											<tr  style="background-color:#BBBBBB">
+												<td colspan="2" align="left">
+													<label id="SETTING_PTZ_ROTATION" style="font-weight: bold">Rotation</label>
+												</td>
+											</tr>
+											<tr id="TR_ROTATE">
+												<td width="50%" align="left">
+													<label id="SETTING_VIDEO_ROTATION_DEGREE">Rotation Degree per Click</label>
+												</td>
+												<td width="50%" align="left">
+													<table cellspacing="0" cellpadding="0" border="0">
+														<tr>
+															<td>
+																&nbsp;<input id="RotateStep" type="text" size="3" value="1">&nbsp;
+															</td>
+															<td>
+																<input id="brotateL" type="image" src="/images/rotateL.png" onclick="DoRotate('L')">
+																<input id="brotateR" type="image" src="/images/rotateR.png" onclick="DoRotate('R')">
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+										
+										<table id="PTZ_MOVE_LIMIT" style="display:none" width="100%" border="0">
+											<tr id="trPTZ_MOVE_LIMIT" style="background-color:#BBBBBB">
+												<td colspan="4" align="left">
+													<label style="font-weight: bold" id="MOVE_LIMIT">MOVE_LIMIT</label>
+												</td>
+											</tr>
+											<tr>
+												<td width="13%" align="center">
+													<label id="COMMON_MSG_NUM">No.</label>
+												</td>
+												<td width="48%" align="center">
+													<label id="SETTING_VIDEO_OSD_POSITION">POSITION</label>
+												</td>
+												<td width="13%" align="center">
+													<input id="set" type="image" src="/images/seth.png" title="Set">
+												</td>
+												<td width="13%" align="center">
+													<input id="goto" style="display" type="image" src="/images/run.png" title="GoTo">
+												</td>
+											</tr>		
+											<tr>
+												<td align="center">
+												<label>1</label>
+												</td>
+												<td align="center">
+												<!--<label id="StartPoint">Start</label>-->
+													<input type="text" id="Point1" style="font-size:12px;font-family:Arial;text-align:center" readonly="readonly" value="" maxlength="15" size="30"/>
+												</td>
+												<td align="center">
+													<input id="LimitSet_1" onclick="DoLimitPointSet('1')" type="image" src="/images/set.gif">
+												</td>
+												<td align="center">
+													<input id="LimitGo_1" style="display:none" onclick="GoLimitPoint('1')" type="image" src="/images/eye.gif">
+												</td>
+											</tr>	
+											<tr>
+												<td align="center">
+												<label>2</label>
+												</td>
+												<td align="center">
+												<!--<label id="EndPoint">End</label>-->
+													<input type="text" id="Point2" style="font-size:12px;font-family:Arial;text-align:center" readonly="readonly" value="" maxlength="15" size="30"/>
+												</td>
+												<td align="center">
+													<input id="LimitSet_2" onclick="DoLimitPointSet('2')" type="image" src="/images/set.gif">
+												</td>
+												<td align="center">
+													<input id="LimitGo_2" style="display:none" onclick="GoLimitPoint('2')" type="image" src="/images/eye.gif">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="4" align="left">
+													&nbsp;&nbsp;&nbsp; <input name="SELECT_COMMON_DISABLED" class="button2" type="button" id="SELECT_COMMON_DISABLED" value="Disabled" onclick="DoMoveLimit('0')"/>
+												</td>	
+											</tr> 	
+										</table>
+										
+										<table id="PTZ_IDLE" style="display:none" width="100%" border="0">
+											<tr id="trIdlePosition0" style="background-color:#BBBBBB">
+												<td align="left">
+													<label style="font-weight: bold" id="PTZ_IDLE_POS_DESC">Return to a preset position after PTZ idle time</label>
+												</td>
+											</tr>	
+										
+											<tr id="trIdlePosition1">
+												<td align="left" width="70%" colspan="2">
+													<label id="PTZ_IDLE_POS">Return Position</label>
+														<select id="IdlePositionEnable"></select>					
+												</td>
+											</tr>
+											<tr id="trIdlePosition2">
+												<td align="left" width="70%" colspan="2">
+													<label id="PTZ_IDLE_TIME">Idle Time</label>
+													<input type="text" id="IdleTime" size="4">
+													<label id="COMMON_MSG_SECONDS">seconds</label>
+												</td>
+											</tr>
+										</table>
+										
+										<div id="Preset_table" style="display:none">
+										</div>
+										
+										<div id="divError" style="display:none">
+											<label id="COMMON_MSG_SET_ERR">Error. Invalid settings.</label></br>
+											<label id="SETTING_GENERAL_URI_ERR"> Rules of network name&#10;
+											1. Only ASCII A~Z, a~z, 0~9, minus sign (-), underscore (_), period (.) and space ( ) are allowed.&#10;
+											2. The last character must not be a minus sign, underscore, period or space.&#10;
+											3. The first character is allowed to be either a letter or a digit.&#10;
+											4. NULL string is allowed</label></br>		
+										</div>	
+									</body>
+									<Script type="text/javascript" language="javascript">
+										//---2nd section of scripts ---//
+									</Script>
+								</div>
+							</div>
+							<div id="TabSetupPtzTourContent" class="tab_content" >
+								<div    width="100%" height="auto" id="tour_frame"   frameborder="0" scrolling="no"   >
+									<body id="body_tour" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onload="frame_extent_2_PtzTour()" >	
+										<table width="100%" border="0">
+											<tr bgcolor="#bbbbbb">
+												<td align="left">
+													<label id="SETTING_PTZ_TOUR_CURRENT" style="font-weight: bold">Tour Control</label>
+												</td>
+											</tr>
+											<tr>
+												<td align="left">
+													<select id="selTourstate" onchange="StartStopTouring()">
+														<option value="DISABLE">Disabled</option>
+														<option value="TOUR1">Tour 1</option>
+														<option value="TOUR2">Tour 2</option>
+														<option value="TOUR3">Tour 3</option>
+														<option value="TOUR4">Tour 4</option>
+														<option value="TOUR5">Tour 5</option>
+														<option value="TOUR6">Tour 6</option>
+														<option value="TOUR7">Tour 7</option>
+														<option value="TOUR8">Tour 8</option>
+														<option value="TOUR9">Tour 9</option>
+														<option value="TOUR10">Tour 10</option>
+														<option value="TOUR11">Tour 11</option>
+														<option value="TOUR12">Tour 12</option>
+														<option value="TOUR13">Tour 13</option>
+														<option value="TOUR14">Tour 14</option>
+														<option value="TOUR15">Tour 15</option>
+														<option value="TOUR16">Tour 16</option>
+													</select>
+												</td>
+											</tr>					
+											<tr bgcolor="#bbbbbb">
+												<td align="left">
+													<label id="SETTING_SELECT_PRESET_POINT" style="font-weight: bold">Edit Tour</label>
+												</td>
+											</tr>
+											<tr>
+												<td align="left">
+													<select id="selCurrentTour" onchange="toChangeModifyTour()">
+														<option value="TOUR1">Tour 1</option>
+														<option value="TOUR2">Tour 2</option>
+														<option value="TOUR3">Tour 3</option>
+														<option value="TOUR4">Tour 4</option>
+														<option value="TOUR5">Tour 5</option>
+														<option value="TOUR6">Tour 6</option>
+														<option value="TOUR7">Tour 7</option>
+														<option value="TOUR8">Tour 8</option>
+														<option value="TOUR9">Tour 9</option>
+														<option value="TOUR10">Tour 10</option>
+														<option value="TOUR11">Tour 11</option>
+														<option value="TOUR12">Tour 12</option>
+														<option value="TOUR13">Tour 13</option>
+														<option value="TOUR14">Tour 14</option>
+														<option value="TOUR15">Tour 15</option>
+														<option value="TOUR16">Tour 16</option>
+													</select>
+													<input id="BUTTON_EDIT" type="button" name="SETTING_PTZ_TOUR_EDIT" value="Edit" onclick="EditTour();"/>
+													<input id="BUTTON_SAVE" type="button" name="BUTTON_SAVE" value="Save" style="display:none" onclick="SaveCancel('Save');"/>
+													<input id="BUTTON_CANCEL" type="button" name="BUTTON_CANCEL" value="Cancel" style="display:none" onclick="SaveCancel('Cancel');"/>
+												</td>
+											</tr>			
+											<tr>
+												<td>
+													<table id="tbSpeed1" width="100%"  border="0" style="table-layout:fixed">
+														<tr id="trEditTile" bgcolor="#bbbbbb">
+															<td width="52%" align="left" ><Label id="SETTING_VIDEO_PRESET" style="font-weight: bold">Select a Preset Point</Label></td>
+																<td width="12%" align="center"><img src="/images/time.png" id="dwell1" title="Duration"></td>
+																<td id="tdSpeed1" width="24%">
+																	<table width="100%">
+																		<tr width="100%">
+																			<td colspan="2" align="center"><img src="/images/touring-speed.png" id="pt_speed1_tour" title="Pan/Tilt Speed"></td>
+																		</tr>
+																	</table>
+																</td>
+																<td width="12%"></td>
+														</tr>
+														<tr id="trEditAdd">
+															<td align="left">
+																<select id="selectPreset"></select>
+															</td>
+															<td align="center">
+																<input name="StayTimes" type="text" id="StayTimes" size="1" value="10"/>
+															</td>
+															<td id="TourtdSpeed2">
+																<table align="center" width="100%">
+																	<tr>
+																		<td align="center">
+																			<select id="TourPanSpeed">
+																				<option value="1">1</option>
+																				<option value="2">2</option>
+																				<option value="3">3</option>
+																				<option value="4">4</option>
+																				<option value="5" selected>5</option>
+																			</select>
+																		</td>
+																		<td style="display:none">
+																			<select id="TiltSpeed">
+																				<option value="2">2</option>
+																				<option value="3">3</option>
+																				<option value="4">4</option>
+																				<option value="5" selected>5</option>
+																			</select>
+																		</td>										
+																	</tr>
+																</table>
+															</td>
+															<td align="center">
+																<img src="/images/add.png" id="addpreset" style="cursor:pointer" onclick="addPresetToTour();" title="Add">
+															</td>
+														</tr>
+														<tr bgcolor="#bbbbbb">
+															<td align="left" width="52%">
+																<Label id="SETTING_PTZ_TOUR_PATH_LIST" style="font-weight: bold">Path List</Label>
+															</td>
+															<td width="12%" align="center"><img src="/images/time.png" id="dwell2" title="Duration"></td>
+															<td id="tdSpeed3" width="24%">
+																<table width="100%">
+																	<tr>
+																		<td colspan="2" align="center"><img src="/images/touring-speed.png" id="pt_speed2" title="Pan/Tilt Speed"><td>
+																	</tr>
+																</table>
+															</td>
+															<td width="12%"></td>
+														</tr>
+														<tr>
+															<td colspan="4">
+																<div id="DivTourPresetList">
+																</div>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>									
+										</table>
+										
+										<div id="divError" style="display:none">
+											<label id="COMMON_MSG_SET_ERR">Error. Invalid settings.</label></br>
+										</div>	
+									</body>
+									<Script type="text/javascript" language="javascript">
+										//---4th section of scripts ---//										
+									</Script>										
+								</div>
+							</div>
+							<div id="TabSetupPtzScanContent" class="tab_content" >
+								<div width="100%" height="auto" id="scan_frame"   frameborder="0" scrolling="no"   >
+									<body id="body_scan" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onload="frame_extent_2_PtzScan()" >	
+										<table width="100%" border="0" id="TABLE_SETTING_PTZ_SCAN_CONTROL">
+											<tr bgcolor="#bbbbbb">
+												<td align="left"colspan="2">
+													<label id="PTZ_SCAN_CONTROL" style="font-weight: bold">Scan Control</label>
+												</td>
+											</tr>
+											<tr id="TR_SETTING_PTZ_AUTO_SCAN">
+												<td width ="100%">				
+													<table border="0" style="margin-left:0px; margin-right:20px; margin-top:0px; margin-bottom:0px;border-top:#f5f5f5 0px outset; border-right:#f5f5f5 0px outset; border-left:#f5f5f5 0px outset; border-bottom:#f5f5f5 0px outset" bgcolor="#f5f5f5" width="155px" >					
+														<tr>
+															<td align="center" width="33%" onclick="start_status()" >
+																<div id="PTZ_SCAN_START"    style="display:none; padding:0px; width:45px;height:30px; background:url(/images/icon.png) -0px -840px no-repeat; cursor:pointer;" title="Start"></div>
+																<div id="PTZ_SCAN_START_ON" style="display:none; padding:0px; width:45px;height:30px; background:url(/images/icon.png) -45px -840px no-repeat; cursor:pointer;" title="Start"></div>
+															</td>
+															<td align="center" width="33%" onclick="stop_status()" >
+																<div id="PTZ_SCAN_STOP"    style="display:none; padding:0px; width:45px;height:30px; background:url(/images/icon.png) -0px -870px no-repeat; cursor:pointer;"  title="Stop"></div>
+																<div id="PTZ_SCAN_STOP_ON" style="display:none; padding:0px; width:45px;height:30px; background:url(/images/icon.png) -45px -870px no-repeat; cursor:pointer;" title="Stop"></div>
+															</td>
+															<td align="center" width="33%" onclick="resume_status()" >
+																<div id="PTZ_SCAN_RESUME"    style="display:none; padding:0px; width:45px;height:30px; background:url(/images/icon.png) -0px -900px no-repeat; cursor:pointer;" title="Resume"></div>
+																<div id="PTZ_SCAN_RESUME_ON" style="display:none; padding:0px; width:45px;height:30px; background:url(/images/icon.png) -45px -900px no-repeat; cursor:pointer;" title="Resume"></div>
+															</td>
+														</tr>									
+													</table>
+												</td>			
+											</tr>
+										</table>
+										
+										<table width="100%" border="0">
+											<tr id="PtzScan" style="background-color:#BBBBBB">
+												<td width="55%" align="left" >																			
+													<label style="font-weight: bold" id="BUTTON_SCAN">Scan</label>																				
+												</td>
+												<td width="20%" align="center">
+													<img src="/images/touring-speed.png" id="pt_speed1_scan" title="Pan/Tilt Speed">
+												</td>
+												<td id="scan_direction1" style="display:none" width="25%"></td>
+											</tr>
+											
+											<tr id="trEditScan">
+												<td width="100%" style="margin-top:0px; margin-bottom:5px; background-color:#DDDDDD">
+													<table border="0" align="left" colspan="2">
+														<tr align="left" colspan="2">
+															<td align="left" >
+																<input  type="checkbox" id="SETTING_PTZ_PARK_CHECK" onclick="PTZ_PARK_CHECK()"  style="width:20px">
+															</td>
+															<td align="left" colspan="2">
+																<label id="PTZ_PARK_CONF_1" style="width:150px;margin-top:0px;margin-left:0px;">Return to Auto Scan after</label>
+															</td>
+														</tr>
+														<tr align="left">	
+															<td></td>
+															<td align="left" style="width:30px;">
+																<div id="PARK_TIME"></div>	
+															</td>
+															<td align="left">
+																<label  id="PTZ_PARK_CONF_2">seconds</label>
+															</td>						
+														</tr>				
+													</table>
+												</td>						
+												<td id="tdScanSpeed2">
+													<table align="center" >
+														<tr>
+															<td align="center">
+																<select id="ScanPanSpeed" onchange="PanSpeedChange()">
+																	<option value="1">1</option>
+																	<option value="2">2</option>
+																	<option value="3">3</option>
+																	<option value="4">4</option>
+																	<option value="5" selected>5</option>
+																</select>
+															</td>																			
+														</tr>
+													</table>
+												</td>
+												<td id="scan_direction" style="display:none">
+													<img id="scan_clockwise" style="display:none; width:24px;height:18px" src="/images/btn-reverse2.png" onclick="DirectionChange2_anti_clockwise(this)" title="clockwise scanning">
+													<img id="scan_anti_clockwise" style="display:none; width:24px;height:18px" src="/images/btn-non-reverse2.png" onclick="DirectionChange2_clockwise(this)" title="anti-clockwise scanning">
+												</td>			
+											</tr>											
+										</table>
+										
+										<table width="100%" border="0">
+											<tr width="100%" id="PtzScanPoint" style="background-color:#BBBBBB">
+												<td colspan="5" align="left">																			
+													<label style="font-weight: bold" id="PTZ_SCAN_POINTS">Scan Points</label>																				
+												</td>
+											</tr>		
+											<tr>
+												<td width="13%" align="center">
+													<label id="COMMON_MSG_NUM">No.</label>
+												</td>
+												<td width="48%" align="center">
+													<!--<label id="COMMON_MSG_NAME">Name</label>-->
+												</td>
+												<td width="13%" align="center">
+													<input id="set_scan" type="image" src="/images/seth.png" title="Set">
+												</td>
+												<td width="13%" align="center">
+													<input id="goto_scan" style="display:none" type="image" src="/images/run.png" title="GoTo">
+												</td>
+												<td width="13%" align="center">
+													<input id="rm_scan" type="image" src="/images/tr.png" title="Remove">
+												</td>
+											</tr>		
+											<tr>
+												<td align="center">
+												<label>1</label>
+												</td>
+												<td align="center">
+												<!--<label id="StartPoint">Start</label>-->
+												</td>
+												<td align="center">
+													<input id="bScanSetStart" onclick="DoScanSet('1')" type="image" src="/images/set.gif">
+													</td>
+												<td align="center">
+													<input id="bScanGoStart" style="display:none" type="image" src="/images/eye.gif">
+												</td>
+												<td align="center">
+													<input id="bScanDelStart" onmousedown="DoScanDel('1')" style="display:none" type="image" src="/images/delete.gif">
+												</td>
+											</tr>	
+											<tr>
+												<td align="center">
+												<label>2</label>
+												</td>
+												<td align="center">
+												<!--<label id="EndPoint">End</label>-->
+												</td>
+												<td align="center">
+													<input id="bScanSetEnd" onclick="DoScanSet('2')" type="image" src="/images/set.gif">
+												</td>
+												<td align="center">
+													<input id="bScanGoEnd" style="display:none" type="image" src="/images/eye.gif">
+												</td>
+												<td align="center">
+													<input id="bScanDelEnd" onmousedown="DoScanDel('2')" style="display:none" type="image" src="/images/delete.gif">
+												</td>
+											</tr>												
+										</table>
+										
+										<div id="divError" style="display:none">
+											<label id="COMMON_MSG_SET_ERR">Error. Invalid settings.</label>
+										</div>
+									</body>
+									<Script type="text/javascript" language="javascript">
+										//---3rd section of scripts ---//	
+									</Script>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+</body>
+<script id="dFrmJs_sub" type="text/javascript" src="/js/ptz_ctrl.js"></script>
+</html>
+
+<Script type="text/javascript" language="javascript">
+	//---5th section of scripts ---//
+</Script>

@@ -1,0 +1,349 @@
+﻿
+<html>
+
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+	<!--[if IE 9]><meta http-equiv="X-UA-Compatible" content="IE=Quirks"></meta><![endif]-->
+	<!--[if IE 8]><meta http-equiv="X-UA-Compatible" content="IE=Quirks;"></meta><![endif]-->
+	<!--[if !IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1;"></meta><![endif]-->
+	
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+	<link rel="stylesheet" type="text/css" href='/css/jquery-ui.min.css'>	
+	<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+    <title>Web Configurator</title>	
+</head>
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no">
+   	<iframe id="main_frame" width="100%" height="100%" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" style="z-index:1;"></iframe>
+	<div id="divDragResizeifrm" class="ui-widget-content" style="z-index:100;display:none;position:absolute;">
+	  <iframe id="subordinate_frame" name="subordinate_frame" style="width:99%;height:99%;display:"></iframe>
+	</div>
+	<iframe id="PTZSubFrame" frameborder="0px" style="display: none; position: absolute;"></iframe>
+	<script type="text/javascript" src="/js/jquery-ui-1.11.4.c.min.js"></script>	
+	<script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/utility.js"></script>
+</body>
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var gAccount="admin";
+	var gPwd="123456";
+	var gUserLevel=-1;	
+	var gAudioType=0; // 0: none 1: one way 2: two way
+	var gSerialPorts=0; // number of serial port
+	var gSensorBoard="";
+	var gProfileID="";
+	var gModel="";
+	var gLanguage=0;
+	var xmlLang;// = new ActiveXObject("Microsoft.XMLDOM");
+	var langType = 0;	
+	var gDNCtrl="";
+	var gDNElement="";
+	var gDI=0;
+	var gDO=0;
+	var gStorage = "";
+	var guest_preview = 0;
+	var gHttpPort = 80;
+	var gZoom_Capability ="";
+	var gPT_Enable=0;
+	var gUnitType = "";
+	var gStreamCap = "";
+	var gIsLowCostModel = 0;
+	var gFisheyeModule = 2;
+	var gIspGeneration = "";
+	var gFwType = "";
+	var gStreamMode = ""
+	var gHIGH_FRAME_MODE_CAP = "";
+	var gHIGH_FPS_MODE = "";
+    var sss = "Disable";
+	var gHighFpsMode ="";
+	var gAudioMicOptions = 0;
+	var gAudioInLevel = "";
+	var gAudioInpt = 0;
+	var gVideoStreams = 2;
+	var gPMaskType = "";
+	var gECMversion = "1,0,0,106";
+	var login_name_err0 = "Rules of login name.\n 1. Only A~Z, a~z, 0~9, minus sign (-), underscore (_), period (.) and $ are allowed.\n 2. The first character is allowed to A~Z or a~z or 0~9 only.";	
+	var pppoe_login_name_err0 = "Rules of login name.\n 1. Allow 0~9 A~Z a~z.\n 2. Allow special characters ! $ ( ) * + - . ; < = > @ [ ] ^ _ { } | ~ ";	
+	var pwd_err0 = "Rules of login password.\n 1. Allow 0~9 A~Z a~z\n 2. Allow special characters ! $ ( ) * + - . ; < = > @ [ ] ^ _ { } | ~ ";
+	var networking_name_err0 = "Rules of networking name.\n 1. Only A~Z, a~z, 0~9, minus sign (-), underscore (_), period (.) are allowed.\n 2. No blank or space characters are permitted as part of a name 3. The last character must not be a minus sign, underscore or period. 4. The first character is allowed to either a letter or a digit. 5. No NULL string is allowed.";
+	var PtzSpeedCookie = 3;
+	var PtzSpeed ;
+	var ZoomSpeedCookie = 5;
+	var ZoomSpeed ;
+	var Res1Changed = 0;
+	var Res2Changed = 0;
+	var Res_S1 = "";
+	var Res_S2 = "";
+	var gCVBR = 0;
+	var err_EDGE = "Please use Microsoft Internet Explorer 9 ~ 11";
+	//var gAUDIO_IN_FORMAT ;
+	
+	function NetworkingCheck(Addr)
+	{
+		var pattern = /^([0-9a-zA-Z.-_-]*)$/;
+		var pattern2 = /^[0-9a-zA-Z]/;
+		var pattern3 = /[-_.]/;
+		
+		if(Addr != null) // 5.No NULL string is allowed
+		{
+			if(pattern.test(Addr) == true)
+			{
+				if(pattern2.test(Addr) ==  true)
+				{
+					if(Addr.length == 0)
+						return false;
+					//else
+						//return true;
+				}
+				else
+					return false;
+				
+				if(pattern3.test(Addr.substring(Addr.length-1)) == false)//3. The last character must not be a minus sign(-), underscore(_) or period(.)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}	
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+	
+	
+	function LoginNameCheck(name)
+	{
+		var pattern = /^([0-9a-zA-Z@.\-_$!^]*)$/;
+		var pattern2 = /^[0-9a-zA-Z]/;
+		
+		if(pattern.test(name) == true)
+		{
+			if(pattern2.test(name) ==  true)
+			{
+				if(name.length == 0)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;		
+	}
+	
+	function PasswordCheck(PWD)
+	{
+		var pattern = /^([0-9a-zA-Z.\-_!$()*+;<=>@\[\]\^\{\}|~]*)$/;
+					
+		if(pattern.test(PWD) ==  true)
+		{
+			if(PWD.length == 0)
+				return false;
+			else
+				return true;
+		}
+		else
+				return false;
+		
+	}
+	
+	function GetSystemInfo()
+	{
+		var szSystem;
+		var szReturn;
+
+		szSystem="/cgi-bin/system?SYSTEM_INFO";		
+		szReturn = doRequest(szSystem) ;
+		
+		szReturn=szReturn.split('\n') ;		
+		var r=szReturn[0].substr(0,5);
+		
+		r=doSplitValue( szReturn[0] ) ;
+		
+		var i;
+		for(i=0; i<szReturn.length; i++){
+			r=doSplitValue( szReturn[i] ) ;
+			switch(r[0]){				
+				case "Audio":
+					gAudioType=parseInt(r[1]);
+					break;																
+				case "DO":
+					gDO=r[1].slice(1);						
+					break;									
+			}
+		}		
+	}
+	
+	function Page_onLoad()
+	{
+		var szSystem = "/cgi-bin/system?" ;		
+		szSystem = szSystem + "V2_LANGUAGE" ;				
+		doCSSSetting();		
+        var szReturn = top.doRequest(szSystem) ;
+	
+		szReturn = szReturn.split('\n') ;
+		
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {				
+				case 'V2_LANGUAGE' :
+					langType = szTmp[1] ;
+					gLanguage = langType;									
+					break;
+			}
+		}		
+		
+		szSystem = "/cgi-bin/system?GUEST_PREVIEW" ;											
+        szReturn = top.doRequest(szSystem) ;		
+						
+		LoadLangXml(langType);	
+		if(szReturn.indexOf("ERROR") >  -1)		
+			load_iframe("/login.html");	
+		else
+		{
+			guest_preview = 1;
+			GetSystemInfo();
+			load_iframe("/live/live_layout.html");
+		}
+		setTimeout(function(){if(IsIE()){window.onresize=function(event){DefaultSubFrm();};}},300);
+	}
+	
+	function load_iframe(a){	
+		document.getElementById('main_frame').src=a;
+	}
+	
+	function load_iframe_sub(a){	
+		document.getElementById('subordinate_frame').src=a;
+		if(document.getElementById('PTZSubFrame')==null){
+			//CrtPtzSubIfm();
+			DefaultSubFrm();
+		}
+	}
+
+
+       function LoadLangXml(lang)
+       {
+			var szLang = 'en-us' ;
+			var xmlFile;
+
+			switch (lang) {
+				case "0" :  szLang = 'en-us'    ;      break ;
+				case "1" :  szLang = 'zh-tw'    ;      break ;
+				case "2" :  szLang = 'cn'       ;      break ;
+				case "3" :  szLang = 'jp'       ;      break ;
+				case "4" :  szLang = 'sp-sp'    ;      break ;
+				case "5" :  szLang = 'it'       ;      break ;
+				case "6" :  szLang = 'de'       ;      break ;
+				case "7" :  szLang = 'pt-pt'    ;      break ;
+				case "8" :  szLang = 'cz'       ;      break ;
+				case "9" :  szLang = 'fr'       ;      break ;
+				case "11" :  szLang = 'hu'      ;      break ;
+				case "13" :  szLang = 'gr'      ;      break ;
+				case "15" :  szLang = 'nl'      ;      break ;
+				case "16" :  szLang = 'ru'      ;      break ;
+				case "17" :  szLang = 'tr'      ;      break ;
+				case "18" :  szLang = 'id'      ;      break ;
+				case "19" :  szLang = 'se'      ;      break ;
+				case "20" :  szLang = 'pl'      ;      break ;
+				case "21" :  szLang = 'rm'      ;      break ;
+				case "22" :  szLang = 'kr'      ;      break ;
+				case "23" :  szLang = 'th'      ;      break ;
+				
+			}
+			xmlFile = './lang/' + szLang + '.xml';
+			var xmlhttp = new window.XMLHttpRequest();
+			xmlhttp.open("GET", xmlFile, false);
+			xmlhttp.send(null);
+			xmlLang = xmlhttp.responseXML;
+		}
+
+
+	function msieversion(){
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf ( "MSIE " );
+
+		if ( msie > 0 ){      
+			return parseInt (ua.substring (msie+5, ua.indexOf (".", msie )));
+		}
+		else{                 
+			return 0;
+		}
+	}
+	
+	function doCSSSetting(){
+		var ieVer=msieversion();
+		if(ieVer<=10&&ieVer>0){
+			var tmp= document.getElementById("main_frame");
+			tmp.className = tmp.className + "OlderIEStyle";
+		}
+	}
+
+	function clean_result(obj){
+		var ApplyEls = obj.document.getElementsByName("BUTTON_APPLY");
+		ApplyEls[0].disabled = false ;		
+		ApplyEls[0].value = "Apply" ;
+		
+		try { ApplyEls[0].value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 
+	
+
+	function GetXmlLangTagByName(name)	
+	{	
+		var tmp;
+		tmp =  xmlLang.getElementsByTagName(name) ;	
+		return tmp[0].firstChild.data;
+	}
+
+    function update_language(obj)
+    {
+        var LabelEls = obj.document.getElementsByTagName("label");
+        var InputEls = obj.document.getElementsByTagName("input");
+        var OptionEls = obj.document.getElementsByTagName("option");        
+		
+		for(i=0;i<LabelEls.length;i++)
+			try {LabelEls[i].innerHTML = GetXmlLangTagByName(LabelEls[i].id) ;} catch(e) {}            
+
+		for(i=0;i<InputEls.length;i++)
+		{
+			if(InputEls[i].name == "")
+				continue;                
+			try {InputEls[i].value = GetXmlLangTagByName(InputEls[i].name);} catch(e) {}
+		}
+
+		for(i=0;i<OptionEls.length;i++)            
+			try {OptionEls[i].innerHTML = GetXmlLangTagByName(OptionEls[i].id);} catch(e) {}
+	}		
+
+	function isEdge(){
+		if (navigator.userAgent.match(/Edge/)){      
+			try { err_EDGE = GetXmlLangTagByName("SETTING_BROWSER_EDGE_ERR") ; } catch(e) {}
+			alert(err_EDGE);
+			return;
+		}
+	}
+	
+	function IsIE()
+	{
+		/*if (document.compatMode == "CSS1Compat") {
+			alert("Standards mode");
+		} else {
+			alert("Quirks mode");
+		}*/
+		if(document.documentMode)	
+			return true;
+		else		
+			return false;	
+	}
+	
+	
+	Page_onLoad();
+    
+	//alert("A1 UI mount");
+	//UI version = V1.03.04
+</Script>

@@ -1,0 +1,160 @@
+﻿<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="HEAD_SETUP">Setup</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>					
+					<table border="0" align="center" width="90%">
+						<tr>
+							<td >
+								<input type="radio" value="1"  id="DISK_CONFIG1" name="OVERWRITE_RADIO" style="width:20px" >
+							</td>	
+							<td>	
+						        <label id="SETTING_STORAGE_SETUP_MSG1">Remove old recordings when ran out of storage space automatically</label>
+							
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" value="1"  id="DISK_CONFIG2" name="OVERWRITE_RADIO" style="width:20px" >
+							</td>	
+								
+							<td>	
+						        <label id="SETTING_STORAGE_SETUP_MSG2">Send a notification when the free storage space is lower than</label>
+								<select id="LowSpaceThd" size="1"></select>
+								<label>% </label><label id="SETTING_STORAGE_SETUP_MSG3">storage capacity</label>
+							</td>
+						</tr>
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td colspan="2" >							
+						        <label style="margin-left:0px" id="SETTING_STORAGE_SETUP_HELP">Device is alerted when the free space is lower than this setting. To get this notification, you need to set the Event function. Please refer to Event configuration page.</label>							
+							</td>
+						</tr>
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td colspan="2" align="center">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+							
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>					
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>		
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	function DoApply()
+	{
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;	
+		
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+		szSystem = szSystem + "DISK_CONFIG=" + 
+			((idget("DISK_CONFIG1").checked == true) ? 1 : 0) + "," + idget("LowSpaceThd").value;
+		
+        var szReturn = top.doRequest(szSystem) ;
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+
+		szTmp = top.doSplitValue( szReturn[0] ) ;
+
+		if(szTmp[0].indexOf('ERROR')>-1){
+			nError++ ;
+			err_str = err_str + szTmp[0] + "<br>" ;
+		}
+
+        if (nError == 0) {
+			BUTTON_APPLY.value = "Success" ;
+		}
+		else{
+			//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+		}
+		window.setTimeout("top.clean_result(this);", 2000 );		
+		
+		doGetSetting();	
+	}
+
+    function doGetSetting() {
+		InsertSelectOptions_Number(idget("LowSpaceThd"), 1, 50);
+	
+	
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+    
+        szSystem = szSystem + "DISK_CONFIG" ;
+        var szReturn = top.doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+
+		szTmp = top.doSplitValue( szReturn[0] ) ;
+		
+		switch ( szTmp[0] ) {
+			case 'DISK_CONFIG' :
+				szConfig = szTmp[1].split(',');
+				var Overwrite = szConfig[0];
+				var LowSpaceThd = szConfig[1];
+				if(Overwrite == 1)				
+					idget('DISK_CONFIG1').checked = true;				
+				else				
+					idget('DISK_CONFIG2').checked = true;
+								
+				if (LowSpaceThd < 1)
+					LowSpaceThd = 1;
+				if (LowSpaceThd > 50)
+					LowSpaceThd = 50;
+				idget("LowSpaceThd").value = LowSpaceThd;
+				break;
+		}        
+
+    }
+    
+	function Page_onLoad()
+	{
+		top.update_language(this);		
+		 
+		doGetSetting();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

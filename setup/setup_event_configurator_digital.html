@@ -1,0 +1,414 @@
+﻿<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<div style="height:640px;overflow:auto">	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<table  class="setup_item" width="100%" border="0">
+						<tr>
+							<td width="95%" align="center">
+								<label id="SETTING_EVENT_CONFIGURATOR_DIGITAL">Digital I/O ports</label>
+							</td>
+							<td width="5%" align="right">
+								<img type="button" src="../images/cross.png" onclick="parent.Close();" style="cursor:pointer;border:2px solid #dedede" title="Close">
+							</td>
+						</tr>	
+					</table>
+				</td>					
+				<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>	
+				<tr>
+					<td>
+						<form name="frmSetting">
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;"><label id="SETTING_EVENT_CONFIGURATOR_DIGITAL_INPUT_PORT" style="font-weight:bold">Digital Input Port</label></div>
+							<table border="0" align="center" width="90%" class="event_server_table_style table_th">
+								<tr height="30">
+									<th align="center" width="100"><label id="SETTING_EVENT_CONFIGURATOR_PORT">Port</label></th>
+									<th align="center"><label id="SETTING_EVENT_CONFIGURATOR_ACTIVE_LEVEL">Active Level</label></th>
+									<th align="center"><label id="SETTING_EVENT_CONFIGURATOR_DI_INTERVAL">Interval(0~86400 seconds)</label></th>
+								</tr>
+								<tr id="TR_DI1" height="30">
+									<td align="center">
+										<label id="SETTING_EVENT_CONFIGURATOR_DI1">DI 1</label>
+									</td>
+									<td align="center">
+										<select name="DI1_LEVEL">
+											<option value="0">0</option>
+											<option value="1">1</option>
+										</select>
+									</td>
+									<td align="center">
+										<input type="type" name="DI1_INTERVAL" value="" size="10">
+									</td>
+								</tr>
+								<tr id="TR_DI2" height="30">
+									<td align="center">
+										<label id="SETTING_EVENT_CONFIGURATOR_DI2">DI 2</label>
+									</td>
+									<td align="center">
+										<select name="DI2_LEVEL">
+											<option value="0">0</option>
+											<option value="1">1</option>
+										</select>
+									</td>
+									<td align="center">
+										<input type="type" name="DI2_INTERVAL" value="" size="10">
+									</td>
+								</tr>
+								<tr id="TR_DI3" height="30">
+									<td align="center">
+										<label id="SETTING_EVENT_CONFIGURATOR_DI3">DI 3</label>
+									</td>
+									<td align="center">
+										<select name="DI3_LEVEL">
+											<option value="0">0</option>
+											<option value="1">1</option>
+										</select>
+									</td>
+									<td align="center">
+										<input type="type" name="DI3_INTERVAL" value="" size="10">
+									</td>
+								</tr>
+								<tr id="TR_DI4" height="30">
+									<td align="center">
+										<label id="SETTING_EVENT_CONFIGURATOR_DI4">DI 4</label>
+									</td>
+									<td align="center">
+										<select name="DI4_LEVEL">
+											<option value="0">0</option>
+											<option value="1">1</option>
+										</select>
+									</td>
+									<td align="center">
+										<input type="type" name="DI4_INTERVAL" value="" size="10">
+									</td>
+								</tr>
+							</table>
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;"><label id="SETTING_EVENT_CONFIGURATOR_DIGITAL_OUTPUT_PORT" style="font-weight:bold">Digital Output Port</label></div>
+							<table border="0" align="center" width="90%" class="event_server_table_style table_th">
+								<tr height="30">
+									<th align="center" width="100"><label id="SETTING_EVENT_CONFIGURATOR_PORT_2">Port</label></th>
+									<th align="center"><label id="SETTING_EVENT_CONFIGURATOR_ACTIVE_LEVEL_2">Active Level</label></th>
+									<th align="center"><label id="SETTING_EVENT_CONFIGURATOR_DO_INTERVAL">Interval*(0~86400 seconds)</label></th>
+								</tr>				
+								<tr id="TR_DO1" height="30">
+									<td align="center">
+										<label id="SETTING_EVENT_CONFIGURATOR_DO1">DO 1</label>
+									</td>
+									<td align="center">
+										<select name="DO1_LEVEL">
+											<option value="0">0</option>
+											<option value="1">1</option>
+										</select>
+									</td>
+									<td align="center">
+										<input type="type" name="DO1_INTERVAL" value="" size="10">
+									</td>
+								</tr>
+								<tr id="TR_DO2" height="30">
+									<td align="center">
+										<label id="SETTING_EVENT_CONFIGURATOR_DO2">DO 2</label>
+									</td>
+									<td align="center">
+										<select name="DO2_LEVEL">
+											<option value="0">0</option>
+											<option value="1">1</option>
+										</select>
+									</td>
+									<td align="center">
+										<input type="type" name="DO2_INTERVAL" value="" size="10">
+									</td>
+								</tr>	
+							</table>
+							<div style="width:100%;text-align:left">
+								<label id="SETTING_EVENT_CONFIGURATOR_DIGITAL_HINT" style="color:#cc0000">*: When 0, the digital output port stays at active level until the associated event becomes inactive.</label>
+							</div>
+							<table border="0" align="center" width="100%">
+							   
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>		
+								<tr>
+									<td align="right">
+										<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+									</td> 
+								</tr>			
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>											   
+							</table>
+						</form>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+	if(top.gDI==0){
+		document.getElementById('TR_DI1').style.display='none';
+		document.getElementById('TR_DI2').style.display='none';
+		document.getElementById('TR_DI3').style.display='none';
+		document.getElementById('TR_DI4').style.display='none';
+	}
+	else if(top.gDI==1){
+		document.getElementById('TR_DI2').style.display='none';
+		document.getElementById('TR_DI3').style.display='none';
+		document.getElementById('TR_DI4').style.display='none';
+	}
+	else if(top.gDI==2){
+		document.getElementById('TR_DI3').style.display='none';
+		document.getElementById('TR_DI4').style.display='none';
+	}
+	else if(top.gDI==3){
+		document.getElementById('TR_DI4').style.display='none';
+	}
+	
+	if(top.gDO==0){
+		document.getElementById('TR_DO1').style.display='none';
+		document.getElementById('TR_DO2').style.display='none';
+	}
+	else if(top.gDO==1){
+		document.getElementById('TR_DO2').style.display='none';
+	}
+	
+	function clean_result(){		
+		
+		idget("BUTTON_APPLY").disabled = false ;		
+		idget("BUTTON_APPLY").value = "Apply" ;
+		try { idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 	
+	
+	var err_message = 'Error. Invalid settings.' ;	
+	
+	
+	function DoApply()
+	{
+		if(isNaN(document.frmSetting.DI1_INTERVAL.value) == true){
+			alert('Interval must be number');
+			document.frmSetting.DI1_INTERVAL.focus();
+			return false;
+		}
+		else
+		{
+			if(document.frmSetting.DI1_INTERVAL.value<0 || document.frmSetting.DI1_INTERVAL.value>86400)
+			{
+				alert(err_message);
+				document.frmSetting.DI1_INTERVAL.focus();
+				return false;
+			}	
+		}
+		
+		if(isNaN(document.frmSetting.DI2_INTERVAL.value) == true){
+			alert('Interval must be number');
+			document.frmSetting.DI2_INTERVAL.focus();
+			return false;
+		}
+		else
+		{
+			if(document.frmSetting.DI2_INTERVAL.value<0 || document.frmSetting.DI2_INTERVAL.value>86400)
+			{
+				alert(err_message);
+				document.frmSetting.DI2_INTERVAL.focus();
+				return false;
+			}	
+		}
+		
+		if(isNaN(document.frmSetting.DI3_INTERVAL.value) == true){
+			alert('Interval must be number');
+			document.frmSetting.DI3_INTERVAL.focus();
+			return false;
+		}
+		else
+		{
+			if(document.frmSetting.DI3_INTERVAL.value<0 || document.frmSetting.DI3_INTERVAL.value>86400)
+			{
+				alert(err_message);
+				document.frmSetting.DI3_INTERVAL.focus();
+				return false;
+			}	
+		}
+		
+		if(isNaN(document.frmSetting.DI4_INTERVAL.value) == true){
+			alert('Interval must be number');
+			document.frmSetting.DI4_INTERVAL.focus();
+			return false;
+		}
+		else
+		{
+			if(document.frmSetting.DI4_INTERVAL.value<0 || document.frmSetting.DI4_INTERVAL.value>86400)
+			{
+				alert(err_message);
+				document.frmSetting.DI4_INTERVAL.focus();
+				return false;
+			}	
+		}
+		
+		if(isNaN(document.frmSetting.DO1_INTERVAL.value) == true){
+			alert('Interval must be number');
+			document.frmSetting.DO1_INTERVAL.focus();
+			return false;
+		}
+		else
+		{
+			if(document.frmSetting.DO1_INTERVAL.value<0 || document.frmSetting.DO1_INTERVAL.value>86400)
+			{
+				alert(err_message);
+				document.frmSetting.DO1_INTERVAL.focus();
+				return false;
+			}	
+		}
+		
+		if(isNaN(document.frmSetting.DO2_INTERVAL.value) == true){
+			alert('Interval must be number');
+			document.frmSetting.DO2_INTERVAL.focus();
+			return false;
+		}
+		else
+		{
+			if(document.frmSetting.DO2_INTERVAL.value<0 || document.frmSetting.DO2_INTERVAL.value>86400)
+			{
+				alert(err_message);
+				document.frmSetting.DO2_INTERVAL.focus();
+				return false;
+			}	
+		}
+	
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;
+		
+        
+		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+		szSystem = szSystem + 'EVENT_DI1='+ document.frmSetting.DI1_LEVEL.value +','+ document.frmSetting.DI1_INTERVAL.value ;
+		szSystem = szSystem + '&EVENT_DI2='+ document.frmSetting.DI2_LEVEL.value +','+ document.frmSetting.DI2_INTERVAL.value ;
+		szSystem = szSystem + '&EVENT_DI3='+ document.frmSetting.DI3_LEVEL.value +','+ document.frmSetting.DI3_INTERVAL.value ;
+		szSystem = szSystem + '&EVENT_DI4='+ document.frmSetting.DI4_LEVEL.value +','+ document.frmSetting.DI4_INTERVAL.value ;
+		szSystem = szSystem + '&EVENT_RSPDO1='+ document.frmSetting.DO1_LEVEL.value +','+ document.frmSetting.DO1_INTERVAL.value ;
+		szSystem = szSystem + '&EVENT_RSPDO2='+ document.frmSetting.DO2_LEVEL.value +','+ document.frmSetting.DO2_INTERVAL.value ;
+		
+        var szReturn = top.doRequest(szSystem) ;
+		
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+
+            if(szTmp[0].indexOf('ERROR')>-1){
+				nError++ ;
+				err_str = err_str + szTmp[0] + "<br>" ;
+			}
+        }
+
+        if (nError == 0) {
+			idget("BUTTON_APPLY").value = "Success" ;
+		}
+		else{
+			//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+		}
+		window.setTimeout("clean_result();", 2000 );
+		parent.Close();
+	}
+	
+	function doGetSetting()
+	{
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+    
+        szSystem = szSystem + "EVENT_DI1&EVENT_DI2&EVENT_DI3&EVENT_DI4&EVENT_RSPDO1&EVENT_RSPDO2" ;
+        var szReturn = top.doRequest(szSystem) ;
+		
+        szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+                case 'EVENT_DI1' :
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.DI1_LEVEL.value = value[0] ;
+					document.frmSetting.DI1_INTERVAL.value = value[1] ;
+					break;
+            
+				case 'EVENT_DI2' :
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.DI2_LEVEL.value = value[0] ;
+					document.frmSetting.DI2_INTERVAL.value = value[1] ;
+					break;
+					
+				case 'EVENT_DI3' :
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.DI3_LEVEL.value = value[0] ;
+					document.frmSetting.DI3_INTERVAL.value = value[1] ;
+					break;
+					
+				case 'EVENT_DI4' :
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.DI4_LEVEL.value = value[0] ;
+					document.frmSetting.DI4_INTERVAL.value = value[1] ;
+					break;	
+					
+				case 'EVENT_RSPDO1' :
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.DO1_LEVEL.value = value[0] ;
+					document.frmSetting.DO1_INTERVAL.value = value[1] ;
+					break;
+					
+				case 'EVENT_RSPDO2' :
+					var value = szTmp[1].split(',') ;
+					document.frmSetting.DO2_LEVEL.value = value[0] ;
+					document.frmSetting.DO2_INTERVAL.value = value[1] ;
+					break;
+            }
+        }
+		
+	}
+	
+	function event_config_digital_update_language()
+	{
+		try { SETTING_EVENT_CONFIGURATOR_PORT_2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_PORT") ; } catch(e) {}
+		try { SETTING_EVENT_CONFIGURATOR_ACTIVE_LEVEL_2.innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_ACTIVE_LEVEL") ; } catch(e) {}
+		try { err_message = top.GetXmlLangTagByName("EVENT_ERROR_MESSAGE") ; } catch(e) {}
+		top.update_language(this);
+	}
+	
+	function Page_onLoad()
+	{		
+		event_config_digital_update_language();		
+		doGetSetting();
+		
+		if(top.IsIE() == false)		
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;					
+		else
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

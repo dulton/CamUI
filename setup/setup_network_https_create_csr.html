@@ -1,0 +1,237 @@
+﻿<html>
+
+<head>   
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<div style="height:640px;overflow:auto">	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<table  class="setup_item" width="100%" border="0">
+						<tr>
+							<td width="95%" align="center">
+								<label id="SETTING_HTTPS_CREATE_CSR">Create Certificate Signing Request</label>
+							</td>
+							<td width="5%" align="right">
+								<img type="button" src="../images/cross.png" onclick="parent.Close();" style="cursor:pointer;border:2px solid #dedede" title="Close">
+							</td>
+						</tr>	
+					</table>
+				</td>					
+				<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>	
+				<tr>
+					<td>						
+						<table border="0" cellspacing="5" cellpadding="2" width="100%">
+				            <tr>
+								<td align="right" width="30%">
+						            <label id="SETTING_HTTPS_COUNTRY">Country</label>
+					            </td>
+								<td align="left">
+						            <input type="text" id="COUNTRY" value="" size="2" maxlength="2">								
+					            </td>
+								<td>
+									<label id="SETTING_HTTPS_COUNTRY_DISCRIPTION">Use the two-letter code without punctuation for country, for examp: US or CA.Refer to</label>
+									<a href="http://en.wikipedia.org/wiki/ISO_3166-2" target="_blank" style="font-size:12px">ISO 3166-1</a>
+								</td>
+				            </tr>
+							<tr>
+								<td align="right"  valign="top">
+						            <label id="SETTING_HTTPS_STATE_PROVINCE">State or Province </label>
+					            </td>
+								<td align="left"  colspan="2">
+						            <input type="text" id="STATE" value="" size="40" maxlength="40"></br>
+									<label id="SETTING_HTTPS_STATE_PROVINCE_DISCRIPTION" >do not abbreviate the state or province name, for example: California is for CA.</label>
+					            </td>
+							</tr>
+							<tr>
+								<td align="right"  valign="top">
+						            <label id="SETTING_HTTPS_LOCALITY_CITY">Locality or City </label>
+					            </td>
+								<td align="left"  colspan="2">
+						            <input type="text" id="CITY" value="" size="40" maxlength="40"></br>
+									<label id="SETTING_HTTPS_LOCALITY_CITY_DISCRIPTION">do not abbreviate the city or town name, for example: Saint Louis is for St. Louis.</label>
+					            </td>
+							</tr>
+							
+							<tr>
+								<td align="right"  valign="top">
+						            <label id="SETTING_HTTPS_COMPANY">Company</label>
+					            </td>
+								<td align="left"  colspan="2">
+						            <input type="text"  id="COMPANY" value="" size="40" maxlength="40"></br>
+									<label id="SETTING_HTTPS_COMPANY_DISCRIPTION">Comapny Name,only 0~9,a~z and A~Z are allowed</label>
+					            </td>
+							</tr>
+							
+							<tr>
+								<td align="right"  valign="top">
+						            <label id="SETTING_HTTPS_ORGANIZATION">Organizational Unit</label>
+					            </td>
+								<td align="left"  colspan="2">
+						            <input type="text"  id="DIVISION" value="" size="40" maxlength="40"></br>
+									<label id="SETTING_HTTPS_ORGANIZATION_DISCRIPTION">The name of the department or orgaziation unit making the request,0~9,a~z and A~Z are allowed</label>
+					            </td>
+							</tr>
+							
+							<tr>
+								<td align="right"  valign="top">
+						            <label id="SETTING_HTTPS_COMMON_NAME">Common Name</label>
+					            </td>
+								<td align="left"  colspan="2">
+						            <input type="text" id="NAME" value="" size="40" maxlength="64"></br>
+									<label id="SETTING_HTTPS_COMMON_NAME_DISCRIPTION">The Host+Domain Name. It looks like "www.company.com" or "company.com".</label>
+					            </td>
+							</tr>
+							
+							<tr>
+								<td align="right"  valign="top">
+						            <label id="SETTING_HTTPS_PRIVACY_KEY_LENGTH">Privacy Key Length</label>
+					            </td>
+								<td align="left"  colspan="2">
+						            <select id="KEY_LENGTH">
+	                                    <Option value="512">512</Option>
+	                                    <Option value="1024" SELECTED>1024</Option>
+	                                    <Option value="2048">2048</Option>                                    
+	                                </select>
+									<label id="SETTING_HTTPS_BITS">bits</label>
+					            </td>
+							</tr>
+							<tr>
+								<td colspan="3" valign="middle" height="46" align="center">
+									<input class="button2" type="button" id="SETTING_HTTPS_CREATE" name="SETTING_HTTPS_CREATE" value="Create" onclick="doSubmits();"/> 									
+								</td>
+							</tr>							   																	   
+						</table>
+						<table>
+							<div id="divError" style="display:none">
+								<label id="COMMON_MSG_SET_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+							</div>	
+						</table>	
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	var err_message = 'Error. Invalid settings.' ;
+	function CheckDistinguishName(id)
+	{
+		var pattern2 = /^([0-9a-zA-Z. \-_]*)$/
+		var pattern3 = /[^-_ ]$/;
+		if(idget(id).value == "")		
+			return false;
+		else
+		{
+			if(pattern2.test(idget(id).value) == true)
+			{
+				if(pattern3.test(idget(id).value) == false)
+					return false
+			}
+			else
+				return false;
+			
+		}
+		return true;
+	}
+	
+	function CheckCommonName(id)
+	{
+		var pattern2 = /^([0-9a-zA-Z.\*\-_]*)$/
+		var pattern3 = /[^-_\*]$/
+		if(idget(id).value == "")		
+			return false;
+		else
+		{
+			if(pattern2.test(idget(id).value) == true)
+			{
+				if(pattern3.test(idget(id).value) == false)
+					return false
+			}
+			else
+				return false;
+			
+		}
+		return true;
+	
+	}
+
+	function ValueDomainCheck()
+	{
+		var pattern = /^([a-zA-Z]*)$/;
+		var DistiguishName = new Array("STATE","CITY","COMPANY","DIVISION");
+		var i;
+		
+		if(idget("COUNTRY").value == "")		
+			return false;		
+		else
+		{
+			if(pattern.test(idget("COUNTRY").value) != true)
+				return false;			
+		}	
+		
+		for(i=0; i<4; i++)
+		{
+			if(CheckDistinguishName(DistiguishName[i]) == false)
+				return false;
+		}
+		
+		if(CheckCommonName("NAME") == false)
+			return false;
+			
+		return true;
+	}
+		
+    function doSubmits() {
+	
+		if(ValueDomainCheck() == false )
+		{
+			alert(err_message);
+			return;
+		}
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&HTTPS_CSR_CREATE="  ;
+		szSystem += idget("COUNTRY").value + ",";
+		szSystem += idget("STATE").value + ",";
+		szSystem += idget("CITY").value + ",";
+		szSystem += idget("COMPANY").value + ",";
+		szSystem += idget("DIVISION").value + ",";
+		szSystem += idget("NAME").value + ",";
+		szSystem += idget("KEY_LENGTH").value  ;
+		var szReturn =  top.doRequest(szSystem) ;	
+		if(szReturn.indexOf('ERROR')> -1)
+		{
+			alert(err_message);			
+			return;
+		}			
+		parent.doGetSetting();						
+		parent.Close();
+
+    }	
+	
+	
+	function Page_onLoad()
+	{		
+		try { err_message = top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+		top.update_language(this);
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

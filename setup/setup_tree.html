@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<style type="text/css">
+	.off_grayout{
+		COLOR: #9b9b9b !important;	
+		/*background-color:#9b9b9b !important;*/		
+	}
+	</style>	
+</head>
+
+<body id="SetupTreeMainBody" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+
+<div  class="setup_tree_bg_color">
+</div>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	var HTML="";
+	var SelectedItem = "TR_MENU_HOST";
+	
+	function draw_menu_L0(L0Obj,flag)
+	{
+		
+		var HtmlCode=""
+		if(flag == 0)
+			HtmlCode+='<tr id=TR_'+ L0Obj.id + '>';
+		else
+			HtmlCode+='<tr id=TR_'+ L0Obj.id + ' style=display:none >';
+		HtmlCode+='		<td align="right">';
+		HtmlCode+='			<img border="0" src="../images/space.gif"  />';
+		HtmlCode+="		</td>";			
+		HtmlCode+='		<td valign="top" align="left" class='+ L0Obj.MYClass +'>';		
+		HtmlCode+='			<label style="font-size:12px" id=' + L0Obj.id + '>' +  L0Obj.name + '</label>';
+		HtmlCode+='		</td>';
+		HtmlCode+='</tr>';
+		return HtmlCode;
+	
+	}
+		
+	function draw_menu_L1(L1Obj)
+	{
+		var i = 0;
+		var HtmlCode=""
+		HtmlCode+='<tr id=TR_'+  L1Obj.id + ' class="off">';
+		HtmlCode+='		<td align="right">';;
+		HtmlCode+='			<img  id=PLUS_'  +L1Obj.id + ' border="0" src="../images/plus.gif"  />';
+		HtmlCode+="		</td>";			
+		HtmlCode+='		<td valign="top" align="left" class='+ L1Obj.MYClass +'>';		
+		HtmlCode+='			<label style="font-size:12px" id=' + L1Obj.id + '>' +  L1Obj.name + '</label>';
+		HtmlCode+='		</td>';
+		HtmlCode+='</tr>';
+		while(L1Obj.contain[i].name!='END'){
+			HtmlCode+=draw_menu_L0(L1Obj.contain[i],1);
+			i++;
+		}
+		
+		return HtmlCode;
+	
+	}
+	
+	function draw_menu_tree()
+	{
+		var HtmlRet="";
+		var i = 0;
+		HtmlRet='<table border="0" cellspacing="0" cellpadding="0" width="100%" >\n'
+				
+		while(MenuObj[i].level != -1)
+		{
+			if(MenuObj[i].level == 0)
+				HtmlRet += draw_menu_L0(MenuObj[i],0)
+			else if(MenuObj[i].level == 1)	
+				HtmlRet += draw_menu_L1(MenuObj[i])
+			i++;
+		}
+		
+		
+		HtmlRet+='</table>'
+		return HtmlRet;
+	}
+
+/*			{name:'UPnP™',id:'MENU_NETWORK_UPnP',MYClass:'off',src:'setup_network_UPnP.html'},\
+			{name:'Bonjour',id:'MENU_NETWORK_BONJOUR',MYClass:'off',src:'setup_network_Bonj.html'},\
+			{name:'Speed & Duplex',id:'MENU_NETWORK_LINK_SPEED',MYClass:'off',src:'setup_network_link-speed.html'},\
+			*/
+	var Menu_Json_Admin="[\
+		{level:0,name:'Host',id:'MENU_HOST',MYClass:'off',src:'setup_host.html'},\
+		{level:0,name:'Date & Time',id:'MENU_HOST_DATE_TIME',MYClass:'off',src:'setup_datetime.html'},\
+		{level:1,name:'Network',id:'MENU_NETWORK',open:0,contain:[\
+			{name:'IP Address Filtering',id:'MENU_NETWORK_IP_FILTER',MYClass:'off',src:'setup_network_ip_filter.html'},\
+			{name:'Port Mapping',id:'MENU_NETWORK_PORT_MAPPING',MYClass:'off',src:'setup_network_port-mapping.html'},\
+			{name:'HTTPS',id:'MENU_NETWORK_HTTPS',MYClass:'off',src:'setup_network_https.html'},\
+			{name:'IEEE 802.1X',id:'MENU_NETWORK_8021X',MYClass:'off',src:'setup_network_8021x.html'},\
+			{name:'SNMP Setting',id:'MENU_NETWORK_SNMP',MYClass:'off',src:'setup_network_SNMP.html'},\
+			{name:'RTP',id:'MENU_NETWORK_RTP',MYClass:'off',src:'setup_network_RTP.html'},\
+			{name:'Network',id:'MENU_NETWORK2',MYClass:'off',src:'setup_network_tos.html'},\
+			{name:'GB28181',id:'MENU_NETWORK_GB28181',MYClass:'off',src:'setup_network_GB28181.html'},\
+			{name:'END'}\
+			]},\
+			{level:1,name:'IP Settings',id:'MENU_IP_SETTINGS',open:0,contain:[\
+			{name:'Connection Type',id:'MENU_NETWORK_CONNECTION_TYPE',MYClass:'off',src:'setup_network_connection-type.html'},\
+			{name:'DNS',id:'MENU_NETWORK_DNS',MYClass:'off',src:'setup_network_dns.html'},\
+			{name:'DDNS & P2P',id:'MENU_NETWORK_DDNS',MYClass:'off',src:'setup_network_ddns.html'},\
+			{name:'END'}\
+			]},\
+			{level:1,name:'Video & Audio',id:'MENU_VIDEO_AND_AUDIO',open:0,contain:[\
+			{name:'Camera Option',id:'SETTING_VIDEO_FISHEYE_OPTION',MYClass:'off',src:'setup_video_option.html'},\
+			{name:'Camera Calibration',id:'SETTING_VIDEO_CAMERA_CALIBRATION',MYClass:'off',src:'setup_video_calibration.html'},\
+			{name:'Video',id:'MENU_VIDEO_AND_AUDIO_ADVANCE',MYClass:'off',src:'setup_video.html'},\
+			{name:'Audio',id:'MENU_VIDEO_AUDIO',MYClass:'off',src:'setup_video_audio.html'},\
+			{name:'END'}\
+			]},\
+			{level:1,name:'Event',id:'MENU_EVENT',open:0,contain:[\
+			{name:'Event Server',id:'MENU_EVENT_SERVER',MYClass:'off',src:'setup_event_server.html'},\
+			{name:'Event Configuration',id:'MENU_EVENT_CONFIGURATOR',MYClass:'off',src:'setup_event_configurator.html'},\
+			{name:'Event List',id:'MENU_EVENT_LIST',MYClass:'off',src:'setup_event_list.html'},\
+			{name:'Manual Event',id:'MENU_EVENT_MANUAL',MYClass:'off',src:'setup_event_manual.html'},\
+			{name:'END'}\
+			]},\
+			{level:1,name:'Local Storage',id:'MENU_STORAGE',open:0,contain:[\
+			{name:'Status',id:'MENU_STORAGE_STATUS',MYClass:'off',src:'setup_storage_status.html'},\
+			{name:'Utilities',id:'MENU_STORAGE_UTILITIES',MYClass:'off',src:'setup_storage_utilities.html'},\
+			{name:'File Management',id:'MENU_STORAGE_FILELIST',MYClass:'off',src:'setup_storage_v2.html'},\
+			{name:'END'}\
+			]},\
+			{level:1,name:'System',id:'MENU_SYSTEM',open:0,contain:[\
+			{name:'User Account',id:'MENU_USER_SETTING',MYClass:'off',src:'setup_user_user-account.html'},\
+			{name:'System Info',id:'MENU_MAINTAIN_SYSTEM_INFO',MYClass:'off',src:'setup_maintain_system-info.html'},\
+			{name:'Factory Default',id:'MENU_MAINTAIN_FACTORY_DEFAULT',MYClass:'off',src:'setup_maintain_firmware-default.html'},\
+			{name:'Firmware Upload',id:'MENU_MAINTAIN_FIRMWARE_UPGRADE',MYClass:'off',src:'setup_maintain_firmware-upgrade.html'},\
+			{name:'Save & Reboot',id:'MENU_MAINTAIN_SAVE_AND_REBOOT',MYClass:'off',src:'setup_maintain_save-reboot.html'},\
+			{name:'END'}\
+			]},\
+		{level:0,name:'Logout',id:'MENU_MAINTAIN_LOGOUT',MYClass:'off'},\
+		{level:-1}\
+		]";
+/*
+			{name:'IP Address Filtering',id:'MENU_NETWORK_IP_FILTER',MYClass:'off',src:'setup_network_ip_filter.html'},\		
+			{name:'SNMP Setting',id:'MENU_NETWORK_SNMP',MYClass:'off',src:'setup_network_SNMP.html'},\*/
+/*{name:'IEEE 802.1X',id:'MENU_NETWORK_8021X',MYClass:'off',src:'setup_network_8021x.html'},\*/
+/*
+			{name:'OSD/Privacy Mask',id:'MENU_VIDEO_AND_AUDIO_PRIVACE_MASK',MYClass:'off',src:'setup_video_osd_privacymask.html'},\
+			
+			{level:1,name:'Event',id:'MENU_EVENT',open:0,contain:[\
+			{name:'Event Server',id:'MENU_EVENT_SERVER',MYClass:'off',src:'setup_event_server.html'},\
+			{name:'Event Configuration',id:'MENU_EVENT_CONFIGURATOR',MYClass:'off',src:'setup_event_configurator.html'},\
+			{name:'Event List',id:'MENU_EVENT_LIST',MYClass:'off',src:'setup_event_list.html'},\
+			{name:'Manual Event',id:'MENU_EVENT_MANUAL',MYClass:'off',src:'setup_event_manual.html'},\
+			{name:'END'}\
+			]},\		
+	*/	
+	var MenuObj = eval(Menu_Json_Admin);
+
+	
+	function onLoad()
+	{
+		HTML = draw_menu_tree();
+		document.write(HTML);
+			
+		SetupMouseAction();
+		top.update_language(this);
+		try { idget("MENU_NETWORK2").innerHTML          = top.GetXmlLangTagByName("MENU_NETWORK");  } catch(e) {}
+		
+		toDetectLocalStorage();
+		
+		if(top.gHIGH_FRAME_MODE_CAP != "None")
+		{
+			szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&SYSTEM_INFO";
+			szReturn = doRequest(szSystem) ;
+			szReturn=szReturn.split('\n') ;
+			for(i=0; i<szReturn.length; i++){
+				r=doSplitValue( szReturn[i] ) ;
+				switch(r[0]){
+				case "HIGH_FRAME_MODE_CAP":
+						top.gHIGH_FRAME_MODE_CAP = r[1].slice(1);
+						if(top.gHIGH_FRAME_MODE_CAP != "None") { 
+							top.gHIGH_FRAME_MODE_CAP = "OFF," +top.gHIGH_FRAME_MODE_CAP;						
+						}	
+						break;	
+				}
+			}
+			if(top.gHIGH_FRAME_MODE_CAP == "")
+				top.gHIGH_FRAME_MODE_CAP = "None";
+		}
+		
+		/*if(top.gHIGH_FRAME_MODE_CAP != "None")
+		{
+			MenuObj[4].contain[0].disable=0;
+			//document.getElementById("TR_SETTING_VIDEO_FISHEYE_OPTION").style.display="";
+		}
+		
+		if( top.gUnitType !=  "Hemispheric Camera")
+		{
+			MenuObj[4].contain[0].disable=1;
+			//document.getElementById("TR_SETTING_VIDEO_FISHEYE_OPTION").style.display="none";
+		}*/
+
+		if(top.gIspGeneration == "A1_ISP")
+		{
+			if(top.IsIE() == true && top.gUnitType ==  "Hemispheric Camera")
+			{
+				MenuObj[4].contain[1].disable=0;
+			}	
+			else
+			{
+				MenuObj[4].contain[1].disable=1;
+			}		
+		}	
+		else
+			MenuObj[4].contain[1].disable=1;
+		
+		if(top.gAudioType == 0)
+		{
+			try { idget("MENU_VIDEO_AND_AUDIO").innerHTML          = top.GetXmlLangTagByName("MENU_VIDEO_AND_AUDIO_ADVANCE");  } catch(e) {}
+			MenuObj[4].contain[3].disable=1;
+			document.getElementById("MENU_VIDEO_AUDIO").style.display="none";
+		}		
+	}
+	
+	function MenuMouseOver(){				
+		idget(this.id).cells[1].className = "on";	
+	}	
+	
+	function MenuMouseOut(){			
+		idget(this.id).cells[1].className = "off";	
+	}	
+	
+	function MenuOpen(Obj)
+	{
+		//alert("open");
+		
+		var j = 0;
+		idget("PLUS_"+Obj.id).src="../images/minus.gif";
+		while(Obj.contain[j].name!="END")
+		{				
+			if(Obj.contain[j].disable != 1)
+			{
+				idget("TR_"+ Obj.contain[j].id).style.display='';	
+			}	
+			j++;
+		}				
+	}
+	
+	function MenuClose(Obj)
+	{
+		//alert("close");
+		var j = 0;
+		idget("PLUS_"+Obj.id).src="../images/plus.gif";
+		while(Obj.contain[j].name!="END")
+		{					
+			idget("TR_"+ Obj.contain[j].id).style.display='none';	
+			j++;
+		}				
+	}
+	//------------------------------------------------------------------------	
+	function LogOutAction(){
+		top.gAccount="";
+		top.gPwd="";
+		top.gUserLevel=-1;
+		top.window.open("/","_self", "", true);
+	}
+//------------------------------------------------------------------------	
+	function SetupLogOutAction(){		
+		idget("TR_MENU_MAINTAIN_LOGOUT").onclick=LogOutAction;
+	}
+	
+	function L1MenuSelect(){	
+		
+	//	if(SelectedItem == this.id)
+		//	return;
+		SelectedItem = this.id;
+								
+		if(MenuObj[idget(SelectedItem).idx].open == 0)
+		{
+			MenuObj[idget(SelectedItem).idx].open = 1;
+			MenuOpen(MenuObj[idget(SelectedItem).idx]);
+		}
+		else
+		{
+			MenuObj[idget(SelectedItem).idx].open = 0;
+			MenuClose(MenuObj[idget(SelectedItem).idx]);
+		}
+		
+		//SelectedItem = this.id;
+		
+	}	
+	
+	function L0OpenHtml()
+	{
+		SelectedItem = this.id;	
+		if(MenuObj[idget(SelectedItem).idx].level == 0)
+			parent.document.getElementById("setup_content").src=MenuObj[idget(SelectedItem).idx].src;
+		else	
+			parent.document.getElementById("setup_content").src=MenuObj[idget(SelectedItem).idx].contain[idget(SelectedItem).sub_idx].src;
+	}
+	
+	function SetupMouseAction()
+	{
+		var i = 0;
+		var j = 0;
+		while(MenuObj[i].level != -1)
+		{	
+			idget("TR_"+ MenuObj[i].id).idx = i;
+			idget("TR_"+ MenuObj[i].id).onmouseover = MenuMouseOver;
+			idget("TR_"+ MenuObj[i].id).onmouseout = MenuMouseOut;		
+			
+			if(MenuObj[i].level == 0)
+			{
+				idget("TR_"+ MenuObj[i].id).onclick = L0OpenHtml;
+				idget("TR_"+MenuObj[i].id).disabled="";
+				//idget("TR_"+MenuObj[i].id).className="off";
+				idget(MenuObj[i].id).className="off";
+			}	
+			if(MenuObj[i].level == 1)
+			{
+				j = 0;
+				idget("TR_"+ MenuObj[i].id).onclick = L1MenuSelect;
+				while(MenuObj[i].contain[j].name!="END")
+				{
+					idget("TR_"+ MenuObj[i].contain[j].id).idx = i;
+					idget("TR_"+ MenuObj[i].contain[j].id).sub_idx = j;
+					idget("TR_"+ MenuObj[i].contain[j].id).onmouseover = MenuMouseOver;
+					idget("TR_"+ MenuObj[i].contain[j].id).onmouseout = MenuMouseOut;
+					idget("TR_"+ MenuObj[i].contain[j].id).onclick = L0OpenHtml;
+					idget("TR_"+MenuObj[i].contain[j].id).disabled="";	
+					//idget("TR_"+MenuObj[i].id).className="off";
+					idget(MenuObj[i].contain[j].id).className="off";
+					j++;
+				}								
+			}
+			i++;			
+		}
+		SetupLogOutAction();
+	}
+
+//------------------------------------------------------------------------	
+	function DisableMouseAction(){
+		var i=0;
+		var j=0;
+		while(MenuObj[i].level!=-1){
+			idget("TR_"+MenuObj[i].id).group=i;
+			idget("TR_"+MenuObj[i].id).onmouseover=MenuMouseOver;
+			idget("TR_"+MenuObj[i].id).onmouseout=MenuMouseOut;
+			if(MenuObj[i].level==1){
+				idget("TR_"+MenuObj[i].id).onclick=L1MenuSelect;
+			}else{
+				idget("TR_"+MenuObj[i].id).onclick="";
+				idget("TR_"+MenuObj[i].id).disabled=true;
+				//idget("TR_"+MenuObj[i].id).className="off off_grayout";
+				idget(MenuObj[i].id).className="off off_grayout";
+			}
+			if(MenuObj[i].level==1){
+				j=0;
+				while(MenuObj[i].contain[j].name!="END"){
+					idget("TR_"+MenuObj[i].contain[j].id).group=i;
+					idget("TR_"+MenuObj[i].contain[j].id).index=j;
+					idget("TR_"+MenuObj[i].contain[j].id).onmouseover=MenuMouseOver;
+					idget("TR_"+MenuObj[i].contain[j].id).onmouseout=MenuMouseOut;
+					idget("TR_"+MenuObj[i].contain[j].id).onclick="";
+				    idget("TR_"+MenuObj[i].contain[j].id).disabled=true;
+					idget(MenuObj[i].contain[j].id).className="off off_grayout";
+					j++;
+				}
+			}
+			i++;
+		}
+	}
+
+
+	function toDetectDiskInfo ()
+	{		
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+        szSystem += "DISK_INFO" ;
+        var szReturn = top.doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+
+		for (var i = 0; i < szReturn.length; i++) {
+			szTmp = top.doSplitValue( szReturn[i] ) ;
+			
+			switch ( szTmp[0] ) {
+			case 'DISK_INFO' :
+				/* Disable FileList function when disk is unmounted */
+				szConfig = szTmp[1].split(',') ;
+				var State = szConfig[0];
+				switch (parseInt(State)) {
+				case 0: /* NOT accessible */
+					idget("TR_MENU_STORAGE_FILELIST").disabled = true;
+					idget("MENU_STORAGE_FILELIST").className="off off_grayout";
+					idget("TR_MENU_STORAGE_FILELIST").onclick = "";	
+					break;
+				case 1: /* Accessible */
+					TR_MENU_STORAGE_UTILITIES.disabled = "";
+					TR_MENU_STORAGE_FILELIST.disabled = "";
+					idget("MENU_STORAGE_FILELIST").className="off";
+					idget("TR_MENU_STORAGE_FILELIST").onclick = L0OpenHtml;
+					break;
+				case 2: /* Firmware busy for database synchronization */				
+					TR_MENU_STORAGE_UTILITIES.disabled = true;
+					TR_MENU_STORAGE_FILELIST.disabled = true;
+					idget("MENU_STORAGE_FILELIST").className="off off_grayout";
+					idget("TR_MENU_STORAGE_FILELIST").onclick = "";
+					break;
+				}
+				break;
+
+			}
+		}
+	}	
+
+	function toDetectLocalStorage ()
+	{		
+		var disk_status;
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+        szSystem += "DISK_STATUS" ;
+        var szReturn = top.doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+
+		for (var i = 0; i < szReturn.length; i++) {
+			szTmp = top.doSplitValue( szReturn[i] ) ;
+			
+			switch ( szTmp[0] ) {
+			case 'DISK_STATUS' :
+				disk_status = szTmp[1];				
+				break;
+
+			}
+		}	
+
+		if (top.gStorage == "None" || disk_status == 0) {
+			document.getElementById("TR_MENU_STORAGE").style.display="none";
+			document.getElementById("TR_MENU_STORAGE_STATUS").style.display="none";
+			document.getElementById("TR_MENU_STORAGE_UTILITIES").style.display="none";
+			//document.getElementById("TR_LIVEVIEW_SETUP").style.display="none";
+			document.getElementById("TR_MENU_STORAGE_FILELIST").style.display="none";
+			
+		} else {
+			/* Decide to disable FileList or not */
+			toDetectDiskInfo ();
+		}
+	}
+	onLoad();
+	//top.update_language(this);
+	//frame_extent();
+
+
+	/*var HTML="<h2>setup123123</h2>"
+	document.write(HTML);*/
+	frame_extent();
+	
+
+</Script>

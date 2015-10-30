@@ -1,0 +1,314 @@
+<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="MENU_NETWORK_HTTPS">HTTPS*</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td align="center" >
+					<table border="0" width="90%">
+						<tr>
+							<td align="left">
+								<label id="SETTING_HTTPS_CSR_MANAGEMENT">Certificate Signing Request(CSR) Management<label>
+							</td>
+						</tr>
+							
+					</table>
+					<table border="0" cellspacing="0" cellpadding="0" width="85%" class="event_server_table_style table_th">
+						<tr>
+                            <th align="left"><label id="SETTING_HTTPS_COMMON_NAME">Common Name</label></th>                            
+			            </tr>
+						<tr>			                
+			                <td align="center">
+								<input type="text"  id="CSR_NAME" maxlength="31" size="64" />
+							</td>			               
+    		            </tr>										
+                    </table>
+					<table>
+						<tr>
+							<td>
+								<input class="button2" type="button" id="BUTTON_CSR_PROPERTY" value="Properties" onclick="HttpsClick('CSR_PROP');" />
+							</td>
+							<td>
+								<input class="button2" type="button" id="BUTTON_CSR_REMOVE" value="Remove" onclick="CSR_Remove();"  />
+							</td>
+							<td>
+								<input class="button2" type="button" id="BUTTON_CSR_CREATE" value="Create" onclick="HttpsClick('CSR_CREATE'); " />
+							</td>
+						</tr>
+					</table>					
+					<table border="0" width="85%">
+						<tr>
+							<td colspan="3" valign="top"><div style="border-bottom:1px dashed #999999;height:1px;"></div><div style="height:1px;"></div></td>
+						</tr>
+					</table>
+					<table border="0" width="90%">
+						<tr>
+							<td align="left">
+								<label id="SETTING_HTTPS_CER_MANAGEMENT">Certificate Management<label>
+							</td>
+						</tr>
+					</table>
+					<table border="0" cellspacing="0" cellpadding="0" width="85%" class="event_server_table_style table_th">
+						<tr>
+                            <th align="left"><label id="SETTING_HTTPS_COMMON_NAME2">Common Name</label></th>                            
+			            </tr>
+						<tr>			                
+			                <td align="center">
+								<input type="text" id="CER_NAME"  maxlength="31" size="64" />
+							</td>			               
+    		            </tr>										
+                    </table>
+					<table border="0">
+						<tr>
+							<td id="TD_CER_PROPERTY">
+								<input class="button2" type="button" id="BUTTON_CER_PROPERTY" value="Properties" onclick="HttpsClick('CER_PROP');" />
+							</td>
+							<td id="TD_CER_REMOVE">
+								<input class="button2" type="button" id="BUTTON_CER_REMOVE" value="Remove" onclick="CER_Remove();"  />
+							</td>
+							<td>
+								<input class="button2" style="width:150px" type="button" id="BUTTON_CER_INSTALL" value="Install Signed Certificate" onclick="HttpsClick('CER_INSTALL'); " />
+							</td>
+						</tr>
+						<tr >							
+								<td colspan="3">
+									<input   class="button2" type="button" style="width:200px" id="BUTTON_SELF_SIGNED_CER" value="Create Self-Signed Certificate" onclick="HttpsClick('SELF_SIGN_CER');" />
+								</td>							
+						</tr>
+						
+					</table>				
+					<table>
+						<div id="divError" style="display:none">
+							<label id="SETTING_HTTPS_CER_FILE_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+						</div>	
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>				
+			
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+	<div id="https" style="position:absolute;top:0px;left:0px; width:755px;height:100%;display:none" >			
+			<iframe width="100%" height="100%"  id="https_setup_page" frameborder="0" scrolling="no"></iframe>		
+	</div>	
+	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+
+	function Close()
+	{
+		idget("https").style.display="none";
+	}
+	
+	function HttpsClick(type)
+	{		
+		var alert1 = 'Warning! All HTTPs files will be removed after creating a CSR file.';
+		var alert2 = 'Do you want to create a CSR file?';
+		
+		try { alert1             	= top.GetXmlLangTagByName("SETTING_HTTPS_CREATE_CSR_WARNING_1"); } catch(e) {}
+		try { alert2             	= top.GetXmlLangTagByName("SETTING_HTTPS_CREATE_CSR_WARNING_2"); } catch(e) {}
+		alert1 = alert1 + "\n" + alert2;
+		
+		if(type == 'CSR_CREATE')
+		{
+			if(idget("CSR_NAME").value != '' || idget("CER_NAME").value != '')
+			{
+				if(!confirm(alert1))
+					return false;
+			}		
+		
+		}	
+	
+		idget("https").style.display="";			
+		switch ( type ) {
+			case 'CSR_PROP' :				
+				idget("https_setup_page").src = 'setup_network_https_csr_prop.html';																				
+				break;
+				
+			case 'CSR_CREATE' :
+				idget("https_setup_page").src = 'setup_network_https_create_csr.html';														
+				break;
+				
+			case 'SELF_SIGN_CER' :
+				
+				idget("https_setup_page").src = 'setup_network_https_create_selfsigned_cer.html';										
+				break;
+				
+			case 'CER_PROP' :
+				
+				idget("https_setup_page").src = 'setup_network_https_cer_prop.html';										
+				break;
+			case 'CER_INSTALL' :
+				
+				idget("https_setup_page").src = 'setup_network_https_cer_install.html';										
+				break;	
+		}		
+		
+	}
+
+	function clean_remove_button()
+	{
+		idget("BUTTON_CSR_REMOVE").disabled = false ;
+		idget("BUTTON_CER_REMOVE").disabled = false ;
+	}
+	
+	function CSR_Remove()
+	{
+		idget("BUTTON_CSR_REMOVE").disabled = true ;
+		
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&HTTPS_CSR_REMOVE";		
+		
+		var szReturn = doRequest(szSystem) ;
+		window.setTimeout("clean_remove_button();", 2000 );
+		doGetSetting();
+		
+	}
+
+	function CER_Remove()
+	{
+		idget("BUTTON_CER_REMOVE").disabled = true ;
+		
+		var szSystem = "/cgi-bin/update?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&HTTPS_CER=remove";		
+		
+		var szReturn = doRequest(szSystem) ;
+		if(location.protocol == "https:")
+		{			
+			var tmp = "http://" + location.hostname + ":"+top.gHttpPort;				
+			top.window.location.reload(tmp);
+		}		
+		window.setTimeout("clean_remove_button();", 2000 );
+		doGetSetting();
+		
+	}
+
+	
+	function doGetSetting()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		szSystem+="HTTPS_CSR_NAME&";
+		szSystem+="HTTPS_CER_NAME";
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		var errflag = 0;
+		var err = 'Error. Invalid certificate file';
+				
+		try { err = top.GetXmlLangTagByName("SETTING_HTTPS_CER_FILE_ERR"); } catch(e) {}
+		
+		
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case "HTTPS_CSR_NAME":
+					idget("CSR_NAME").value=szTmp[1];
+					if(idget("CSR_NAME").value == '')
+					{
+						idget("BUTTON_CSR_PROPERTY").style.display = "none";
+						idget("BUTTON_CSR_REMOVE").style.display = "none";
+						//idget("BUTTON_CER_INSTALL").style.display = "none";
+						//idget("BUTTON_SELF_SIGNED_CER").style.display = "";
+						idget("BUTTON_CSR_CREATE").style.display = "";
+					}
+					else
+					{
+						idget("BUTTON_CSR_PROPERTY").style.display = "";
+						idget("BUTTON_CSR_REMOVE").style.display = "";
+						//idget("BUTTON_SELF_SIGNED_CER").style.display = "none";
+						//idget("BUTTON_CER_INSTALL").style.display = "";
+						idget("BUTTON_CSR_CREATE").style.display = "none";
+					}
+					break;
+				case "HTTPS_CER_NAME":										
+					idget("CER_NAME").value = szTmp[1];
+					if(szTmp[1].indexOf('ERROR') > -1)	
+					{	
+						errflag = 1;
+						idget("CER_NAME").value = '';
+					}	
+						
+					
+					if(idget("CER_NAME").value == '' )
+					{
+						idget("TD_CER_PROPERTY").style.display = "none";
+						idget("TD_CER_REMOVE").style.display = "none";
+						
+						if(idget("CSR_NAME").value == '')
+						{
+							idget("BUTTON_CER_INSTALL").style.display = "none";
+							idget("BUTTON_SELF_SIGNED_CER").style.display = "";
+						}	
+						else	
+						{
+							idget("BUTTON_CER_INSTALL").style.display = "";
+							idget("BUTTON_SELF_SIGNED_CER").style.display = "none";
+						}
+						if(errflag == 1)	
+							alert(err);
+					}
+					else
+					{
+						idget("TD_CER_PROPERTY").style.display = "";
+						idget("TD_CER_REMOVE").style.display = "";
+						idget("BUTTON_CER_INSTALL").style.display = "none";
+						idget("BUTTON_SELF_SIGNED_CER").style.display = "none";
+					
+					}
+					break;
+			}
+		}
+		
+	}
+	
+	function https_update_langauge()
+	{
+		try { idget("BUTTON_CSR_CREATE").value             	= top.GetXmlLangTagByName("SETTING_HTTPS_CREATE"); } catch(e) {}
+		try { idget("BUTTON_CSR_PROPERTY").value             	= top.GetXmlLangTagByName("SETTING_HTTPS_PROPERTIES"); } catch(e) {}
+		try { idget("BUTTON_CSR_REMOVE").value             	= top.GetXmlLangTagByName("BUTTON_REMOVE"); } catch(e) {}	
+		try { idget("SETTING_HTTPS_COMMON_NAME2").innerHTML             	= top.GetXmlLangTagByName("SETTING_HTTPS_COMMON_NAME"); } catch(e) {}
+		try { idget("BUTTON_SELF_SIGNED_CER").value             	= top.GetXmlLangTagByName("SETTING_HTTPS_CREATE_SELFSIGNED_CER"); } catch(e) {}
+		try { idget("BUTTON_CER_INSTALL").value             	= top.GetXmlLangTagByName("SETTING_HTTPS_INSTALL_SIGNED_CER"); } catch(e) {}
+		try { idget("BUTTON_CER_PROPERTY").value             	= top.GetXmlLangTagByName("SETTING_HTTPS_PROPERTIES"); } catch(e) {}
+		try { idget("BUTTON_CER_REMOVE").value             	= top.GetXmlLangTagByName("BUTTON_REMOVE"); } catch(e) {}	
+		top.update_language(this);
+	}
+	
+	function Page_onLoad()
+	{
+		https_update_langauge();
+		doGetSetting();
+		if(top.IsIE() == false)		
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;					
+		else			
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

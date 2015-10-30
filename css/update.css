@@ -1,0 +1,51 @@
+.titlebar
+{	
+	color:#ffffff !important;
+}
+
+div#functionbar 
+{
+	background-color:#E3E1E1 !important;	
+}
+
+.bottom_banner
+{
+	background-color:#E3E1E1 !important;	
+}
+
+.setup_item
+{
+	background-color:#BCBCBC !important;		
+	color:#000000 !important;	
+}
+
+.button2{	
+	COLOR: #000000 !important;
+	background-color:#e2e2e2 !important;
+	border-color:#989898 !important;
+}
+
+.setup_table
+{	
+	border-color:#c6c6c6 !important;
+	background-color:#f3f3f3 !important;			
+}
+
+.setup_bg
+{
+	background-color:#443322 !important;
+}
+.on
+{
+	background-color:#2f77d0 !important;	
+	color:#ffffff !important;		
+}			
+.off
+{	
+	color:#555555 !important;		
+}			
+
+.table_th th{
+	background-color:#2f77d0 !important;	
+	color:#ffffff !important;		
+}

@@ -1,0 +1,466 @@
+﻿<html>
+
+<head>   
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<style type="text/css">
+	.button2_1{	
+		COLOR: grey !important;	
+	}
+	</style>	    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="MENU_STORAGE_UTILITIES">Utilities</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table id="table_utility" border="0" align="center" width="100%">
+						<tr id="TR_MOUNT">
+							<td align="right" >
+								<label id="SETTING_UTILITY_MOUNT">Mount Storage Media</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="button" id="BUTTON_MOUNT" name="BUTTON_MOUNT" value="MOUNT" class="button2" onclick="doMount()">							
+								<img id="MountBusy" src="../images/busy.gif" style="display:none">
+							</td>
+						</tr>
+						<tr id="TR_UMOUNT">
+							<td align="right" >
+								<label id="SETTING_UTILITY_UMOUNT">Unmount Storage Media</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="button" id="BUTTON_UNMOUNT" name="BUTTON_UNMOUNT" value="UNMOUNT" class="button2" onclick="doUnmount()">							
+								<img id="UnmountBusy" src="../images/busy.gif" style="display:none">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_UTILITY_FORMAT">Format storage media</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="button" id="FORMAT" name="BUTTON_FORMAT" value="Format" class="button2" onclick="doFormat()">								
+							</td>
+                       </tr>                       			
+					   <tr>
+							<td align="right" width="50%">
+								<label id="SETTING_UTILITY_SCAN">Scan Storage Media</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<input type="button" id="SCAN" name="BUTTON_SCAN" value="Scan" class="button2" onclick="doScan()">							
+							</td>
+                       </tr>     
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>							   					   						
+						
+					</table>
+					<table id="table_format" border="0" align="center" width="100%" style="display:none">
+						<tr id="TR_FORMATING" >
+							<td align="center">
+								<label id="SETTING_STORAGE_FORMAT_WAIT_MSG">It will takes few minutes. Please DO NOT reboot or power off the device during format.</label>
+								<br>&nbsp;<br>
+								<img src='../images/upload_bar.gif' />
+							</td>
+						</tr>
+						<tr id="TR_FORMAT_LOG" style="display:none">
+							<td align="center"> 
+								<label id="SETTING_STORAGE_FORMAT_MSG">Storage media was formatted completely.</label>
+								<label id="SETTING_STORAGE_FORMAT_ERR_MSG" style="display:none">Fail to format storage media.</label>
+								<br>&nbsp;<br>
+								<a id="show_format_log" href="" onclick="ShowFormatLog();" style="cursor:pointer;"><label id="SETTING_STORAGE_SHOW_LOG">Show Log</label></a>
+								<textarea id="TEXT_FORMAT_LOG" rows="30" style="width:500px;display:none" readonly></textarea>
+								<br>&nbsp;<br>
+								<input name="BUTTON_CLOSE" class="button2" type="button" id="BUTTON_CLOSE" value="Close" onclick="CloseFormat()" />
+								
+								
+							</td>
+						</tr>
+					</table>
+					<table id="table_scan" border="0" align="center" width="100%" style="display:none">
+						<tr id="TR_SCANNING" >
+							<td align="center">
+								<label id="SETTING_STORAGE_SCAN_WAIT_MSG">It will take few minutes. Please DO NOT reboot or power off the device during scan.</label>
+								<br>&nbsp;<br>
+								<img src='../images/upload_bar.gif' />
+							</td>
+						</tr>
+						<tr id="TR_SCAN_LOG" style="display:none">
+							<td align="center"> 
+								<label id="SETTING_STORAGE_SCAN_MSG">Storage media was scanned completely.</label>
+								<label id="SETTING_STORAGE_SCAN_ERR_MSG" style="display:none">Fail to scan storage media.</label>
+								<br>&nbsp;<br>
+								<a id="show_scan_log" href="" onclick="ShowScanLog();" style="cursor:pointer;"><label id="SETTING_STORAGE_SHOW_LOG_2">Show Log</label></a>
+								<textarea id="TEXT_SCAN_LOG" rows="10" style="width:500px;display:none" readonly></textarea>
+								<br>&nbsp;<br>
+								<input name="BUTTON_CLOSE2" class="button2" type="button" id="BUTTON_CLOSE2" value="Close" onclick="CloseScan()" />
+								
+								
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<table>
+		<div id="divError" style="display:none">
+			<label id="SETTING_DISABLE_EVENTS"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_STORAGE_UNMOUNT_MSG"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_STORAGE_MOUNT_MSG"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_STORAGE_UMOUNT_ERR_MSG"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_STORAGE_MOUNT_ERR_MSG"></label>&nbsp;&nbsp;&nbsp;</br>
+		</div>	
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	function CloseScan()
+	{
+		idget("table_scan").style.display ="none";
+		idget("table_utility").style.display ="";			
+	}
+
+    function doScanBK() {
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+        szSystem = szSystem + "DISK_SCAN" ;
+		doRequestAsync (szSystem, handleScanResponse) ;
+		/* Disable FileList function when disk is scanning */
+		//window.setTimeout("parent.document.frames['setup_tree'].toDetectDiskInfo();", 4000 );
+	}
+
+	function handleScanResponse () {
+		if (request.readyState != 4) {
+			return;
+		}
+
+		if (request.status != 200) {
+			return;
+		}
+
+		var szReturn = request.responseText;
+
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+		if(szReturn[0].indexOf('storage media is busy')>-1){
+			window.setTimeout("storageBusy();", 100 );
+			CloseScan();
+			return;
+		}
+		if(szReturn[0].indexOf('ERROR')>-1){
+			nError++ ;
+			err_str = err_str + szReturn[0] + "<br>" ;
+		}
+		
+		idget("TR_SCANNING").style.display = "none";
+		idget("TR_SCAN_LOG").style.display = "";
+        if (nError > 0) {
+			idget("SETTING_STORAGE_SCAN_MSG").style.display = "none";
+			idget("SETTING_STORAGE_SCAN_ERR_MSG").style.display = "";
+		} else {
+			idget("SETTING_STORAGE_SCAN_MSG").style.display = "";
+			idget("SETTING_STORAGE_SCAN_ERR_MSG").style.display = "none";
+		}
+		//ShowScanLog();
+		parent.frames[0].SetupMouseAction();//setup tree frame
+		parent.document.frames[0].toDetectDiskInfo();
+		window.setTimeout("doGetSettings();", 500 );
+	}
+	
+	function ShowScanLog()
+	{
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+   
+        szSystem = szSystem + "DISK_SCAN_LOG" ;
+        var szReturn = top.doRequest(szSystem) ;
+		idget('TEXT_SCAN_LOG').style.display = "";
+		idget('show_scan_log').style.display = "none";		
+		idget('TEXT_SCAN_LOG').value = szReturn;
+	
+	}	
+	
+	function doScan()
+	{			
+			idget("show_scan_log").style.display = "";
+			idget("TEXT_SCAN_LOG").style.display = "none";
+			idget("table_scan").style.display ="";
+			idget("TR_SCANNING").style.display = "";
+			idget("TR_SCAN_LOG").style.display = "none";
+			idget("table_utility").style.display ="none";			
+			//parent.frames['setup_tree'].DisableMouseAction();
+			parent.frames[0].DisableMouseAction();
+			window.setTimeout("doScanBK();", 100 );			
+	}
+	
+	
+	function CloseFormat()
+	{
+		idget("table_format").style.display ="none";
+		idget("table_utility").style.display ="";	
+		parent.document.frames[0].SetupMouseAction();
+			doGetSettings();
+			parent.EnableLiveButton();
+			parent.EnableSetupButton();		
+	}
+
+    function doFormatBK() {
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+        szSystem = szSystem + "DISK_FORMAT" ;
+		doRequestAsync (szSystem, handleFormatResponse) ;
+		/* Disable FileList function when disk is formating */
+		//window.setTimeout("parent.document.frames['set_up_tree'].toDetectDiskInfo();", 4000 );
+	}
+
+	function storageBusy() {
+		var disable_event_msg = "Error. Please disable the event functions which they are associated to the recording function.";
+		try { disable_event_msg      	= top.GetXmlLangTagByName("SETTING_DISABLE_EVENTS") ; } catch(e) {}
+		alert (disable_event_msg);
+		idget("UnmountBusy").style.display ="none";
+		idget("MountBusy").style.display ="none";				
+		parent.frames[0].SetupMouseAction();
+		parent.document.frames[0].toDetectDiskInfo();
+	}
+
+	function ShowFormatLog()
+	{    
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+			
+        szSystem = szSystem + "DISK_FORMAT_LOG" ;
+        var szReturn = top.doRequest(szSystem) ;
+		idget ('TEXT_FORMAT_LOG').style.display = "";
+		idget ('show_format_log').style.display = "none";
+		idget ('TEXT_FORMAT_LOG').value = szReturn;		
+	}	
+	
+	function handleFormatResponse () {
+		if (request.readyState != 4) {
+			return;
+		}
+
+		if (request.status != 200) {
+			return;
+		}
+
+		var szReturn = request.responseText;
+		try {
+
+			var nError = 0 ;
+			var err_str = "" ;
+			szReturn = szReturn.split('\n') ;
+			if(szReturn[0].indexOf('storage media is busy')>-1){
+				window.setTimeout("storageBusy();", 100 );
+				CloseFormat();
+				return;
+			}
+			if(szReturn[0].indexOf('ERROR')>-1){
+				nError++ ;
+				err_str = err_str + szReturn[0] + "<br>" ;
+			}
+			
+			idget("TR_FORMATING").style.display = "none";
+			idget("TR_FORMAT_LOG").style.display = "";
+			if (nError > 0) {
+				
+				idget("SETTING_STORAGE_FORMAT_MSG").style.display = "none";
+				idget("SETTING_STORAGE_FORMAT_ERR_MSG").style.display = "";
+				
+			} else {
+				idget("SETTING_STORAGE_FORMAT_MSG").style.display = "";
+				idget("SETTING_STORAGE_FORMAT_ERR_MSG").style.display = "none";
+					
+			}
+			//ShowFormatLog();
+			/*parent.document.frames[0].SetupMouseAction();
+			doGetSettings();
+			parent.EnableLiveButton();
+			parent.EnableSetupButton();*/
+		} catch (e) {
+			alert ("Failed to parsing request.responseText");
+		}
+	}	
+	
+	function doFormat()
+	{
+		
+		var alert_msg1 = "Warning! The data in the storage media will be lost.";
+		var alert_msg2 = "Do you want to format storage media?";
+		
+		try { alert_msg1 = top.GetXmlLangTagByName("SETTING_STORAGE_FORMAT_ALERT1") ; } catch(e) {}
+		try { alert_msg2 = top.GetXmlLangTagByName("SETTING_STORAGE_FORMAT_ALERT2") ; } catch(e) {}
+		
+		if(confirm(alert_msg1 + "\n" + alert_msg2) == false){			
+			return ;
+		}
+		else
+		{
+			idget("show_format_log").style.display = "";
+			idget("TEXT_FORMAT_LOG").style.display = "none";
+			idget("table_format").style.display ="";
+			idget("TR_FORMATING").style.display = "";
+			idget("TR_FORMAT_LOG").style.display = "none";
+			idget("table_utility").style.display ="none";			
+			parent.frames[0].DisableMouseAction();
+			parent.DisableLiveButton();
+			parent.DisableSetupButton();
+			window.setTimeout("doFormatBK();", 100 );						
+		}		
+		
+	}
+
+    function doMountBK(mount) {
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+        szSystem = szSystem + "DISK_STATE=" + mount ;
+		doRequestAsync (szSystem, handleMountResponse) ;
+	}
+
+	function handleMountResponse () {
+		var remove_msg = "Storage media can be safely removed now.";
+		var mounted_msg = "Storage media was mounted successfully!";	
+		var umount_err_msg = "Fail to unmount storage media.";
+		var mount_err_msg = "Fail to mount storage media (might need to format it first).";
+		var disable_event_msg = "Error. Please disable the event functions which they are associated to the recording function.";		
+		try { remove_msg      	= top.GetXmlLangTagByName("SETTING_STORAGE_UNMOUNT_MSG") ; } catch(e) {}
+		try { mounted_msg      	= top.GetXmlLangTagByName("SETTING_STORAGE_MOUNT_MSG") ; } catch(e) {}
+		try { umount_err_msg      	= top.GetXmlLangTagByName("SETTING_STORAGE_UMOUNT_ERR_MSG") ; } catch(e) {}		
+		try { mount_err_msg      	= top.GetXmlLangTagByName("SETTING_STORAGE_MOUNT_ERR_MSG") ; } catch(e) {}		
+		
+		if (request.readyState != 4) {
+			return;
+		}
+
+		if (request.status != 200) {
+			return;
+		}
+
+		var szReturn = request.responseText;
+		
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;		
+		if(szReturn[0].indexOf('ERROR')>-1){
+			nError++ ;
+			err_str = err_str + szReturn[0];
+		}	
+		
+        if (nError > 0) {
+			if (err_str.search ("storage media is busy") > 0) {				
+				window.setTimeout("storageBusy();", 100 );								
+			} 
+			else if (err_str.search ("Disk type is not ext3") > 0)
+			{
+				alert(mount_err_msg);
+				parent.frames[0].SetupMouseAction();
+				idget("UnmountBusy").style.display ="none";
+				idget("MountBusy").style.display ="none";				
+			}
+			else {
+				alert (umount_err_msg);
+				parent.frames[0].SetupMouseAction();
+				idget("UnmountBusy").style.display ="none";
+				idget("MountBusy").style.display ="none";								
+			}
+			parent.document.frames[0].toDetectDiskInfo();
+		} else {
+			if (szReturn[0].indexOf('UNMOUNT')>-1) {
+				alert (remove_msg);
+				idget("UnmountBusy").style.display ="none";
+				parent.frames[0].SetupMouseAction();
+			} else {
+				alert (mounted_msg);
+				idget("MountBusy").style.display ="none";				
+				parent.frames[0].SetupMouseAction();
+			}					
+			parent.document.frames[0].toDetectDiskInfo();
+		}
+		window.setTimeout("doGetSettings();", 500 );
+	}
+	
+	function doMount()
+	{
+			idget("MountBusy").style.display ="";
+			parent.frames[0].DisableMouseAction();
+			window.setTimeout("doMountBK('MOUNT');", 100 );	
+	}
+	
+	function doUnmount()
+	{
+		var alert_msg1 = "The storage media becomes not accessable.";
+		var alert_msg2 = "Do you want to remove storage media?";
+		
+		try { alert_msg1 = top.GetXmlLangTagByName("SETTING_STORAGE_UNMOUNT_ALERT1") ; } catch(e) {}
+		try { alert_msg2 = top.GetXmlLangTagByName("SETTING_STORAGE_UNMOUNT_ALERT2") ; } catch(e) {}
+		
+		if(confirm(alert_msg1 + "\n" + alert_msg2) == false){			
+			return ;
+		}
+		else
+		{
+			idget("UnmountBusy").style.display ="";
+			parent.frames[0].DisableMouseAction();
+			window.setTimeout("doMountBK('UNMOUNT');", 100 );
+		}
+		
+	}
+
+    function doGetSettings() {
+       
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&DISK_STATE";
+        var szReturn = top.doRequest(szSystem) ;
+		
+        szReturn = szReturn.split('\n') ;
+				
+		for (var i = 0; i < szReturn.length; i++) {
+			szTmp = top.doSplitValue( szReturn[i] ) ;
+			switch ( szTmp[0] ) {
+				case 'DISK_STATE' :
+					if (szTmp[1] == "MOUNT") {
+						idget("TR_MOUNT").style.display = "none";
+						idget("TR_UMOUNT").style.display = "";
+						idget("FORMAT").disabled = true;
+						idget("FORMAT").className = "button2 button2_1";
+						
+						idget("SCAN").disabled = true;
+						idget("SCAN").className = "button2 button2_1";
+						
+					} else {
+						idget("TR_MOUNT").style.display = "";
+						idget("TR_UMOUNT").style.display = "none";						
+						idget("FORMAT").disabled = false;
+						idget("SCAN").disabled = false;
+						idget("FORMAT").className = "button2";
+						idget("SCAN").className = "button2";
+					}
+					break;				
+			}
+		}
+		
+    }
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);	
+		try { idget("BUTTON_CLOSE2").value = top.GetXmlLangTagByName("BUTTON_CLOSE") ; } catch(e) {}
+		try { idget("SETTING_STORAGE_SHOW_LOG_2").innerHTML = top.GetXmlLangTagByName("SETTING_STORAGE_SHOW_LOG") ; } catch(e) {}
+		doGetSettings();
+	}
+	
+	Page_onLoad();
+		
+</Script>

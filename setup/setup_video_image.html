@@ -1,0 +1,400 @@
+﻿
+<html>
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+
+<body id="body_image" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" >	
+	<table border="0" cellspacing="0" cellpadding="1" width="98%"  style="margin-top:15px">
+		<tr height="140px">
+			<td valign="top"  width="50%">
+				<table width="100%" cellspacing="0" cellpadding="2" border="0"  >
+					
+					<tbody id="trFlipMirror" align="center" style="display:none">
+						<tr>
+							<td align="right" width="60%" style="padding-right:10px">
+								<label id="SETTING_VIDEO_VIDEO_FLIPPING">Video Flipping</label>/<label id="SETTING_VIDEO_VIDEO_MIRROR">Video Mirror</label>
+							</td>
+							<td align="left" width="40%">
+								<input id="VIDEO_FLIP_MODE" type="checkbox">
+							</td>	
+							
+						</tr>
+						
+						<!--<tr>
+							<td align="right" width="60%" style="padding-right:10px">
+								<label id="SETTING_VIDEO_VIDEO_MIRROR">Video Mirror</label>
+							</td>
+							<td align="left" width="40%">
+								<input id="VIDEO_MIRROR_MODE" type="checkbox">
+							</td>
+							
+						</tr>-->
+					</tbody>
+					<tr id="TR_BRIGHTNESS" style="display:none">
+						<td align="right" width="60%" style="padding-right:10px">
+							<label id="SETTING_VIDEO_BRIGHTNESS">Brightness</label>							
+						</td>
+						<td align="left" width="40%">
+							<select id="VIDEO_BRIGHTNESS"></select>
+						</td>
+					</tr>
+					
+					<tr id="TR_CONTRAST" style="display:none">
+						<td align="right" width="60%" style="padding-right:10px">
+							<label id="SETTING_VIDEO_CONTRAST">Contrast</label>
+						</td>
+						<td align="left" width="40%">
+							<select id="VIDEO_CONTRAST">
+								<option value="0" id="COMMON_SETTING_VALUE_LOWEST">Lowest</option>
+								<option value="25" id="COMMON_SETTING_VALUE_LOW">Low</option>
+								<option value="50" selected="selected" id="COMMON_SETTING_VALUE_MEDIUM">Medium</option>
+								<option value="75" id="COMMON_SETTING_VALUE_HIGH">High</option>
+								<option value="100" id="COMMON_SETTING_VALUE_HIGHEST">Highest</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="TR_SATURATION" style="display:none">
+						<td align="right" width="60%" style="padding-right:10px">
+							<label id="SETTING_VIDEO_SATURATION">Saturation</label>
+						</td>	
+						<td align="left" width="40%">
+							<select id="VIDEO_SATURATION">
+								<option value="0" id="SELECT_COMMON_DISABLED2">Disabled</option>
+								<option value="25" id="COMMON_SETTING_VALUE_LOW2">Low</option>
+								<option value="50" selected="selected" id="COMMON_SETTING_VALUE_MEDIUM2">Medium</option>
+								<option value="75" id="COMMON_SETTING_VALUE_HIGH2">High</option>
+								<option value="100" id="COMMON_SETTING_VALUE_HIGHEST2">Highest</option>							
+							</select>
+							
+						</td>
+					</tr>										
+					
+				</table>
+			</td>
+			<td valign="top" width="50%">
+				<table width="100%" cellspacing="0" cellpadding="2" border="0"  >
+					<tr id="TR_DNR" style="display:none">
+						<td align="right" width="55%" style="padding-right:10px">
+							<label id="SETTING_DNR">Digital Noise Reduction</label>
+						</td>
+						<td align="left" width="45%">
+							<select id="VIDEO_DNR" onchange="DNRChange()"></select>
+						</td>								
+					</tr>
+					<tr id="TR_3DNR" style="display:none">
+						<td align="right" width="55%" style="padding-right:10px">
+							<label id="SETTING_VIDEO_3DNR">3D Noise Reduction</label>
+						</td>
+						<td align="left" width="45%">
+							<select id="VIDEO_3DNR"></select>
+						</td>								
+					</tr>
+					<tr id="TR_EDGE_ENHANCE" style="display:none">
+						<td align="right" width="55%" style="padding-right:10px">
+							<label id="SETTING_VIDEO_EDGE">Edge Enhancement</label>
+						</td>
+						<td align="left" width="45%">
+							<select id="VIDEO_SHARPNESS"></select>
+						</td>								
+					</tr>
+					<tr id="TR_EXDR" style="display:none">
+						<td align="right" width="55%" style="padding-right:10px">
+							<label id="SETTING_VIDEO_EXDR">ExDR Target Level</label>
+						</td>
+						<td align="left" width="45%">
+							<select id="VIDEO_WDR">
+								<option value="0" id="SELECT_COMMON_DISABLED">Disabled</option>
+								<option value="1" id="SELECT_VIDEO_COMPRESS_QUALITY_LOW">Low</option>								
+								<option value="64" selected="selected" id="SELECT_VIDEO_COMPRESS_QUALITY_MEDIUM">Medium</option>
+								<option value="128" id="SELECT_VIDEO_COMPRESS_QUALITY_HIGH">High</option>
+								<option value="255" id="COMMON_SETTING_VALUE_HIGHEST3">Highest</option>							
+								
+							</select>
+							
+						</td>								
+					</tr>
+					<tr id="TR_DEFOG" style="display:none">
+						<td align="right" width="55%" style="padding-right:10px">
+							<label id="SETTING_VIDEO_DEFOG">Defog Control</label>
+						</td>
+						<td align="left" width="45%">
+							<select id="VIDEO_DEFOG">
+								<option value="0" id="SELECT_COMMON_DISABLED3">Disabled</option>
+								<option value="1" id="COMMON_SETTING_VALUE_LOW3">Low</option>
+								<option value="2" selected="selected" id="COMMON_SETTING_VALUE_MEDIUM3">Medium</option>
+								<option value="3" id="COMMON_SETTING_VALUE_HIGH3">High</option>
+								<option value="4" id="COMMON_SETTING_VALUE_HIGHEST4">Highest</option>
+							</select>	
+						</td>								
+					</tr>
+					<tr id="TR_IMAGE_STABILIZER" style="display:none">
+						<td align="right" width="55%" style="padding-right:10px">
+							<label id="IMAGE_STABILIZATION">Image Stabilization</label>
+						</td>
+						<td align="left" width="45%">
+							<select id="VIDEO_STABILIZER">
+								<option value="0" id="SELECT_COMMON_DISABLED_1">Disabled</option>
+								<option value="1" id="SELECT_COMMON_ENABLED_1">Enabled</option>
+							</select>
+						</td>								
+					</tr>
+					
+				</table>
+			</td>
+		</tr>		
+		<tr height="60px" valign="bottom">
+			<td  colspan="2" align="center">
+				<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 						
+				<input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSettings()"/>&nbsp;&nbsp;&nbsp; 			
+				<input type="button" name="SETTING_RESTORE_IMAGE" value="Restore image settings to default" class="button2" style="width:auto" onclick="DoVideoReset()"/>
+			</td>									
+		</tr>			
+		
+
+	</table>
+
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	function DNRChange()
+	{
+		if(top.gIspGeneration == "A1_ISP")
+		{
+			idget("TR_3DNR").style.display = "none";
+		}
+		else
+		{
+			if(idget("VIDEO_DNR").value == 0)
+			{
+				idget("VIDEO_3DNR").value = 0;
+				idget("VIDEO_3DNR").disabled = "disabled";
+			}
+			else
+			{				
+				idget("TR_3DNR").style.display = "";
+				idget("VIDEO_3DNR").disabled = "";
+			}	
+		}	
+		
+	}
+	
+	function DoVideoReset()	
+	{					
+		  var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&IMAGE_QUALITY_RESET";	
+		   doRequest(szEncoder) ;
+		   parent.GetConfig();
+		   doGetSettings();
+	}
+
+	function DoApply()
+	{
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;
+		
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		if(idget("VIDEO_FLIP_MODE").checked==true){
+			szEncoder += "VIDEO_FLIP_MODE=1&VIDEO_MIRROR_MODE=1&";
+		}else{
+			szEncoder += "VIDEO_FLIP_MODE=0&VIDEO_MIRROR_MODE=0&";
+		}
+		
+		szEncoder += "VIDEO_BRIGHTNESS=" + idget("VIDEO_BRIGHTNESS").value + "&";
+		szEncoder += "VIDEO_CONTRAST=" + idget("VIDEO_CONTRAST").value + "&";
+		szEncoder += "VIDEO_DNR=" + idget("VIDEO_DNR").value + "&";
+		szEncoder += "VIDEO_3DNR=" + idget("VIDEO_3DNR").value + "&";
+		szEncoder += "VIDEO_SATURATION=" + idget("VIDEO_SATURATION").value + "&";
+		if(idget("VIDEO_WDR").value == 0)
+			szEncoder += "VIDEO_WDR=OFF," + idget("VIDEO_WDR").value + ",0" +"&";
+		else
+			szEncoder += "VIDEO_WDR=AUTO," + idget("VIDEO_WDR").value + ",0" +"&";
+		szEncoder += "VIDEO_SHARPNESS=" + idget("VIDEO_SHARPNESS").value + "&";
+		szEncoder += "VIDEO_DEFOG=" + idget("VIDEO_DEFOG").value +"&";
+		szEncoder += "IMAGE_STABILIZER=" + idget("VIDEO_STABILIZER").value;
+		var szReturn = doRequest(szEncoder) ;	
+	
+		parent.GetConfig();
+		doGetSettings();
+		window.setTimeout("top.clean_result(this);", 2000 );		
+	}
+
+	function ImageCap()
+	{
+		
+		var ImageCap;
+		var i = 0;
+		ImageCap = parent.CameraConf.IMAGE_CAP.split(',');
+	
+		for(i = 0 ; i < ImageCap.length ; i++)
+		{
+			switch(ImageCap[i])
+			{
+				case 'BT':
+					idget("TR_BRIGHTNESS").style.display = "";
+					break;
+				case 'CT':
+					idget("TR_CONTRAST").style.display = "";
+					break;	
+				case 'ST':
+					idget("TR_SATURATION").style.display = "";
+					break;		
+				case 'NR':
+					idget("TR_DNR").style.display = "";
+					break;			
+				case '3D':
+					idget("TR_3DNR").style.display = "";
+					break;			
+				case 'ED':
+					idget("TR_EDGE_ENHANCE").style.display = "";
+					break;				
+				case 'EX':
+					idget("TR_EXDR").style.display = "";
+					if(parent.CameraConf.VIDEO_EXPOSURE_MODE == "MANUAL")
+						idget("TR_EXDR").style.display = "none";
+					break;					
+				case 'DF':
+					idget("TR_DEFOG").style.display = "";
+					break;	
+				case 'SZ':
+					idget("TR_IMAGE_STABILIZER").style.display = "";
+					break;	
+				case 'MF':
+					idget("trFlipMirror").style.display = "";
+					break;	
+				default:
+					break;				
+			}
+		}		
+	}
+	
+	function doGetSettings()
+	{
+		ImageCap();		
+		(parent.CameraConf.VIDEO_FLIP_MODE  == 1 ) ? idget("VIDEO_FLIP_MODE").checked = true : idget("VIDEO_FLIP_MODE").checked = false;		
+		SetSelectedValue(idget("VIDEO_SATURATION"), parent.CameraConf.VIDEO_SATURATION);
+		SetSelectedValue(idget("VIDEO_BRIGHTNESS"), parent.CameraConf.VIDEO_BRIGHTNESS);
+		SetSelectedValue(idget("VIDEO_SHARPNESS"), parent.CameraConf.VIDEO_SHARPNESS);
+		SetSelectedValue(idget("VIDEO_3DNR"), parent.CameraConf.VIDEO_3DNR);
+		//SetSelectedValue(idget("VIDEO_CONTRAST"), parent.CameraConf.VIDEO_CONTRAST);
+		SetSelectedValue(idget("VIDEO_DNR"), parent.CameraConf.VIDEO_DNR);				
+		if(parent.CameraConf.VIDEO_WDR_MODE == "OFF" || parent.CameraConf.VIDEO_WDR_LEVEL == 0)
+			SetSelectedValue(idget("VIDEO_WDR"), 0);
+		else if(parent.CameraConf.VIDEO_WDR_LEVEL < 64)	
+			SetSelectedValue(idget("VIDEO_WDR"), 1);
+		else if(parent.CameraConf.VIDEO_WDR_LEVEL < 128)
+			SetSelectedValue(idget("VIDEO_WDR"), 64);
+		else if(parent.CameraConf.VIDEO_WDR_LEVEL < 192)
+			SetSelectedValue(idget("VIDEO_WDR"), 128);	
+		else	
+			SetSelectedValue(idget("VIDEO_WDR"), 255);
+		
+		if(parent.CameraConf.VIDEO_CONTRAST < 25)
+			SetSelectedValue(idget("VIDEO_CONTRAST"), 0);
+		else if(parent.CameraConf.VIDEO_CONTRAST < 50)	
+			SetSelectedValue(idget("VIDEO_CONTRAST"), 25);
+		else if(parent.CameraConf.VIDEO_CONTRAST < 75)	
+			SetSelectedValue(idget("VIDEO_CONTRAST"), 50);
+		else if(parent.CameraConf.VIDEO_CONTRAST < 100)	
+			SetSelectedValue(idget("VIDEO_CONTRAST"), 75);	
+		else	
+			SetSelectedValue(idget("VIDEO_CONTRAST"), 100);	
+			
+		if(parent.CameraConf.VIDEO_SATURATION < 25)
+			SetSelectedValue(idget("VIDEO_SATURATION"), 0);
+		else if(parent.CameraConf.VIDEO_SATURATION < 50)	
+			SetSelectedValue(idget("VIDEO_SATURATION"), 25);
+		else if(parent.CameraConf.VIDEO_SATURATION < 75)	
+			SetSelectedValue(idget("VIDEO_SATURATION"), 50);
+		else if(parent.CameraConf.VIDEO_SATURATION < 100)	
+			SetSelectedValue(idget("VIDEO_SATURATION"), 75);	
+		else	
+			SetSelectedValue(idget("VIDEO_SATURATION"), 100);		
+		//TBD
+		/*if(top.gIspGeneration == "A1_ISP")
+		{
+			idget("TR_3DNR").style.display = "none";
+		}
+		else
+		{
+			if(idget("VIDEO_DNR").value ==1)
+				idget("TR_3DNR").style.display = "";
+		}*/
+		if(top.gIspGeneration == "A1_ISP")
+		{
+			idget("TR_3DNR").style.display = "none";
+		}
+		else
+		{
+			if(idget("VIDEO_DNR").value == 0)
+			{
+				idget("VIDEO_3DNR").value = 0;
+				idget("VIDEO_3DNR").disabled = "disabled";
+			}
+			else
+			{				
+				idget("TR_3DNR").style.display = "";
+				idget("VIDEO_3DNR").disabled = "";
+			}	
+		}
+		
+		var cmd="/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		cmd+="&IMAGE_STABILIZER";
+		var szReturn = doRequest(cmd) ;
+		szReturn=szReturn.split('\n') ;
+		var values = doSplitValue(szReturn[0]);
+		SetSelectedValue(idget("VIDEO_STABILIZER"), values[1]);
+		
+		var cmd="/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		cmd+="&VIDEO_DEFOG";
+		var szReturn = doRequest(cmd) ;
+		szReturn=szReturn.split('\n') ;
+		var values = doSplitValue(szReturn[0]);
+		SetSelectedValue(idget("VIDEO_DEFOG"), values[1]);	
+	}
+	
+	function PageOnload()
+	{	
+		InsertSelectOptions_Number(idget("VIDEO_BRIGHTNESS"), 0, 100);				
+		
+		if(top.gIspGeneration == "A1_ISP")		
+			UpdateSelectOptions_2(idget("VIDEO_DNR"),"0,1","OFF,ON");					
+		else		
+			UpdateSelectOptions_2(idget("VIDEO_DNR"),"0,1,2,3,4","OFF,1,2,3,4");			
+			
+		UpdateSelectOptions_2(idget("VIDEO_3DNR"),"0,1","OFF,ON");
+		InsertSelectOptions_Number(idget("VIDEO_SHARPNESS"), 1, 255);	
+		
+		top.update_language(this);
+		try { document.getElementById('SELECT_COMMON_DISABLED2').text = top.GetXmlLangTagByName("SELECT_COMMON_DISABLED") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_LOW2').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_LOW") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_MEDIUM2').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_MEDIUM") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_HIGH2').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_HIGH") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_HIGHEST2').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_HIGHEST") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_HIGHEST3').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_HIGHEST") ; } catch(e) {}
+		try { document.getElementById('SELECT_COMMON_DISABLED_1').text = top.GetXmlLangTagByName("SELECT_COMMON_DISABLED") ; } catch(e) {}
+		try { document.getElementById('SELECT_COMMON_ENABLED_1').text = top.GetXmlLangTagByName("SELECT_COMMON_ENABLED") ; } catch(e) {}
+		try { document.getElementById('SELECT_COMMON_DISABLED3').text = top.GetXmlLangTagByName("SELECT_COMMON_DISABLED") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_LOW3').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_LOW") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_MEDIUM3').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_MEDIUM") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_HIGH3').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_HIGH") ; } catch(e) {}
+		try { document.getElementById('COMMON_SETTING_VALUE_HIGHEST4').text = top.GetXmlLangTagByName("COMMON_SETTING_VALUE_HIGHEST") ; } catch(e) {}
+		if(parent.document.getElementById("media_id").value != 1)
+		{
+			parent.document.getElementById("media_id").value = 1;
+			if(top.IsIE() == true)
+				parent.ECMSetup();				
+		}		
+		parent.document.getElementById("media_id").style.display = "none";		
+		doGetSettings();		
+		if(top.IsIE() == false)
+			idget("body_image").style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+		else
+			idget("body_image").style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+				
+	}
+	PageOnload();
+</Script>

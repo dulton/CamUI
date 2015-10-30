@@ -1,0 +1,292 @@
+﻿<html>
+
+<head>
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>	
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" border="0" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_USER_ACCOUNT_SETTING">User Accont</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td align="left" style="padding-left:35px">
+					<input type="checkbox" id="GUEST_PREVIEW" >				
+					<label id="SETTING_GUEST_PREVIEW">Live view without account name and password</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="AccountTable">
+
+					</div>
+				</td>
+			</tr>
+			<tr><td><br></td></tr>
+			<tr>
+				<td align="center" >
+					<input  class="button2" type="button" name="BUTTON_APPLY" id="BUTTON_APPLY" value="Apply" onclick="doSubmits()" />&nbsp;&nbsp;&nbsp; 							
+					&nbsp;&nbsp;&nbsp; <input  class="button2" type="button" name="BUTTON_RESET" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+				</td> 
+				
+			</tr>	
+			<tr><td><br></td></tr>
+			
+		</tr>				
+	</table>
+	<table>
+		<div id="divError" style="display:none">
+			<label id="COMMON_MSG_SET_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_LOGIN_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_LOGIN_PWD_ERR"></label>&nbsp;&nbsp;&nbsp;</br>			
+		</div>	
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var strRootAccount = '' ;
+	var strRootPassword = '' ;
+
+	
+	function clean_result(){
+		BUTTON_APPLY.disabled = false ;
+		//result_str.innerHTML = "" ;
+		BUTTON_APPLY.value = "Apply" ;
+		try { BUTTON_APPLY.value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 	
+    function doSubmits() {
+		var i;
+		var err = "COMMON_MSG_SET_ERR";
+		try { err = top.GetXmlLangTagByName("COMMON_MSG_SET_ERR") ; } catch(e) {}
+		if(top.LoginNameCheck(idget("ACCOUNT_ROOT_NAME").value) == false)
+		{
+			alert(top.login_name_err0);
+			idget("ACCOUNT_ROOT_NAME").focus();
+			return;
+		}
+		if(top.PasswordCheck(idget("ACCOUNT_ROOT_PASSWORD").value) == false)
+		{
+			alert(top.pwd_err0);
+			idget("ACCOUNT_ROOT_PASSWORD").focus();
+			return;
+		}		
+		
+		for(i=1; i<11; i++){
+			var Acc=idget("ACCOUNT_USER_NAME_"+i);
+			var Pwd=idget("ACCOUNT_USER_PASSWORD_"+i);
+			if(Acc.value != '')
+			{
+				if(top.LoginNameCheck(Acc.value) == false)
+				{
+					alert(top.login_name_err0);				
+					return;
+				}
+				if(Pwd.value == '')
+				{
+					alert(top.pwd_err0);			
+					return;
+				}	
+			}
+			if(Pwd.value != '')
+			{
+				if(top.PasswordCheck(Pwd.value) == false)
+				{
+					alert(top.pwd_err0);			
+					return;
+				}	
+				if(Acc.value == '')
+				{
+					alert(top.login_name_err0);				
+				}
+			}
+			
+		}
+		
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;
+		
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+        szSystem = szSystem + "ACCOUNT_ROOT="   + idget("ACCOUNT_ROOT_NAME").value + "," + idget("ACCOUNT_ROOT_PASSWORD").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_1=" + idget("ACCOUNT_USER_NAME_1").value + "," + idget("ACCOUNT_USER_PASSWORD_1").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_2=" + idget("ACCOUNT_USER_NAME_2").value + "," + idget("ACCOUNT_USER_PASSWORD_2").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_3=" + idget("ACCOUNT_USER_NAME_3").value + "," + idget("ACCOUNT_USER_PASSWORD_3").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_4=" + idget("ACCOUNT_USER_NAME_4").value + "," + idget("ACCOUNT_USER_PASSWORD_4").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_5=" + idget("ACCOUNT_USER_NAME_5").value + "," + idget("ACCOUNT_USER_PASSWORD_5").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_6=" + idget("ACCOUNT_USER_NAME_6").value + "," + idget("ACCOUNT_USER_PASSWORD_6").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_7=" + idget("ACCOUNT_USER_NAME_7").value + "," + idget("ACCOUNT_USER_PASSWORD_7").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_8=" + idget("ACCOUNT_USER_NAME_8").value + "," + idget("ACCOUNT_USER_PASSWORD_8").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_9=" + idget("ACCOUNT_USER_NAME_9").value + "," + idget("ACCOUNT_USER_PASSWORD_9").value ;
+        szSystem = szSystem + "&ACCOUNT_USER_10=" + idget("ACCOUNT_USER_NAME_10").value + "," + idget("ACCOUNT_USER_PASSWORD_10").value ;
+		(idget("GUEST_PREVIEW").checked == true) ? szSystem = szSystem + "&GUEST_PREVIEW=1" : szSystem = szSystem + "&GUEST_PREVIEW=0" ;;
+			
+			
+        var szReturn = doRequest(szSystem) ;	
+		var nError = 0 ;
+		var err_str = "" ;
+		var sAccountRoot="";
+        szReturn = szReturn.split('\n') ;
+
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+			if(nIdx==0)
+				sAccountRoot = szTmp[0];
+			if(szTmp[0].indexOf('ERROR')>-1){
+				nError++ ;
+				err_str = err_str + szTmp[0] + "<br>" ;
+			}
+        }
+	   
+    	if (nError == 0) 
+		{
+			BUTTON_APPLY.value = "Success" ;
+		}
+		else
+		{
+			alert(err);
+			window.setTimeout("clean_result();", 2000 );
+			
+			if(sAccountRoot.indexOf('OK')>-1)
+			{
+				if(idget("ACCOUNT_ROOT_NAME").value != strRootAccount)
+				{
+					alert('Because you changed the account and the password of root , please login again .\n\nThe window will be closed.');
+					top.setCookie('CONFIGURATION_USER', '') ;
+					top.setCookie('CONFIGURATION_PWD' , '') ;
+					top.setCookie('CONFIGURATION_LANG', '') ;
+					top.setCookie('CONFIGURATION_TAB' , '') ;
+				
+					window.open("","_self");
+					top.opener=null;
+					top.close();
+					doGetSetting();
+				}
+				else
+				{
+					doGetSetting();
+					return;
+				}
+			}
+			else
+			{			
+				doGetSetting();
+				return;
+			//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+			}			
+		}
+		
+		window.setTimeout("clean_result();", 2000 );
+		
+		if( (idget("ACCOUNT_ROOT_NAME").value != strRootAccount) || (idget("ACCOUNT_ROOT_PASSWORD").value != strRootPassword) ){
+			alert('Because you changed the account and the password of root , please login again .\n\nThe window will be closed.');
+			top.setCookie('CONFIGURATION_USER', '') ;
+            top.setCookie('CONFIGURATION_PWD' , '') ;
+            top.setCookie('CONFIGURATION_LANG', '') ;
+            top.setCookie('CONFIGURATION_TAB' , '') ;
+	        window.open("","_self");
+			top.opener=null;
+			top.close();
+		}
+			doGetSetting();
+    }	
+	
+	
+	
+	function doSplitValue_2(data){
+		var pair=new Array();
+		pair[0]=data.slice(0, data.indexOf("="));
+		pair[1]=data.slice(data.indexOf("=")+2, data.length-1);
+		return pair;
+	}
+	
+    function doGetSetting() {
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+        
+        szSystem = szSystem + "ACCOUNT&GUEST_PREVIEW" ;
+        var szReturn = doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+					szTmp = doSplitValue_2( szReturn[nIdx] ) ;
+
+					if ( szTmp[0] != '') {						
+						idget(szTmp[0]).value=szTmp[1];
+						if(szTmp[0] == 'ACCOUNT_ROOT_NAME'){
+						strRootAccount = szTmp[1] ;
+					}
+				
+					if(szTmp[0] == 'ACCOUNT_ROOT_PASSWORD'){
+						strRootPassword = szTmp[1] ;
+					}
+					if(szTmp[0] == 'GUEST_PREVIEW')
+					{
+						szTmp[1] == "1" ? idget("GUEST_PREVIEW").checked = true : idget("GUEST_PREVIEW").checked = false;
+					}
+            }
+        }
+
+    }
+
+
+	function DrawAccountTable()
+	{
+		var i;
+		var HTML = '<table border="0" align="center" width="90%" id="AccountTable" class="common_table_style table_th">';
+		HTML += '<tr id="qqq">';
+		HTML += '<th align="center">	<label id="SETTING_USER">User</label></th>';
+		HTML += '<th align="center">	<label id="SETTING_USER_ACCOUNT">Account</label></th>';
+		HTML += '<th align="center">	<label id="SETTING_USER_PASSWORD">Password</label></th>';
+		HTML += '</tr>';
+		HTML += '<tr>';
+		HTML += '<td align="center">	<label id="SETTING_USER_ACCOUNT_ROOT">Root</label></td>';
+		HTML += '<td align="center"> <input type="text" id="ACCOUNT_ROOT_NAME" maxlength="31"/></td>';
+		HTML += '<td align="center"> <input type="text" id="ACCOUNT_ROOT_PASSWORD" maxlength="63"/></td>';
+		HTML += '</tr>';
+		
+		for(i = 1 ; i <=10  ; i++)
+		{
+			HTML += '<tr>';
+			HTML += '<td align="center">	<label id="SETTING_USER' + i + '">User</label><label>'+ i + '</label></td>';
+			HTML += '<td align="center"> <input type="text" id="ACCOUNT_USER_NAME_' + i + '" maxlength="31"/></td>';
+			HTML += '<td align="center"> <input type="text" id="ACCOUNT_USER_PASSWORD_' + i + '" maxlength="63"/></td>';
+			HTML += '</tr>'
+		}
+		
+		document.getElementById("AccountTable").innerHTML = HTML;
+	}	
+
+	function UserAccountLanguageUpdate()
+	{		
+		for(i = 1 ; i <=10 ; i++ )					
+			idget("SETTING_USER"+i).innerHTML = top.GetXmlLangTagByName("SETTING_USER");		
+			
+		top.update_language(this);
+	}
+	
+	function PageOnload()
+	{
+		DrawAccountTable();
+		doGetSetting();
+		UserAccountLanguageUpdate();				
+		if(top.IsIE() == false)				
+			document.styleSheets[0].cssRules[86].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;					
+		else		
+			document.styleSheets[0].rules[85].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;		
+	}
+	PageOnload();
+</Script>

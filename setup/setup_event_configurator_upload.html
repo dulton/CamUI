@@ -1,0 +1,902 @@
+﻿<html>
+
+<head> 
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	
+	<div style="height:640px;overflow:auto;padding-top:3px">	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<table  class="setup_item" width="100%" border="0">
+						<tr>
+							<td width="90%" align="center">
+								<label id="BUTTON_UPLOAD_VIDEO_SNAPSHOT">Upload video/snapshot and Audio</label>
+							</td>
+							<td width="5%">
+								<a href="./UploadMediaHelper.htm" target="_blank"><img src="../images/question.png" align="absmiddle" border="0"/></a>								
+							</td>
+							<td width="5%" align="absmiddle">
+								<img type="button" src="../images/cross.png" onclick="parent.Close();" style="cursor:pointer;border:2px solid #dedede;margin-top:3px" title="Close">
+							</td>
+						</tr>	
+					</table>
+				</td>					
+				
+				<tr>
+					<td>
+						<form name="frmSetting">
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;">
+								<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD" style="font-weight:bold">Upload video/snapshot</label><label>1</label>
+								<input type="checkbox" name="enable1" id="enable1" value="1" onclick="toClick('1');">
+							</div>
+							<table id="content1" border="0" cellspacing="5" cellpadding="2" width="100%" style="display:none">
+								<tr>
+									<td align="right" width="40%">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_TYPE">Upload Media Type</label>
+									</td>
+									<td align="left">
+										<input type="radio" name="typer1" value="1" checked onclick="changeType('1',this.value);"><label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SNAPSHOT">Snapshot</label>
+										<input type="radio" name="typer1" value="2" onclick="changeType('1',this.value);" ><label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO">Video</label>
+										<input class="button3" type="button" id="BUTTON_BUTTON_TEST1" value="Test" onclick="clickTest('1');" style="width:50px;display:"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SEND_MSG_TO">Upload Media To</label>
+									</td>
+									<td align="left" id="td_type1">
+										
+									</td>
+								</tr>
+								<tr id="TR_BUFFER1" style="display:none">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_BUFFER_TIME">Pre-Buffer Time</label>
+									</td>
+									<td align="left">
+										<select name="buffer_time1" id="buffer_time1">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>											
+											<option value="10">10</option>											
+										</select>
+										<label>(0~10</label><label id="COMMON_MSG_SECONDS" style="margin-left:0px">seconds</label><label style="margin-left:0px">)</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_TIME">Upload Period</label>
+									</td>
+									<td align="left">
+										<input type="text" id="upload_time1" name="upload_time1" value="" size="5" maxlength="5"><label id="SETTING_EVENT_UPLOAD_TIME_MSG">(0~86400 seconds)</label>
+									</td>
+								</tr>
+								<tr id="TR_RATE1">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE">Images during Upload Period</label>
+									</td>
+									<td align="left">
+										<input type="text" id="image_rate1" name="image_rate1" value="" size="5" maxlength="31">
+										<div>
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE_DESC">(Use 0 for maximum number of images)</label>
+										</div>
+									</td>
+								</tr>
+								<tr id="TR_UPLOAD_FILE_NAME1" style="display:">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME">Image File Name</label>
+									</td>
+									<td align="left">
+										<input type="text" id="image_file_name1" name="image_file_name1" value="myrecording" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_FILENAME_PATH_RULE" onclick="window.open('./MediaNamingRule.htm');" style="color:blue;cursor:pointer">naming rule</label>
+									</td>
+								</tr>
+								<tr id="TR_UPLOAD_PATH1" style="display:none">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_PATH">Upload Path</label>
+									</td>
+									<td align="left">
+										<input type="text" id="file_path1" name="file_path1" value="myrecordingpath" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_FILENAME_PATH_RULE2" onclick="window.open('./MediaNamingRule.htm');" style="color:blue;cursor:pointer">naming rule</label>
+									</td>
+								</tr>
+								<tr id="TR_EMAIL1">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS" maxlength="31">E-Mail Recipients</label>
+									</td>
+									<td align="left">
+										<input type="text" id="email_address1" name="email_address1" value="" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS_DESC">using ; for multiple addressed</label>
+									</td>
+								</tr>
+								<tr id="TR_CGI_SETTING1">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_CGI_SETTING">CGI Path & Program</label>
+									</td>
+									<td align="left">
+										<input type="text" id="cgi_setting1" name="cgi_setting1" value="" size="30" maxlength="63">
+									</td>
+								</tr>
+								<tr id="TR_SUBJECT1">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SUBJECT">Subject</label>
+									</td>
+									<td align="left">
+										<input type="text" id="subject1" name="subject1" value="" size="30" maxlength="31">
+									</td>
+								</tr>
+								<tr id="TR_VIDEO_SRC_1">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO_SRC">Video Source</label>
+									</td>
+									<td align="left">
+										<select name="video_source1" id="video_source1">
+											<option value="1">1</option>
+											<option value="2">2</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td width="100%" colspan="2" style="border-bottom:2px dashed #dedede">&nbsp;</td>
+								</tr>
+							</table>
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;">
+								<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD2" style="font-weight:bold">Upload video/snapshot</label><label>2</label>
+								<input type="checkbox" name="enable2" id="enable2" value="1" onclick="toClick('2');">
+							</div>
+							<table id="content2" border="0" cellspacing="5" cellpadding="2" width="100%" style="display:none">
+								<tr>
+									<td align="right" width="40%">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_TYPE2">Upload Media Type</label>
+									</td>
+									<td align="left">
+										<input type="radio" name="typer2" value="1" checked onclick="changeType('2',this.value);"><label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SNAPSHOT2">Snapshot</label>
+										<input type="radio" name="typer2" value="2" onclick="changeType('2',this.value);" ><label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO2" >Video</label>
+										<input class="button3" type="button" id="BUTTON_BUTTON_TEST2" value="Test" onclick="clickTest('2');" style="width:50px;display:"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SEND_MSG_TO2">Upload Media To</label>
+									</td>
+									<td align="left" id="td_type2">
+										
+									</td>
+								</tr>
+								<tr id="TR_BUFFER2" style="display:none">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_BUFFER_TIME2">Pre-Buffer Time</label>
+									</td>
+									<td align="left">
+										<select name="buffer_time2" id="buffer_time2">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>											
+											<option value="10">10</option>																						
+										</select>
+										<label>(0~10</label><label id="COMMON_MSG_SECONDS2" style="margin-left:0px">seconds</label><label style="margin-left:0px">)</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_TIME2">Upload Period</label>
+									</td>
+									<td align="left">
+										<input type="text" id="upload_time2" name="upload_time2" value="" size="5" maxlength="5"><label id="SETTING_EVENT_UPLOAD_TIME_MSG2">(0~86400 seconds)</label>
+									</td>
+								</tr>
+								<tr id="TR_RATE2">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE2">Images during Upload Period</label>
+									</td>
+									<td align="left">
+										<input type="text" id="image_rate2" name="image_rate2" value="" size="5" maxlength="31">
+										<div>
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE_DESC2">(Use 0 for maximum number of images)</label>
+										</div>
+									</td>
+								</tr>
+								<tr id="TR_UPLOAD_FILE_NAME2" style="display:">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME2">Image File Name</label>
+									</td>
+									<td align="left">
+										<input type="text" id="image_file_name2" name="image_file_name2" value="myrecording" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_FILENAME_PATH_RULE3" onclick="window.open('./MediaNamingRule.htm');" style="color:blue;cursor:pointer">naming rule</label>
+									</td>
+								</tr>
+								<tr id="TR_UPLOAD_PATH2" style="display:none">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_PATH2">Upload Path</label>
+									</td>
+									<td align="left">
+										<input type="text" id="file_path2" name="file_path2" value="myrecordingpath" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_FILENAME_PATH_RULE4" onclick="window.open('./MediaNamingRule.htm');" style="color:blue;cursor:pointer">naming rule</label>
+									</td>
+								</tr>
+								<tr id="TR_EMAIL2">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS2" maxlength="31">E-Mail Recipients</label>
+									</td>
+									<td align="left">
+										<input type="text" id="email_address2" name="email_address2" value="" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS_DESC2">using ; for multiple addressed</label>
+									</td>
+								</tr>
+								<tr id="TR_CGI_SETTING2">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_CGI_SETTING2">CGI Path & Program</label>
+									</td>
+									<td align="left">
+										<input type="text" id="cgi_setting2" name="cgi_setting2" value="" size="30" maxlength="63">
+									</td>
+								</tr>
+								<tr id="TR_SUBJECT2">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SUBJECT2">Subject</label>
+									</td>
+									<td align="left">
+										<input type="text" id="subject2" name="subject2" value="" size="30" maxlength="31">
+									</td>
+								</tr>
+								<tr id="TR_VIDEO_SRC_2">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO_SRC2">Video Source</label>
+									</td>
+									<td align="left">
+										<select name="video_source2" id="video_source2">
+											<option value="1">1</option>
+											<option value="2">2</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td width="100%" colspan="2" style="border-bottom:2px dashed #dedede">&nbsp;</td>
+								</tr>
+							</table>
+							<div style="text-align:left;padding-left:20px;margin-bottom:5px;margin-top:5px;">
+								<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD3" style="font-weight:bold">Upload video/snapshot</label><label>3</label>
+								<input type="checkbox" name="enable3" id="enable3" value="1" onclick="toClick('3');">
+							</div>
+							<table id="content3" border="0" cellspacing="5" cellpadding="2" width="100%" style="display:none">
+								<tr>
+									<td align="right" width="40%">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_TYPE3">Upload Media Type</label>
+									</td>
+									<td align="left">
+										<input type="radio" name="typer3" value="1" checked onclick="changeType('3',this.value);"><label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SNAPSHOT3">Snapshot</label>
+										<input type="radio" name="typer3" value="2" onclick="changeType('3',this.value);" ><label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO3" >Video</label>
+										<input class="button3" type="button" id="BUTTON_BUTTON_TEST3" value="Test" onclick="clickTest('3');" style="width:50px;display:"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SEND_MSG_TO3">Upload Media To</label>
+									</td>
+									<td align="left" id="td_type3">
+										
+									</td>
+								</tr>
+								<tr id="TR_BUFFER3" style="display:none">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_BUFFER_TIME3">Pre-Buffer Time</label>
+									</td>
+									<td align="left">
+										<select name="buffer_time3" id="buffer_time3">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>											
+											<option value="10">10</option>																						
+										</select>
+										<label>(0~10</label><label id="COMMON_MSG_SECONDS3" style="margin-left:0px">seconds</label><label style="margin-left:0px">)</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_TIME3">Upload Period</label>
+									</td>
+									<td align="left">
+										<input type="text" id="upload_time3" name="upload_time3" value="" size="5" maxlength="5"><label id="SETTING_EVENT_UPLOAD_TIME_MSG3">(0~86400 seconds)</label>
+									</td>
+								</tr>
+								<tr id="TR_RATE3">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE3">Images during Upload Period</label>
+									</td>
+									<td align="left">
+										<input type="text" id="image_rate3" name="image_rate3" value="" size="5" maxlength="31">
+										<div>
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE_DESC3">(Use 0 for maximum number of images)</label>
+										</div>
+									</td>
+								</tr>
+								<tr id="TR_UPLOAD_FILE_NAME3" style="display:">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME3">Image File Name</label>
+									</td>
+									<td align="left">
+										<input type="text" id="image_file_name3" name="image_file_name3" value="myrecording" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_FILENAME_PATH_RULE5" onclick="window.open('./MediaNamingRule.htm');" style="color:blue;cursor:pointer">naming rule</label>
+									</td>
+								</tr>
+								<tr id="TR_UPLOAD_PATH3" style="display:none">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_PATH3" >Upload Path</label>
+									</td>
+									<td align="left">
+										<input type="text" id="file_path3" name="file_path3" value="myrecordingpath" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_FILENAME_PATH_RULE6" onclick="window.open('./MediaNamingRule.htm');" style="color:blue;cursor:pointer">naming rule</label>
+									</td>
+								</tr>
+								<tr id="TR_EMAIL3">
+									<td align="right" valign="top">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS3" maxlength="31">E-Mail Recipients</label>
+									</td>
+									<td align="left">
+										<input type="text" id="email_address3" name="email_address3" value="" size="30" maxlength="63"><br>
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS_DESC3">using ; for multiple addressed</label>
+									</td>
+								</tr>
+								<tr id="TR_CGI_SETTING3">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_CGI_SETTING3">CGI Path & Program</label>
+									</td>
+									<td align="left">
+										<input type="text" id="cgi_setting3" name="cgi_setting3" value="" size="30" maxlength="63">
+									</td>
+								</tr>
+								<tr id="TR_SUBJECT3">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_SUBJECT3">Subject</label>
+									</td>
+									<td align="left">
+										<input type="text" id="subject3" name="subject3" value="" size="30" maxlength="31">
+									</td>
+								</tr>
+								<tr id="TR_VIDEO_SRC_3">
+									<td align="right">
+										<label id="SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO_SRC3">Video Source</label>
+									</td>
+									<td align="left">
+										<select name="video_source3" id="video_source3">
+											<option value="1">1</option>
+											<option value="2">2</option>
+										</select>
+									</td>
+								</tr>
+							</table>							
+							
+							<table border="0" align="center" width="100%">								
+								<tr>
+									<td align="right">
+										<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="doSubmits(1,3)" />&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+									</td> 
+								</tr>			
+															   
+							</table>
+							<table>
+								<div id="divError" style="display:none">
+									<label id="EVENT_TEST_ERROR"></label>&nbsp;&nbsp;&nbsp;</br>
+									<label id="EVENT_ERROR_MESSAGE"></label>&nbsp;&nbsp;&nbsp;</br>
+									<label id="SETTING_EVENT_FILENAME_PATH_NULL"></label>&nbsp;&nbsp;&nbsp;</br>
+									<label id="SETTING_EVENT_SUBJECT_NULL"></label>&nbsp;&nbsp;&nbsp;</br>
+									<label id="SETTING_EVENT_EMAIL_RX_ADDR_NULL"></label>&nbsp;&nbsp;&nbsp;</br>
+									<label id="SETTING_EVENT_EMAIL_RX_ADDR_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+									<label id="SETTING_EVENT_CGI_PATH_NULL"></label>&nbsp;&nbsp;&nbsp;</br>								
+								</div>	
+							</table>	
+						</form>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+var ImageName1="";
+var ImageName2="";
+var ImageName3="";
+	function toClick(type){
+		if(document.getElementById('enable'+type).checked == true){
+			document.getElementById('content'+type).style.display = '' ;
+		}
+		else{
+			document.getElementById('content'+type).style.display = 'none' ;
+		}
+		
+	}
+	function changeMedia(type)
+	{
+		document.getElementById('TR_EMAIL'+type).style.display = 'none' ;
+		document.getElementById('TR_SUBJECT'+type).style.display = 'none' ;
+		document.getElementById('TR_CGI_SETTING'+type).style.display = 'none' ;
+		document.getElementById('TR_UPLOAD_PATH'+type).style.display = '' ;
+		
+		var value = document.getElementById('type'+type).value ;
+		if(value!='9' && idget("image_file_name"+type).value=="myrecording")
+		{
+			idget("image_file_name"+type).value = "";
+			idget("file_path"+type).value = "";
+		}
+		
+		if(value == '1'){
+			document.getElementById('TR_EMAIL'+type).style.display = '' ;
+			document.getElementById('TR_SUBJECT'+type).style.display = '' ;
+			document.getElementById('TR_UPLOAD_PATH'+type).style.display = 'none' ;
+			idget("TR_UPLOAD_FILE_NAME"+type).style.display = "" ;
+		}
+		if(value == '2' || value == '3' || value == '5' || value == '6'){
+			document.getElementById('TR_CGI_SETTING'+type).style.display = '' ;
+			document.getElementById('TR_UPLOAD_PATH'+type).style.display = 'none' ;
+			idget("TR_UPLOAD_FILE_NAME"+type).style.display = "" ;
+
+		}
+		if(value=='9'){	
+			idget("TR_UPLOAD_FILE_NAME"+type).style.display = "none" ;
+			idget("TR_UPLOAD_PATH"+type).style.display = "none" ;
+		}	
+		if(value=='7'){	
+			idget("TR_UPLOAD_FILE_NAME"+type).style.display = "" ;
+			idget("TR_UPLOAD_PATH"+type).style.display = "" ;
+		}
+	}
+	
+	function hasLocalStorage ()
+	{
+		var Storage;
+		szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&DISK_STATE";
+		szReturn = doRequest(szSystem).split('\n');
+		szTmp = top.doSplitValue(szReturn[0]) ;
+		Storage = szTmp[1];
+		if (Storage == "MOUNT") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function changeType(type,value)
+	{
+		var email = "E-MAIL";
+		var cgi1 = "HTTP CGI 1";
+		var cgi2 = "HTTP CGI 2";
+		var ftp = "FTP Server";
+		var ls = "Local Storage";
+		try {  email = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_EMAIL") ; } catch(e) {}
+		try {  ftp = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_FTP") ; } catch(e) {}
+		try {  cgi1 = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_CGI_1") ; } catch(e) {}
+		try {  cgi2 = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_CGI_2") ; } catch(e) {}
+		try {  ls = top.GetXmlLangTagByName("SELECT_EVENT_MEDIA_STORAGE") ; } catch(e) {}
+				
+		var sb = [] ;
+		sb[sb.length] = '<select name="type'+type+'" id="type'+type+'" onchange="changeMedia('+ type +');">' ;
+		if(value == '1'){
+			
+			sb[sb.length] = '<option value="1" id="select_email' + type + '">' + email +'</option>' ;
+			sb[sb.length] = '<option value="4" id="select_ftp' + type +'">' + ftp +'</option>' ;
+			sb[sb.length] = '<option value="2" id="select_cgi1' + type + '">'+cgi1 +'</option>' ;
+			sb[sb.length] = '<option value="3" id="select_cgi2' +type +'">' + cgi2+'</option>' ;
+			/*if (hasLocalStorage ()){
+				sb[sb.length] = '<option value="8" id="' + "TYPE" + type + "_STORAGE" + '">'+ls+'</option>' ;
+			}*/
+			document.getElementById('TR_EMAIL'+type).style.display = '' ;
+			document.getElementById('TR_SUBJECT'+type).style.display = '' ;
+			document.getElementById('TR_BUFFER'+type).style.display = 'none' ;
+			document.getElementById('TR_RATE'+type).style.display = '' ;
+		}
+		else{
+			sb[sb.length] = '<option value="7" id="select_ftp'+type+ '">'+ ftp +'</option>' ;
+			sb[sb.length] = '<option value="5" id="select_cgi1' +type+'">' + cgi1+'</option>' ;
+			sb[sb.length] = '<option value="6" id="select_cgi2' + type + '">' +cgi2+'</option>' ;
+			if (hasLocalStorage ()){
+				sb[sb.length] = '<option value="9" id="'+ "TYPE" + type  + "_STORAGE" + '">'+ls+'</option>' ;
+			}
+			document.getElementById('TR_EMAIL'+type).style.display = 'none' ;
+			document.getElementById('TR_SUBJECT'+type).style.display = 'none' ;
+			document.getElementById('TR_BUFFER'+type).style.display = '' ;
+			document.getElementById('TR_RATE'+type).style.display = 'none' ;
+		}
+		sb[sb.length] = '</select>' ;
+		
+		document.getElementById('td_type'+type).innerHTML = sb.join('');
+		changeMedia(type) ;
+	}	
+
+	var pattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	
+	var err1 = 'Please input Image File Name' ;
+	var err2 = 'Please input subject.' ;
+	var err3 = 'Please input E-Mail Recipients' ;
+	var err4 = 'Invalid E-Mail address(es) in Message' ;
+	var err5 = 'Please input CGI Path & Program' ;
+	
+	function clickTest(x){
+		
+		document.getElementById('BUTTON_BUTTON_TEST'+x).disabled  = true ;
+		
+		doSubmits(x,x) ;
+		
+	}
+	
+    function doSubmits(a,b) {
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&" ;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;		
+		for(var i=a; i<=b; i++){
+			
+			var type,PreBuf,UploadTime,ImageRate,ImageName,UploadPath,HostUrl,subject,VideoSrc ;
+			
+			if(document.getElementById('enable'+i).checked == false){
+				type = '0' ;
+			}
+			else{
+				type = document.getElementById('type'+i).value ;
+			}
+
+			PreBuf = document.getElementById('buffer_time'+i).value ;
+			UploadTime = document.getElementById('upload_time'+i).value ;
+			ImageRate = document.getElementById('image_rate'+i).value ;
+			ImageName = document.getElementById('image_file_name'+i).value ;
+			UploadPath = document.getElementById('file_path'+i).value ;
+			
+			if(( ImageName.indexOf('%')==0 || UploadPath.indexOf('%') == 0) && type>0)
+			{				
+				alert(err_message);
+				window.setTimeout("clean_result();", 200 );				
+				if(a == b){go_back_test(a);}
+				return false ;
+			}
+			if(type!=9)
+			{
+				if(ImageName == '' && type>0){
+					alert(err1);	
+					window.setTimeout("clean_result();", 200 );				
+					if(a == b){go_back_test(a);}
+					return false ;
+				}
+			}	
+	
+			HostUrl = '' ;
+			var valueMedia = document.getElementById('type'+i).value ;
+			
+			if(valueMedia == '1'){
+				HostUrl = document.getElementById('email_address'+i).value ;
+			}
+			else if(valueMedia == '2' || valueMedia == '3' || valueMedia == '5' || valueMedia == '6'){
+				HostUrl = document.getElementById('cgi_setting'+i).value ;
+			}
+			
+			if(HostUrl == '' && (type == 2 || type == 3 || type == 5 || type == 6) ){
+				alert(err5);
+				window.setTimeout("clean_result();", 200 );
+				if(a == b){go_back_test(a);}
+				return false ;
+			}
+			
+			subject = document.getElementById('subject'+i).value ;
+			//alert("subject="+subject);
+			if(subject == '' && type==1){
+				alert(err2);
+				window.setTimeout("clean_result();", 200 );
+				if(a == b){go_back_test(a);}
+				return false ;
+			}
+			
+			VideoSrc = document.getElementById('video_source'+i).value ;
+			
+			if(type == '1' ){
+				if(HostUrl == ''){
+					alert(err3);
+					window.setTimeout("clean_result();", 200 );
+					if(a == b){go_back_test(a);}
+					return false;
+				}
+				
+				var emails = HostUrl.split(';');
+				for(var j=0; j<=emails.length-1; j++){
+					var flag_mail=pattern.test(emails[j]);
+					if(!flag_mail){
+						alert(err4 + ' '+ i);
+						window.setTimeout("clean_result();", 200 );
+						if(a == b){go_back_test(a);}
+						return false ;
+					}
+				}
+			}
+			
+			HostUrl = '['+ HostUrl.replace(/&/g,'%26') +']';
+			
+			/*if(type != '0'){
+				if(VideoSrc != '1' && VideoSrc != '2'){
+					alert('Please select "Video Source" in Message '+ i);
+					if(a == b){go_back_test(a);}
+					return false ;
+				}
+			}*/
+			
+			if(a == b){
+				szSystem = szSystem + 'EVENT_TEST&' ;
+			}
+			
+			if(i > 1 && a != b){
+				
+				szSystem = szSystem + '&' ;
+				
+			}
+			
+			if(type==9)
+			{ 
+				ImageName = "myrecording" ;
+				UploadPath = "myrecordingpath" ;
+			}
+			szSystem = szSystem + 'EVENT_RSPIMG'+i+'='+ type +','+ PreBuf +','+ UploadTime +','+ ImageRate +','+ ImageName +','+ UploadPath +','+ HostUrl +','+ encodeURI(subject) +','+ VideoSrc ;
+			//alert("szSystem="+szSystem);
+			
+		}
+		var szReturn = top.doRequest(szSystem) ;
+		
+		var errString = szReturn ;
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = szReturn[nIdx] ;
+			
+            if(szTmp.indexOf('ERROR')>-1){
+				nError++ ;
+			}
+        }
+		
+		if(a == b){
+
+			if (nError == 0) {
+				document.getElementById('BUTTON_BUTTON_TEST'+a).value = 'OK' ;
+			}
+			else{
+				document.getElementById('BUTTON_BUTTON_TEST'+a).value = 'Fail' ;
+				
+				if(errString.indexOf('ERROR: internal error. Event server is not set correctly')>-1){
+					var test_err = errString ;
+					try { test_err = top.GetXmlLangTagByName("EVENT_TEST_ERROR") ; } catch(e) {}
+					alert(test_err);
+				}
+				else{
+					alert(err_message);
+				}
+			}
+			window.setTimeout("go_back_test("+ a +");", 1000 );
+			window.setTimeout("clean_result();", 2000 );
+		}
+		else{
+		
+			if (nError == 0) {
+				idget("BUTTON_APPLY").value = "Success" ;
+				window.setTimeout("clean_result();", 2000 );
+				
+			}
+			else{
+				//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+				window.setTimeout("clean_result();", 2000 );
+				alert(err_message);
+				doGetSetting();
+			}
+			parent.Close();
+		}
+		
+    }
+    
+	function go_back_test(x){
+		document.getElementById('BUTTON_BUTTON_TEST'+x).disabled  = false ;
+		
+		try { document.getElementById('BUTTON_BUTTON_TEST'+x).value = top.GetXmlLangTagByName("BUTTON_TEST") } catch(e) {document.getElementById('BUTTON_BUTTON_TEST'+x).value = 'Test' ;}
+
+	}		
+
+	
+	function clean_result(){
+		idget("BUTTON_APPLY").disabled = false ;
+		//result_str.innerHTML = "" ;
+		idget("BUTTON_APPLY").value = "Apply" ;
+		try { idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 
+	
+	function doGetSetting()
+	{		
+		UpdateSelectOptions(idget("video_source1"), "1,2");
+		UpdateSelectOptions(idget("video_source2"), "1,2");
+		UpdateSelectOptions(idget("video_source3"), "1,2");
+		
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;
+    
+        szSystem = szSystem + "EVENT_RSPIMG1&EVENT_RSPIMG2&EVENT_RSPIMG3" ;
+        var szReturn = top.doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+		//alert(szReturn);
+        for (nIdx=0; nIdx< szReturn.length-1; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+			var id = szTmp[0].replace('EVENT_RSPIMG','');
+			var tmp = szTmp[1].split('[') ;			
+			var value = tmp[0].split(',') ;
+			var enable = value[0] ;
+			
+			var radio = document.frmSetting['typer'+id];
+			
+			if(enable == '0'){
+				document.getElementById('enable'+id).checked = false ;
+				changeType(id,'1');
+				radio[0].checked = true ;
+			}
+			else{
+			
+				if(enable == '1' || enable == '2' || enable == '3' || enable == '4' ||enable == '8'){
+					changeType(id,'1');
+					
+					radio[0].checked = true ;
+				}
+				else{
+					changeType(id,'2');
+					
+					radio[1].checked = true ;
+				}
+				document.getElementById('enable'+id).checked = true ;
+				document.getElementById('type'+id).value = value[0] ;				
+			}
+			//document.getElementById('type'+id).value = 4 ;//fixed to FTP temporarily
+			//document.getElementById('type'+id).disabled = true ;//fixed to FTP temporarily
+			document.getElementById('buffer_time'+id).value = value[1] ;
+			document.getElementById('upload_time'+id).value = value[2] ;
+			document.getElementById('image_rate'+id).value = value[3] ;
+			document.getElementById('image_file_name'+id).value = value[4] ;
+			document.getElementById('file_path'+id).value = value[5] ;		
+			//alert("id="+id+"\n"+"image_file_name="+document.getElementById('image_file_name'+id).value+"\n"+"file_path="+document.getElementById('file_path'+id).value);
+			var tmp2 = tmp[1].split(']');		
+			
+			var hostUrl = tmp2[0].replace(/%3D/g,'=').replace(/%26/g,'&').replace(/%2C/g,',');			
+			
+			if(value[0] == '1'){
+				document.getElementById('email_address'+id).value = hostUrl ;
+			}
+			else if(value[0] == '2' || value[0] == '3' || value[0] == '5' || value[0] == '6'){
+				document.getElementById('cgi_setting'+id).value = hostUrl ;
+			}
+			
+			var tmp3 =tmp2[1].split(',');			
+			
+			document.getElementById('subject'+id).value = tmp3[1] ;
+			document.getElementById('video_source'+id).value = tmp3[2] ;
+			
+			toClick(id);
+			
+			changeMedia(id) ;
+					
+        }
+	
+	}
+	
+	var err_message = 'Error. Invalid settings.' ;
+	
+	function event_config_upload_update_language()
+	{
+		top.update_language(this);	
+			
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_TYPE2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_TYPE") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_TYPE3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_TYPE") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_SNAPSHOT2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_SNAPSHOT") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_SNAPSHOT3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_SNAPSHOT") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_SEND_MSG_TO2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_SEND_MSG_TO") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_SEND_MSG_TO3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_SEND_MSG_TO") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_TIME2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_TIME") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_TIME3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_TIME") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_UPLOAD_TIME_MSG2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_UPLOAD_TIME_MSG") ; } catch(e) {}
+		try { idget("SETTING_EVENT_UPLOAD_TIME_MSG3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_UPLOAD_TIME_MSG") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE_DESC2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE_DESC") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE_DESC3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_IMAGE_RATE_DESC") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME_DESC2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME_DESC") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME_DESC3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_FILE_NAME_DESC") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_FILENAME_PATH_RULE2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_FILENAME_PATH_RULE") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_FILENAME_PATH_RULE3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_FILENAME_PATH_RULE") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_FILENAME_PATH_RULE4").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_FILENAME_PATH_RULE") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_FILENAME_PATH_RULE5").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_FILENAME_PATH_RULE") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_FILENAME_PATH_RULE6").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_FILENAME_PATH_RULE") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS_DESC2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS_DESC") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS_DESC3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_EMAIL_ADDRESS_DESC") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_CGI_SETTING2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_CGI_SETTING") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_CGI_SETTING3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_CGI_SETTING") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_SUBJECT2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_SUBJECT") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_SUBJECT3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_SUBJECT") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO_SRC2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO_SRC") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO_SRC3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_VIDEO_SRC") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_PATH2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_PATH") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_PATH3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_PATH") ; } catch(e) {}	
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_BUFFER_TIME2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_BUFFER_TIME") ; } catch(e) {}
+		try { idget("SETTING_EVENT_CONFIGURATOR_UPLOAD_BUFFER_TIME3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_BUFFER_TIME") ; } catch(e) {}	
+		try { idget("COMMON_MSG_SECONDS2").innerHTML = top.GetXmlLangTagByName("COMMON_MSG_SECONDS") ; } catch(e) {}	
+		try { idget("COMMON_MSG_SECONDS3").innerHTML = top.GetXmlLangTagByName("COMMON_MSG_SECONDS") ; } catch(e) {}			
+		try { document.getElementById('BUTTON_BUTTON_TEST1').value = top.GetXmlLangTagByName("BUTTON_TEST") ; } catch(e) {}
+        try { document.getElementById('BUTTON_BUTTON_TEST2').value = top.GetXmlLangTagByName("BUTTON_TEST") ; } catch(e) {}
+        try { document.getElementById('BUTTON_BUTTON_TEST3').value = top.GetXmlLangTagByName("BUTTON_TEST") ; } catch(e) {}
+								
+		try { err_message = top.GetXmlLangTagByName("EVENT_ERROR_MESSAGE") ; } catch(e) {}
+		try { err1 = top.GetXmlLangTagByName("SETTING_EVENT_FILENAME_PATH_NULL") ; } catch(e) {}
+		try { err2 = top.GetXmlLangTagByName("SETTING_EVENT_SUBJECT_NULL") ; } catch(e) {}
+		try { err3 = top.GetXmlLangTagByName("SETTING_EVENT_EMAIL_RX_ADDR_NULL") ; } catch(e) {}
+		try { err4 = top.GetXmlLangTagByName("SETTING_EVENT_EMAIL_RX_ADDR_ERR") ; } catch(e) {}
+		try { err5 = top.GetXmlLangTagByName("SETTING_EVENT_CGI_PATH_NULL") ; } catch(e) {}
+		if(top.gAudioType == '0')
+		{
+			try{idget("BUTTON_UPLOAD_VIDEO_SNAPSHOT").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_NOAUDIO");  } catch(e) {}		
+			try{idget("SETTING_EVENT_CONFIGURATOR_UPLOAD").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_NOAUDIO");  } catch(e) {}		
+			try{idget("SETTING_EVENT_CONFIGURATOR_UPLOAD2").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_NOAUDIO");  } catch(e) {}		
+			try{idget("SETTING_EVENT_CONFIGURATOR_UPLOAD3").innerHTML = top.GetXmlLangTagByName("SETTING_EVENT_CONFIGURATOR_UPLOAD_NOAUDIO");  } catch(e) {}		
+		}
+	}
+	
+	function Page_onLoad()
+	{
+		if(top.gStreamMode=="SINGLE" || top.gVideoStreams == 1)
+		{
+			idget("TR_VIDEO_SRC_1").style.display="none";
+			idget("TR_VIDEO_SRC_2").style.display="none";
+			idget("TR_VIDEO_SRC_3").style.display="none";
+		}
+		else
+		{
+			idget("TR_VIDEO_SRC_1").style.display="";
+			idget("TR_VIDEO_SRC_2").style.display="";
+			idget("TR_VIDEO_SRC_3").style.display="";
+		}	
+		event_config_upload_update_language();
+		
+		doGetSetting();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

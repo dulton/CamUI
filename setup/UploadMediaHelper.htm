@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>How to upload Video & Audio / Snapshot to remote servers</title>
+
+<link rel="stylesheet" type="text/css" href='../css/style.css'>
+
+</head>
+
+<body style="text-align:left;">
+<h1 align="left">How to upload Video & Audio / Snapshot to remote servers</h1>
+<blockquote align="left">
+    <p>
+        We need to setup some configurations in this page for uploading video & audio or snapshot to the remote servers like FTP server.
+        You need to enable the audio function if you want to uplaod the audio data with video. Please refer to Streaming Settings Page.
+    </p>
+    <p>
+        When upload video is selected, the E-Mail for upload is not available.<br>
+        No Pre-Buffer Time is not availale when the Upload Media Type is Snapshot.
+    </p>
+    <p>
+        The device appends the extension file name based on the Upload Media Type. If the Snapshot is selected, the extension file name is .jpg.
+        The extension file name is .raw for video & audio upload. The video and audio raw data will be saved in to a single file.
+        It needs a specific player to preview the raw file. Please contact your vendor for that.<br>
+        Special Note that device does not fragment the video raw file into several small pieces of raw files during upload.
+    </p>
+</blockquote>
+
+<h3 align="left">Send Snapshot to E-Mail</h3>
+<blockquote align="left">
+    <p>
+        Six settings are needed in this function.
+        <table border="1" width="900" cellpadding="5" class="event_server_table_style table_th">
+            <tr>
+                <th scope="col"><font size="-1">Setting</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+                <th scope="col"><font size="-1">Example</font></th>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Period</font></td>
+                <td align="left"><font size="-1">
+                    The time period of uploading snapshots to remote server. It is in the range of 0 to 86400 seconds.
+                    However, long upload period is not preferred because it might cause lossing event triggers.<br>
+                    Setting Upload Period to 0 means the upload period follows the trigger state of event soure.
+                    The device starts uploading snapshots when the event was triggered and stop uploading snapshots as the event became inactive.
+                </font></td>
+                <td align="left"><font size="-1">&nbsp;</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Images during Upload Period</font></td>
+                <td align="left"><font size="-1">
+                    The number of snapshots druing an upload period. It is in the range of 0 to 345600.
+                    But the number of snapshot in runtime is not guarenteed. It was limited the max. throughput of snapshot.
+                    Set it to 0 to ask device to upload snapshot at full rate.
+                </font></td>
+                <td align="left"><font size="-1">&nbsp;</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Media File Name</font></td>
+                <td align="left"><font size="-1">
+                    Give the naming rule of the upload snapshots.
+                    Refer to <a href="MediaNamingRule.htm">How to Setup Media File Name</a> for further detail.<br>
+                    The max. length of this setting is 63 characters.
+                </font></td>
+                <td align="left"><font size="-1">Snapshot-%YY%MM%DD_%hh%mm%ss</font></td>
+            </tr>           
+            <tr>
+                <td align="left"><font size="-1">E-Mail Recipients</font></td>
+                <td align="left"><font size="-1">
+                    Recipient E-Mail address. This field could not be empty.<br>
+                    It chould be the multiple recipients.<br>
+                    The ';' is used to seperate recipient E-Mail addresses.<br>
+                    No space character is in front of the recipient E-Mail address.<br>
+                    The max. length is 63 bytes.
+                </font></td>
+                <td align="left"><font size="-1">
+                    user1@test.com;user2@test.com;tester@company.com
+                </font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Subject</font></td>
+                <td align="left"><font size="-1">
+                    Subject of notification. This field could not be empty.<br>
+                    The max. length of subject is 31 bytes.
+                </font></td>
+                <td align="left"><font size="-1">
+                    Testing Message
+                </font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Send Snapshots to FTP Server</h3>
+<blockquote align="left">
+    <p>
+        Four settings are needed in this function.
+        <table border="1" width="900" cellpadding="5" class="event_server_table_style table_th">
+            <tr>
+                <th scope="col"><font size="-1">Setting</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Period</font></td>
+                <td align="left" rowspan="3"><font size="-1">Same definition in Send Snapshot to E-Mail.</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Images during Upload Period</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Media File Name</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Path</font></td>
+                <td align="left"><font size="-1">
+                    Give the naming rule of the upload path. The path is from the root of remote server to the target folder.
+                    Refer to <a href="MediaNamingRule.htm">How to Setup Upload Path</a> for further detail.<br>
+                    The max. length of this setting is 63 characters.
+                </font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Send Snapshots to HTTP Server 1/2</h3>
+<blockquote align="left">
+    <p>
+        Five settings are needed in this function.
+        <table border="1" width="900" cellpadding="5" class="event_server_table_style table_th">
+            <tr>
+                <th scope="col"><font size="-1">Setting</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+                <th scope="col"><font size="-1">Example</font></th>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Period</font></td>
+                <td align="left" rowspan="4"><font size="-1">Same definition in Send Snapshot to FTP Server.</font></td>
+                <td align="left" rowspan="4"><font size="-1">&nbsp;</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Images during Upload Period</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Media File Name</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Path</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">CGI Path & Program</font></td>
+                <td align="left"><font size="-1">
+                    The CGI program in the remote HTTP server to response this upload.<br>
+                    The CGI path form the HTTP server root has to be included here.<br>
+                    This field could not be empty and the max. length is 63 characters.
+                </font></td>
+                <td align="left"><font size="-1">
+                    /cgi-bin/MsgHandle.cgi<br>
+                    where<br>
+                    /cgi-bin is the path of CGI program, MsgHandle.cgi. It starts from HTTP server root.
+                </font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Send Video & Audio to FTP Server</h3>
+<blockquote align="left">
+    <p>
+        Four settings are needed in this function.
+        <table border="1" width="900" cellpadding="5" class="event_server_table_style table_th">
+            <tr>
+                <th scope="col"><font size="-1">Setting</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Period</font></td>
+                <td align="left"><font size="-1">Same definition in Send Snapshot to FTP Server.</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Pre-Buffer Time</font></td>
+                <td align="left"><font size="-1">
+                    The number of seconds of pre-buffered video images before the event source was triggered are sent to server
+                    when event source was triggered. It is from 0 to 3 seconds.<br>
+                    Note that the pre-buffered time is not guarenteed here.
+                    The available of pre-buffered size depends on video settings like video resolution, video bit rate and frame rate.
+                </font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Media File Name</font></td>
+                <td align="left" rowspan="2"><font size="-1">Same definition in Send Snapshot to FTP Server.</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Path</font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Send Video & Audio to HTTP Server 1/2</h3>
+<blockquote align="left">
+    <p>
+        Four settings are needed in this function.
+        <table border="1" width="900" cellpadding="5" class="event_server_table_style table_th">
+            <tr>
+                <th scope="col"><font size="-1">Setting</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Period</font></td>
+                <td align="left" rowspan="4"><font size="-1">Same definition in Send Video & Audio to FTP Server.</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Pre-Buffer Time</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Media File Name</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Upload Path</font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">CGI Path & Program</font></td>
+                <td align="left"  colspan="4"><font size="-1">Same definition in Send Snapshot to HTTP Server 1/2.</font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Test Button</h3>
+<blockquote align="left">
+    <p>
+       The Test Button helps you to check if the settings in the page is correct or not.<br>
+       The device will sent the testing Video & Audio / Snapshot to the remote server. Here is the format of upload.
+       <ul><li>Send test snapshot to E-Mail</li></ul>
+       <blockquote align="left">
+            1. E-Mail Recipients are the settings in the E-Mail Recipients field.<br>
+            2. Subject is "Event Test" + the setting of Subject<br>
+            3. One snapshot per upload in this test. The file name is "Event Test" + the setting of Media File Name. 
+       </blockquote>
+       
+       <ul><li>Send test snapshot to FTP Server</li></ul>
+       <blockquote align="left">
+            1. Upload Path is the setting of Upload Path.<br>
+            2. One snapshot per upload in this test. The file name is "Event Test" + the setting of Media File Name. 
+       </blockquote>
+
+       <ul><li>Send test snapshot to HTTP Server 1/2</li></ul>
+       <blockquote align="left">
+            1. Upload Path is the setting of Upload Path.<br>
+            1. CGI Path & Program is the setting of Path & Program.<br>
+            2. One snapshot per upload in this test. The file name is "Event Test" + the setting of Media File Name. 
+       </blockquote>
+
+       <ul><li>Send test Video & Audio to FTP Server</li></ul>
+       <blockquote align="left">
+            1. Upload Path is the setting of Upload Path.<br>
+            2. No Pre-buffer data will be uploaded.<br>
+            3. Two seconds video & audio per upload in this test. The file name is "Event Test" + the setting of Media File Name. 
+       </blockquote>
+
+       <ul><li>Send test Video & Audio to HTTP Server 1/2</li></ul>
+       <blockquote align="left">
+            1. Upload Path is the setting of Upload Path.<br>
+            2. No Pre-buffer data will be uploaded.<br>
+            3. Two seconds video & audio per upload in this test. The file name is "Event Test" + the setting of Media File Name. 
+       </blockquote>
+    </p>
+</blockquote>
+<br/>
+<div style="text-align:center">
+<input type="button" class="button3" id="BUTTON_BUTTON_CLOSE" value="Close" onclick="window.close();"/>
+</div>
+</body>
+</html>

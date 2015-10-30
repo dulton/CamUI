@@ -1,0 +1,98 @@
+V1.03.05
+Date:2015/10/23
+[Added]
+1.Disable _TR_VIDEO_CVBR_BITRATE in Constant Bit Rate mode.
+======================================================================================
+
+V1.03.04
+Date:2015/10/22
+[Added]
+1.Added error message labeltag for Mutiple languages Website in ANS Notification Server Configuration page
+2.Added error message labeltag for Mutiple languages Website in GB28181 page
+3.Added UI version:V1.03.04 in index.html
+
+## nvA1Media v1.0.0.106  Date:    2015.10.13
+1. [ADD] object counting counter display control  
+======================================================================================
+
+V1.03.03
+Date:2015/10/16
+[Added]
+1.Added variable bitrate mode with max. bitrate function
+2.Added UI version:V1.03.03 in index.html
+======================================================================================
+V1.03.02
+Date:2015/10/13
+[Added]
+1.Added ECM of OEM customer DigitalWatchdog
+2.Added UI version:V1.03.02 in index.html
+======================================================================================
+V1.03.01
+Date:2015/10/08
+[Added]
+1.Added GB28181 function
+2.Added UI version:V1.03.01 in index.html
+======================================================================================
+V1.03.00
+Date:2015/10/06
+[Added]
+1.Added Zoom Ratio function
+2.Added UI version:V1.03.00 in index.html
+======================================================================================
+V1.02.99
+Date:2015/09/24
+[Added]
+1.Added Mutiple language for isEdge
+2.Added UI version:V1.02.99 in index.html
+======================================================================================
+V1.02.98
+Date:2015/09/24
+[Added]
+1.Added an alert of detecting Win10/Edge.
+2.Added ANS_NOTIFICATION_STATE to event server page
+3.Added ANS_NOTIFICATION_SERVER page
+4.Added Response to ANS server option
+5.Added UI version:V1.02.98 in index.html
+======================================================================================
+V1.02.97
+Date:2015/09/09
+[Added]
+1.Added OSD for none Stream1
+2.Added UI version:V1.02.97 in index.html
+======================================================================================
+V1.02.96
+Date:2015/09/08
+[Added]
+1.Added conditions to disable scrolling event while ptz status is off.
+======================================================================================
+V1.02.95
+Date:2015/09/03
+[Added]
+1.Added events to disable windows scrolling when moving mouse into the ActiveX object.
+2.Added ptz panel default value in IEs.
+======================================================================================
+V1.02.94
+Date:2015/8/21
+[Fixed]
+1.Added SETTING_VIDEO_MOUNTING_TYPE_ERR for SwitchMountType(), and reload MOUNTING_TYPE 
+2.Added UI version:V1.02.94 in index.html
+======================================================================================
+V1.02.93
+Date:2015/8/21
+[Upgraded]
+1.Enhanced compatibilities among IEs.
+2.Fixed errors in zh-tw.xml and en-us.xml
+3.Fixed flashing screen while dragging control panel in IE9-
+4.Added SETTING_VIDEO_MOUNTING_TYPE_ERR for SwitchMountType()
+======================================================================================
+V1.02.92
+Date:2015/8/17
+[Merged]
+1.Merged contents of V1.02.91_Beta01(from V1.02.89 toV1.02.91_Beta01) into V1.02.89_Beta04
+======================================================================================
+V1.02.91_Beta01
+Date:2015/8/17
+[Fixed]
+1.Added GO_Home Button in PTZ preset page
+2.Fixed SetupPtzVendor2ECM() 
+3.Added UI version:V1.02.91_Beta01 in index.html

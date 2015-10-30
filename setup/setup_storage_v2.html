@@ -1,0 +1,2936 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<!DOCTYPE html>-->
+<html>
+
+<head>
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>	
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+	<link rel="stylesheet" type="text/css" href='/css/tab.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>	    
+</head>
+
+<body  id="Mainbody" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" style="position:absolute; z-index:1;" onmousemove="GetMousePos()" oncontextmenu="return false">
+<div style="padding-top:3px">
+	<table id="setuptbl" class="setup_table" align="center" border="0">
+		<tr>
+			<td class="setup_item">
+				<label id="MENU_STORAGE_FILELIST">File Management</label>
+			</td>
+			
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="center" >
+								<div id="ECM"></div>	
+								<div id="player"></div>
+							</td>						
+						</tr>
+					</table>
+					<table border="0" align="center" width="100%">						
+						<tr>
+							<td align="right" width="40%" style="display:">
+								<img src="/images/previous_recording.png" id="BOTTON_PREVIOUS" onclick="GO_PREVIOUS()" title="Go Previous">
+							</td>
+							<td align="center" width="20%" >
+								<input type="text"  id="Now" style="font-size:12px;font-family:Arial;text-align:center" readonly="readonly" value="" size="16">
+								<!--<label id="Now" style="align:center font-size:12px;font-family:Arial"></label>-->
+							</td>
+							<td align="left" width="30%" style="display:">
+								<img src="/images/next_recording.png" id="BOTTON_NEXT" onclick="GO_NEXT()" title="Go Next">
+							</td>
+							<td align="right" width="10%" style="display:">
+								<img src="/images/go_current_time.png" id="BOTTON_CURRENT" onclick="GO_CURRENT()" title="Go Current">
+							</td>	
+						</tr>
+					</table>
+					<table border="1" align="center" width="100%">				
+						<tr id="Stream1" style="display:">
+							<td width="60px" height="20px" bgcolor="#989898">
+								<label style="font-weight:bold; margin-left:5px;text-align:cenetr">S1</label>
+							</td>
+							<td>
+								<div id="S1" height="100%"></div>
+							</td>	
+						</tr>	
+						<tr id="Stream2" style="display:">
+							<td width="60px" height="20px" bgcolor="#989898">
+								<label style="font-weight:bold">S2</label>
+							</td>
+							<td>
+								<div id="S2" height="100%"></div>
+							</td>
+						</tr>
+						<tr id="Stream3" style="display:none">
+							<td width="60px" height="20px" bgcolor="#989898">
+								<label style="font-weight:bold; margin-left:5px;text-align:cenetr">S3</label>
+							</td>
+							<td>
+								<div id="S3" height="100%"></div>
+							</td>	
+						</tr>
+					</table>
+					<table border="0" align="center" width="100%">
+						<tr id="showtime">
+							<td width="33%" align="left">
+								<input type="text" align="center" id="NowStartTime" style="font-size:12px;font-family:Arial;text-align:center" readonly="readonly" value="2014/04/03 17:49:00" size="15">
+							</td>
+							<td width="33%" align="right">
+								<input type="text" align="center" id="NowEndTime" style="font-size:12px;font-family:Arial;text-align:center" readonly="readonly" value="2014/04/03 17:49:00" size="15">
+								<!--<label id="NowEndTime" style="align:center font-size:12px;font-family:Arial"></label>-->
+							</td>
+						</tr>
+					</table>
+					<table border="0" align="center" width="100%">
+						<tr width="100%">				
+							<td id="MD" align="left" width="30%">								
+								<input id="SETTING_MD_ADDED" type="checkbox" onclick="MD_CHECK()">							
+								<label id="SETTING_VIDEO_MD" style="top:0px; margin-left:0px; margin-right:0px;">MD</label>
+								<label style="width:15px;height:20px;background-color:#ff0000; margin-left:0px;padding-top:4px">&nbsp;&nbsp;&nbsp </label>
+							</td>
+							<td id="DI" align="left" width="30%">							
+								<input id="SETTING_DI_ADDED" type="checkbox" onclick="DI_CHECK()">									
+								<label id="SETTING_EVENT_CONFIGURATOR_DIGITAL_INPUT_PORT" style="top:0px; margin-left:0px; margin-right:0px;">DI</label>
+								<label style="width:15px;height:20px;background-color:#33CC66; margin-left:0px;padding-top:4px">&nbsp;&nbsp;&nbsp </label>									
+							</td>
+							<td id="SD" align="left" width="30%">							
+								<input id="SETTING_SD_ADDED" type="checkbox" onclick="SD_CHECK()">									
+								<label id="SETTING_SOUND_DETECTION" style="top:0px; margin-left:0px; margin-right:0px;">SD</label>
+								<label style="width:15px;height:20px;background-color:#FF7F00; margin-left:0px;padding-top:4px">&nbsp;&nbsp;&nbsp </label>									
+							</td>	
+							<td align="right">
+								<select id="TIME_LEVEL" onchange="TIME_LEVEL_CHANGE()">
+									<Option value="0" id="SELECT_ONE_SECOND">Second</Option>
+									<Option value="1" id="SELECT_ONE_MINUTE">Minute</Option>
+									<Option value="2" id="SELECT_ONE_HOUR" Selected>Hour</Option>
+									<Option value="3" id="SELECT_ONE_DAY">Day</Option>
+								</select>	
+							</td>	
+						</tr>	
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>	
+</div>
+<!--------------------- BEGIN POPUP MENU -------------------------->
+<div id="menudiv" style="position:absolute; display:none; top:0px; left:0px; z-index:10000;" onmouseover="javascript:overpopupmenu=true;" onmouseout="javascript:overpopupmenu=false;">
+	<table width=82 cellspacing=1 cellpadding=0 bgcolor=lightgray>
+		<tr><td>
+			<table width=115 cellspacing=0 cellpadding=0>
+				<tr>
+					<td id="item1" bgcolor="#FFFFFF" width="110" height="16" onclick='MarkExportStart()'>  
+						<!--<a href="#">Mark ExportStart</a>-->
+						<label id="SELECT_MARK_EXPORT_START" style="margin-left:0px">Mark ExportStart</label>
+					</td>	
+				</tr>
+				<tr>
+					<td id="item2" bgcolor="#FFFFFF" width="110" height="16" onclick='MarkExportEnd()'> 
+						<!--<a href="#">Mark ExportEnd</a><-->
+						<label id="SELECT_MARK_EXPORT_END" style="margin-left:0px">Mark ExportEnd</label>
+					</td>
+				</tr>
+				<tr>
+					<td id="item3" bgcolor="#FFFFFF" width="110" height="16" onclick='CleanSelection()' onMouseOver="this.style.backgroundColor='#d7d7d7'" onMouseOut="this.style.backgroundColor='#FFFFFF'">  
+						<!--<a href="#">Clean Selection</a>-->
+						<label id="SELECT_CLEAR_SELECTION" style="margin-left:0px">Clean Selection</label>
+					</td>
+				</tr>
+				<tr>
+					<td id="item4" bgcolor="#ffffff" width="110" height="16"> 
+						<a id="SELECT_EXPORT_VIDEO" onclick='ExportVideo()' style="margin-left:0px;text-decoration:none; color:black; font-size:12px;font-family:Arial,Verdana,sans-serif,Helvetica; " href=""> Export Video</a>
+						<!--<label id="SELECT_EXPORT_VIDEO">Export Video</label>-->
+					</td>
+				</tr>
+			</table>
+		</td></tr>
+	</table>
+</div>
+<!--------------------- END POPUP MENU -------------------------->	
+<div  id="bg2" class="setup_bg"></div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var CameraConf;
+	var EcmWidthWithMotionWindow = 633;
+	var EcmHieghtWithoutMotionWindow = 280;
+	var NowUTCTime = 0;
+	var TimezoneOffset = 0;
+	var NowUTCStartTime = 0;
+	var NowUTCEndTime = 0;
+	var firstdata = 1;
+	var Time1 = 0;
+	var Time2 = 0;
+	var Data = 0;
+	var Intervalstart,Intervalend = 0;
+	var Num_selected = 0;
+	var firstRecordingdata = 0;
+	//var DB_ClickNum = 0;
+	var firstRecordingdataTime = 0;
+	var finalRecordingdataTime = 0;
+	var S2finalRecordingdataTime = 0;
+	var datacount = 0;
+	var S2datacount = 0;
+	var dataremember = "";
+	var S2dataremember = "";
+	var Pretimelevel = 3;
+	var firstdatablock = 0;
+	var specialsearch = 0;
+	var DoubleSearch = 0;
+	var QueryType = "recording";
+
+	/* for event use*/
+	var MD1_EventStartime = 0;
+	var MD1_EventEndtime = 0;
+	var MD2_EventStartime = 0;
+	var MD2_EventEndtime = 0;
+	var MD3_EventStartime = 0;
+	var MD3_EventEndtime = 0;
+	
+	var DI1_EventStartime = 0;
+	var DI1_EventEndtime = 0;
+	var DI2_EventStartime = 0;
+	var DI2_EventEndtime = 0;
+	var DI3_EventStartime = 0;
+	var DI3_EventEndtime = 0;
+	var DI4_EventStartime = 0;
+	var DI4_EventEndtime = 0;
+	
+	var SD_EventStartime = 0;
+	var SD_EventEndtime = 0;
+	
+	var MDEventRemember = "";
+	var DIEventRemember = "";
+	var S2MDEventRemember = "";
+	var S2DIEventRemember = "";
+	var SDEventRemember = "";
+	var S2SDEventRemember = "";
+	
+	var ExportStartime = 0;
+	var ExportEndtime = 0;
+	var ExportSelTag = 0;
+	var ExportStartag = 0 ;
+	var ExportEndtag = 0 ;
+	var mouse = {x: 0, y: 0};
+	var menuSelObj = null ;
+	var overpopupmenu = false;
+	var popmenu_click=0;
+	var DBSearchStartime = new Array(60);
+	var S2_DBSearchStartime = new Array(60);
+	var S1_index = 0;
+	var S2_index = 0;
+	var interval;
+	var interval_on = 0;
+	var StartQueryTime = 0;
+	var EndQueryTime = 0;
+	var fisrtonload = 1;
+	var MD_block = new Array(60);
+	var S2MD_block = new Array(60);
+	var sameblock = 0;
+	var Diff_Hour = 0;
+	var Diff_Min = 0;
+	var Diff_Sec = 0;
+	var SM ="";
+	var ExportStart_SM ="";
+	var timescale="hour";
+	var S1data=1;
+	var S2data=1;
+	var NowPlayingMedia=1;
+	var zoomin=0;
+	var Refreshcount = 0;
+	//idget('Now').innerHTML=idget("Now").value;
+	
+	HtmSrc = '<object id="oMedia" name="oMedia"  style="padding-top:10px" classid="CLSID:E19E79EC-F62E-40A0-952D-E49AEC7BEC2F" codebase="/control/nvA1Media.cab#Version='+top.gECMversion+'">';	
+	HtmSrc += '</object>'; 
+	idget('ECM').innerHTML=HtmSrc;
+	
+	HtmSrc1 = '<table border="0" style="width:630px;">';
+    HtmSrc1 += '<tr>';	
+	for(i=0;i<60;i++)
+	{
+		HtmSrc1 += '<td id='+ "S1_" +i+' height="20px" style="background-color:#E3E1E1;" onclick="SelectedNowTimeData(this);"  oncontextmenu="ItemSelMenu(this);"></td>';
+	}
+	HtmSrc1 += '</tr></table>'; 
+	idget('S1').innerHTML=HtmSrc1;
+	
+	HtmSrc2 = '<table border="0" style="width:630px;">';
+    HtmSrc2 += '<tr>';	
+	for(i=0;i<60;i++)
+	{
+		HtmSrc2 += '<td id='+ "S2_" +i+' height="20px" style="background-color:#E3E1E1;" onclick="SelectedNowTimeData(this);"  oncontextmenu="ItemSelMenu(this);"></td>';
+	}
+	HtmSrc2 += '</tr></table>'; 
+	idget('S2').innerHTML=HtmSrc2;
+	
+	HtmSrc3 = '<table border="0" style="width:630px;">';
+    HtmSrc3 += '<tr>';	
+	for(i=0;i<60;i++)
+	{
+		HtmSrc3 += '<td id='+ "S3_" +i+' height="20px" style="background-color:#E3E1E1;" onclick="SelectedNowTimeData(this);"  oncontextmenu="ItemSelMenu(this);"></td>';
+	}
+	HtmSrc3 += '</tr></table>'; 
+	idget('S3').innerHTML=HtmSrc3;
+	
+	
+	idget("Mainbody").onclick = popmenu_close;
+	parent.frames[0].idget("SetupTreeMainBody").onclick = popmenu_close;
+	function popmenu_close()
+	{
+		if(popmenu_click>0)
+		{
+			popmenu_click=0;
+			return false;
+		}
+		else
+			idget('menudiv').style.display = "none" ;
+	}	
+	
+	function disable_popmenu_close()
+	{
+		popmenu_click++;
+		return false;
+	}
+	
+	function GetMousePos()
+	{
+		var Mouseobj = window.event;
+		mouse.x = Mouseobj.clientX || Mouseobj.pageX; 
+		mouse.y = Mouseobj.clientY || Mouseobj.pageY;
+	}
+	// POP UP MENU
+	function  ItemSelMenu(Selobj)
+	{
+		//alert("ItemSelMenu Selobj.id="+Selobj.id);
+		SM = Selobj.id.substring(0,3);
+		//alert("SM="+SM);
+		
+		ExportSelTag = Selobj.id.substring(3,5);
+		if((SM=="S1_" && MD_block[ExportSelTag]==1) || (SM=="S2_" && S2MD_block[ExportSelTag]==1))
+		{
+			SelectedNowTimeData(Selobj);
+			if( (parseInt(mouse.x)+115) <720)
+			{
+				document.getElementById('menudiv').style.left = mouse.x +'px';
+			}
+			else
+				document.getElementById('menudiv').style.left = mouse.x -115 +'px';
+			document.getElementById('menudiv').style.top = mouse.y +'px';
+			document.getElementById('menudiv').style.display = "";				
+			
+			if(ExportStartime==0)
+			{
+				idget("item1").style.backgroundColor='#FFFFFF';
+				idget("SELECT_MARK_EXPORT_START").style.color ='#000000';
+				idget("item1").onmouseover = itemselected1;
+				idget("item1").onmouseout = itemnonselected1;
+				idget("item1").onclick = MarkExportStart;
+				
+				//idget("item2").style.backgroundColor='#d7d7d7';
+				idget("item2").style.backgroundColor='#FFFFFF';
+				idget("SELECT_MARK_EXPORT_END").style.color ='#6B6B6B';
+				idget("item2").onmouseover = itemselected2;
+				idget("item2").onmouseout = itemnonselected2;
+				idget("item2").onclick = disable_popmenu_close;
+				
+				//idget("item4").style.backgroundColor='#d7d7d7';
+				idget("item4").style.backgroundColor='#FFFFFF';
+				idget("SELECT_EXPORT_VIDEO").style.color ='#6B6B6B';
+				idget("item4").onmouseover = itemselected4;
+				idget("item4").onmouseout = itemnonselected4;
+				idget("item4").onclick = disable_popmenu_close;
+			}
+			if(ExportStartime!=0 && ExportEndtime==0)
+			{
+				idget("item1").style.backgroundColor='#FFFFFF';
+				idget("item1").onmouseover = itemselected1;
+				idget("item1").onmouseout = itemnonselected1;
+				idget("item1").onclick = MarkExportStart;	
+				
+				idget("item2").style.backgroundColor='#FFFFFF';
+				if(SM!=ExportStart_SM)
+				{
+					idget("SELECT_MARK_EXPORT_END").style.color ='#6B6B6B';
+					idget("item2").onclick = disable_popmenu_close;
+				}	
+				else
+				{	
+					idget("SELECT_MARK_EXPORT_END").style.color ='#000000';
+					idget("item2").onclick = MarkExportEnd;
+				}	
+				idget("item2").onmouseover = itemselected2;
+				idget("item2").onmouseout = itemnonselected2;
+				
+				
+				//idget("item4").style.backgroundColor='#d7d7d7';
+				idget("item4").style.backgroundColor='#FFFFFF';
+				idget("SELECT_EXPORT_VIDEO").style.color ='#6B6B6B';
+				idget("item4").onmouseover = itemselected4;
+				idget("item4").onmouseout = itemnonselected4;
+				idget("item4").onclick = disable_popmenu_close;
+			}
+			
+			if(ExportStartime!=0 && ExportEndtime!=0)
+			{
+				idget("item4").style.backgroundColor='#FFFFFF';
+				idget("SELECT_EXPORT_VIDEO").style.color ='#000000';
+				idget("item4").onmouseover = itemselected4;
+				idget("item4").onmouseout = itemnonselected4;
+				idget("item4").onclick = null;
+				//idget("item4").onclick = ExportVideo;
+				
+				idget("item1").style.backgroundColor='#FFFFFF';
+				idget("SELECT_MARK_EXPORT_START").style.color ='#6B6B6B';
+				idget("item1").onmouseover = itemselected1;
+				idget("item1").onmouseout = itemnonselected1;
+				idget("item1").onclick = disable_popmenu_close;
+				
+				idget("item2").style.backgroundColor='#FFFFFF';
+				idget("SELECT_MARK_EXPORT_END").style.color ='#6B6B6B';
+				idget("item2").onmouseover = itemselected2;
+				idget("item2").onmouseout = itemnonselected2;
+				idget("item2").onclick = disable_popmenu_close;
+			}
+		}
+		else
+		{
+			idget('menudiv').style.display = "none" ;
+			SelectedNowTimeData(Selobj);
+		}	
+		
+		idget("Mainbody").onclick = popmenu_close;		
+		return false ;
+	}
+	
+	function itemselected1()
+	{
+		idget("item1").style.backgroundColor='#d7d7d7';
+	}
+	function itemnonselected1()
+	{
+		idget("item1").style.backgroundColor='#FFFFFF';
+	}	
+	function itemselected2()
+	{
+		idget("item2").style.backgroundColor='#d7d7d7';
+	}
+	function itemnonselected2()
+	{
+		idget("item2").style.backgroundColor='#FFFFFF';
+	}
+	function itemselected4()
+	{
+		idget("item4").style.backgroundColor='#d7d7d7';
+	}
+	function itemnonselected4()
+	{
+		idget("item4").style.backgroundColor='#FFFFFF';
+	}
+	function MarkExportStart()
+	{
+		var tmp = dataremember.split(',') ;
+		firstdatablock = tmp[0];
+		for(k=0;k<60;k++) 
+			GetTimeInterval(ExportSelTag);
+		ExportStartag = ExportSelTag;
+		ExportStartime = Intervalstart;
+		document.getElementById('menudiv').style.display = "none" ;
+		ExportStart_SM = SM;
+		//alert("ExportStart SM="+ExportStart_SM);
+		return false;
+	}
+	
+	function MarkExportEnd()
+	{
+		idget("TIME_LEVEL").disabled = true;
+		idget("SETTING_MD_ADDED").disabled = true;
+		idget("SETTING_DI_ADDED").disabled = true;
+		idget("SETTING_SD_ADDED").disabled = true;
+		for(k=0;k<60;k++) 
+			GetTimeInterval(ExportSelTag);  //要注意
+		ExportEndtag = ExportSelTag;
+		Num_selected = ExportSelTag;
+		ExportEndtime = Intervalend;
+		if(ExportEndtime<ExportStartime)
+		{
+			var tmptime = ExportEndtime;
+			ExportEndtime = ExportStartime;
+			ExportStartime = tmptime;
+		}	
+		ExportStartag = parseInt(ExportStartag);
+		ExportEndtag = parseInt(ExportEndtag);
+		
+		if(ExportStartag<ExportEndtag)
+		{
+			for(k=ExportStartag;k<=ExportEndtag;k++)
+				idget(SM+k).style.backgroundColor ="#0000ff";
+		}
+		else
+		{
+			for(k=ExportEndtag;k<=ExportStartag;k++)
+				idget(SM+k).style.backgroundColor ="#0000ff";
+		}				
+		
+		document.getElementById('menudiv').style.display = "none" ;
+		var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&QUERYLS="+ExportStartime+","+ExportEndtime+","+"RECORDING";
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		ExportStartime = ExportDataParse(szReturn[0]);	
+		var stream ="";
+		if(SM == "S1_")
+			stream = 1;
+		if(SM == "S2_")
+			stream = 2;
+		document.getElementById('SELECT_EXPORT_VIDEO').href="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&STREAM="+stream + "&GET_RAW="+ExportStartime+","+ExportEndtime;
+		return false;
+	}
+	
+	function ExportDataParse(string)
+	{
+		var szTmp = doSplitValue(string) ;
+		var tmp=szTmp[1].split(",");
+		var UTCStartime = getUTC(tmp[0]);
+		if(ExportStartime<UTCStartime)
+			return 	UTCStartime;
+		else
+			return 	ExportStartime;
+	}
+	
+	function CleanSelection()
+	{
+		ExportStartime = 0;
+		ExportEndtime = 0;
+		ExportStartag ="";
+		ExportEndtag ="";
+		parent.frames[0].SetupMouseAction();
+		document.getElementById('menudiv').style.display = "none" ;
+		idget("Mainbody").onclick = popmenu_close;
+		idget("SELECT_EXPORT_VIDEO").href = "";
+		idget("TIME_LEVEL").disabled = false;
+		idget("SETTING_MD_ADDED").disabled = false;
+		idget("SETTING_DI_ADDED").disabled = false;
+		idget("SETTING_SD_ADDED").disabled = false;
+		for(k=0;k<60;k++) 
+		{
+			idget("S1_"+k).style.backgroundColor ="#E3E1E1";
+			idget("S2_"+k).style.backgroundColor ="#E3E1E1";
+		}	
+		
+		var tmp = dataremember.split(',') ;		
+		for(i=0;i<tmp.length-1;i++)
+		{
+			idget("S1_"+tmp[i]).style.backgroundColor ="#989898";		
+		}
+		var tmp2 = S2dataremember.split(',') ;		
+		for(i=0;i<tmp2.length-1;i++)
+		{
+			idget("S2_"+tmp2[i]).style.backgroundColor ="#989898";			
+		}
+		
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			var tmp = MDEventRemember.split(',') ;		
+			for(i=0;i<tmp.length-1;i++)
+			{
+				idget("S1_"+tmp[i]).style.backgroundColor ="#ff0000";
+			}	
+			var tmp2 = S2MDEventRemember.split(',') ;		
+			for(i=0;i<tmp2.length-1;i++)
+			{
+				idget("S2_"+tmp2[i]).style.backgroundColor ="#ff0000";
+			}	
+		}
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			var tmp = DIEventRemember.split(',') ;		
+			for(i=0;i<tmp.length-1;i++)
+			{
+				idget("S1_"+tmp[i]).style.backgroundColor ="#33CC66";	
+			}
+			var tmp2 = S2DIEventRemember.split(',') ;		
+			for(i=0;i<tmp2.length-1;i++)
+			{
+				idget("S2_"+tmp2[i]).style.backgroundColor ="#33CC66";
+			}
+		}	
+		if(Num_selected!="")
+			idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		ExportStartag=0;
+		ExportEndtag=0;
+	}
+	
+	function ExportVideo()
+	{
+		parent.frames[0].DisableMouseAction();
+	}	
+	
+	
+	function MD_CHECK()
+	{
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			var tmp = SDEventRemember.split(',') ;		
+			for(i=0;i<tmp.length-1;i++)
+			{
+				idget("S1_"+tmp[i]).style.backgroundColor ="#FF7F00";
+			}
+			var tmp2 = S2SDEventRemember.split(',') ;		
+			for(i=0;i<tmp2.length-1;i++)
+			{
+				idget("S2_"+tmp2[i]).style.backgroundColor ="#FF7F00";
+			}
+		}
+		
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			//alert("MDEventRemember="+MDEventRemember);
+			//alert("S2MDEventRemember="+S2MDEventRemember);
+			if((MDEventRemember=="")&&(S2MDEventRemember==""))
+			{
+				QueryType = "MD";
+				GetEventData();	
+			}
+			else
+			{
+				var tmp = MDEventRemember.split(',') ;		
+				for(i=0;i<tmp.length-1;i++)
+				{
+					idget("S1_"+tmp[i]).style.backgroundColor ="#ff0000";
+				}	
+				var tmp2 = S2MDEventRemember.split(',') ;		
+				for(i=0;i<tmp2.length-1;i++)
+				{
+					idget("S2_"+tmp2[i]).style.backgroundColor ="#ff0000";
+				}	
+			}
+			
+			if( idget("SETTING_DI_ADDED").checked == true )
+			{
+				var tmp = DIEventRemember.split(',') ;		
+				for(i=0;i<tmp.length-1;i++)
+				{
+					idget("S1_"+tmp[i]).style.backgroundColor ="#33CC66";
+				}
+				var tmp2 = S2DIEventRemember.split(',') ;		
+				for(i=0;i<tmp2.length-1;i++)
+				{
+					idget("S2_"+tmp2[i]).style.backgroundColor ="#33CC66";
+				}
+			}
+			//alert("MD_CHECK() Num_selected="+Num_selected);
+			if(Num_selected!="")			
+				idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";				
+		}
+		else
+			CloseMDData();				
+	}
+	
+	function DI_CHECK()
+	{
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			//alert("DiEventRemember="+DIEventRemember);
+			//alert("S2DiEventRemember="+S2DIEventRemember);
+			if((DIEventRemember=="")&&(S2DIEventRemember==""))
+			{
+				QueryType = "DI";
+				GetEventData();
+			}
+			else
+			{
+				var tmp = DIEventRemember.split(',') ;		
+				for(i=0;i<tmp.length-1;i++)
+				{
+					idget("S1_"+tmp[i]).style.backgroundColor ="#33CC66";
+				}
+				var tmp2 = S2DIEventRemember.split(',') ;		
+				for(i=0;i<tmp2.length-1;i++)
+				{
+					idget("S2_"+tmp2[i]).style.backgroundColor ="#33CC66";	
+				}
+			}	
+			//alert("DI_CHECK() Num_selected="+Num_selected);
+			if(Num_selected!="")
+				idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		}
+		else
+			CloseDIData();
+	}
+	
+	function SD_CHECK()
+	{
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			//alert("SDEventRemember="+SDEventRemember);
+			//alert("S2SDEventRemember="+S2SDEventRemember);
+			if((SDEventRemember=="")&&(S2SDEventRemember==""))
+			{
+				QueryType = "SD";
+				GetEventData();	
+			}
+			else
+			{
+				var tmp = SDEventRemember.split(',') ;		
+				for(i=0;i<tmp.length-1;i++)
+				{
+					idget("S1_"+tmp[i]).style.backgroundColor ="#FF7F00";
+				}	
+				var tmp2 = S2SDEventRemember.split(',') ;		
+				for(i=0;i<tmp2.length-1;i++)
+				{
+					idget("S2_"+tmp2[i]).style.backgroundColor ="#FF7F00";
+				}	
+			}
+			
+			if( idget("SETTING_MD_ADDED").checked == true )
+			{
+				var tmp = MDEventRemember.split(',') ;		
+				for(i=0;i<tmp.length-1;i++)
+				{
+					idget("S1_"+tmp[i]).style.backgroundColor ="#ff0000";
+				}
+				var tmp2 = S2MDEventRemember.split(',') ;		
+				for(i=0;i<tmp2.length-1;i++)
+				{
+					idget("S2_"+tmp2[i]).style.backgroundColor ="#ff0000";
+				}
+			}
+			
+			if( idget("SETTING_DI_ADDED").checked == true )
+			{
+				var tmp = DIEventRemember.split(',') ;		
+				for(i=0;i<tmp.length-1;i++)
+				{
+					idget("S1_"+tmp[i]).style.backgroundColor ="#33CC66";
+				}
+				var tmp2 = S2DIEventRemember.split(',') ;		
+				for(i=0;i<tmp2.length-1;i++)
+				{
+					idget("S2_"+tmp2[i]).style.backgroundColor ="#33CC66";
+				}
+			}
+			//alert("MD_CHECK() Num_selected="+Num_selected);
+			if(Num_selected!="")			
+				idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";				
+		}
+		else
+			CloseSDData();
+	}
+	
+	function CloseMDData()
+	{
+		for(k=0;k<60;k++) 
+		{
+			idget("S1_"+k).style.backgroundColor ="#E3E1E1";
+			idget("S2_"+k).style.backgroundColor ="#E3E1E1";
+		}	
+			
+		var tmp = dataremember.split(',') ;		
+		for(i=0;i<tmp.length-1;i++)
+		{
+			idget("S1_"+tmp[i]).style.backgroundColor ="#989898";	
+		}
+		var tmp2 = S2dataremember.split(',') ;		
+		for(i=0;i<tmp2.length-1;i++)
+		{
+			idget("S2_"+tmp2[i]).style.backgroundColor ="#989898";	
+		}
+		/*if(Num_selected!="")
+			idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";*/
+		
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			var tmp2 = SDEventRemember.split(',') ;		
+			for(i=0;i<tmp2.length-1;i++)
+			{
+				idget("S1_"+tmp2[i]).style.backgroundColor ="#FF7F00";
+			}
+			var tmp3 = S2SDEventRemember.split(',') ;		
+			for(i=0;i<tmp3.length-1;i++)
+			{
+				idget("S2_"+tmp3[i]).style.backgroundColor ="#FF7F00";
+			}
+		}	
+			
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			var tmp2 = DIEventRemember.split(',') ;		
+			for(i=0;i<tmp2.length-1;i++)
+			{
+				idget("S1_"+tmp2[i]).style.backgroundColor ="#33CC66";
+			}
+			var tmp3 = S2DIEventRemember.split(',') ;		
+			for(i=0;i<tmp3.length-1;i++)
+			{
+				idget("S2_"+tmp3[i]).style.backgroundColor ="#33CC66";
+			}
+		}	
+		if(Num_selected!="")
+			idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";	
+	}	
+	
+	function CloseDIData()
+	{
+		for(k=0;k<60;k++)
+		{	
+			idget("S1_"+k).style.backgroundColor ="#E3E1E1";
+			idget("S2_"+k).style.backgroundColor ="#E3E1E1";
+		}
+		
+		var tmp = dataremember.split(',') ;		
+		for(i=0;i<tmp.length-1;i++)
+		{
+			idget("S1_"+tmp[i]).style.backgroundColor ="#989898";	
+		}
+		var tmp2 = S2dataremember.split(',') ;		
+		for(i=0;i<tmp2.length-1;i++)
+		{
+			idget("S2_"+tmp2[i]).style.backgroundColor ="#989898";
+		}
+		/*if(Num_selected!="")
+			idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";*/		
+			
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			var tmp2 = SDEventRemember.split(',') ;		
+			for(i=0;i<tmp2.length-1;i++)
+			{
+				idget("S1_"+tmp2[i]).style.backgroundColor ="#FF7F00";
+			}
+			var tmp3 = S2SDEventRemember.split(',') ;		
+			for(i=0;i<tmp3.length-1;i++)
+			{
+				idget("S2_"+tmp3[i]).style.backgroundColor ="#FF7F00";
+			}
+		}
+		
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			var tmp3 = MDEventRemember.split(',') ;		
+			for(i=0;i<tmp3.length-1;i++)
+			{
+				idget("S1_"+tmp3[i]).style.backgroundColor ="#ff0000";
+			}
+			var tmp4 = S2MDEventRemember.split(',') ;		
+			for(i=0;i<tmp4.length-1;i++)
+			{
+				idget("S2_"+tmp4[i]).style.backgroundColor ="#ff0000";	
+			}
+			//SelectedNowTimeData(Num_selected);			
+		}
+		if(Num_selected!="")			
+			idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+	}
+	
+	function CloseSDData()
+	{
+		for(k=0;k<60;k++)
+		{	
+			idget("S1_"+k).style.backgroundColor ="#E3E1E1";
+			idget("S2_"+k).style.backgroundColor ="#E3E1E1";
+		}
+		
+		var tmp = dataremember.split(',') ;		
+		for(i=0;i<tmp.length-1;i++)
+		{
+			idget("S1_"+tmp[i]).style.backgroundColor ="#989898";	
+		}
+		var tmp2 = S2dataremember.split(',') ;		
+		for(i=0;i<tmp2.length-1;i++)
+		{
+			idget("S2_"+tmp2[i]).style.backgroundColor ="#989898";
+		}
+		/*if(Num_selected!="")
+			idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";*/		
+		
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			var tmp3 = MDEventRemember.split(',') ;		
+			for(i=0;i<tmp3.length-1;i++)
+			{
+				idget("S1_"+tmp3[i]).style.backgroundColor ="#ff0000";
+			}
+			var tmp4 = S2MDEventRemember.split(',') ;		
+			for(i=0;i<tmp4.length-1;i++)
+			{
+				idget("S2_"+tmp4[i]).style.backgroundColor ="#ff0000";	
+			}
+			//SelectedNowTimeData(Num_selected);			
+		}
+		
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			var tmp2 = DIEventRemember.split(',') ;		
+			for(i=0;i<tmp2.length-1;i++)
+			{
+				idget("S1_"+tmp2[i]).style.backgroundColor ="#33CC66";
+			}
+			var tmp3 = S2DIEventRemember.split(',') ;		
+			for(i=0;i<tmp3.length-1;i++)
+			{
+				idget("S2_"+tmp3[i]).style.backgroundColor ="#33CC66";
+			}
+		}
+		
+		if(Num_selected!="")			
+			idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+	}
+	
+	function GetEventData()
+	{
+		var Eventype ="";
+		if(QueryType == "MD")
+		{
+			MDEventRemember="";
+			S2MDEventRemember="";
+			Eventype = "MD1|MD2|MD3" ;
+		}	
+		if(QueryType == "DI")	
+		{
+			DIEventRemember="";
+			S2DIEventRemember=""
+			Eventype = "DI1|DI2|DI3|DI4" ;
+		}	
+		if(QueryType == "SD")	
+		{
+			SDEventRemember="";
+			S2SDEventRemember=""
+			Eventype = "AUDIOIN" ;
+		}
+		
+		StartQueryTime = NowUTCStartTime;
+		if(timescale=="second")	
+			var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+Eventype+","+"0";
+		else	
+			var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+Eventype+","+"0"+","+timescale;
+		//alert("szSystem="+szSystem);
+		var szReturn = doRequestXML(szSystem);
+		//alert("szReturn="+szReturn);
+		
+		try { var eventfile = szReturn.getElementsByTagName("EVENTS")[0].getElementsByTagName("Event");} catch (e) { var eventfile = {};}
+		
+		//alert("eventfile.length="+eventfile.length);
+		while(1)
+		{
+			for (var i = 0; i <= eventfile.length; i++) 
+			{
+				var ele = eventfile[i];
+				//alert("i="+i+"\n"+"eventfile[i]="+eventfile[i]);
+				if(ele==null)
+				{
+					//alert("ele is undefined");
+					break;
+				}
+				else
+				{
+					var Type = ele.getAttribute("Type");
+					var State = ele.getAttribute("State");
+					var UTCTime = ele.getAttribute("UTC");
+					EventDataParse(Type,State,UTCTime);	
+				}				
+			}
+			
+			var eventindex = szReturn.getElementsByTagName("EVENTS")[0].getElementsByTagName("MOREDATA")[0];
+			if(eventindex!=null)
+			{
+				index = eventindex.getAttribute("Index");
+				//alert("index="+index);
+	
+				if(timescale=="second")	
+					var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+Eventype+","+index;
+				else	
+					var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+Eventype+","+index+","+timescale;
+				//alert("szSystem="+szSystem);
+				var szReturn = doRequestXML(szSystem);
+				//alert("szReturn="+szReturn);
+				
+				try { var eventfile = szReturn.getElementsByTagName("EVENTS")[0].getElementsByTagName("Event");} catch (e) { var eventfile = {};}
+				
+				//alert("eventfile.length="+eventfile.length);
+				if(eventfile.length==0)
+				{
+					//alert("01 return");
+					return;
+				}	
+			}
+			else
+			{
+				//alert("02 return");
+				return;
+			}		
+		}			
+	}
+	
+	function EventDataParse(Type,State,UTCTime)
+	{
+		//alert("Type="+Type+"\n"+"State="+State +"\n"+"UTCTime="+UTCTime);
+		//alert("MD1_EventStartime="+MD1_EventStartime +"\n"+"MD1_EventEndtime="+MD1_EventEndtime);
+		
+		//if(string==" ")
+			//return;
+		//if(string=="")
+		/*if((MD1_EventStartime!=0 && MD1_EventEndtime==0) || (MD2_EventStartime!=0 && MD2_EventEndtime==0) || (MD3_EventStartime!=0 && MD3_EventEndtime==0))
+		{
+			var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&GET_CURRENT_TIME";
+			szReturn = doRequest(szSystem) ;
+			szReturn = szReturn.split('\n') ;
+			var szTmp = doSplitValue(szReturn[0]) ;
+			var tmp=szTmp[1].split(",");
+			UTCTime_Now = tmp[0];
+			
+			if(MD1_EventStartime!=0 && MD1_EventEndtime==0)
+			{	
+				MD1_EventEndtime = EndQueryTime;
+				if(MD1_EventEndtime >= UTCTime_Now)
+					MD1_EventEndtime = UTCTime_Now;
+				setEvent(MD1_EventStartime,MD1_EventEndtime);
+				MD1_EventStartime = 0;
+				MD1_EventEndtime = 0;
+				//return;
+			}
+			if(MD2_EventStartime!=0 && MD2_EventEndtime==0)
+			{	
+				MD2_EventEndtime = EndQueryTime;
+				if(MD2_EventEndtime >= UTCTime_Now)
+					MD2_EventEndtime = UTCTime_Now;
+				setEvent(MD2_EventStartime,MD2_EventEndtime);
+				MD2_EventStartime = 0;
+				MD2_EventEndtime = 0;
+				//return;
+			}	
+			if(MD3_EventStartime!=0 && MD3_EventEndtime==0)
+			{	
+				MD3_EventEndtime = EndQueryTime;
+				if(MD3_EventEndtime >= UTCTime_Now)
+					MD3_EventEndtime = UTCTime_Now;
+				setEvent(MD3_EventStartime,MD3_EventEndtime);
+				MD3_EventStartime = 0;
+				MD3_EventEndtime = 0;
+				//return;
+			}
+			return;	
+		}*/
+		//alert("Event="+string.substr(6,3))
+		switch(Type)
+		{
+			case 'MD1':
+				if(State=="On")
+				{	
+					MD1_EventStartime = UTCTime;
+				}
+				else
+				{
+					MD1_EventEndtime = UTCTime;
+					if(MD1_EventStartime == 0)
+						MD1_EventStartime = StartQueryTime;
+					setEvent(MD1_EventStartime,MD1_EventEndtime);
+					S2setEvent(MD1_EventStartime,MD1_EventEndtime);
+					MD1_EventStartime = 0;
+					MD1_EventEndtime = 0;	
+				}
+				break;
+			case 'MD2':
+				if(State=="On")
+				{	
+					MD2_EventStartime = UTCTime;
+				}
+				else
+				{
+					MD2_EventEndtime = UTCTime;
+					if(MD2_EventStartime == 0)
+						MD2_EventStartime = StartQueryTime;
+					setEvent(MD2_EventStartime,MD2_EventEndtime);
+					setEvent(MD2_EventStartime,MD2_EventEndtime);
+					MD2_EventStartime = 0;
+					MD2_EventEndtime = 0;	
+				}
+				break;	
+			case 'MD3':
+				if(State=="On")
+				{	
+					MD3_EventStartime = UTCTime;
+				}
+				else
+				{
+					MD3_EventEndtime = UTCTime;
+					if(MD3_EventStartime == 0)
+						MD3_EventStartime = StartQueryTime;
+					setEvent(MD3_EventStartime,MD3_EventEndtime);
+					S2setEvent(MD3_EventStartime,MD3_EventEndtime);
+					MD3_EventStartime = 0;
+					MD3_EventEndtime = 0;	
+				}
+				break;
+			case 'DI1':
+				if(State=="On")
+				{	
+					DI1_EventStartime = UTCTime;
+				}
+				else
+				{
+					DI1_EventEndtime = UTCTime;
+					if(DI1_EventStartime == 0)
+						DI1_EventStartime = StartQueryTime;
+					setEvent(DI1_EventStartime,DI1_EventEndtime);
+					S2setEvent(DI1_EventStartime,DI1_EventEndtime);
+					DI1_EventStartime = 0;
+					DI1_EventEndtime = 0;	
+				}
+				break;	
+			case 'DI2':
+				if(State=="On")
+				{	
+					DI2_EventStartime = UTCTime;
+				}
+				else
+				{
+					DI2_EventEndtime = UTCTime;
+					if(DI2_EventStartime == 0)
+						DI2_EventStartime = StartQueryTime;
+					setEvent(DI2_EventStartime,DI2_EventEndtime);
+					S2setEvent(DI2_EventStartime,DI2_EventEndtime);
+					DI2_EventStartime = 0;
+					DI2_EventEndtime = 0;	
+				}
+				break;
+			case 'DI3':
+				if(State=="On")
+				{	
+					DI3_EventStartime = UTCTime;
+				}
+				else
+				{
+					DI3_EventEndtime = UTCTime;
+					if(DI3_EventStartime == 0)
+						DI3_EventStartime = StartQueryTime;
+					setEvent(DI3_EventStartime,DI3_EventEndtime);
+					S2setEvent(DI3_EventStartime,DI3_EventEndtime);
+					DI3_EventStartime = 0;
+					DI3_EventEndtime = 0;	
+				}
+				break;
+			case 'DI4':
+				if(State=="On")
+				{	
+					DI4_EventStartime = UTCTime;
+				}
+				else
+				{
+					DI4_EventEndtime = UTCTime;
+					if(DI4_EventStartime == 0)
+						DI4_EventStartime = StartQueryTime;
+					setEvent(DI4_EventStartime,DI4_EventEndtime);
+					S2setEvent(DI4_EventStartime,DI4_EventEndtime);
+					DI4_EventStartime = 0;
+					DI4_EventEndtime = 0;	
+				}
+				break;	
+			case 'AUDIOIN':
+				if(State=="On")
+				{	
+					SD_EventStartime = UTCTime;
+					//alert("On SD_EventStartime="+SD_EventStartime+","+"SD_EventEndtime="+SD_EventEndtime);
+				}
+				else
+				{
+					SD_EventEndtime = UTCTime;
+					if(SD_EventStartime == 0)
+						SD_EventStartime = StartQueryTime;
+					//alert("Off SD_EventStartime="+SD_EventStartime+","+"SD_EventEndtime="+SD_EventEndtime);	
+					setEvent(SD_EventStartime,SD_EventEndtime);
+					S2setEvent(SD_EventStartime,SD_EventEndtime);
+					SD_EventStartime = 0;
+					SD_EventEndtime = 0;	
+				}
+				break;		
+		}
+	}
+	
+	function S2setEvent(Time1,Time2)
+	{
+		//alert("setEvent" +"\n" +"Time1 ="+UTC2LOCAL(Time1) +"\n"+"Time2 ="+UTC2LOCAL(Time2));
+		
+		var Event_start = 0;
+		if(QueryType == "MD")
+		{
+			if(S2MDEventRemember!="")
+			{	
+				var tmp2 = S2MDEventRemember.split(',') ;
+				Event_start = tmp2[tmp2.length-2];
+			}	
+			else
+				Event_start = 0;
+		}
+
+		if(QueryType == "DI")
+		{
+			if(S2DIEventRemember!="")
+			{	
+				var tmp2 = S2DIEventRemember.split(',') ;
+				Event_start = tmp2[tmp2.length-2];
+			}	
+			else
+				Event_start = 0;
+		}	
+		
+		if(QueryType == "SD")
+		{
+			if(S2SDEventRemember!="")
+			{	
+				var tmp2 = S2SDEventRemember.split(',') ;
+				Event_start = tmp2[tmp2.length-2];
+			}	
+			else
+				Event_start = 0;
+		}
+			
+		//alert("Event_start="+Event_start);	
+		for(k= Event_start;k<60;k++) {
+			sameblock = 0;
+			GetTimeInterval(k);
+			
+			if(S2MD_block[k]==1)
+			{
+				if(idget("TIME_LEVEL").value==0)
+				{
+					if(Time1<=Intervalstart && Intervalstart<=Time2)
+					{
+						if(QueryType == "MD")
+						{
+							idget("S2_"+k).style.backgroundColor ="#ff0000"; //	MD for S2
+							if(S2MDEventRemember=="")
+								S2MDEventRemember=S2MDEventRemember+k+",";
+							else
+							{
+								var tmp = S2MDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									S2MDEventRemember=S2MDEventRemember+k+",";
+							}
+						}
+						if(QueryType == "DI")
+						{
+							idget("S2_"+k).style.backgroundColor ="#33CC66"; //	DI for S2
+							if(S2DIEventRemember=="")
+								S2DIEventRemember=S2DIEventRemember+k+",";
+							else
+							{
+								var tmp = S2DIEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									S2DIEventRemember=S2DIEventRemember+k+",";
+							}
+						}
+						if(QueryType == "SD")
+						{
+							idget("S2_"+k).style.backgroundColor ="#FF7F00"; //	SD for S2
+							if(S2SDEventRemember=="")
+								S2SDEventRemember=S2SDEventRemember+k+",";
+							else
+							{
+								var tmp = S2SDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									S2SDEventRemember=S2SDEventRemember+k+",";
+							}
+						}	
+					}
+				}	
+				else
+				{
+					//alert("k="+k +"\n" +"Time1 ="+UTC2LOCAL(Time1) +"\n"+"Time2 ="+UTC2LOCAL(Time2)+"\n" +"Intervalstart ="+UTC2LOCAL(Intervalstart) +"\n"+"Intervalend ="+UTC2LOCAL(Intervalend));
+					if( (Intervalstart<Time1 && Time1<Intervalend) || (Intervalstart<=Time2 && Time2<=Intervalend) || (Time1<=Intervalstart && Intervalstart<=Time2))
+					{
+						if(QueryType == "MD")
+						{
+							//idget("S1_"+k).style.backgroundColor ="#ff0000";
+							idget("S2_"+k).style.backgroundColor ="#ff0000"; //MD for S2
+							if(S2MDEventRemember=="")
+							{
+								S2MDEventRemember=S2MDEventRemember+k+",";
+							}	
+							else
+							{
+								var tmp = S2MDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;								
+								}
+								if(sameblock==0)
+									S2MDEventRemember=S2MDEventRemember+k+",";
+							}
+							//alert("S2MDEventRemember="+S2MDEventRemember);
+						}
+						if(QueryType == "DI")//QueryType == "DI"
+						{
+							//idget("S1_"+k).style.backgroundColor ="#33CC66";
+							idget("S2_"+k).style.backgroundColor ="#33CC66"; //DI for S2
+							if(S2DIEventRemember=="")
+								S2DIEventRemember=S2DIEventRemember+k+",";
+							else
+							{
+								var tmp = S2DIEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;								
+								}
+								if(sameblock==0)
+									S2DIEventRemember=S2DIEventRemember+k+",";
+							}
+						}
+						if(QueryType == "SD")
+						{
+							idget("S2_"+k).style.backgroundColor ="#FF7F00"; //	SD for S2
+							if(S2SDEventRemember=="")
+								S2SDEventRemember=S2SDEventRemember+k+",";
+							else
+							{
+								var tmp = S2SDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									S2SDEventRemember=S2SDEventRemember+k+",";
+							}
+						}							
+					}
+				}
+			}		
+		}
+	}
+	
+	function setEvent(Time1,Time2)
+	{
+		//alert("setEvent" +"\n" +"Time1 ="+UTC2LOCAL(Time1) +"\n"+"Time2 ="+UTC2LOCAL(Time2));
+		
+		var Event_start = 0;
+		if(QueryType == "MD")
+		{
+			if(MDEventRemember!="")
+			{	
+				var tmp2 = MDEventRemember.split(',') ;
+				Event_start = tmp2[tmp2.length-2];
+			}	
+			else
+				Event_start = 0;
+		}
+
+		if(QueryType == "DI")
+		{
+			if(DIEventRemember!="")
+			{	
+				var tmp2 = DIEventRemember.split(',') ;
+				Event_start = tmp2[tmp2.length-2];
+			}	
+			else
+				Event_start = 0;
+		}	
+		
+		if(QueryType == "SD")
+		{
+			if(SDEventRemember!="")
+			{	
+				var tmp2 = SDEventRemember.split(',') ;
+				Event_start = tmp2[tmp2.length-2];
+			}	
+			else
+				Event_start = 0;
+		}
+			
+		//alert("Event_start="+Event_start);	
+		for(k= Event_start;k<60;k++) {
+			sameblock = 0;
+			GetTimeInterval(k);
+			
+			if(MD_block[k]==1)
+			{
+				if(idget("TIME_LEVEL").value==0)
+				{
+					if(Time1<=Intervalstart && Intervalstart<=Time2)
+					{
+						if(QueryType == "MD")
+						{
+							idget("S1_"+k).style.backgroundColor ="#ff0000";
+							//idget("S2_"+k).style.backgroundColor ="#ff0000"; //	MD for S2
+							if(MDEventRemember=="")
+								MDEventRemember=MDEventRemember+k+",";
+							else
+							{
+								var tmp = MDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									MDEventRemember=MDEventRemember+k+",";
+							}
+						}
+						if(QueryType == "DI")
+						{
+							idget("S1_"+k).style.backgroundColor ="#33CC66";
+							//idget("S2_"+k).style.backgroundColor ="#33CC66"; //	DI for S2
+							if(DIEventRemember=="")
+								DIEventRemember=DIEventRemember+k+",";
+							else
+							{
+								var tmp = DIEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									DIEventRemember=DIEventRemember+k+",";
+							}
+						}	
+						if(QueryType == "SD")
+						{
+							idget("S1_"+k).style.backgroundColor ="#FF7F00";
+							//idget("S2_"+k).style.backgroundColor ="#33CC66"; //	DI for S2
+							if(SDEventRemember=="")
+								SDEventRemember=SDEventRemember+k+",";
+							else
+							{
+								var tmp = SDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									SDEventRemember=SDEventRemember+k+",";
+							}
+						}
+					}
+				}	
+				else
+				{	
+					//if(idget("TIME_LEVEL").value==1)
+						//alert("k="+k +"\n" +"Time1 ="+UTC2LOCAL(Time1) +"\n"+"Time2 ="+UTC2LOCAL(Time2)+"\n" +"Intervalstart ="+UTC2LOCAL(Intervalstart) +"\n"+"Intervalend ="+UTC2LOCAL(Intervalend));
+					if( (Intervalstart<Time1 && Time1<Intervalend) || (Intervalstart<=Time2 && Time2<=Intervalend) || (Time1<=Intervalstart && Intervalstart<=Time2))
+					{
+						if(QueryType == "MD")
+						{
+							idget("S1_"+k).style.backgroundColor ="#ff0000";
+							//idget("S2_"+k).style.backgroundColor ="#ff0000"; //MD for S2
+							if(MDEventRemember=="")
+							{
+								MDEventRemember=MDEventRemember+k+",";
+							}	
+							else
+							{
+								var tmp = MDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;								
+								}
+								if(sameblock==0)
+									MDEventRemember=MDEventRemember+k+",";
+							}
+							//alert("MDEventRemember="+MDEventRemember);
+						}
+						if(QueryType == "DI")//QueryType == "DI"
+						{
+							idget("S1_"+k).style.backgroundColor ="#33CC66";
+							//idget("S2_"+k).style.backgroundColor ="#33CC66"; //DI for S2
+							if(DIEventRemember=="")
+								DIEventRemember=DIEventRemember+k+",";
+							else
+							{
+								var tmp = DIEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;								
+								}
+								if(sameblock==0)
+									DIEventRemember=DIEventRemember+k+",";
+							}
+						}
+						if(QueryType == "SD")
+						{
+							idget("S1_"+k).style.backgroundColor ="#FF7F00";
+							//idget("S2_"+k).style.backgroundColor ="#33CC66"; //	DI for S2
+							if(SDEventRemember=="")
+								SDEventRemember=SDEventRemember+k+",";
+							else
+							{
+								var tmp = SDEventRemember.split(',') ;		
+								for(i=0;i<tmp.length-1;i++)
+								{
+									if(k==tmp[i])
+										sameblock++;
+								}
+								if(sameblock==0)
+									SDEventRemember=SDEventRemember+k+",";
+							}
+						}							
+					}
+				}
+			}		
+		}
+	}
+	
+	function SelectedNowTimeData(Selobj)
+	{
+		if(i!=ExportEndtag && ExportEndtag!=0)
+			return;
+		if(Selobj!=null)
+		{
+			i = Selobj.id.substring(3,5);
+			SM = Selobj.id.substring(0,3);
+			Num_selected = i;
+		
+		}
+		else
+		{
+			i = 0;
+			Num_selected = i;
+		}
+		//alert("SelectedNowTimeData Num_selected="+Num_selected);
+		GetTimeInterval(i);
+		StartQueryTime = Intervalstart;
+		NowUTCTime = StartQueryTime;
+		idget("Now").value = UTC2LOCAL(NowUTCTime);	
+		
+		
+		for(k=0;k<60;k++) 
+		{
+			idget("S1_"+k).style.backgroundColor ="#E3E1E1";
+			idget("S2_"+k).style.backgroundColor ="#E3E1E1";
+		}
+		
+		var tmp = dataremember.split(',') ;		
+		for(i=0;i<tmp.length-1;i++)
+		{
+			idget("S1_"+tmp[i]).style.backgroundColor ="#989898";		
+		}
+		var tmp5 = S2dataremember.split(',') ;		
+		for(i=0;i<tmp5.length-1;i++)
+		{
+			idget("S2_"+tmp5[i]).style.backgroundColor ="#989898";			
+		}
+		idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		
+		SD_CHECK();
+		if(ExportEndtag!=0 && ExportEndtag!="")
+		{
+			if(ExportStartag<ExportEndtag)
+			{
+				for(k=ExportStartag;k<=ExportEndtag;k++)
+					idget(SM+k).style.backgroundColor ="#0000ff";
+			}
+			else
+			{
+				for(k=ExportEndtag;k<=ExportStartag;k++)
+					idget(SM+k).style.backgroundColor ="#0000ff";
+			}
+		}	
+		idget(SM+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		
+		if(SM=="S1_")
+		{
+			if(DBSearchStartime[Num_selected]==0)
+			{
+				GetTimeInterval(Num_selected);
+				NowUTCTime = Intervalstart;
+			}
+			else
+			{	
+				NowUTCTime = DBSearchStartime[Num_selected];
+			}
+			idget("Now").value = UTC2LOCAL(NowUTCTime);
+			//alert("SelectedNowTimeData Num_selected, DBSearchStartime[Num_selected]="+Num_selected+","+idget("Now").value);
+		}	
+		if(SM=="S2_")
+		{
+			if(S2_DBSearchStartime[Num_selected]==0)
+			{
+				GetTimeInterval(Num_selected);
+				NowUTCTime = Intervalstart;
+			}
+			else
+			{
+				NowUTCTime = S2_DBSearchStartime[Num_selected];
+			}
+			idget("Now").value = UTC2LOCAL(NowUTCTime);
+			//alert("SelectedNowTimeData Num_selected, S2_DBSearchStartime[Num_selected]="+Num_selected+","+idget("Now").value);
+		}	
+		
+		if(fisrtonload==1)
+		{	
+			if(Num_selected==29)
+			{
+				GetFrame(NowUTCTime-1);
+			}	
+			else
+			{
+				var tmp3 = dataremember.split(',') ;		
+				for(k=0;k<tmp3.length-1;k++)
+				{
+					if(Num_selected==tmp3[k])
+						Data = 1;
+				}	
+				if(Data==1)
+				{
+					if(idget("TIME_LEVEL").value==0)
+						GetFrame(NowUTCTime);
+					else
+					{
+						if(SM=="S1_")
+							GetFrame(DBSearchStartime[29]);
+						if(SM=="S2_")
+							GetFrame(S2_DBSearchStartime[29]);
+					}	
+				}
+				else
+					GetnoFrame();
+					
+			}
+			//window.setTimeout("GetFrame(NowUTCTime-10);",50); //for ECM initial
+			//window.setTimeout("GetFrame(NowUTCTime-1);",100); //for ECM initial
+			fisrtonload=0;
+			
+		}	
+		else
+		{
+			if(SM=="S1_")
+			{
+				if(idget("TIME_LEVEL").value==0)
+				{
+					if(MD_block[Num_selected]!=0)
+						GetFrame(NowUTCTime);
+					else
+						GetnoFrame();
+				}	
+				else
+				{
+					if(DBSearchStartime[Num_selected]!=0)
+						GetFrame(DBSearchStartime[Num_selected]);
+					else
+						GetnoFrame();
+				}	
+			}
+			if(SM=="S2_")
+			{
+				if(idget("TIME_LEVEL").value==0)
+				{
+					if(S2MD_block[Num_selected]!=0)
+						GetFrame(NowUTCTime);	
+					else
+						GetnoFrame();
+				}	
+				else
+				{
+					if(S2_DBSearchStartime[Num_selected]!=0)
+						GetFrame(S2_DBSearchStartime[Num_selected]);
+					else
+						GetnoFrame();
+				}	
+			}		
+		}
+	}
+	
+	function ResetData()
+	{
+		firstdata = 1;
+		Time1 = 0;
+		Time2 = 0;
+		//Num_selected = 0;
+		dataremember="";	
+		S2dataremember="";
+		MD1_EventStartime = 0;
+		MD1_EventEndtime = 0;
+		MD2_EventStartime = 0;
+		MD2_EventEndtime = 0;
+		MD3_EventStartime = 0;
+		MD3_EventEndtime = 0;
+		DI1_EventStartime = 0;
+		DI1_EventEndtime = 0;
+		DI2_EventStartime = 0;
+		DI2_EventEndtime = 0;
+		DI3_EventStartime = 0;
+		DI3_EventEndtime = 0;
+		DI4_EventStartime = 0;
+		DI4_EventEndtime = 0;
+		SD_EventStartime = 0;
+		SD_EventEndtime = 0;
+		datacount = 0;
+		S2datacount = 0;
+		fisrtonload = 0;
+		S1_index = 0;
+		S2_index = 0;
+		Refreshcount = 0;
+		for(k=0;k<60;k++)
+		{	
+			idget("S1_"+k).style.backgroundColor ="#E3E1E1";
+			idget("S2_"+k).style.backgroundColor ="#E3E1E1";
+			MD_block[k] = 0;
+			S2MD_block[k] = 0;	
+		}		
+	}
+	
+	function GO_PREVIOUS()
+	{
+		MDEventRemember="";
+		DIEventRemember="";
+		SDEventRemember="";
+		S2MDEventRemember="";
+		S2DIEventRemember="";
+		S2SDEventRemember="";
+		for(i=0;i<60;i++)
+		{
+			DBSearchStartime[i]=0;
+			S2_DBSearchStartime[i]=0;
+		}
+		Data = 0;
+		Num_selected = "";
+		//Num_selected = 29;
+		if(interval_on == 1)
+		{
+			clearInterval(interval);
+			interval_on = 0;
+		}
+		//if(ExportStartime!=0)
+		if(ExportStartime!=0 && ExportEndtime!=0)
+		{
+			return false;
+		}
+		ExportStartime = 0;
+		NowUTCTime = NowUTCStartTime;
+		StartQueryTime = NowUTCTime;
+		idget("Now").value = UTC2LOCAL(NowUTCTime);
+		//idget('Now').innerHTML=idget("Now").value;
+		GetNowStartEndTime(idget("TIME_LEVEL").value);
+		ResetData();	
+		firstRecordingdata = 0;
+		GetRecordingData();
+		
+		var tmp = dataremember.split(',') ;		
+		for(k=0;k<tmp.length-1;k++)
+		{
+			if(tmp[k]==29)
+				Data = 1;
+		}	
+		if(Data==1)
+		{
+			if(idget("TIME_LEVEL").value==0)
+			{
+				GetFrame(NowUTCTime);
+			}	
+			else
+			{
+				if(SM=="S1_")
+					GetFrame(DBSearchStartime[29]);
+				if(SM=="S2_")
+					GetFrame(S2_DBSearchStartime[29]);
+			}	
+		}
+		else
+			GetnoFrame();
+		
+		Pretimelevel = idget("TIME_LEVEL").value;
+		RefreshCurrentStatus();
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			QueryType = "SD";
+			GetEventData();
+		}
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			QueryType = "MD";
+			GetEventData();		
+		}
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			QueryType = "DI";
+			GetEventData();
+		}
+	}
+	function GO_NEXT()
+	{	
+		MDEventRemember="";
+		DIEventRemember="";
+		SDEventRemember="";
+		S2MDEventRemember="";
+		S2DIEventRemember="";
+		S2SDEventRemember="";
+		for(i=0;i<60;i++)
+		{
+			DBSearchStartime[i]=0;
+			S2_DBSearchStartime[i]=0;
+		}
+		Data = 0;
+		Num_selected = "";
+		//Num_selected = 29;
+		if(interval_on == 1)
+		{
+			clearInterval(interval);
+			interval_on = 0;
+		}
+		//if(ExportStartime!=0)
+		if(ExportStartime!=0 && ExportEndtime!=0)
+		{
+			return false;
+		}
+		
+		ExportStartime = 0;
+		NowUTCTime = NowUTCEndTime;
+		switch(idget("TIME_LEVEL").value)
+		{
+			case '0':
+				NowUTCTime = parseInt(NowUTCTime)-1;
+				break;
+			case '1':
+				NowUTCTime = parseInt(NowUTCTime)-1*60;
+				break;	
+			case '2':
+				NowUTCTime = parseInt(NowUTCTime)-1*3600;
+				break;	
+			case '3':
+				NowUTCTime = parseInt(NowUTCTime)-1*86400;
+				break;	
+		}
+		
+		StartQueryTime = NowUTCTime;
+		idget("Now").value = UTC2LOCAL(NowUTCTime);
+		//idget('Now').innerHTML=idget("Now").value;
+		GetNowStartEndTime(idget("TIME_LEVEL").value);
+		ResetData();	
+		firstRecordingdata = 0;
+		GetRecordingData();
+		
+		var tmp = dataremember.split(',') ;		
+		for(k=0;k<tmp.length-1;k++)
+		{
+			if(tmp[k]==29)
+				Data = 1;
+		}	
+		if(Data==1)
+		{
+			if(idget("TIME_LEVEL").value==0)
+				GetFrame(NowUTCTime);
+			else
+			{	
+				if(SM=="S1_")
+					GetFrame(DBSearchStartime[29]);
+				if(SM=="S2_")
+					GetFrame(S2_DBSearchStartime[29]);	
+			}	
+		}
+		else
+			GetnoFrame();
+		
+		Pretimelevel = idget("TIME_LEVEL").value;
+		RefreshCurrentStatus();
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			QueryType = "SD";
+			GetEventData();
+		}
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			QueryType = "MD";
+			GetEventData();		
+		}
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			QueryType = "DI";
+			GetEventData();
+		}
+	}
+	
+	function GO_CURRENT()
+	{
+		MDEventRemember="";
+		DIEventRemember="";
+		SDEventRemember="";
+		S2MDEventRemember="";
+		S2DIEventRemember="";
+		S2SDEventRemember="";
+		for(i=0;i<60;i++)
+		{
+			DBSearchStartime[i]=0;
+			S2_DBSearchStartime[i]=0;
+		}
+		if(interval_on == 1)
+		{
+			clearInterval(interval);
+			interval_on = 0;
+		}
+		if(ExportStartime!=0 && ExportEndtime!=0)
+		{
+			return false;
+		}
+		ExportStartime = 0;
+		ResetData();
+		GET_CURRENT_TIME();	
+		GetNowStartEndTime(idget("TIME_LEVEL").value);	
+		GetRecordingData();
+		fisrtonload = 1;
+		Pretimelevel = idget("TIME_LEVEL").value;
+		
+		Num_selected = 29;
+		
+		//GetFrame(NowUTCTime);
+		if(SM=="S1_")
+		{
+			idget("S1_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+			if(idget("TIME_LEVEL").value==0)
+			{
+				if(MD_block[Num_selected]!=0)
+					GetFrame(NowUTCTime);
+				else
+					GetnoFrame();
+			}	
+			else
+			{
+				if(DBSearchStartime[Num_selected]!=0)
+					GetFrame(DBSearchStartime[Num_selected]);
+				else
+					GetnoFrame();
+			}	
+		}
+		if(SM=="S2_")
+		{
+			idget("S2_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+			if(idget("TIME_LEVEL").value==0)
+			{
+				if(S2MD_block[Num_selected]!=0)
+					GetFrame(NowUTCTime);	
+				else
+					GetnoFrame();
+			}	
+			else
+			{
+				if(S2_DBSearchStartime[Num_selected]!=0)
+					GetFrame(S2_DBSearchStartime[Num_selected]);
+				else
+					GetnoFrame();
+			}	
+		}
+		
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			QueryType = "SD";
+			GetEventData();		
+		}
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			QueryType = "MD";
+			GetEventData();		
+		}
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			QueryType = "DI";
+			GetEventData();
+		}	
+		if(SM=="S1_")
+			idget("S1_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		else
+			idget("S2_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		RefreshCurrentStatus();			
+	}
+	
+	function GetEndQueryTime()
+	{
+		switch(idget("TIME_LEVEL").value)
+		{
+			case '0':
+				NowUTCStartTime = StartQueryTime;
+				NowUTCEndTime = parseInt(StartQueryTime)+59;
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				//idget("NowEndTime").value = UTC2LOCAL(parseInt(StartQueryTime)+59);
+				NowUTCTime = parseInt(StartQueryTime)+29;
+				idget("Now").value = UTC2LOCAL(NowUTCTime);
+				break;
+			case '1':
+				NowUTCStartTime = StartQueryTime;
+				NowUTCEndTime = parseInt(StartQueryTime)+59*60;
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				NowUTCTime = parseInt(StartQueryTime)+29*60;
+				idget("Now").value = UTC2LOCAL(NowUTCTime);
+				break;	
+			case '2':
+				NowUTCStartTime = StartQueryTime;
+				NowUTCEndTime = parseInt(StartQueryTime)+59*3600;
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				NowUTCTime = parseInt(StartQueryTime)+29*3600;
+				idget("Now").value = UTC2LOCAL(NowUTCTime);
+				break;	
+			case '3':
+				NowUTCStartTime = StartQueryTime;
+				NowUTCEndTime = parseInt(StartQueryTime)+59*86400;
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				NowUTCTime = parseInt(StartQueryTime)+29*86400;
+				idget("Now").value = UTC2LOCAL(NowUTCTime);
+				break;	
+		}
+		for(k=0;k<60;k++)
+			GetTimeTitle(k,idget("TIME_LEVEL").value);
+	}
+	
+	function TIME_LEVEL_CHANGE()
+	{
+		//alert("TIME_LEVEL_CHANGE NowUTCTime="+UTC2LOCAL(NowUTCTime));	
+		MDEventRemember="";
+		DIEventRemember="";
+		SDEventRemember="";
+		S2MDEventRemember="";
+		S2DIEventRemember="";
+		S2SDEventRemember="";
+		for(i=0;i<60;i++)
+		{
+			DBSearchStartime[i]=0;
+			S2_DBSearchStartime[i]=0;
+		}
+		if(interval_on == 1)
+		{
+			clearInterval(interval);
+			interval_on = 0;
+		}
+		ExportStartime = 0;
+		idget("Now").value = UTC2LOCAL(NowUTCTime);
+		if(idget("TIME_LEVEL").value<Pretimelevel) //zoom in
+		{
+			ResetData();
+			
+			if(Pretimelevel-idget("TIME_LEVEL").value>1)
+			{
+				//NowUTCStartTime = parseInt(NowUTCTime);
+				switch(idget("TIME_LEVEL").value)
+				{
+					case '0':
+						NowUTCStartTime = parseInt(NowUTCTime)-parseInt(Diff_Sec);
+						//NowUTCEndTime = parseInt(NowUTCTime)-parseInt(Diff_Sec)+60;
+						break;	
+					case '1':
+						NowUTCStartTime = parseInt(NowUTCTime)-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+						//NowUTCEndTime   = parseInt(NowUTCTime)-parseInt(Diff_Min)*60-parseInt(Diff_Sec)+3600;
+						break;	
+					case '2':
+						NowUTCStartTime = parseInt(NowUTCTime)-parseInt(Diff_Hour)*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+						//NowUTCEndTime   = parseInt(NowUTCTime)-parseInt(Diff_Hour)*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec)+86400;		
+						break;	
+				}
+			}
+			else
+			{
+				switch(Pretimelevel)
+				{
+					case '0':
+						NowUTCStartTime = parseInt(NowUTCTime);
+						//NowUTCEndTime = parseInt(NowUTCTime)+1;
+						break;
+					case '1':
+						NowUTCStartTime = parseInt(NowUTCTime)-parseInt(Diff_Sec);
+						//NowUTCEndTime = parseInt(NowUTCTime)-parseInt(Diff_Sec)+60;
+						break;	
+					case '2':
+						NowUTCStartTime = parseInt(NowUTCTime)-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+						//NowUTCEndTime   = parseInt(NowUTCTime)-parseInt(Diff_Min)*60-parseInt(Diff_Sec)+3600;
+						break;	
+					case '3':
+						NowUTCStartTime = parseInt(NowUTCTime)-parseInt(Diff_Hour)*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+						//NowUTCEndTime   = parseInt(NowUTCTime)-parseInt(Diff_Hour)*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec)+86400;		
+						break;	
+				}
+			}
+			//alert("NowStartTime="+UTC2LOCAL(NowUTCStartTime));
+			switch(idget("TIME_LEVEL").value)
+			{
+				case '0':
+					NowUTCEndTime = NowUTCStartTime+60;
+					break;
+				case '1':
+					NowUTCEndTime = NowUTCStartTime+3600;
+					break;	
+				case '2':
+					//NowUTCEndTime = NowUTCStartTime+86400;
+					NowUTCEndTime = NowUTCStartTime+216000;
+					break;	
+				case '3':
+					//NowUTCEndTime = NowUTCStartTime+5184000;	
+					NowUTCEndTime = NowUTCStartTime+12960000;					
+					break;	
+			}
+			//alert("NowStartTime="+UTC2LOCAL(NowUTCStartTime)+"\n"+"NowEndTime="+UTC2LOCAL(NowUTCEndTime));
+			zoomin =1;
+			for(k=0;k<60;k++)
+				GetTimeTitle(k,idget("TIME_LEVEL").value);
+			idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+			idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+			//alert("NowUTCStartTime="+idget("NowStartTime").value);	
+			//alert("NowUTCEndTime="+idget("NowEndTime").value);
+			GetRecordingData();
+			//zoomin=0;	
+			
+			if(SM=="S1_")
+				var	tmp = dataremember.split(',') ;
+				
+			if(SM=="S2_")
+				var	tmp = S2dataremember.split(',') ;
+			
+			if(idget("TIME_LEVEL").value<Pretimelevel)	
+			{
+				if(tmp[0]!="")
+					SelectedNowTimeData(idget(SM+tmp[0]));	
+				else
+				{
+					SelectedNowTimeData(idget(SM+0));
+				}	
+			}	
+			
+			SD_CHECK();		
+			MD_CHECK();	
+			DI_CHECK();
+			zoomin=0;		
+		}
+		else//Zoom Out
+		{
+			NowUTCTime = StartQueryTime;
+			idget("Now").value = UTC2LOCAL(NowUTCTime);
+			GetNowStartEndTime(idget("TIME_LEVEL").value);
+			ResetData();	
+			GetRecordingData();
+			SelectedNowTimeData(idget(SM+29));	
+			SD_CHECK();		
+			MD_CHECK();	
+			DI_CHECK();	
+		}
+		Pretimelevel = idget("TIME_LEVEL").value;
+		RefreshCurrentStatus();
+	}
+	
+	function GetNowStartEndTime(timelevel)
+	{
+		switch(timelevel)
+		{
+			case '0':
+				NowUTCStartTime = parseInt(NowUTCTime)-29;
+				NowUTCEndTime = parseInt(NowUTCTime)+30;
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				break;
+			case '1':
+				NowUTCStartTime = parseInt(NowUTCTime)-29*60-parseInt(Diff_Sec);
+				NowUTCEndTime = parseInt(NowUTCTime)+30*60-parseInt(Diff_Sec);
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				break;	
+			case '2':
+				NowUTCStartTime = parseInt(NowUTCTime)-29*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+				NowUTCEndTime = parseInt(NowUTCTime)+30*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				break;	
+			case '3':
+				NowUTCStartTime = parseInt(NowUTCTime)-29*86400-parseInt(Diff_Hour)*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+				NowUTCEndTime = parseInt(NowUTCTime)+30*86400-parseInt(Diff_Hour)*3600-parseInt(Diff_Min)*60-parseInt(Diff_Sec);
+				idget("NowStartTime").value = UTC2LOCAL(NowUTCStartTime);
+				idget("NowEndTime").value = UTC2LOCAL(NowUTCEndTime);
+				break;	
+		}
+		//alert("NowUTCStartTime="+idget("NowStartTime").value);	
+		//alert("NowUTCEndTime="+idget("NowEndTime").value);
+		for(k=0;k<60;k++)
+			GetTimeTitle(k,timelevel);
+	}
+	
+	function GET_CURRENT_TIME()
+	{
+		var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&GET_CURRENT_TIME";
+		szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		var szTmp = doSplitValue(szReturn[0]) ;
+		var tmp=szTmp[1].split(",");
+		NowUTCTime = tmp[0];
+		var Offset = tmp[1];
+		var sign = Offset.substring(0,1);
+
+		if(Offset.substring(1,3) < 10)
+		{
+			  if(Offset.indexOf(":")!=-1)
+				  TimezoneOffset = (parseInt(Offset.substring(1,3)%10) + Offset.substring(4,Offset.length)/60) *3600;
+			  else
+				  TimezoneOffset = parseInt(Offset.substring(1,3)%10)*3600;	
+		}
+		else
+		{
+			  if(Offset.indexOf(":")!=-1)
+				  TimezoneOffset = (parseInt(Offset.substring(1,3)) + Offset.substring(4,Offset.length)/60) *3600;
+			  else
+				  TimezoneOffset = parseInt(Offset.substring(1,3))*3600;	
+		}
+
+		TimezoneOffset = sign.concat(TimezoneOffset);
+		idget("Now").value = UTC2LOCAL(NowUTCTime);	
+		//idget('Now').innerHTML=idget("Now").value;	
+	}
+	
+	function UTC2LOCAL(timestr)
+	{
+		var Month='';
+		var date = new Date(timestr*1000);
+		var offset = date.getTimezoneOffset() * 60;
+		timestr = parseInt(timestr)+parseInt(offset)+parseInt(TimezoneOffset);
+		date =new Date(timestr*1000);
+		var LocalTime = date.toString();
+		var tmp=LocalTime.split(" ");
+		
+		switch(tmp[1])	
+		{		
+			case 'Jan':
+				Month = 1;
+				break;
+			case 'Feb':	
+				Month = 2;
+				break;
+			case 'Mar':
+				Month = 3;
+				break;
+			case 'Apr':	
+				Month = 4;
+				break;	
+			case 'May':
+				Month = 5;
+				break;
+			case 'Jun':	
+				Month = 6;
+				break;
+			case 'Jul':
+				Month = 7;
+				break;
+			case 'Aug':	
+				Month = 8;
+				break;
+			case 'Sep':
+				Month = 9;
+				break;
+			case 'Oct':	
+				Month = 10;
+				break;
+			case 'Nov':
+				Month = 11;
+				break;
+			case 'Dec':	
+				Month = 12;
+				break;
+		}
+		if(top.IsIE() == true)
+		{
+			var Str_month = Month;
+			var Str_time = tmp[3];
+			var Str_year = tmp[5];
+			var Str_day = tmp[2];
+			var str = Str_year+'/'+Str_month+'/'+Str_day+' '+Str_time;
+			
+			if(document.documentMode==11)
+			{
+				var Str_month = Month;
+				var Str_time = tmp[4];
+				var Str_year = tmp[3];
+				var Str_day = tmp[2];
+				var str = Str_year+'/'+Str_month+'/'+Str_day+' '+Str_time;
+			}	
+		}
+		else
+		{
+			var Str_month = Month;
+			var Str_time = tmp[4];
+			var Str_year = tmp[3];
+			var Str_day = tmp[2];
+			var str = Str_year+'/'+Str_month+'/'+Str_day+' '+Str_time;
+		}
+		//alert("Str_time="+Str_time);
+		if(Str_time!="")
+		{
+			Diff_Hour = Str_time.substring(0,2);
+			Diff_Min = Str_time.substring(3,5);
+			Diff_Sec = Str_time.substring(6,8);
+		}	
+		//alert("Hour,Min,Sec="+Diff_Hour+","+Diff_Min+","+Diff_Sec);
+		return str;
+	}
+	
+	function GetRecordingData()
+	{
+		QueryType = "Recording";
+		StartQueryTime = NowUTCStartTime;
+		EndQueryTime = 0;
+		//alert("Pretimelevel="+Pretimelevel);
+		switch(idget("TIME_LEVEL").value)
+		{
+			case '0':
+				EndQueryTime = NowUTCEndTime + 1;
+				timescale = "second";
+				break;
+			case '1':
+				EndQueryTime = NowUTCEndTime + 60;
+				timescale = "minute";
+				break;	
+			case '2':
+				EndQueryTime = NowUTCEndTime + 3600;
+				timescale = "hour";
+				break;	
+			case '3':
+				EndQueryTime = NowUTCEndTime + 86400;
+				timescale = "day";
+				break;	
+		}
+		if(zoomin==1)
+		{
+			EndQueryTime = NowUTCEndTime;
+			//zoomin=0;	
+		}
+		if(interval_on==0)
+		{
+			for(k=0;k<60;k++)
+			{
+				DBSearchStartime[k] = 0;
+				S2_DBSearchStartime[k] = 0;
+			}	
+		}
+		
+		if(timescale=="minute")
+			var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+"RECORDING"+","+"0";
+		else if(timescale=="second")	
+			var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+"RECORDING"+","+"0";
+		else	
+			var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+"RECORDING"+","+"0"+","+timescale;
+		//alert("szSystem="+szSystem);
+		var szReturn = doRequestXML(szSystem);
+		try { var file = szReturn.getElementsByTagName("RECORDINGS")[0].getElementsByTagName("Recording");} catch (e) { var file = {};}
+		//alert("file.length="+file.length);
+		
+		while(1)
+		{
+			for (var i = 0; i <= file.length; i++) 
+			{
+				var ele = file[i];
+				//alert("i="+i+"\n"+"eventfile[i]="+eventfile[i]);
+				if(ele==null)
+				{
+					//alert("ele is undefined");
+					break;
+				}
+				else
+				{
+					var StartUTCTime = ele.getAttribute("StartUTC");
+					var EndUTCTime = ele.getAttribute("StopUTC");
+					var datastream = ele.getAttribute("Stream");
+					//alert("i, StartUTCTime, EndUTCTime, stream="+i+","+StartUTCTime+","+EndUTCTime+","+datastream);
+					DataParse(StartUTCTime,EndUTCTime,datastream);
+				}				
+			}
+			
+			var recordindex = szReturn.getElementsByTagName("RECORDINGS")[0].getElementsByTagName("MOREDATA")[0];
+			if(recordindex!=null)
+			{
+				index = recordindex.getAttribute("Index");
+				//alert("index="+index);
+					
+				if(timescale=="minute")
+					var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+"RECORDING"+","+index;
+				else if(timescale=="second")	
+					var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+"RECORDING"+","+index;
+				else	
+					var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&V2_QUERYLS="+StartQueryTime+","+EndQueryTime+","+"RECORDING"+","+index+","+timescale;	
+				//alert("szSystem="+szSystem);
+				var szReturn = doRequestXML(szSystem);
+				//alert("szReturn="+szReturn);
+				
+				try { var file = szReturn.getElementsByTagName("RECORDINGS")[0].getElementsByTagName("Recording");} catch (e) { var file = {};}
+				
+				//alert("eventfile.length="+eventfile.length);
+				if(file.length==0)
+				{
+					//alert("01 return");
+					return;
+				}	
+			}
+			else
+			{
+				//alert("02 return");
+				return;
+			}		
+		}
+	}	
+	
+	function getUTC(string)
+	{
+		var start = string.indexOf('(');
+		var end = string.indexOf(')');
+		var UTCtime = string.substring(start+1,end);
+		return UTCtime;
+	}
+	
+	function DataParse(StartUTCTime,EndUTCTime,datastream)
+	{
+		if(datastream==1)
+			setdata(StartUTCTime,EndUTCTime);
+		if(datastream==2)
+			S2setdata(StartUTCTime,EndUTCTime);	
+	}
+	
+	function S2setdata(Time1,Time2)
+	{
+		var sameblock = 0;
+		//var S2dataOld ="";
+		for(k=S2_index;k<60;k++) {
+			GetTimeInterval(k);			
+			
+			if(idget("TIME_LEVEL").value==0)
+			{
+				if(Time1<=Intervalstart && Intervalstart<=Time2)
+				{
+					idget("S2_"+k).style.backgroundColor ="#989898";
+					S2MD_block[k]=1;
+					S2finalRecordingdataTime = Time2;
+					S2datacount++;
+					if(S2dataremember=="")
+						S2dataremember=S2dataremember+k+",";
+					else
+					{
+						var tmp = S2dataremember.split(',') ;		
+						if(k!=tmp[tmp.length-2])
+							S2dataremember=S2dataremember+k+",";	
+					}					
+					S2_index = k;
+											
+					if(S2_DBSearchStartime[k]==0)
+					{						
+						S2_DBSearchStartime[k]	= Time1;
+						if(S2_DBSearchStartime[k-1]!=0)
+							S2_DBSearchStartime[k] = Intervalstart;
+						//alert("k ="+k +"\n"+"S2_DBSearchStartime[k] ="+UTC2LOCAL(S2_DBSearchStartime[k]));							
+					}								
+				}
+			}	
+			else
+			{
+				if( (Intervalstart<Time1 && Time1<Intervalend) || (Intervalstart<=Time2 && Time2<=Intervalend) || (Time1<=Intervalstart && Intervalstart<=Time2))
+				{
+					idget("S2_"+k).style.backgroundColor ="#989898";
+					S2MD_block[k]=1;
+					S2finalRecordingdataTime = Time2;
+					S2datacount++;
+					//dataremember=dataremember+k+",";
+					if(S2dataremember=="")
+						S2dataremember=S2dataremember+k+",";
+					else
+					{
+						var tmp = S2dataremember.split(',') ;		
+						if(k!=tmp[tmp.length-2])
+							S2dataremember=S2dataremember+k+",";
+					}
+					S2_index = k;			
+					//alert("k ="+k +"\n"+"S2_DBSearchStartime[k] ="+S2_DBSearchStartime[k]);
+					if(idget("TIME_LEVEL").value==1)
+					{
+						//alert("k ="+k +"\n"+"S2_DBSearchStartime[k] ="+S2_DBSearchStartime[k]);
+						if(S2_DBSearchStartime[k]==0)
+						{	
+							S2_DBSearchStartime[k]	= Time1;
+							if(Intervalstart>S2_DBSearchStartime[k])
+								S2_DBSearchStartime[k] = Intervalstart;
+							//alert("k ="+k +"\n"+"S2_DBSearchStartime[k] ="+UTC2LOCAL(S2_DBSearchStartime[k]));							
+						}
+					}
+					else
+					{	
+						if(S2_DBSearchStartime[k]==0)
+						{	
+							S2_DBSearchStartime[k]	= Time1;
+							if(S2_DBSearchStartime[k]<Intervalstart)
+								S2_DBSearchStartime[k] = Intervalstart;
+							//alert("k ="+k +"\n"+"S2_DBSearchStartime[k] ="+S2_DBSearchStartime[k]);							
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	function setdata(Time1,Time2)
+	{
+		//if(idget("TIME_LEVEL").value==1)
+			//alert("Time1,Time2="+UTC2LOCAL(Time1)+","+UTC2LOCAL(Time2));
+		var sameblock = 0;
+		for(k=S1_index;k<60;k++) {
+			GetTimeInterval(k);			
+			
+			if(idget("TIME_LEVEL").value==0)
+			{
+				if(Time1<=Intervalstart && Intervalstart<=Time2)
+				{
+					idget("S1_"+k).style.backgroundColor ="#989898";
+					MD_block[k]=1;
+					finalRecordingdataTime = Time2;
+					datacount++;
+					if(dataremember=="")
+						dataremember=dataremember+k+",";
+					else
+					{
+						var tmp = dataremember.split(',') ;		
+						if(k!=tmp[tmp.length-2])
+							dataremember=dataremember+k+",";	
+					}					
+					S1_index = k;
+											
+					if(DBSearchStartime[k]==0)
+					{						
+						DBSearchStartime[k]	= Time1;
+						if(DBSearchStartime[k-1]!=0)
+							DBSearchStartime[k] = Intervalstart;
+						//alert("k ="+k +"\n"+"DBSearchStartime[k] ="+UTC2LOCAL(DBSearchStartime[k]));							
+					}								
+				}
+			}	
+			else
+			{
+				if( (Intervalstart<Time1 && Time1<Intervalend) || (Intervalstart<=Time2 && Time2<=Intervalend) || (Time1<=Intervalstart && Intervalstart<=Time2))
+				{
+					idget("S1_"+k).style.backgroundColor ="#989898";
+					MD_block[k]=1;
+					finalRecordingdataTime = Time2;
+					datacount++;
+					//dataremember=dataremember+k+",";
+					if(dataremember=="")
+						dataremember=dataremember+k+",";
+					else
+					{
+						var tmp = dataremember.split(',') ;		
+						if(k!=tmp[tmp.length-2])
+							dataremember=dataremember+k+",";
+					}
+					S1_index = k;			
+					
+					if(idget("TIME_LEVEL").value==1)
+					{
+						if(DBSearchStartime[k]==0)
+						{						
+							DBSearchStartime[k]	= Time1;
+							if(Intervalstart>DBSearchStartime[k])
+								DBSearchStartime[k] = Intervalstart;
+							//alert("k ="+k +"\n"+"DBSearchStartime[k] ="+UTC2LOCAL(DBSearchStartime[k]));							
+						}
+					}
+					else
+					{
+						if(DBSearchStartime[k]==0)
+						{						
+							DBSearchStartime[k]	= Time1;
+							if(DBSearchStartime[k]<Intervalstart)
+								DBSearchStartime[k] = Intervalstart;
+							//alert("k ="+k +"\n"+"DBSearchStartime[k] ="+UTC2LOCAL(DBSearchStartime[k]));							
+						}
+					}											
+				}
+			}
+		}
+	}
+	
+	function GetTimeTitle(i,timescale)
+	{
+		var alltime = 0;
+		switch(timescale)
+		{
+			case '0':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1);
+				break;
+			case '1':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1*60);
+				break;	
+			case '2':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1*60*60);
+				break;	
+			case '3':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1*24*60*60);
+				break;	
+		}
+		
+		if(zoomin==1)
+			alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime);
+			
+		var timeinterval = parseInt(alltime)/60;
+		var StartTime = parseInt(NowUTCStartTime) + parseInt(alltime)*i/60;
+		var Time = UTC2LOCAL(StartTime);
+		idget("S1_"+i).title = Time;
+		idget("S2_"+i).title = Time;
+		return StartTime;
+	}	
+	
+	function GetTimeInterval(i)
+	{
+		var alltime = 0;
+		switch(idget("TIME_LEVEL").value)
+		{
+			case '0':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1);
+				break;
+			case '1':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1*60);
+				break;	
+			case '2':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1*60*60);
+				break;	
+			case '3':
+				alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime)+parseInt(1*24*60*60);
+				break;	
+		}
+		if(zoomin == 1)
+			alltime = parseInt(NowUTCEndTime)-parseInt(NowUTCStartTime);
+	
+		var timeinterval = parseInt(alltime)/60;
+		Intervalstart = parseInt(NowUTCStartTime) + parseInt(timeinterval)*i;
+		Intervalend = parseInt(NowUTCStartTime) + timeinterval*(parseInt(i)+parseInt(1));
+		//if(zoomin == 1)
+			//alert("Intervalstart="+UTC2LOCAL(Intervalstart)+","+"Intervalend="+UTC2LOCAL(Intervalend));
+	}
+	
+	function GetConfig(){				
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&CAMERA_PAGE";
+		var szReturn = doRequest(szEncoder) ;		
+		CameraConf = eval(szReturn);	
+	}
+	
+	function SetObjectWidth(){		
+		var ch = 1 - 1; 
+		var res=CameraConf.CHANNEL[ch].VIDEO_RESOLUTION.split('x');		
+		
+		res[0]=res[0].substr(1);		
+		if(top.IsIE() == true)
+			return parseInt(parseInt(res[0])*(EcmHieghtWithoutMotionWindow-16)/parseInt(res[1]) );		//16 : title bar
+		else	
+			return parseInt(parseInt(res[0])*(EcmHieghtWithoutMotionWindow)/parseInt(res[1]) );		
+	}
+	function SetObjectHeight(){		
+		var ch = 1 - 1; 
+		var ratio ;
+		var res=CameraConf.CHANNEL[ch].VIDEO_RESOLUTION.split('x');		
+		res[0]=res[0].substr(1);		
+		ratio = res[0]/res[1];
+		ratio = ratio.toFixed(2);
+		
+		if(ratio == 1.33)
+			EcmWidthWithMotionWindow = 583;
+		else	
+			EcmWidthWithMotionWindow = 633;
+		
+		return parseInt(parseInt(res[1])*(EcmWidthWithMotionWindow-203)/parseInt(res[0]) ) +16;		//203 Md window Width, 16:title bar
+	}
+
+	
+	function EnableEcmMotionWindow (MdEnbled)
+	{
+		if(top.IsIE()==false)
+			return;
+		if(MdEnbled == 1)
+		{	
+			idget("oMedia").EnableMVWindow(1);
+			idget("oMedia").width= EcmWidthWithMotionWindow;			
+			idget("oMedia").height= SetObjectHeight(); 
+			
+		}
+		else
+		{
+			idget("oMedia").EnableMVWindow(0);
+			idget("oMedia").width=SetObjectWidth();			
+			idget("oMedia").height=EcmHieghtWithoutMotionWindow;
+			
+		}	
+	}
+	
+	function ECMSetup()
+	{						
+		EnableEcmMotionWindow(0);			
+		idget("oMedia").style.display='';
+		if(SM=="S1_")
+			NowPlayingMedia = 1;
+		if(SM=="S2_")
+			NowPlayingMedia = 2;
+			
+		idget("oMedia").ID=NowPlayingMedia; 
+		idget("oMedia").Channel = 1;
+		
+		idget("oMedia").TCPVideoStreamID = NowPlayingMedia-1; //(VIDEO_MEDIA.value-1) 
+		idget("oMedia").MediaType = 3;	//0 : tcp 1:rtp
+		idget("oMedia").DeviceType = 0; //single=0 , quad =1		
+		idget("oMedia").MediaURL  = document.location.hostname ;		
+		idget("oMedia").MediaUsername = top.gAccount ;
+		idget("oMedia").MediaPassword = top.gPwd ;
+		switch(document.URL.split(":")[0]){
+			case "http":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 80;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(0);
+				break;
+			case "https":
+				if(document.location.port == ""){
+					idget("oMedia").HttpPort      = 443;
+				}else{
+					idget("oMedia").HttpPort      = document.location.port;
+				}
+				idget("oMedia").EnableHTTPS(1);
+				break;
+		}
+		
+		idget("oMedia").DisplayTitleBar(0);
+	}
+	
+	function GetnoFrame()
+	{
+		if(top.IsIE() == true)
+			idget("oMedia").SetNoFrame();
+	}
+	
+	function GetFrame(time) 
+	{ 		
+		if(SM=="S1_")
+		{
+			NowPlayingMedia = 1;
+			idget("oMedia").Channel = 1;
+		}	
+		if(SM=="S2_")
+		{
+			NowPlayingMedia = 2;
+			idget("oMedia").Channel = 2;
+		}	
+		//alert("GetFrame NowPlayingMedia="+NowPlayingMedia);	
+		idget("oMedia").ID=NowPlayingMedia; 
+		
+		idget("oMedia").TCPVideoStreamID = NowPlayingMedia-1; //(VIDEO_MEDIA.value-1) 
+		if(top.IsIE() == true)
+		{
+			idget("oMedia").LocalStorageConnect(time);			 
+		}	
+    }
+	
+	function video_update_language()
+	{
+		top.update_language(this);
+		try { document.getElementById('BOTTON_CURRENT').title = top.GetXmlLangTagByName("HINT_GOTO_CUTTENT_TIME") ; } catch(e) {}
+		try { document.getElementById('BOTTON_NEXT').title = top.GetXmlLangTagByName("HINT_NEXT_RECORDING") ; } catch(e) {}	
+		try { document.getElementById('BOTTON_PREVIOUS').title = top.GetXmlLangTagByName("HINT_PREVIOUS_RECORDING") ; } catch(e) {}	
+		try { idget('SELECT_EXPORT_VIDEO').innerHTML = top.GetXmlLangTagByName("SELECT_EXPORT_VIDEO") ; } catch(e) {}
+	}
+	
+	
+	
+	function Page_onLoad()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		szSystem += "&V2_AUDIO_ENABLED";		
+		var szReturn = doRequest(szSystem) ; //alert(szReturn);
+		szReturn = szReturn.split('\n') ;
+		szTmp = doSplitValue(szReturn[0]);
+		top.gAudioInpt = szTmp[1];
+		
+		if(top.gAudioInpt == 1)
+		{
+			idget("SD").style.display="";
+		}	
+		else
+		{
+			idget("SD").style.display="none";
+		}	
+		if(top.gDI==0) //Digital Input term
+			idget("DI").style.display = "none";		
+		
+		video_update_language();		
+		GetConfig();
+		if(top.IsIE() == true) {		
+			ECMSetup();
+		}
+		else
+		{
+			idget("oMedia").style.display = "none";
+		}			
+
+		GET_CURRENT_TIME();	
+		StartQueryTime = NowUTCTime;
+		//alert("StartQueryTime="+UTC2LOCAL(StartQueryTime));
+		GetNowStartEndTime(idget("TIME_LEVEL").value);
+		if(top.IsIE() == true)
+		{
+			idget("Now").size=16;
+			idget("NowStartTime").size=16;
+			idget("NowEndTime").size=16;
+		}
+		else
+		{
+			idget("Now").size=19;
+			idget("NowStartTime").size=19;
+			idget("NowEndTime").size=19;
+		}
+		dataremember="";
+		S2dataremember="";
+		Pretimelevel = idget("TIME_LEVEL").value;
+		for(i=0;i<60;i++)
+		{
+			DBSearchStartime[i]=0;
+			S2_DBSearchStartime[i]=0;
+			MD_block[i] = 0;
+			S2MD_block[i] = 0;
+		}	
+		GetRecordingData();
+		Num_selected = 29;
+		if(dataremember=="" && S2dataremember!="")
+		{
+			SM = "S2_";
+			idget("S2_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		}	
+		else	
+		{
+			SM = "S1_";
+			idget("S1_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		}
+		SelectedNowTimeData(idget(SM+Num_selected));
+		//alert("Pageonload NowUTCTime="+UTC2LOCAL(NowUTCTime));
+		//window.setTimeout("GetFrame(NowUTCTime-1);",5000); //for ECM initial
+		RefreshCurrentStatus();	
+	}
+	
+	function RefreshCurrentStatus()
+	{
+		var time = 0;
+		
+		var szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&GET_CURRENT_TIME";
+		szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		var szTmp = doSplitValue(szReturn[0]) ;
+		var tmp=szTmp[1].split(",");
+		UTCTime_Now = tmp[0];
+		
+		if(NowUTCStartTime<UTCTime_Now && UTCTime_Now<NowUTCEndTime)
+		{
+			switch(idget("TIME_LEVEL").value)
+			{
+				case '0':
+					time = 5000;
+					break;
+				case '1':
+					time = 60*1000;
+					break;	
+				case '2':
+					time = 60*60*1000;
+					break;	
+				case '3':
+					time = 24*60*60*1000;
+					break;	
+			}
+			interval = setInterval(RefreshRecording, time);
+			interval_on = 1;			
+		}	
+	}
+	function RefreshRecording()
+	{
+		Refreshcount++;
+		StartQueryTime = NowUTCStartTime;
+		GetEndQueryTime();
+		GetRecordingData();
+		//alert("RefreshRecording Num_selected="+Num_selected);
+		if(Num_selected!= null)
+		{
+			SelectedNowTimeData(idget(SM+Num_selected));
+		}	
+		
+		if( idget("SETTING_SD_ADDED").checked == true )
+		{
+			QueryType = "SD";
+			GetEventData();		
+		}
+		if( idget("SETTING_MD_ADDED").checked == true )
+		{
+			QueryType = "MD";
+			GetEventData();		
+		}
+		if( idget("SETTING_DI_ADDED").checked == true )
+		{
+			QueryType = "DI";
+			GetEventData();
+		}	
+		if(ExportEndtime!=0)
+		{
+			if(ExportStartag<ExportEndtag)
+			{
+				for(k=ExportStartag;k<=ExportEndtag;k++)
+					idget(SM+k).style.backgroundColor ="#0000ff";
+			}
+			else
+			{
+				for(k=ExportEndtag;k<=ExportStartag;k++)
+					idget(SM+k).style.backgroundColor ="#0000ff";
+			}
+		}
+		if(Num_selected!= null)
+		{
+			if(SM=="S1_")
+				idget("S1_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+			else
+				idget("S2_"+Num_selected).style.backgroundColor ="rgb(0,0,255)";
+		}	
+		//alert("Refreshcount="+Refreshcount+"\n"+"MD_block[59]="+MD_block[59]+"\n"+"S2MD_block[59]="+S2MD_block[59]);	
+		switch(idget("TIME_LEVEL").value)
+		{
+			case '0':
+				if(Refreshcount>=12 || MD_block[59]==1 || S2MD_block[59]==1)
+				{
+					clearInterval(interval);
+					interval_on = 0;
+				}	
+				break;
+			case '1':
+				if(Refreshcount>=60 || MD_block[59]==1 || S2MD_block[59]==1)
+				{
+					clearInterval(interval);
+					interval_on = 0;
+				}
+				break;	
+			case '2':
+				if(Refreshcount>=60 || MD_block[59]==1 || S2MD_block[59]==1)
+				{
+					clearInterval(interval);
+					interval_on = 0;
+				}
+				break;	
+			case '3':
+				if(Refreshcount>=60 || MD_block[59]==1 || S2MD_block[59]==1)
+				{
+					clearInterval(interval);
+					interval_on = 0;
+				}
+				break;	
+		}		
+	}
+	
+	Page_onLoad();	
+</Script>

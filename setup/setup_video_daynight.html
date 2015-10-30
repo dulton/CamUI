@@ -1,0 +1,327 @@
+﻿
+<html>
+<head>
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>	
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+
+<body id="body_daynight" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onload="frame_extent()">	
+
+	<table border="0" cellspacing="0" cellpadding="1" width="98%"  style="margin-top:15px">
+		<tr>	
+			<td width="50%" align="right">
+				<label id="SETTING_VIDEO_DN_MODE">Day/Night Mode</label>&nbsp;&nbsp;
+			</td>
+			<td width="50%" align="left">
+				<select id="VIDEO_DAYNIGHT_MODE" onchange="DNModeChange()">
+					<option value="AUTO" id="SELECT_VIDEO_DAYNIGHT_MODE_AUTO">AUTO</option>
+					<option value="DAY" id="SELECT_VIDEO_DAYNIGHT_MODE_DAY">DAY</option>
+					<option value="NIGHT" id="SELECT_VIDEO_DAYNIGHT_MODE_NIGHT">NIGHT</option>
+				</select>
+			</td>
+		</tr>	
+		<tr id="IRLED" style="display:none">	
+			<td width="50%" align="right">
+				<label id="SETTING_VIDEO_DN_IRLED">IR LED Control</label>&nbsp;&nbsp;
+			</td>
+			<td width="50%" align="left">
+				<select id="VIDEO_DAYNIGHT_IRLED" onchange="DNIRLEDChange()">					
+					<option value="1" id="SELECT_VIDEO_WB_MODE_AUTO">AUTO</option>
+					<option value="0" id="SELECT_COMMON_DISABLED">Disabled</option>					
+				</select>
+			</td>			
+		</tr>
+		<tr id="Adapt_IRLED_SETTING" style="display:none">
+			<td>
+				<tr id="Adapt_TYPE_1" style="display:none">
+					<td width="50%" align="right">
+						<label id="SETTING_IRLED_STRENGTH_LEVEL">IR LED Strength Level</label>&nbsp;&nbsp;
+					</td>
+					<td width="50%" align="left">
+						<select id="VIDEO_IRLED_STRENGTH_LEVEL">									
+						</select>
+					</td>
+				</tr>
+				<tr id="Adapt_TYPE_2" style="display:none">
+					<td width="50%" align="right">
+						<label id="SETTING_COVERAGE_LEVEL">Coverange</label>&nbsp;&nbsp;
+					</td>
+					<td>
+						<table border="0">
+							<td align="center" id="coverange_3" style="display:none" onclick="changerange('3')" >
+								<img src="/images/coverage3.png"  title="narrow" value =0>
+							</td>
+							<td align="center" id="btn_coverange_3" style="display:none" onclick="changerange('3')" >
+								<img src="/images/btn_coverage3.png" title="narrow" value =0>
+							</td>
+							<td align="center" id="coverange_2" style="display:none" onclick="changerange('2')">
+								<img src="/images/coverage2.png" title="middle" value =0>
+							</td>
+							<td align="center" id="btn_coverange_2" style="display:none" onclick="changerange('2')" >
+								<img src="/images/btn_coverage2.png" title="middle" value =0>
+							</td>
+							<td align="center" id="coverange_1" style="display:none" onclick="changerange('1')">
+								<img src="/images/coverage1.png" title="wid" value =0>
+							</td>
+							<td align="center" id="btn_coverange_1" style="display:none" onclick="changerange('1')" >
+								<img src="/images/btn_coverage1.png" title="wide" value =0>
+							</td>
+						</table>	
+					</td>	
+				</tr>
+			</td>	
+		</tr>
+		<tr id="TR_DAY_GAIN_THD">
+			<td width="50%" align="right">
+				<label  id="SETTING_VIDEO_N_GAIN_THRESHOLD">Switch from Day mode to Night mode</label>&nbsp;&nbsp;
+			</td>
+			<td width="50%" align="left">
+				<select id="DAY_GAIN_THD" onchange="DnThresholdOnChange()">
+				</select>
+			</td>								
+		</tr>		
+		<tr>
+			<td  colspan="2" align="center" >
+				<p>&nbsp;</p>							
+			</td>
+		</tr>			
+		<tr id="TR_DAY_NIGHT_BAR" style="display:">
+			<td colspan="2" align="center">
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tr height="30" valign="top">
+						<td width="500" align="left" background="/images/firmwareV1_2_2.gif" style="padding:0px;height:30px;">
+							<div id="DNTHD"   style="background-color:blue;;height:30px;color:blue;width:2px;">|</div>											
+						</td>
+					</tr>             
+				</table>
+			</td>
+		</tr>		
+		<tr>
+			<td  colspan="2" align="center" >
+				&nbsp;
+				
+			</td>
+		</tr>	
+		<tr height="40px">
+			<td align="right">
+				<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+			</td>
+			<td align="left">
+				&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSettings()"/>
+			</td> 
+		</tr>			
+		
+
+	</table>
+
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+    var IRtype;
+	var i;
+	var range;
+	function changerange(id)
+	{	
+		if(id != range)
+		{
+			if(idget("coverange_"+id).value == 0)
+			{
+				for(i=1;i<=3;i++)
+				{
+					if(i == id)
+					{
+						idget("btn_coverange_"+i).style.display="";
+						idget("coverange_"+i).style.display="none";	
+						idget("coverange_"+i).value = 1;
+					}	
+					else 
+					{
+						idget("btn_coverange_"+i).style.display="none";
+						idget("coverange_"+i).style.display="";
+						idget("coverange_"+i).value = 0;
+					}
+				}
+				range = id;
+			}
+		}
+		else
+		{
+			return;			
+		}      	
+	}
+	
+	function DnThresholdOnChange()
+	{
+		idget("DNTHD").style.marginLeft = idget("DAY_GAIN_THD").value*5;
+	}
+	
+	function DNIRLEDChange()
+	{
+		if(idget("VIDEO_DAYNIGHT_IRLED").value == 0)
+		{
+			idget("Adapt_IRLED_SETTING").style.display = "none";
+			idget("Adapt_TYPE_1").style.display="none";
+			idget("Adapt_TYPE_2").style.display="none";	
+		}
+		else
+		{
+			idget("Adapt_IRLED_SETTING").style.display = "";
+			if(IRtype ==1) 
+			{
+				idget("Adapt_IRLED_SETTING").style.display="";
+				idget("Adapt_TYPE_1").style.display="";
+				idget("Adapt_TYPE_2").style.display="none";
+			}
+			else if(IRtype ==2)
+			{					
+				idget("Adapt_IRLED_SETTING").style.display="";
+				idget("Adapt_TYPE_1").style.display="";
+				idget("Adapt_TYPE_2").style.display="";	
+			}		
+		}	
+	}
+	
+	function DNModeChange()
+	{
+		//DNIRLEDChange();
+		switch(idget("VIDEO_DAYNIGHT_MODE").value) 
+		{			
+			case "AUTO":
+			    if(top.gDNElement.search("IRLED")== -1 && top.gDNElement.search("Adapt_IRLED_TYPE") == -1) 
+					idget("IRLED").style.display = "none";
+               	else
+					idget("IRLED").style.display = "";
+		         
+				idget("TR_DAY_GAIN_THD").style.display='';
+				idget("TR_DAY_NIGHT_BAR").style.display='';
+				DNIRLEDChange();							
+				break;	
+			case "NIGHT":			
+				if(top.gDNElement.search("IRLED")== -1 && top.gDNElement.search("Adapt_IRLED_TYPE") == -1)  
+					idget("IRLED").style.display = "none";	
+				else
+					idget("IRLED").style.display = "";	
+					
+				idget("TR_DAY_GAIN_THD").style.display='none';
+				idget("TR_DAY_NIGHT_BAR").style.display='none';
+				DNIRLEDChange();
+				break;	
+			case "DAY": 			
+				idget("IRLED").style.display = "none";	
+				idget("TR_DAY_GAIN_THD").style.display='none';
+				idget("TR_DAY_NIGHT_BAR").style.display='none';	
+				idget("Adapt_IRLED_SETTING").style.display = "none";
+				idget("Adapt_TYPE_1").style.display="none";
+				idget("Adapt_TYPE_2").style.display="none";	
+				break;
+		}	
+	}
+	function DoApply()
+	{
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		var i = 1;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;
+
+		szEncoder += "&VIDEO_DAYNIGHT_MODE=" + idget("VIDEO_DAYNIGHT_MODE").value + "&";
+		szEncoder += "DAY_GAIN_THD=" + idget("DAY_GAIN_THD").value + "&";
+		szEncoder += "VIDEO_DN_IRLED=" + idget("VIDEO_DAYNIGHT_IRLED").value;
+		
+		if(IRtype ==1) 
+			szEncoder +=  "&ADAP_IRLED_CONFIG=" + idget("VIDEO_IRLED_STRENGTH_LEVEL").value + ",1" ;
+		if(IRtype ==2)	
+			szEncoder +=  "&ADAP_IRLED_CONFIG=" + idget("VIDEO_IRLED_STRENGTH_LEVEL").value + "," + range ;
+		
+		var szReturn = doRequest(szEncoder);
+		
+		parent.GetConfig();
+		doGetSettings();
+		window.setTimeout("top.clean_result(this);", 2000 );		
+	}
+	
+	function doGetSettings()
+	{
+		SelectSetOption(idget("VIDEO_DAYNIGHT_MODE"), parent.CameraConf.VIDEO_DAYNIGHT_MODE);						
+		SelectSetOption(idget("VIDEO_DAYNIGHT_IRLED"),parent.CameraConf.VIDEO_DN_IRLED);
+		SetSelectedValue(idget("DAY_GAIN_THD"), parent.CameraConf.DAY_GAIN_THD);
+		idget("DNTHD").style.marginLeft = parent.CameraConf.DAY_GAIN_THD*5;
+		
+		if(top.gDNElement.search("Adapt_IRLED")!= -1) {
+			var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&ADAP_IRLED_CONFIG";			
+			var szReturn = doRequest(szEncoder);
+			var responseText=szReturn.split('\n') ;
+			var values = doSplitValue(responseText[0]);
+			var tmp=values[1].split(",");
+			SetSelectedValue(idget("VIDEO_IRLED_STRENGTH_LEVEL"),tmp[0]);
+			range = tmp[1];
+			for(i=1;i<=3;i++)
+			{
+				if(i ==range)
+				{
+					idget("btn_coverange_"+i).style.display="";				
+					idget("coverange_"+i).value=1;
+				}
+				else
+				{
+					idget("coverange_"+i).style.display="";				
+					idget("coverange_"+i).value=0;
+				}	
+			}	
+		}
+		DNModeChange();
+	}
+	function daynight_update_language()
+	{
+		top.update_language(this);
+	}
+	function PageOnload()
+	{
+        //top.gDNElement = "IRLED,Adapt_IRLED_TYPE2"
+		//alert("DNElement = "+top.gDNElement);
+		if(top.gDNElement.search("Adapt_IRLED_TYPE")!= -1)
+		{
+			var n = top.gDNElement.search("Adapt_IRLED_TYPE");
+			IRtype = top.gDNElement.substring(n+16) ;
+		}	
+		else
+		    IRtype = 0;
+		
+		if(IRtype ==1) {
+			idget("Adapt_IRLED_SETTING").style.display="";
+			idget("Adapt_TYPE_1").style.display="";
+		}
+		else if(IRtype ==2)
+		{
+		    idget("Adapt_IRLED_SETTING").style.display="";
+			idget("Adapt_TYPE_1").style.display="";
+			idget("Adapt_TYPE_2").style.display="";	
+		}
+		else
+		{
+			idget("Adapt_IRLED_SETTING").style.display="none";
+		}
+		
+		UpdateSelectOptions_2(idget("VIDEO_IRLED_STRENGTH_LEVEL"),"1,2,3,4,5,6,7,8,9,10","1,2,3,4,5,6,7,8,9,10");
+		InsertSelectOptions_Number(idget("DAY_GAIN_THD"), 0, 100);
+		if(parent.document.getElementById("media_id").value != 1)
+		{
+			parent.document.getElementById("media_id").value = 1;
+			if(top.IsIE() == true)
+				parent.ECMSetup();				
+		}		
+		parent.document.getElementById("media_id").style.display = "none";				
+		doGetSettings();
+		
+		daynight_update_language();
+		
+		if(top.IsIE() == false)
+			idget("body_daynight").style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;
+		else
+			idget("body_daynight").style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+		
+	}
+	PageOnload();
+</Script>

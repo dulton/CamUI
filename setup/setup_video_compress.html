@@ -1,0 +1,908 @@
+
+<html>
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+
+<body id="body_compress" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5">	
+
+	<table border="0" cellspacing="0" cellpadding="1" width="98%"  style="margin-top:5px;margin-left:auto;margin-right:auto">
+		<tr>
+			<td valign="top" width="50%">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="compress_table_style table_th">
+					<tr>
+						<th align="center" colspan="2" width="50%"><label id="MENU_VIDEO_AND_AUDIO_MEDIA1">Stream 1</label></th>
+					</tr>					
+					<tr>
+						<td id="S1_TBL_LEFT" width="50%" align="right">
+							<label id="SETTING_MEDIA_ENCODER_TYPE">Encoder Type</label>
+						</td>
+						<td id="S1_TBL_RIGHT" width="50%" align="left">
+							<select id="S1_VIDEO_ENCODER" onchange="EncoderTypeChange('1')">
+								<option value="H264">H.264</option>								
+								<option value="MJPEG">MJPEG</option>
+							</select>
+						</td>
+						<input type="hidden" id="S1_VIDEO_ENCODER_TMP" value="0">
+					</tr>
+					<tr id="S1_TR_H264_PROFILE">
+						<td align="right">
+							<label id="SETTING_MEDIA_H264_PROFILE">H264 Profile</label>
+						</td>
+						<td align="left">
+							<select id="S1_H264_PROFILE" onchange="H264_PROFILEChange('1')">
+								<option id="SELECT_VIDEO_H264_HIGHPROFILE" value="HIGH">High Profile</option>								
+								<option id="SELECT_VIDEO_H264_MAINPROFILE" value="MAIN">Main Profile</option>
+								<option id="SELECT_VIDEO_H264_BASELINE" value="BASELINE">Baseline</option>
+							</select>
+						</td>						
+					</tr>
+					<tr>
+						<td  align="right">
+							<label id="SETTING_MEDIA_VGA_ASPECT_RATIO">VGA Aspect Ratio</label>
+						</td>
+						<td  align="left">
+							<select id="S1_VGA_ASPECT_RATIO" onchange="ASPECT_RATIOChange('1')">
+								<option id="SELECT_VAG_ASPECT_RATIO_AUTO" value="1">Auto Detected</option>								
+								<option id="SELECT_VAG_ASPECT_RATIO_FIXED" value="0">4:3</option>
+							</select>
+						</td>						
+					</tr>
+					<tr>
+						<td  align="right">
+							<label id="SETTING_MEDIA_RESOLUTION">Resolution</label>
+						</td>
+						<td  align="left">
+							<select id="S1_VIDEO_RESOLUTION" onchange="ResolutionChange('1')">								
+							</select>
+						</td>		
+						<input type="hidden" id="S1_VIDEO_RESOLUTION_TMP" value="0">
+					</tr>
+					<tr>
+						<td  align="right">
+							<label id="SETTING_MEDIA_FR">Frame Rate</label>
+						</td>
+						<td  align="left">
+							<select id="S1_VIDEO_FPS_NUM">								
+							</select>
+						</td>
+						<input type="hidden" id="S1_VIDEO_FPS_NUM_TMP" value="0">
+					</tr>
+					<tr id="S1_TR_BITRATE_MODE">
+						<td  align="right">
+							<label id="SETTING_MEDIA_BITRATE_MODE">Video Bit Rate Mode</label>
+						</td>
+						<td  align="left">
+							<select id="S1_BITRATE_MODE" onchange="BitRateModeChange('1')">
+								<option value="Constant" id="SELECT_VIDEO_COMPRESS_CBR_MODE">Constant Bit Rate</option>
+								<option value="Variable" id="SELECT_VIDEO_COMPRESS_VBR_MODE">Variable Bit Rate</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S1_TR_VIDEO_MAX_BITRATE"><!-- S1_VIDEO_MAX_BITRATE ------------------------------------------------>
+						<td  align="right">
+							<label id="SETTING_MEDIA_MAX_BIT_RATE">Video Max Bit Rate</label>
+						</td>
+						<td align="left">
+							<select id="S1_VIDEO_MAX_BITRATE" onchange="MaxBitRateChange('1')">
+								<option value="6M">6M</option>
+								<option value="5.5M">5.5M</option>
+								<option value="5M">5M</option>
+								<option value="4.5M">4.5M</option>
+								<option value="4M">4M</option>
+								<option value="3.5M">3.5M</option>
+								<option value="3M">3M</option>
+								<option value="2.5M">2.5M</option>
+								<option value="2M">2M</option>
+								<option value="1.5M">1.5M</option>
+								<option value="1.2M">1.2M</option>
+								<option value="1M">1M</option>
+								<option value="750K">750K</option>
+								<option value="500K">500K</option>
+								<option value="384K">384K</option>
+								<option value="256K">256K</option>
+								<option value="128K">128K</option>
+								<option value="56K">56K</option>
+								<option value="28K">28K</option>
+								<option value="UNLIMITED" selected="selected" id="SELECT_VIDEO_COMPRESS_MAX_BITRATE_UNLIMITED">UNLIMITED</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S1_TR_VIDEO_CVBR_BITRATE"  style="display:none"><!-- S1_VIDEO_MAX_BITRATE CVBR------------------------------------------>
+						<td  align="right">
+							<label id="SETTING_CVBR_MAX_BIT_RATE">Video Max Bit Rate</label>
+						</td>
+						<td align="left">
+							<select id="S1_VBR_MAX_BITRATE">
+								<option value="6M">6M</option>
+								<option value="5.5M">5.5M</option>
+								<option value="5M">5M</option>
+								<option value="4.5M">4.5M</option>
+								<option value="4M">4M</option>
+								<option value="3.5M">3.5M</option>
+								<option value="3M">3M</option>
+								<option value="2.5M">2.5M</option>
+								<option value="2M">2M</option>
+								<option value="1.5M">1.5M</option>
+								<option value="1.2M">1.2M</option>
+								<option value="1M">1M</option>
+								<option value="750K">750K</option>
+								<option value="500K">500K</option>
+								<option value="384K">384K</option>
+								<option value="256K">256K</option>
+								<option value="128K">128K</option>
+								<option value="56K">56K</option>
+								<option value="28K">28K</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S1_TR_VIDEO_BITRATE"><!-- S1_VIDEO_BITRATE ------------------------------------------------>
+						<td  align="right">
+							<label id="SETTING_MEDIA_BIT_RATE">Video Bit Rate</label>
+						</td>
+						<td align="left">
+							<select id="S1_VIDEO_BITRATE" onchange="VIDEO_BITRATEChange('1')">
+								<option value="6M">6M</option>
+								<option value="5.5M">5.5M</option>
+								<option value="5M">5M</option>
+								<option value="4.5M">4.5M</option>
+								<option value="4M">4M</option>
+								<option value="3.5M">3.5M</option>
+								<option value="3M" selected="selected">3M</option>
+								<option value="2.5M">2.5M</option>
+								<option value="2M">2M</option>
+								<option value="1.5M">1.5M</option>
+								<option value="1.2M">1.2M</option>
+								<option value="1M">1M</option>
+								<option value="750K">750K</option>
+								<option value="500K">500K</option>
+								<option value="384K">384K</option>
+								<option value="256K">256K</option>
+								<option value="128K">128K</option>
+								<option value="56K">56K</option>
+								<option value="28K">28K</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S1_TR_VIDEO_H264_QUALITY"><!-- S1_VIDEO_H264_QUALITY ------------------------------------------------>
+						<td  align="right">
+							<label id="SETTING_MEDIA_QUALITY">Quality</label>
+						</td>
+						<td align="left">
+							<select id="S1_VIDEO_H264_QUALITY" onchange="VIDEO_H264_QUALITYChange('1')">
+								<option value="HIGH" id="SELECT_VIDEO_COMPRESS_QUALITY_HIGH">High</option>
+								<option value="MIDDLE" selected="selected" id="SELECT_VIDEO_COMPRESS_QUALITY_MEDIUM">Medium</option>
+								<option value="LOW" id="SELECT_VIDEO_COMPRESS_QUALITY_LOW">Low</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S1_TR_VIDEO_GOP"><!-- S1_VIDEO_GOP ------------------------------------------------>
+						<td  align="right">
+							<label id="SETTING_MEDIA_GOP">GOP 1 I-frame /</label>
+						</td>
+						<td  align="left">
+							<div id="DIV_S1_GOP"></div>
+						</td>
+					</tr>
+					<tr id="S1_TR_VIDEO_MJPEG_QUALITY"><!-- S1_VIDEO_MJPEG_QUALITY ------------------------------------------------>
+						<td  align="right">
+							<label id="SETTING_MJPEG_QUALITY">Quality</label>
+						</td>
+						<td  align="left">					
+							<select id="S1_VIDEO_MJPEG_QUALITY">
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td valign="top" width="50%" id="TD_Stream2" style="display:none">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0" class="compress_table_style table_th" >
+					<tr>
+						<th align="center" colspan="2" width="50%"><label id="SETTING_MEDIA_2">Stream 2</label></th>		
+					</tr>
+					<tr>
+						<td id="S2_TBL_LEFT" width="50%" align="right">
+							<label id="SETTING_MEDIA_ENCODER_TYPE2">Encoder Type</label>
+						</td>
+						<td id="S2_TBL_RIGHT" width="50%" align="left">
+							<select id="S2_VIDEO_ENCODER" onchange="EncoderTypeChange('2')">
+								<option value="H264">H.264</option>								
+								<option value="MJPEG">MJPEG</option>
+							</select>
+						</td>
+						<input type="hidden" id="S2_VIDEO_ENCODER_TMP" value="0">
+					</tr>
+					<tr id="S2_TR_H264_PROFILE">
+						<td align="right">
+							<label id="SETTING_MEDIA_H264_PROFILE2">H264 Profile</label>
+						</td>
+						<td align="left">
+							<select id="S2_H264_PROFILE">
+								<option id="SELECT_VIDEO_H264_HIGHPROFILE2" value="HIGH">High Profile</option>								
+								<option id="SELECT_VIDEO_H264_MAINPROFILE2" value="MAIN">Main Profile</option>
+								<option id="SELECT_VIDEO_H264_BASELINE2" value="BASELINE">Baseline</option>
+							</select>
+						</td>						
+					</tr>					
+					<tr>
+						<td  align="right">
+							<label id="SETTING_MEDIA_VGA_ASPECT_RATIO2">VGA Aspect Ratio</label>
+						</td>
+						<td  align="left">
+							<select id="S2_VGA_ASPECT_RATIO" onchange="ASPECT_RATIOChange('2')">
+								<option id="SELECT_VAG_ASPECT_RATIO_AUTO2" value="1">Auto Detected</option>								
+								<option id="SELECT_VAG_ASPECT_RATIO_FIXED2" value="0">4:3</option>
+							</select>
+						</td>						
+					</tr>
+					<tr>
+						<td align="right">
+							<label id="SETTING_MEDIA_RESOLUTION2">Resolution</label>
+						</td>
+						<td align="left">
+							<select id="S2_VIDEO_RESOLUTION" onchange="ResolutionChange('2')">								
+							</select>
+						</td>		
+						<input type="hidden" id="S2_VIDEO_RESOLUTION_TMP" value="0">
+					</tr>
+					<tr>
+						<td align="right">
+							<label id="SETTING_MEDIA_FR2">Frame Rate</label>
+						</td>
+						<td align="left">
+							<select id="S2_VIDEO_FPS_NUM">
+							</select>
+						</td>
+						<input type="hidden" id="S2_VIDEO_FPS_NUM_TMP" value="0">
+					</tr>
+					<tr id="S2_TR_BITRATE_MODE">
+						<td  align="right">
+							<label id="SETTING_MEDIA_BITRATE_MODE2">Video Bit Rate Mode</label>
+						</td>
+						<td  align="left">
+							<select id="S2_BITRATE_MODE" onchange="BitRateModeChange('2')">
+								<option value="Constant" id="SELECT_VIDEO_COMPRESS_CBR_MODE2">Constant Bit Rate</option>
+								<option value="Variable" id="SELECT_VIDEO_COMPRESS_VBR_MODE2">Variable Bit Rate</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S2_TR_VIDEO_MAX_BITRATE">
+						<td  align="right">
+							<label id="SETTING_MEDIA_MAX_BIT_RATE2">Video Max Bit Rate</label>
+						</td>
+						<td  align="left">
+							<select id="S2_VIDEO_MAX_BITRATE" onchange="MaxBitRateChange('2')">
+								<option value="6M">6M</option>
+								<option value="5.5M">5.5M</option>
+								<option value="5M">5M</option>
+								<option value="4.5M">4.5M</option>
+								<option value="4M">4M</option>
+								<option value="3.5M">3.5M</option>
+								<option value="3M">3M</option>
+								<option value="2.5M">2.5M</option>
+								<option value="2M">2M</option>
+								<option value="1.5M">1.5M</option>
+								<option value="1.2M">1.2M</option>
+								<option value="1M">1M</option>
+								<option value="750K">750K</option>
+								<option value="500K">500K</option>
+								<option value="384K">384K</option>
+								<option value="256K">256K</option>
+								<option value="128K">128K</option>
+								<option value="56K">56K</option>
+								<option value="28K">28K</option>
+								<option value="UNLIMITED" selected="selected" id="SELECT_VIDEO_COMPRESS_MAX_BITRATE_UNLIMITED2">UNLIMITED</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S2_TR_VIDEO_CVBR_BITRATE"  style="display:none"><!-- S2_VIDEO_MAX_BITRATE CVBR------------------------------------------>
+						<td  align="right">
+							<label id="SETTING_CVBR_MAX_BIT_RATE2">Video Max Bit Rate</label>
+						</td>
+						<td align="left">
+							<select id="S2_VBR_MAX_BITRATE">
+								<option value="6M">6M</option>
+								<option value="5.5M">5.5M</option>
+								<option value="5M">5M</option>
+								<option value="4.5M">4.5M</option>
+								<option value="4M">4M</option>
+								<option value="3.5M">3.5M</option>
+								<option value="3M">3M</option>
+								<option value="2.5M">2.5M</option>
+								<option value="2M">2M</option>
+								<option value="1.5M">1.5M</option>
+								<option value="1.2M">1.2M</option>
+								<option value="1M">1M</option>
+								<option value="750K">750K</option>
+								<option value="500K">500K</option>
+								<option value="384K">384K</option>
+								<option value="256K">256K</option>
+								<option value="128K">128K</option>
+								<option value="56K">56K</option>
+								<option value="28K">28K</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S2_TR_VIDEO_BITRATE">
+						<td  align="right">
+							<label id="SETTING_MEDIA_BIT_RATE2">Video Bit Rate</label>
+						</td>
+						<td  align="left">
+							<select id="S2_VIDEO_BITRATE">
+								<option value="6M">6M</option>
+								<option value="5.5M">5.5M</option>
+								<option value="5M">5M</option>
+								<option value="4.5M">4.5M</option>
+								<option value="4M">4M</option>
+								<option value="3.5M">3.5M</option>
+								<option value="3M" selected="selected">3M</option>
+								<option value="2.5M">2.5M</option>
+								<option value="2M">2M</option>
+								<option value="1.5M">1.5M</option>
+								<option value="1.2M">1.2M</option>
+								<option value="1M">1M</option>
+								<option value="750K">750K</option>
+								<option value="500K">500K</option>
+								<option value="384K">384K</option>
+								<option value="256K">256K</option>
+								<option value="128K">128K</option>
+								<option value="56K">56K</option>
+								<option value="28K">28K</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S2_TR_VIDEO_H264_QUALITY">
+						<td  align="right">
+							<label id="SETTING_MEDIA_QUALITY2">Quality</label>
+						</td>
+						<td  align="left">
+							<select id="S2_VIDEO_H264_QUALITY">
+								<option value="HIGH" id="SELECT_VIDEO_COMPRESS_QUALITY_HIGH2">High</option>
+								<option value="MIDDLE" selected="selected" id="SELECT_VIDEO_COMPRESS_QUALITY_MEDIUM2">Medium</option>
+								<option value="LOW" id="SELECT_VIDEO_COMPRESS_QUALITY_LOW2">Low</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="S2_TR_VIDEO_GOP">
+						<td  align="right">
+							<label id="SETTING_MEDIA_GOP2">GOP 1 I-frame /</label>
+						</td>
+						<td  align="left">
+							<div id="DIV_S2_GOP"></div>
+						</td>
+					</tr>
+					<tr id="S2_TR_VIDEO_MJPEG_QUALITY">
+						<td  align="right">
+							<label id="SETTING_MJPEG_QUALITY2">Quality</label>
+						</td>
+						<td  align="left">					
+							<select id="S2_VIDEO_MJPEG_QUALITY">
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr id="TR_NIGHT_VIDEO_RESOLUTION" style="display:none">
+			<td colspan=2  align="center">
+				<input type="checkbox" id="NIGHT_VIDEO_RESOLUTION">
+				<label id="SETTING_NIGHT_VIDEO_RESOLUTION">Change video resolution to 1920x1080 on video stream 1 when the camera enters night time mode.</label>
+			</td>
+		</tr>	
+		<tr height="35px">
+			<td align="right">
+				<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+			</td>
+			<td align="left">
+				&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSettings()"/>
+			</td> 
+		</tr>			
+		
+
+	</table>
+
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+	function ASPECT_RATIOChange(stream)
+	{		
+		if(stream == '1')
+			idget("S2_VGA_ASPECT_RATIO").value = idget("S1_VGA_ASPECT_RATIO").value;
+		else	
+			idget("S1_VGA_ASPECT_RATIO").value = idget("S2_VGA_ASPECT_RATIO").value;
+	}
+	
+	function H264_PROFILEChange(stream)
+	{
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") { 
+			if(stream == '1')
+				idget("S2_H264_PROFILE").value = idget("S1_H264_PROFILE").value;
+		}
+	}
+	
+	function VIDEO_BITRATEChange(stream)
+	{
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") { 
+			if(stream == '1')
+				idget("S2_VIDEO_BITRATE").value = idget("S1_VIDEO_BITRATE").value;
+		}
+	}
+	
+	function VIDEO_H264_QUALITYChange(stream)
+	{
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") { 
+			if(stream == '1')
+				idget("S2_VIDEO_H264_QUALITY").value = idget("S1_VIDEO_H264_QUALITY").value;
+		}
+	}
+	
+	function VIDEO_GOPChange(stream)
+	{
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") { 
+			if(stream == '1')
+				idget("S2_VIDEO_GOP").value = idget("S1_VIDEO_GOP").value;
+		}
+	}
+	
+	
+	function DrawGOP()
+	{
+		var HTML='';				
+		var i = 1;
+		var j = 1;
+		var frame ;
+		var sec;
+		try { frame = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_GOP_FRAME") ; } catch(e) {frame=" frame"};
+		try { sec = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_GOP_SECOND") ; } catch(e) {sec="Second"}
+		for(j = 1 ; j <=2 ; j++)
+		{
+			HTML += '<select id="S' + j + '_VIDEO_GOP" onchange="VIDEO_GOPChange('+j+')">';
+			if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF")
+			{
+				for( i = 1 ; i <= 2 ; i++)
+				{
+					HTML +=  '<option value="' + i + '">' + i + ' '+ sec +' </option>';			
+				}
+			}
+			else
+			{
+				for( i = 1 ; i <= 5 ; i++)
+				{
+					HTML +=  '<option value="' + i + '">' + i + ' '+ sec +' </option>';			
+				}
+			}
+			HTML += '</select>';			
+			idget('DIV_S'+ j +'_GOP').innerHTML= HTML;
+			HTML = '';
+		}	
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") 
+			idget("S2_VIDEO_GOP").disabled =true;
+	}
+	
+	function UpdateFpsByResolutionChg(stream, FPS_CAP)
+	{
+		var fps;
+		var need_udpate = 0;
+		var i = 0;
+		fps = FPS_CAP.split(',');		
+		for(i = 0 ; i < fps.length ; i++)
+		{			
+			if(parent.CameraConf.CHANNEL[stream].VIDEO_FPS == fps[i])	// needn't to update fps
+				return;
+		}
+		SelectSetOption(idget("S"+ (stream+1) +"_VIDEO_FPS_NUM"), fps[fps.length-1]);
+		
+	}
+	
+	function ResolutionChange(stream)
+	{
+		//alert("stream="+stream);
+		var Res;
+		var fps_cap;
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&FPS_CAP_QUERY_ALL=";
+		szEncoder += "DUAL,"+ idget("S1_VIDEO_ENCODER").value + "," +idget("S1_VIDEO_RESOLUTION").value + "," +idget("S2_VIDEO_ENCODER").value + "," +idget("S2_VIDEO_RESOLUTION").value;
+		
+		var szReturn = doRequest(szEncoder) ;
+		szReturn = szReturn.split('\n') ;
+		//alert(szReturn);
+		if(stream==1)
+		{
+			Res = idget("S1_VIDEO_RESOLUTION").value.split('x');
+			if (Res[1]>1080) {
+				SelectSetOption(idget("S1_VIDEO_BITRATE"), "6M");
+			}
+		}			
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+            switch ( szTmp[0] ) {
+                case 'FPS_CAP_QUERY_ALL' :                    					
+					fps_cap = szTmp[1].split(';');
+					UpdateSelectOptions(idget("S1_VIDEO_FPS_NUM"), fps_cap[0]);
+					/*if(top.gModel.indexOf("I9")!=-1 && Res[1]==720)
+					{
+						UpdateSelectOptions(idget("S1_VIDEO_FPS_NUM"), "1,3,5,10,15,30,60");
+					}*/
+					UpdateFpsByResolutionChg(0,fps_cap[0]);
+					UpdateSelectOptions(idget("S2_VIDEO_FPS_NUM"), fps_cap[1]);					
+					UpdateFpsByResolutionChg(1,fps_cap[1]);
+                    break;                
+            }
+        }	
+	}
+	
+	function EncoderTypeChange(stream_id)
+	{
+		if(idget("S" + stream_id + "_VIDEO_ENCODER").value == "H264")
+		{	
+			idget("S" + stream_id + "_TR_H264_PROFILE").style.display = "";
+			idget("S" + stream_id + "_TR_BITRATE_MODE").style.display = "";
+			idget("S" + stream_id + "_TR_VIDEO_MJPEG_QUALITY").style.display = "none";
+			BitRateModeChange(stream_id);												
+		}
+		else //MJPEG
+		{			
+			idget("S" + stream_id + "_TR_H264_PROFILE").style.display = "none";
+			idget("S" + stream_id + "_TR_BITRATE_MODE").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_MAX_BITRATE").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_BITRATE").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_H264_QUALITY").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_GOP").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_MJPEG_QUALITY").style.display = "";
+			idget("S" + stream_id + "_TR_VIDEO_CVBR_BITRATE").style.display = "none";
+		}				
+	}
+	
+	function BitRateModeChange(stream_id)
+	{		
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") {
+			idget("S2_BITRATE_MODE").value = idget("S1_BITRATE_MODE").value;
+		}
+		
+		if(idget("S" + stream_id + "_BITRATE_MODE").value == "Constant")
+		{
+			idget("S" + stream_id + "_TR_VIDEO_MAX_BITRATE").style.display = "";
+			//According to HQAO report, "S(n)_TR_VIDEO_CVBR_BITRATE" should not appear in Constant Bit Rate mode.
+			idget("S" + stream_id + "_TR_VIDEO_CVBR_BITRATE").style.display = "none";
+			MaxBitRateChange(stream_id);			
+			idget("S" + stream_id + "_TR_VIDEO_H264_QUALITY").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_GOP").style.display = "none";
+			
+			if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") 
+			{
+				idget("S2_TR_VIDEO_MAX_BITRATE").style.display = "";
+				MaxBitRateChange('2');			
+				idget("S2_TR_VIDEO_H264_QUALITY").style.display = "none";
+				idget("S2_TR_VIDEO_GOP").style.display = "none";
+			}
+		}
+		else
+		{
+			if(top.gCVBR==1)
+			{
+				idget("S" + stream_id + "_TR_VIDEO_CVBR_BITRATE").style.display = "";
+			}
+			idget("S" + stream_id + "_TR_VIDEO_MAX_BITRATE").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_BITRATE").style.display = "none";
+			idget("S" + stream_id + "_TR_VIDEO_H264_QUALITY").style.display = "";
+			idget("S" + stream_id + "_TR_VIDEO_GOP").style.display = "";
+			
+			if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") 
+			{
+				idget("S2_TR_VIDEO_MAX_BITRATE").style.display = "none";
+				idget("S2_TR_VIDEO_BITRATE").style.display = "none";
+				idget("S2_TR_VIDEO_H264_QUALITY").style.display = "";
+				idget("S2_TR_VIDEO_GOP").style.display = "";
+			}
+		}
+	}
+	
+	function MaxBitRateChange(stream_id)
+	{		
+		if(idget("S" + stream_id + "_VIDEO_MAX_BITRATE").value == "UNLIMITED")
+			idget("S" + stream_id + "_TR_VIDEO_BITRATE").style.display = "";
+		else	
+			idget("S" + stream_id + "_TR_VIDEO_BITRATE").style.display = "none";
+		
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF") 
+		{
+			idget("S2_VIDEO_MAX_BITRATE").value = idget("S1_VIDEO_MAX_BITRATE").value ;		
+			if(idget("S2_VIDEO_MAX_BITRATE").value == "UNLIMITED")
+			idget("S2_TR_VIDEO_BITRATE").style.display = "";
+			else	
+			idget("S2_TR_VIDEO_BITRATE").style.display = "none";
+		}
+		
+	}
+	
+	function doGetSettings()
+	{		
+		var i;
+		var CH;
+		var gop;	
+		var Res	;
+		parent.GetConfig();
+		UpdateSelectOptions(idget("S1_VIDEO_RESOLUTION"), parent.CameraConf.CHANNEL[0].VIDEO_RESOLUTION_CAP);
+		UpdateSelectOptions(idget("S2_VIDEO_RESOLUTION"), parent.CameraConf.CHANNEL[1].VIDEO_RESOLUTION_CAP);
+		UpdateSelectOptions(idget("S1_VIDEO_FPS_NUM"), parent.CameraConf.CHANNEL[0].VIDEO_FPS_CAP);
+		UpdateSelectOptions(idget("S2_VIDEO_FPS_NUM"), parent.CameraConf.CHANNEL[1].VIDEO_FPS_CAP);
+		InsertSelectOptions_Number(idget("S1_VIDEO_MJPEG_QUALITY"), 1, 100);
+		InsertSelectOptions_Number(idget("S2_VIDEO_MJPEG_QUALITY"), 1, 100);
+		
+		for(i = 0; i < 2; i++)
+		{	
+			if(top.gHIGH_FRAME_MODE_CAP == "None" || top.gHighFpsMode == "OFF") { 
+				CH = i;
+				CH++;
+			}
+			else
+			{
+				CH = i;
+				CH++;
+				if(CH ==2)
+					i = 0;
+				
+			}	
+			SelectSetOption(idget("S"+ CH +"_VIDEO_ENCODER"), parent.CameraConf.CHANNEL[i].VIDEO_ENCODER);
+			SelectSetOption(idget("S"+ CH +"_H264_PROFILE"), parent.CameraConf.CHANNEL[i].VIDEO_PROFILE);
+			SelectSetOption(idget("S"+ CH +"_VGA_ASPECT_RATIO"), parent.CameraConf.CHANNEL[i].VIDEO_ASPECT_RATIO);
+			idget("S" + CH + "_VIDEO_ENCODER_TMP").value = parent.CameraConf.CHANNEL[i].VIDEO_ENCODER;
+			SelectSetOption(idget("S"+ CH +"_VIDEO_RESOLUTION"), parent.CameraConf.CHANNEL[i].VIDEO_RESOLUTION);
+			idget("S" + CH + "_VIDEO_RESOLUTION_TMP").value = parent.CameraConf.CHANNEL[i].VIDEO_RESOLUTION;
+			idget("S" + CH + "_VIDEO_FPS_NUM_TMP").value = parent.CameraConf.CHANNEL[i].VIDEO_FPS;
+			SelectSetOption(idget("S"+ CH +"_VIDEO_FPS_NUM"), parent.CameraConf.CHANNEL[i].VIDEO_FPS);
+			SelectSetOption(idget("S"+ CH +"_VIDEO_MAX_BITRATE"), parent.CameraConf.CHANNEL[i].VIDEO_MAX_BITRATE);
+			SelectSetOption(idget("S"+ CH +"_VIDEO_BITRATE"), parent.CameraConf.CHANNEL[i].VIDEO_BITRATE);
+			SelectSetOption(idget("S"+ CH +"_VIDEO_MJPEG_QUALITY"), parent.CameraConf.CHANNEL[i].VIDEO_MJPEG_QUALITY);
+			SelectSetOption(idget("S"+ CH +"_VIDEO_H264_QUALITY"), parent.CameraConf.CHANNEL[i].VIDEO_H264_QUALITY);	
+			SelectSetOption(idget("S"+ CH +"_VBR_MAX_BITRATE"), parent.CameraConf.CHANNEL[i].VBR_MAX_BITRATE);
+			
+			if(top.gProfileID.indexOf("MT9J003-DB3")!=-1 && top.gUnitType != "Hemispheric Camera")
+			{
+				var tmp =  parent.CameraConf.NIGHT_VIDEO_RESOLUTION.split(',') ;
+				if(tmp[0]==1)
+					idget("NIGHT_VIDEO_RESOLUTION").checked = true;
+				else
+					idget("NIGHT_VIDEO_RESOLUTION").checked = false;
+			}
+			Res = idget("S1_VIDEO_RESOLUTION").value.split('x');
+			/*if(top.gModel.indexOf("I9")!=-1 && Res[1]==720)
+			{
+				UpdateSelectOptions(idget("S1_VIDEO_FPS_NUM"), "1,3,5,10,15,30,60");
+			}*/
+			//gop = Math.ceil(parent.CameraConf.CHANNEL[i].VIDEO_GOP/parent.CameraConf.CHANNEL[i].VIDEO_FPS) ;
+			/*if(gop > 5 )
+				gop = 5;
+			if(gop < 1)	
+				gop = 1;*/
+			gop = parent.CameraConf.CHANNEL[i].VIDEO_GOP_LENGTH;			
+			SelectSetOption(idget("S"+ CH + "_VIDEO_GOP"), gop);
+						
+			if(parent.CameraConf.CHANNEL[i].VIDEO_H264_QUALITY == "NONE")
+				SelectSetOption(idget("S"+ CH +"_BITRATE_MODE"), "Constant");
+			else				
+				SelectSetOption(idget("S"+ CH +"_BITRATE_MODE"), "Variable");
+			
+			EncoderTypeChange(CH);
+			//BitRateModeChange(CH);			
+			if(CH ==2)
+				return;
+		}		
+	}
+	
+	
+	function DoApply()
+	{
+
+		var szEncoder ="";
+		var i = 1;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;		
+		
+		for(i = 1 ; i <= 2; i++)
+		{
+			szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+			szEncoder += "&CHANNEL="+i;
+			szEncoder += "&VGA_ASPECT_RATIO="+ idget("S"+ i + "_VGA_ASPECT_RATIO").value;
+			szEncoder += "&VIDEO_ENCODER="+ idget("S"+ i + "_VIDEO_ENCODER").value;
+			szEncoder += "&VIDEO_RESOLUTION="+ idget("S"+ i +"_VIDEO_RESOLUTION").value;
+			/*if(i==1 && idget("S1_VIDEO_FPS_NUM").value ==60 && top.gModel.indexOf("I9")!=-1)
+			{
+				szEncoder += "&VIDEO_FPS_NUM=30";
+			}*/
+			szEncoder += "&VIDEO_FPS_NUM="+ idget("S"+ i +"_VIDEO_FPS_NUM").value;					
+			if(idget("S"+ i +"_VIDEO_ENCODER").value == "H264")
+			{
+				szEncoder += "&H264_PROFILE="+ idget("S"+ i + "_H264_PROFILE").value;
+				if( idget("S" + i +"_BITRATE_MODE").value == "Constant")
+				{
+					szEncoder += "&VIDEO_H264_QUALITY=NONE";
+					szEncoder += "&VIDEO_MAX_BITRATE="+ idget("S"+ i + "_VIDEO_MAX_BITRATE").value;
+					szEncoder += "&VIDEO_BITRATE="+ idget("S" + i + "_VIDEO_BITRATE").value;
+				}	
+				else	
+				{
+					szEncoder += "&VIDEO_H264_QUALITY="+idget("S" + i +"_VIDEO_H264_QUALITY").value;
+					//szEncoder += "&VIDEO_GOP="+(idget("S" + i + "_VIDEO_GOP").value * idget("S"+ i +"_VIDEO_FPS_NUM").value);
+					szEncoder += "&VIDEO_GOP_LENGTH="+(idget("S" + i + "_VIDEO_GOP").value);
+					if(top.gCVBR==1) 
+						szEncoder += "&VBR_MAX_BITRATE="+idget("S" + i + "_VBR_MAX_BITRATE").value ;
+				}				
+			}
+			else
+			{
+				szEncoder += "&VIDEO_MJPEG_QUALITY="+idget("S" + i + "_VIDEO_MJPEG_QUALITY").value;
+			}
+			
+			if(top.gProfileID.indexOf("MT9J003-DB3")!=-1 && top.gUnitType != "Hemispheric Camera")
+			{
+				if(idget("NIGHT_VIDEO_RESOLUTION").checked == true)
+					szEncoder += "&NIGHT_VIDEO_RESOLUTION=1,N1920x1080";
+				else
+					szEncoder += "&NIGHT_VIDEO_RESOLUTION=0,N1920x1080";
+			}		
+			doRequest(szEncoder);
+		}				
+		
+		parent.GetConfig();	
+		if(top.IsIE() == false )
+		{
+			if(parent.document.getElementById("media_id").value == 1 )
+			{
+				if((idget("S1_VIDEO_RESOLUTION").value != idget("S1_VIDEO_RESOLUTION_TMP").value)  ||  (idget("S1_VIDEO_ENCODER").value != idget("S1_VIDEO_ENCODER_TMP").value)
+					 || (idget("S1_VIDEO_FPS_NUM").value != idget("S1_VIDEO_FPS_NUM_TMP").value) )
+					parent.SetupPlayer("track1");
+			}
+			else
+			{
+				if((idget("S2_VIDEO_RESOLUTION").value != idget("S2_VIDEO_RESOLUTION_TMP").value)  ||  (idget("S2_VIDEO_ENCODER").value != idget("S2_VIDEO_ENCODER_TMP").value)
+					|| (idget("S2_VIDEO_FPS_NUM").value != idget("S2_VIDEO_FPS_NUM_TMP").value) )
+					parent.SetupPlayer("track2");
+			}
+		}	
+		doGetSettings();
+				
+		
+		parent.EnableEcmMotionWindow(0);
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		
+	}
+	
+	function compress_update_langauge()
+	{
+		top.update_language(this);
+		try { document.getElementById('SETTING_MEDIA_ENCODER_TYPE2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_ENCODER_TYPE") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_H264_PROFILE2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_H264_PROFILE") ; } catch(e) {}
+		try { document.getElementById('SELECT_VIDEO_H264_HIGHPROFILE2').innerHTML = top.GetXmlLangTagByName("SELECT_VIDEO_H264_HIGHPROFILE") ; } catch(e) {}
+		try { document.getElementById('SELECT_VIDEO_H264_MAINPROFILE2').innerHTML = top.GetXmlLangTagByName("SELECT_VIDEO_H264_MAINPROFILE") ; } catch(e) {}
+		try { document.getElementById('SELECT_VIDEO_H264_BASELINE2').innerHTML = top.GetXmlLangTagByName("SELECT_VIDEO_H264_BASELINE") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_RESOLUTION2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_RESOLUTION") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_FR2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_FR") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_BITRATE_MODE2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_BITRATE_MODE") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_MAX_BIT_RATE2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_MAX_BIT_RATE") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_BIT_RATE2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_BIT_RATE") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_QUALITY2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_QUALITY") ; } catch(e) {}
+		try { document.getElementById('SETTING_MJPEG_QUALITY').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_QUALITY") ; } catch(e) {}
+		try { document.getElementById('SETTING_MJPEG_QUALITY2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_QUALITY") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_GOP2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_GOP") ; } catch(e) {}
+		try { document.getElementById('SETTING_MEDIA_VGA_ASPECT_RATIO2').innerHTML = top.GetXmlLangTagByName("SETTING_MEDIA_VGA_ASPECT_RATIO") ; } catch(e) {}
+		try { idget('SELECT_VIDEO_COMPRESS_CBR_MODE2').text = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_CBR_MODE") ; } catch(e) {}
+		try { idget('SELECT_VIDEO_COMPRESS_VBR_MODE2').text = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_VBR_MODE") ; } catch(e) {}
+		try { idget('SELECT_VIDEO_COMPRESS_MAX_BITRATE_UNLIMITED2').text = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_MAX_BITRATE_UNLIMITED") ; } catch(e) {}
+		try { idget('SELECT_VIDEO_COMPRESS_QUALITY_HIGH2').text = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_QUALITY_HIGH") ; } catch(e) {}
+		try { idget('SELECT_VIDEO_COMPRESS_QUALITY_MEDIUM2').text = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_QUALITY_MEDIUM") ; } catch(e) {}
+		try { idget('SELECT_VIDEO_COMPRESS_QUALITY_LOW2').text = top.GetXmlLangTagByName("SELECT_VIDEO_COMPRESS_QUALITY_LOW") ; } catch(e) {}
+		try { idget('SELECT_VAG_ASPECT_RATIO_AUTO2').text = top.GetXmlLangTagByName("SELECT_VAG_ASPECT_RATIO_AUTO") ; } catch(e) {}
+		try { idget('SELECT_VAG_ASPECT_RATIO_FIXED2').text = top.GetXmlLangTagByName("SELECT_VAG_ASPECT_RATIO_FIXED") ; } catch(e) {}
+		
+	}
+	function UpdateCss()
+	{
+		/*document.styleSheets[0].rules[91] -> .compress_table_style td*/
+		
+		if(top.IsIE() == false)
+		{
+			idget("body_compress").style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;						
+			document.styleSheets[0].cssRules[92].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;			
+		}
+		else
+		{
+			idget("body_compress").style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+			document.styleSheets[0].rules[91].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+		}
+	}
+	
+	function PageOnload()
+	{	
+		szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&SYSTEM_INFO";
+		szReturn = doRequest(szSystem) ;
+		szReturn=szReturn.split('\n') ;
+		for(i=0; i<szReturn.length; i++){
+			r=doSplitValue( szReturn[i] ) ;
+			switch(r[0]){
+			case "MAX_VIDEO_STREAMS":
+				top.gVideoStreams = r[1].slice(1);
+				break;	
+			
+			case "STREAMING MODE":
+				top.gStreamMode = r[1].slice(1);
+				break;	
+			}
+		}
+		
+		if(top.gProfileID.indexOf("MT9J003-DB3")!=-1 && top.gUnitType != "Hemispheric Camera")
+		{
+			idget("TR_NIGHT_VIDEO_RESOLUTION").style.display = "";
+		}
+		
+		if(top.gStreamMode=="SINGLE" || top.gVideoStreams == 1)
+			idget("TD_Stream2").style.display="none";
+		else
+			idget("TD_Stream2").style.display="";	
+		
+	    if(top.gLanguage == '4' || top.gLanguage == '8')
+		{
+			idget("S1_TBL_RIGHT").style.width = "40%";
+			idget("S1_TBL_LEFT").style.width = "60%";
+			idget("S2_TBL_RIGHT").style.width = "40%";
+			idget("S2_TBL_LEFT").style.width = "60%";
+		}
+		
+		if(top.gHIGH_FRAME_MODE_CAP != "None")
+		{
+			szSystem="/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&SYSTEM_INFO";
+			szReturn = doRequest(szSystem) ;
+			szReturn=szReturn.split('\n') ;
+			for(i=0; i<szReturn.length; i++){
+				r=doSplitValue( szReturn[i] ) ;
+				switch(r[0]){
+				case "HIGH_FRAME_MODE_CAP":
+						top.gHIGH_FRAME_MODE_CAP = r[1].slice(1);
+						if(top.gHIGH_FRAME_MODE_CAP != "None") { 
+							top.gHIGH_FRAME_MODE_CAP = "OFF," +top.gHIGH_FRAME_MODE_CAP;						
+						}	
+						break;	
+				}
+			}
+			if(top.gHIGH_FRAME_MODE_CAP == "")
+				top.gHIGH_FRAME_MODE_CAP = "None";
+		}
+		
+		if(top.gHIGH_FRAME_MODE_CAP != "None")
+		{
+			var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&HIGH_FPS_MODE";			
+			var szReturn = doRequest(szEncoder);
+			szReturn=szReturn.split('\n') ;
+			szTmp = top.doSplitValue( szReturn[0] ) ;
+			top.gHighFpsMode = szTmp[1] ;		
+		}
+		
+		if(top.gHIGH_FRAME_MODE_CAP != "None" && top.gHighFpsMode != "OFF")
+		{
+			idget("S1_VIDEO_ENCODER").disabled =true;
+			idget("S1_VIDEO_RESOLUTION").disabled =true;
+			idget("S1_VIDEO_FPS_NUM").disabled =true;
+			
+			idget("S2_VIDEO_ENCODER").disabled =true;
+			idget("S2_H264_PROFILE").disabled =true;
+			idget("S2_VGA_ASPECT_RATIO").disabled =true;
+			idget("S2_VIDEO_RESOLUTION").disabled =true;
+			idget("S2_VIDEO_FPS_NUM").disabled =true;
+			idget("S2_BITRATE_MODE").disabled =true;
+			idget("S2_VIDEO_MAX_BITRATE").disabled =true;
+			idget("S2_VIDEO_BITRATE").disabled =true;	
+			idget("S2_VIDEO_H264_QUALITY").disabled =true;			
+		}
+		parent.document.getElementById("media_id").style.display = "";
+		compress_update_langauge();		
+		DrawGOP();
+		doGetSettings();
+		UpdateCss();
+	}
+	PageOnload();
+</Script>

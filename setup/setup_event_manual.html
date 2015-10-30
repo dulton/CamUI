@@ -1,0 +1,143 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >							
+					<label id="SETTING_EVENT_MANUAL">Manual Event</label>											
+				</td>					
+				<tr>
+					<td>
+						<p>&nbsp;</p>
+					</td>
+				</tr>	
+				<tr>
+					<td align="center">
+						<form name="frmSetting">
+							<table border="0" cellspacing="5" cellpadding="2" width="80%">
+								<tr>
+									<td align="left" colspan="2">
+										<select name="eventNo" >
+											<option value="0">No Event</option>
+											<option value="1">Event 1</option>
+											<option value="2">Event 2</option>
+											<option value="3">Event 3</option>
+											<option value="4">Event 4</option>
+											<option value="5">Event 5</option>
+											<option value="6">Event 6</option>
+											<option value="7">Event 7</option>
+											<option value="8">Event 8</option>
+											<option value="9">Event 9</option>
+											<option value="10">Event 10</option>
+										</select>
+										<label id="SETTING_EVENT_MANUAL_TRIGGERED">can be triggered manually.</label>
+									</td>
+								</tr>
+								<tr>
+									<td  colspan="2" align="center" >
+										<p>&nbsp;</p>
+									</td>
+								</tr>	
+								<tr>
+									<td align="right">
+										<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+									</td>
+									<td align="left">
+										&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSetting()"/>
+									</td> 
+								</tr>			
+						</table>
+                    </form>
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	function clean_result(){		
+		
+		idget("BUTTON_APPLY").disabled = false ;		
+		idget("BUTTON_APPLY").value = "Apply" ;			
+		try { idget("BUTTON_APPLY").value = top.GetXmlLangTagByName("BUTTON_APPLY") ; } catch(e) {}
+	} 	
+
+	function DoApply()
+	{
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;
+		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;        
+		szSystem = szSystem + "EVENT_MANUAL=" + document.frmSetting.eventNo.value ;
+		
+        var szReturn = top.doRequest(szSystem) ;
+        var nError = 0 ;
+		var err_str = "" ;
+        szReturn = szReturn.split('\n') ;
+
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+
+            if(szTmp[0].indexOf('ERROR')>-1){
+				nError++ ;
+				err_str = err_str + szTmp[0] + "<br>" ;
+			}
+        }
+
+        if (nError == 0) {
+			
+			idget("BUTTON_APPLY").value = "Success" ;
+		}
+		else{
+			//result_str.innerHTML = "<font color='red'>ERROR:<br>"+ err_str +"</font>" ;
+		}
+		window.setTimeout("clean_result();", 2000 );
+		
+		doGetSetting();	
+	}
+	
+	function doGetSetting()
+	{
+ 		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&"  ;        
+        szSystem = szSystem + "EVENT_MANUAL" ;
+        var szReturn = top.doRequest(szSystem) ;
+		
+        szReturn = szReturn.split('\n') ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'EVENT_MANUAL' :
+					document.frmSetting.eventNo.value = szTmp[1] ;
+					
+                    break;
+                
+            }
+        }   
+		
+	}
+	
+	function Page_onLoad()
+	{		
+		top.update_language(this);
+		doGetSetting();
+		
+	}	
+	Page_onLoad();
+		
+</Script>

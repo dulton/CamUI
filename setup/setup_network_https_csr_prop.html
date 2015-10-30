@@ -1,0 +1,66 @@
+﻿<html>
+
+<head>   
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<div style="height:640px;overflow:auto">	
+		<table  class="setup_table" align="center" >
+			<tr>
+				<td class="setup_item"  >
+					<table  class="setup_item" width="100%" border="0">
+						<tr>
+							<td width="95%" align="center">
+								<label id="SETTING_HTTPS_CSR_PROPERTIES">Certificate Signing Request Properties</label>
+							</td>
+							<td width="5%" align="right">
+								<img type="button" src="../images/cross.png" onclick="parent.Close();" style="cursor:pointer;border:2px solid #dedede" title="Close">
+							</td>
+						</tr>	
+					</table>
+				</td>									
+				<tr>
+					<td>						
+						<table width="100%">
+							<tr>
+								<td>
+									<textarea id="CSR_PROPERTIES" rows="30" style="width:100%;" readonly="readonly"></textarea>
+								</td>
+							</tr>													   																	  
+						</table>						
+					</td>
+				</tr>
+			</tr>				
+		</table>
+	</div>	
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	function doGetSetting()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&HTTPS_CSR_PROP";		        
+        var csr_prop = doRequest(szSystem) ;
+		idget("CSR_PROPERTIES").innerText = csr_prop ;
+		
+	}	
+	
+	function Page_onLoad()
+	{				
+		top.update_language(this);
+		doGetSetting();
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

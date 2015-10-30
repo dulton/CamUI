@@ -1,0 +1,440 @@
+﻿
+<html>
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+</head>
+
+<body  id="body_motion"topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" bgcolor="#f5f5f5" onUnload="MotionPageUnLoad()">	
+	<table width="80%" cellspacing="0" cellpadding="0" border="0" style="margin-top:15px;margin-left:auto;margin-right:auto">
+		<tr height="30px">
+			<td colspan="2">
+				
+				<select id="select_profile" name="profile" onchange="changeProfile();" >
+					<option value="Runtime" selected id="SELECT_VIDEO_MOTION_RUNTIME_PROFILE">Runtime MD Profile</option>
+					<option value="Event" id="SELECT_VIDEO_MOTION_EVENT_PROFILE">Event MD Profile</option>
+				</select>
+			</td>
+		</tr>	
+		<tr id="RuntimeMD">
+			<td colspan="2">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" width="15%"><label id="SETTING_VIDEO_REGION">Region</label></th>
+						<th align="center" width="15%"><label id="SETTING_VIDEO_MOTION_ENABLE">Enabled</label></th>
+						<th align="center" width="20%"><label id="SETTING_VIDEO_SENSITIVITY">Sensitivity</label></th>
+						<th align="center" width="25%"><label id="SETTING_VIDEO_TRIGGER_INTERVAL">Trigger Interval</label></th>
+						<th align="center" width="25%"><label id="SETTING_VIDEO_TRIGGER_THRESHOLE">Trigger Threshold</label></th>
+					</tr>
+					<tr>
+						<td align="center"><label>1</label></td>
+						<td align="center"><input type="checkbox" id="Runtime_MD_ENABLE_1" onclick="MD_Enable_Onclick('1')"></td>
+						<td align="center"><select id="Runtime_MD_SEN_1"></select></td>
+						<td align="center"><select id="Runtime_MD_TIME_1"></select></td>
+						<td align="center"><select id="Runtime_MD_OBJ_1"></select><label>%</label></td>
+					</tr>
+					<tr>
+						<td align="center"><label>2</label></td>
+						<td align="center"><input type="checkbox" id="Runtime_MD_ENABLE_2" onclick="MD_Enable_Onclick('2')"></td>
+						<td align="center"><select id="Runtime_MD_SEN_2"></select></td>
+						<td align="center"><select id="Runtime_MD_TIME_2"></select></td>
+						<td align="center"><select id="Runtime_MD_OBJ_2"></select><label>%</label></td>
+					</tr>
+					<tr>
+						<td align="center"><label>3</label></td>
+						<td align="center"><input type="checkbox" id="Runtime_MD_ENABLE_3" onclick="MD_Enable_Onclick('3')" ></td>
+						<td align="center"><select id="Runtime_MD_SEN_3"></select></td>
+						<td align="center"><select id="Runtime_MD_TIME_3"></select></td>
+						<td align="center"><select id="Runtime_MD_OBJ_3"></select><label>%</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr id="EventMD" style="display:none">
+			<td colspan="2">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0"  class="event_server_table_style table_th" style="margin-top:5px">		
+					<tr>
+						<th align="center" width="15%"><label id="SETTING_VIDEO_REGION2">Region</label></th>
+						<th align="center" width="15%"><label id="SETTING_VIDEO_MOTION_ENABLE2">Enabled</label></th>
+						<th align="center" width="20%"><label id="SETTING_VIDEO_SENSITIVITY2">Sensitivity</label></th>
+						<th align="center" width="25%"><label id="SETTING_VIDEO_TRIGGER_INTERVAL2">Trigger Interval</label></th>
+						<th align="center" width="25%"><label id="SETTING_VIDEO_TRIGGER_THRESHOLE2">Trigger Threshold</label></th>
+					</tr>
+					<tr>
+						<td align="center"><label>1</label></td>
+						<td align="center"><input type="checkbox" id="Event_MD_ENABLE_1"></td>
+						<td align="center"><select id="Event_MD_SEN_1"></select></td>
+						<td align="center"><select id="Event_MD_TIME_1"></select></td>
+						<td align="center"><select id="Event_MD_OBJ_1"></select><label>%</label></td>
+					</tr>
+					<tr>
+						<td align="center"><label>2</label></td>
+						<td align="center"><input type="checkbox" id="Event_MD_ENABLE_2"></td>
+						<td align="center"><select id="Event_MD_SEN_2"></select></td>
+						<td align="center"><select id="Event_MD_TIME_2"></select></td>
+						<td align="center"><select id="Event_MD_OBJ_2"></select><label>%</label></td>
+					</tr>
+					<tr>
+						<td align="center"><label>3</label></td>
+						<td align="center"><input type="checkbox" id="Event_MD_ENABLE_3"></td>
+						<td align="center"><select id="Event_MD_SEN_3"></select></td>
+						<td align="center"><select id="Event_MD_TIME_3"></select></td>
+						<td align="center"><select id="Event_MD_OBJ_3"></select><label>%</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr id="TR_APPLY" style="display:none">
+			<td align="right">
+				<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoApply()" />&nbsp;&nbsp;&nbsp; 
+			</td>
+			<td align="left">
+				&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="doGetSettings()"/>
+			</td> 
+		</tr>			
+		<tr id="TR_SETUP">
+			<td colspan="2" align="center">
+				<input name="HEAD_SETUP" class="button2" type="button" id="HEAD_SETUP" value="Setup" onclick="DoSetup()" />&nbsp;&nbsp;&nbsp; 
+			</td>
+			
+		</tr>		
+	</table>
+	
+
+
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	/*function MD_Switch()
+	{
+		if(idget("MOTION_ENABLE").checked == true)
+		{
+			
+			SetMotionTableEnabled("");
+			SetEcmMotionRegion();
+		}
+		else
+		{
+			SetMotionTableEnabled("disabled");			
+			parent.idget("oMedia").SetMotionRegionEnable(1,0);
+			parent.idget("oMedia").SetMotionRegionEnable(2,0);
+			parent.idget("oMedia").SetMotionRegionEnable(3,0);
+			parent.idget("oMedia").DisableMotionDetection();
+		}
+	}*/
+	parent.StreamConnectOK = 0;	
+	
+	function MD_Enable_Onclick(region)
+	{				
+		parent.idget("oMedia").SetMotionSetting(region, parent.idget("oMedia").GetMotionStartX(region), parent.idget("oMedia").GetMotionStartY(region), 
+															 parent.idget("oMedia").GetMotionEndX(region), 
+															 parent.idget("oMedia").GetMotionEndY(region), 
+															 idget("Runtime_MD_SEN_"+ region).value);
+		if(idget("Runtime_MD_ENABLE_"+ region).checked == true)
+			parent.idget("oMedia").SetMotionRegionEnable(region,1);
+		else	
+			parent.idget("oMedia").SetMotionRegionEnable(region,0);
+		parent.idget("oMedia").StartMdSetup();
+	}
+	
+	
+	function MotionPageUnLoad()
+	{
+		parent.EnableEcmMotionWindow(0);
+		parent.document.getElementById("media_id").disabled = false;
+		parent.idget("oMedia").SetMotionRegionEnable(1,0);
+		parent.idget("oMedia").SetMotionRegionEnable(2,0);
+		parent.idget("oMedia").SetMotionRegionEnable(3,0);
+		//parent.idget("oMedia").DisableMotionDetection();
+	}
+	
+	function DoSetup()
+	{		
+		
+		SetUIEnabled(1);
+		//MD_Switch();
+		parent.idget("oMedia").StartMdSetup();
+		idget("TR_APPLY").style.display = "";
+		idget("TR_SETUP").style.display = "none";
+		
+	}
+	
+	function SendEventMdCmd()
+	{
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd ;
+		var i = 1;
+		for(i = 1; i <=3 ; i++)
+		{
+			szEncoder += "&EVENT_RSPMD"+i + "=" ;
+			if(idget("Event_MD_ENABLE_"+ i).checked == true)
+				szEncoder += "1,";
+			else
+				szEncoder += "0,";
+			szEncoder += idget("Event_MD_SEN_"+ i).value + ",";	
+			szEncoder += idget("Event_MD_TIME_"+ i).value + ",";	
+			szEncoder += idget("Event_MD_OBJ_"+ i).value + "";	
+		}
+		doRequest(szEncoder) ;
+	}
+	
+	function DoApply()
+	{
+		var szEncoder = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd ;
+		var i = 1;
+		idget("BUTTON_APPLY").value = "Saving..." ;
+		idget("BUTTON_APPLY").disabled = true ;
+		
+		/*if(idget("MOTION_ENABLE").checked == true)
+			szEncoder += "&MOTION_ENABLED=0x01";
+		else	
+			szEncoder += "&MOTION_ENABLED=0x00";*/
+		for( i = 1 ; i <=3; i++)
+		{
+			szEncoder += "&MOTION_CONFIG=" + i + ",";
+			if(idget("Runtime_MD_ENABLE_"+ i).checked == true)
+				szEncoder += "1,";
+			else
+				szEncoder += "0,";
+			szEncoder += parent.idget("oMedia").GetMotionStartX(i) + ",";	
+			szEncoder += parent.idget("oMedia").GetMotionStartY(i) + ",";	
+			szEncoder += (parent.idget("oMedia").GetMotionStartX(i)+parent.idget("oMedia").GetMotionEndX(i)) + ",";	
+			szEncoder += (parent.idget("oMedia").GetMotionStartY(i)+parent.idget("oMedia").GetMotionEndY(i)) + ",";	
+			szEncoder += idget("Runtime_MD_SEN_"+ i).value + ",";	
+			szEncoder += idget("Runtime_MD_TIME_"+ i).value + ",";	
+			szEncoder += idget("Runtime_MD_OBJ_"+ i).value + "";	
+		}
+				
+		var szReturn = doRequest(szEncoder) ;
+
+
+		if(idget("select_profile").value == "Event")
+		{
+			SendEventMdCmd();
+		}
+		
+		parent.GetConfig();
+		doGetSettings();
+		window.setTimeout("top.clean_result(this);", 2000 );	
+
+	}
+	
+	function SetEcmMotionRegion()
+	{
+		var i = 0;
+		var MOTION_CONFIG;
+		var EVENT_MD_CONFIG;
+		var SX;   
+		var SY;
+		var EX;
+		var EY;
+//		if(idget("MOTION_ENABLE").checked == true)
+//		{
+			for( i = 0 ; i < 3; i++)
+			{
+				MOTION_CONFIG = parent.CameraConf.MOTION_CONFIG[i];			
+				SX = MOTION_CONFIG.MOTION_SX;
+				SY = MOTION_CONFIG.MOTION_SY;
+				EX = MOTION_CONFIG.MOTION_EX;
+				EY = MOTION_CONFIG.MOTION_EY;
+				EVENT_MD_CONFIG = parent.CameraConf.EVENT_RSPMD[i];
+				if ((SX == 0 && SY == 0 && EX == 0 && EY == 0) || (SX==EX) || (SY == EY))
+				{					
+					parent.idget("oMedia").SetMotionSetting(i+1, 100*(i)+5, 100*(i)+5, 105, 105, MOTION_CONFIG.MOTION_SEN);
+				}
+				else
+				{
+					parent.idget("oMedia").SetMotionSetting(i+1, MOTION_CONFIG.MOTION_SX, MOTION_CONFIG.MOTION_SY, 
+																MOTION_CONFIG.MOTION_EX-MOTION_CONFIG.MOTION_SX, 
+																MOTION_CONFIG.MOTION_EY-MOTION_CONFIG.MOTION_SY, 
+																MOTION_CONFIG.MOTION_SEN);
+				}
+				/*
+				parent.idget("oMedia").SetMotionSetting(i+1, MOTION_CONFIG.MOTION_SX, MOTION_CONFIG.MOTION_SY, 
+															 MOTION_CONFIG.MOTION_EX-MOTION_CONFIG.MOTION_SX, 
+															 MOTION_CONFIG.MOTION_EY-MOTION_CONFIG.MOTION_SY, 
+															 MOTION_CONFIG.MOTION_SEN);*/
+				parent.idget("oMedia").SetMotionObjectSize(i+1,MOTION_CONFIG.MOTION_OBJ);				
+
+				parent.idget("oMedia").SetRuntimeMotionObjectSize(i+1,EVENT_MD_CONFIG.MOTION_OBJ);
+				
+				
+				if(idget("Runtime_MD_ENABLE_"+ (i+1)).checked == true)
+					parent.idget("oMedia").SetMotionRegionEnable(i+1,1);
+				else	
+					parent.idget("oMedia").SetMotionRegionEnable(i+1,0);
+			}
+			parent.idget("oMedia").StartMdSetup();
+			parent.idget("oMedia").EnableMotionDetection();
+//		}
+//		else
+//		{
+//			parent.idget("oMedia").DisableMotionDetection();
+//}
+								
+	}
+	
+	function SetMotionTableEnabled(dis)
+	{
+		var i = 1;
+		for(i = 1;  i<=3; i++)
+		{
+			idget("Runtime_MD_ENABLE_" + i).disabled = dis;
+			idget("Runtime_MD_SEN_" + i).disabled = dis;
+			idget("Runtime_MD_TIME_" + i).disabled = dis;
+			idget("Runtime_MD_OBJ_" + i).disabled = dis;
+			idget("Event_MD_ENABLE_" + i).disabled = dis;
+			idget("Event_MD_SEN_" + i).disabled = dis;
+			idget("Event_MD_TIME_" + i).disabled = dis;
+			idget("Event_MD_OBJ_" + i).disabled = dis;
+		}	
+	}
+	
+	function SetUIEnabled(InSetupMode)
+	{
+		var Disable ="disabled";
+		
+		if(InSetupMode == 0)		
+			Disable = "disabled";		
+		else
+			Disable = "";
+		
+		//idget("MOTION_ENABLE").disabled = Disable;
+		SetMotionTableEnabled(Disable);
+
+	}
+	
+	function doGetSettings()
+	{
+		/*alert(parent.CameraConf.MOTION_CONFIG[0].MOTION_SEN);
+		alert(parent.CameraConf.MOTION_CONFIG[1].MOTION_SEN);
+		alert(parent.CameraConf.MOTION_CONFIG[2].MOTION_SEN);
+		return;*/
+		var i = 1;
+		/*if(parent.CameraConf.MOTION_ENABLED == '1')		
+			idget("MOTION_ENABLE").checked = true;
+		else	
+			idget("MOTION_ENABLE").checked = false;*/
+		
+		for( i = 0; i<=2 ; i++)
+		{
+			if(parent.CameraConf.MOTION_CONFIG[i].MOTION_ENABLE == '1')
+				idget("Runtime_MD_ENABLE_"+ (i+1)).checked = true;
+			else		
+				idget("Runtime_MD_ENABLE_"+ (i+1)).checked = false;
+			SelectSetOption(idget("Runtime_MD_SEN_"+ (i+1)), parent.CameraConf.MOTION_CONFIG[i].MOTION_SEN);
+			SelectSetOption(idget("Runtime_MD_TIME_"+ (i+1)), parent.CameraConf.MOTION_CONFIG[i].MOTION_TIMER);
+			SelectSetOption(idget("Runtime_MD_OBJ_"+ (i+1)), parent.CameraConf.MOTION_CONFIG[i].MOTION_OBJ);
+
+
+			if(parent.CameraConf.EVENT_RSPMD[i].MOTION_ENABLE == '1')
+				idget("Event_MD_ENABLE_"+ (i+1)).checked = true;
+			else		
+				idget("Event_MD_ENABLE_"+ (i+1)).checked = false;
+			
+			SelectSetOption(idget("Event_MD_SEN_"+ (i+1)), parent.CameraConf.EVENT_RSPMD[i].MOTION_SEN);
+			SelectSetOption(idget("Event_MD_TIME_"+ (i+1)), parent.CameraConf.EVENT_RSPMD[i].MOTION_TIMER);
+			SelectSetOption(idget("Event_MD_OBJ_"+ (i+1)), parent.CameraConf.EVENT_RSPMD[i].MOTION_OBJ);			
+		}
+		SetEcmMotionRegion();		
+		SetUIEnabled(0);
+		
+		idget("TR_APPLY").style.display = "none";
+		idget("TR_SETUP").style.display = "";
+	}
+	
+	function changeProfile()
+	{
+		if(idget("select_profile").value == "Runtime")
+		{
+			idget("RuntimeMD").style.display = "";
+			idget("EventMD").style.display = "none";
+		}	
+		else
+		{
+			idget("RuntimeMD").style.display = "none";
+			idget("EventMD").style.display = "";
+		}
+		
+	}
+	
+	function motion_update_langauge()
+	{
+		top.update_language(this);
+		try { document.getElementById('SETTING_VIDEO_REGION2').innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_REGION") ; } catch(e) {}
+		try { document.getElementById('SETTING_VIDEO_MOTION_ENABLE2').innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_MOTION_ENABLE") ; } catch(e) {}
+		try { document.getElementById('SETTING_VIDEO_SENSITIVITY2').innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_SENSITIVITY") ; } catch(e) {}
+		try { document.getElementById('SETTING_VIDEO_TRIGGER_INTERVAL2').innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_TRIGGER_INTERVAL") ; } catch(e) {}
+		try { document.getElementById('SETTING_VIDEO_TRIGGER_THRESHOLE2').innerHTML = top.GetXmlLangTagByName("SETTING_VIDEO_TRIGGER_THRESHOLE") ; } catch(e) {}
+		
+		
+	}
+	
+	function UpdateCss()
+	{
+		/*document.styleSheets[0].rules[88] -> .event_server_table_style td*/
+		idget("body_motion").style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+		document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+	}
+	
+	var retry_count = 0;
+	function MdTabSwitch()
+	{
+		retry_count++;
+		if(parent.StreamConnectOK == 1)
+		{
+			doGetSettings();
+			parent.StreamConnectOK = 0;
+		}	
+		else
+		{
+			if(retry_count > 10)			
+				return;							
+			setTimeout("MdTabSwitch();",300);						
+		}	
+				
+	}
+	
+	function PageOnload()
+	{
+		var i = 1;
+		motion_update_langauge();
+		for(i=1; i<4; i++){
+			InsertSelectOptions_Number(idget("Runtime_MD_SEN_"+i), 0, 100);
+			InsertSelectOptions_Number(idget("Runtime_MD_TIME_"+i), 0, 300);
+			InsertSelectOptions_Number(idget("Runtime_MD_OBJ_"+i), 0, 100);
+			InsertSelectOptions_Number(idget("Event_MD_SEN_"+i), 0, 100);
+			InsertSelectOptions_Number(idget("Event_MD_TIME_"+i), 0, 300);
+			InsertSelectOptions_Number(idget("Event_MD_OBJ_"+i), 0, 100);
+		}
+		
+		
+		if(parent.document.getElementById("media_id").value != 1)
+		{
+			parent.document.getElementById("media_id").value = 1;
+			if(top.IsIE() == true)
+				parent.ECMSetup();	
+			setTimeout("parent.EnableEcmMotionWindow(1);",300);		
+		}
+		else		
+		{		
+			parent.EnableEcmMotionWindow(1);
+		}	
+		parent.document.getElementById("media_id").style.display = "none";
+		doGetSettings();
+		UpdateCss();	
+		MdTabSwitch();
+
+	}
+	
+	
+	PageOnload();
+	
+</Script>

@@ -1,0 +1,493 @@
+﻿<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()">
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" border="0">
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_CONNECTION_TYPE">Connection Type*</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="left" colspan="2">
+						        <input type="radio" value="1" name="WAN_TYPE" id="WAN_TYPE_1" onclick="DYNAMIC_IP_ADDRESS()">
+						        <label id="SETTING_CONNECTION_TYPE_DYNAMIC_IP_ADDRESS">Dynamic IP Address</label>
+						    </td>							
+						</tr>
+						<tr id ="TR_SETTING_CONNECTION_TYPE_USE_HOSTNAME" style="display:none">
+							<td align="center"  width="50%" colspan="2" >
+								<input type="checkbox" id="DHCP_BY_HOSTNAME">							
+								<label id="SETTING_CONNECTION_TYPE_USE_HOSTNAME">Use host name </label>
+								<input type="text" id="LAN_HOSTNAME"  maxlength="67">
+							</td>
+						</tr> 
+					</table>
+				</td>	
+			</tr>
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="left" colspan="2">
+							    <input type="radio" name="WAN_TYPE" value="2" id="WAN_TYPE_2" onclick="STATIC_IP_ADDRESS()">
+							    <label id="SETTING_CONNECTION_TYPE_STATIC_IP_ADDRESS">Static IP Address</label>
+                            </td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" align="center" width="100%" id ="TR_SETTING_CONNECTION_TYPE_STATIC_IP_ADDRESS" style="display:none">
+									<tr> 
+										<td align="right" width="35%" >
+											<label id="SETTING_CONNECTION_TYPE_IP_ADDRESS">IP Address</label>                           
+										</td>	
+										<td align="left" width="65%">
+											<input type="text" id="WAN_IP_1" maxlength="3" size="4" />.
+											<input type="text" id="WAN_IP_2" maxlength="3" size="4" />.
+											<input type="text" id="WAN_IP_3" maxlength="3" size="4" />.
+											<input type="text" id="WAN_IP_4" maxlength="3" size="4" />
+										</td>
+									</tr>
+									<tr>
+										<td align="right">
+											<label id="SETTING_CONNECTION_TYPE_SUBNET_MASK">Subnet Mask</label>
+										</td>
+										<td align="left">
+											<input type="text" id="WAN_NETMASK_1" maxlength="3" size="4" />.
+											<input type="text" id="WAN_NETMASK_2" maxlength="3" size="4" />.
+											<input type="text" id="WAN_NETMASK_3" maxlength="3" size="4" />.
+											<input type="text" id="WAN_NETMASK_4" maxlength="3" size="4" />
+										</td>
+									</tr>
+									<tr>
+										<td align="right">
+											<label id="SETTING_CONNECTION_TYPE_ISP_GATEWAY">Gateway</label>
+										</td>
+										<td align="left">
+											<input type="text" id="WAN_GATEWAY_1" maxlength="3" size="4" />.
+											<input type="text" id="WAN_GATEWAY_2" maxlength="3" size="4" />.
+											<input type="text" id="WAN_GATEWAY_3" maxlength="3" size="4" />.
+											<input type="text" id="WAN_GATEWAY_4" maxlength="3" size="4" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="left" colspan="2">
+							    <input type="radio" name="WAN_TYPE" value="3" id="WAN_TYPE_3" onclick="PPPOE()">
+							    <label id="SETTING_CONNECTION_TYPE_PPPOE">PPPoE</label>                                                        
+							</td>
+			            </tr>
+						<tr>
+							<td>
+								<table border="0" align="center" width="100%" id ="TR_SETTING_CONNECTION_TYPE_PPPOE" style="display:none">
+									<tr>
+										<td align="right" width="35%" >
+											<label id="SETTING_CONNECTION_TYPE_USER_NAME">User Name</label>                           
+										</td>	
+										<td align="left" width="65%">
+											<input type="text" id="WAN_PPPOE_USERNAME" maxlength="63" size="40" />							
+										</td>
+									</tr>
+									<tr>
+										<td align="right" width="35%" >
+											<label id="SETTING_CONNECTION_TYPE_PASSWORD">Password</label>                           
+										</td>	
+										<td align="left" width="65%">
+											<input type="password" id="WAN_PPPOE_PASSWORD" maxlength="63" size="40" />							
+										</td>
+									</tr>	
+								</table>
+							</td>
+						</tr>	
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td  colspan="2" align="left" >
+					<p>&nbsp;</p>
+				</td>
+			</tr>
+			<tr>
+				<td  colspan="2" align="left" >
+					<!--<p>&nbsp;</p>-->
+					<label id="COMMON_MSG_NEED_SAVE_REBOOT"> * New settings will only take effect after [Save &amp; Reboot]</label>
+				</td>
+			</tr>
+			<tr>
+				<td  colspan="2" align="left" >
+					<p>&nbsp;</p>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2">
+					<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoWANApply()" />&nbsp;&nbsp;&nbsp; 
+
+					&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetWANSettings()"/>
+				</td> 
+			</tr>			
+			<tr>
+				<td  colspan="2" align="center" >
+					<p>&nbsp;</p>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<table>
+		<div id="divError" style="display:none">
+			<label id="SETTING_HOST_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_CONNECTION_TYPE_STATIC_IP_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_CONNECTION_TYPE_SUBNET_MASK_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_CONNECTION_TYPE_ISP_GATEWAY_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_PPPOE_NAME_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_LOGIN_PWD_ERR"></label>&nbsp;&nbsp;&nbsp;</br>
+			<label id="SETTING_PORT_REBOOT_ALERT"></label>&nbsp;&nbsp;&nbsp;</br>
+		</div>	
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+    var tmpWAN_TYPE, tmpWAN_IP, tmpWAN_NETMASK, tmpWAN_GATEWAY
+	var tmpWAN_PPPOE_USERNAME, tmpWAN_PPPOE_PASSWORD, tmpIPV6_STATE
+	var alert_string = ''
+	try { alert_string = top.GetXmlLangTagByName("SETTING_PORT_REBOOT_ALERT") ; } catch(e) {
+		alert_string = 'New IP settings will only take effect after {Save & Reboot}.' ;
+	}
+	var pattern4ip=/^((((22[0-3]|2[0-1][0-9]|[0-1][0-9][0-9]|[0-9]{2}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[0-9]{1}[0-9]{1}|[1-9]|0))|((224)\.([0-3])))\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[0-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[0-9]{1}[0-9]{1}|[0-9]))$/;
+	var pattern4mask=/^(0|128|192|224|240|248|252|254|255)\.(0|128|192|224|240|248|252|254|255)\.(0|128|192|224|240|248|252|254|255)\.(0|128|192|224|240|248|252|254|255)$/;
+	
+	var err0 = "Rules of host name.\n";
+	err0 += "1. Only ASCII A~Z, a~z, 0~9, minus sign (-) and period (.) are allowed.\n";
+	err0 += "2. No blank or space characters are permitted as part of a name.\n";
+	err0 += "3. The last character must not be a minus sign or period.\n";
+	err0 += "4. Single character name is not allowed.\n";
+	err0 += "5. The first character is allowed to either a letter or a digit.";
+	
+	var err1 = 'Bad IP Address' ;
+	var err2 = 'Bad Subnet Mask' ;
+	var err3 = 'IP Address and Gateway are not in the same subnet.' ;	
+	
+	function DYNAMIC_IP_ADDRESS()
+	{
+		if(idget("WAN_TYPE_1").checked == true)
+			idget("TR_SETTING_CONNECTION_TYPE_USE_HOSTNAME").style.display = "";	
+
+		ConnectTypeUISettingChange();
+	}
+	
+	function STATIC_IP_ADDRESS()
+	{
+		if(idget("WAN_TYPE_2").checked == true)
+			idget("TR_SETTING_CONNECTION_TYPE_STATIC_IP_ADDRESS").style.display = "";
+		
+		ConnectTypeUISettingChange();
+	}
+	
+	function PPPOE()
+	{
+		if(idget("WAN_TYPE_3").checked == true) 
+			idget("TR_SETTING_CONNECTION_TYPE_PPPOE").style.display = "";	
+		ConnectTypeUISettingChange();
+	}
+	
+	function HostNameCheck()
+	{
+		var pattern = /^([0-9a-zA-Z.\-]*)$/;
+		var pattern2 = /[^-.]$/;
+		
+		if(pattern.test(idget("LAN_HOSTNAME").value) == true)
+		{
+			if(pattern2.test(idget("LAN_HOSTNAME").value) ==  true)
+			{
+				if(idget("LAN_HOSTNAME").value.length == 1)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+		
+	}
+	
+	function DoWANApply()
+	{
+		
+			
+		var WAN_TYPE ;
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		
+		if(HostNameCheck() == false)
+		{
+			alert(err0);			
+			GetWANSettings();
+			return;
+		}
+		
+		if(idget("WAN_TYPE_1").checked == true)
+		{
+			WAN_TYPE = 1 ;
+			szSystem = szSystem + "WAN_TYPE=1" ;
+		}	
+		else if (idget("WAN_TYPE_2").checked == true)
+		{
+			WAN_TYPE = 2 ;
+			szSystem = szSystem + "WAN_TYPE=2" ;
+			
+		}	
+		else
+		{
+			szSystem = szSystem + "WAN_TYPE=3" ;
+			WAN_TYPE = 3 ; 
+			if(top.PasswordCheck(idget("WAN_PPPOE_USERNAME").value) == false)
+			{
+				alert(top.pppoe_login_name_err0);					
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return;
+			}
+			if(top.PasswordCheck(idget("WAN_PPPOE_PASSWORD").value) == false)
+			{
+				alert(top.pwd_err0);					
+				window.setTimeout("top.clean_result(this);", 1000 );		
+				return;
+			}						
+			
+		}
+		var WAN_IP = parseInt(idget("WAN_IP_1").value,10) +'.'+ parseInt(idget("WAN_IP_2").value,10) +'.'+ parseInt(idget("WAN_IP_3").value,10) +'.'+ parseInt(idget("WAN_IP_4").value,10) ;
+		var WAN_NETMASK = idget("WAN_NETMASK_1").value +'.'+ idget("WAN_NETMASK_2").value +'.'+ idget("WAN_NETMASK_3").value +'.'+ idget("WAN_NETMASK_4").value ;
+		var WAN_GATEWAY = parseInt(idget("WAN_GATEWAY_1").value,10) +'.'+ parseInt(idget("WAN_GATEWAY_2").value,10) +'.'+ parseInt(idget("WAN_GATEWAY_3").value,10) +'.'+ parseInt(idget("WAN_GATEWAY_4").value,10) ;
+		var WAN_PPPOE_USERNAME = idget("WAN_PPPOE_USERNAME").value ;
+		var WAN_PPPOE_PASSWORD = idget("WAN_PPPOE_PASSWORD").value ;	        	       
+		
+		//if(WAN_TYPE == 2){
+			var flag_ip = pattern4ip.test(WAN_IP);
+			if(!flag_ip){
+				alert(err1+' "'+ WAN_IP +'"');
+				return false;
+			}
+			if(idget("WAN_IP_4").value == 0 || idget("WAN_IP_4").value ==255 || idget("WAN_GATEWAY_4").value == 0 || idget("WAN_GATEWAY_4").value == 255)
+			{
+				alert(err1);
+				GetWANSettings();
+				return false;
+			}
+			
+			var flag_mask = pattern4mask.test(WAN_NETMASK);
+			if(!flag_mask){
+				alert(err2+' "'+ WAN_NETMASK +'"');
+				GetWANSettings();
+				return false;
+			}
+			
+			if(WAN_NETMASK=="0.0.0.0")
+			{
+				alert(err2+' "'+ WAN_NETMASK +'"');
+				GetWANSettings();
+				return false;
+			}
+			for(var i=1;i<=4;i++)                                              
+			{     
+				var tmp1,tmp2
+				if(idget("WAN_NETMASK_"+i).value>0)                                                
+				{                                                               
+					tmp1=idget("WAN_IP_"+i).value-(idget("WAN_IP_"+i).value%(256-idget("WAN_NETMASK_"+i).value));          
+					tmp2=idget("WAN_GATEWAY_"+i).value-(idget("WAN_GATEWAY_"+i).value%(256-idget("WAN_NETMASK_"+i).value));                
+				}                                                               
+				else                                                            
+				{                                                               
+					tmp1=tmp2=0;                                                  
+				}
+				
+				if(tmp1!=tmp2)                                                  
+				{                                                               
+					alert(err3)
+					return;                                                       
+				}                                                               
+			}       
+		//}
+
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;		
+		
+		if(idget("DHCP_BY_HOSTNAME").checked==true)		
+			szSystem += "&DHCP_BY_HOSTNAME=1";
+		else
+			szSystem += "&DHCP_BY_HOSTNAME=0";
+
+		szSystem += "&LAN_HOSTNAME="+idget("LAN_HOSTNAME").value;
+		szSystem = szSystem + "&WAN_IP=" + WAN_IP;
+		szSystem = szSystem + "&WAN_NETMASK=" + WAN_NETMASK;
+		szSystem = szSystem + "&WAN_GATEWAY=" + WAN_GATEWAY ;
+		szSystem = szSystem + "&WAN_PPPOE_USERNAME=" + WAN_PPPOE_USERNAME;
+        szSystem = szSystem + "&WAN_PPPOE_PASSWORD=" + WAN_PPPOE_PASSWORD ;
+
+		var check_diff = 0 ;
+		
+		if(tmpWAN_TYPE != WAN_TYPE){
+			check_diff ++ ;
+		}
+		
+		if(WAN_TYPE == 2){
+			if(tmpWAN_IP != WAN_IP){
+				check_diff ++ ;
+			}
+			
+			if(tmpWAN_NETMASK != WAN_NETMASK){
+				check_diff ++ ;
+			}
+			
+			if(tmpWAN_GATEWAY != WAN_GATEWAY){
+				check_diff ++ ;
+			}
+		}
+		else if(WAN_TYPE == 3){
+			if(tmpWAN_PPPOE_USERNAME != WAN_PPPOE_USERNAME){
+				check_diff ++ ;
+			}
+			
+			if(tmpWAN_PPPOE_PASSWORD != WAN_PPPOE_PASSWORD){
+				check_diff ++ ;
+			}
+		}
+		
+		
+		if(check_diff>0){
+			alert(alert_string);
+		}
+		
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("top.clean_result(this);", 2000 );		
+		GetWANSettings();
+	}
+	
+	function GetWANSettings()
+	{
+        var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+        
+        szSystem += "&WAN" ;
+        szSystem += "&DHCP_BY_HOSTNAME" ;
+        szSystem += "&LAN_HOSTNAME" ;
+        
+        var szReturn = doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = doSplitValue( szReturn[nIdx] ) ;
+
+            switch ( szTmp[0] ) {
+                case 'WAN_TYPE' :
+					tmpWAN_TYPE = szTmp[1] ;
+                    if (szTmp[1] == 1) idget("WAN_TYPE_1").checked = true ;
+                    if (szTmp[1] == 2) idget("WAN_TYPE_2").checked = true ;
+                    if (szTmp[1] == 3) idget("WAN_TYPE_3").checked = true ;
+                    break;
+                case 'WAN_IP' :
+					tmpWAN_IP = szTmp[1] ;
+                    szWAN_IP = szTmp[1].split('.');
+                    idget("WAN_IP_1").value = szWAN_IP[0] ;
+                    idget("WAN_IP_2").value = szWAN_IP[1] ;
+                    idget("WAN_IP_3").value = szWAN_IP[2] ;
+                    idget("WAN_IP_4").value = szWAN_IP[3] ;
+                    break ;
+                case 'WAN_NETMASK' :
+					tmpWAN_NETMASK = szTmp[1] ;
+                    szWAN_NETMASK = szTmp[1].split('.');
+                    idget("WAN_NETMASK_1").value = szWAN_NETMASK[0] ;
+                    idget("WAN_NETMASK_2").value = szWAN_NETMASK[1] ;
+                    idget("WAN_NETMASK_3").value = szWAN_NETMASK[2] ;
+                    idget("WAN_NETMASK_4").value = szWAN_NETMASK[3] ;
+                    break ;
+                case 'WAN_GATEWAY' :
+					tmpWAN_GATEWAY = szTmp[1] ;
+                    szWAN_GATEWAY = szTmp[1].split('.');
+                    idget("WAN_GATEWAY_1").value = szWAN_GATEWAY[0] ;
+                    idget("WAN_GATEWAY_2").value = szWAN_GATEWAY[1] ;
+                    idget("WAN_GATEWAY_3").value = szWAN_GATEWAY[2] ;
+                    idget("WAN_GATEWAY_4").value = szWAN_GATEWAY[3] ;
+                    break ;
+                case 'WAN_PPPOE_USERNAME' :
+					tmpWAN_PPPOE_USERNAME = szTmp[1] ;
+                    idget("WAN_PPPOE_USERNAME").value = szTmp[1] ;
+				    break ;
+                case 'WAN_PPPOE_PASSWORD' :
+					tmpWAN_PPPOE_PASSWORD = szTmp[1] ;
+                    idget("WAN_PPPOE_PASSWORD").value = szTmp[1] ;
+                    break ;
+                case 'DHCP_BY_HOSTNAME' :
+                	if(szTmp[1]=="1"){
+                		idget("DHCP_BY_HOSTNAME").checked=true;
+                	}else{
+                		idget("DHCP_BY_HOSTNAME").checked=false;
+                	}
+                  break ;
+                case "LAN_HOSTNAME":
+                	idget("LAN_HOSTNAME").value=szTmp[1] ;
+                	break;							
+			}
+        }
+				
+		
+	}
+	
+	function ConnectTypeUISettingChange()
+	{
+		if(idget("WAN_TYPE_1").checked == true)
+			idget("TR_SETTING_CONNECTION_TYPE_USE_HOSTNAME").style.display = "";
+		else
+			idget("TR_SETTING_CONNECTION_TYPE_USE_HOSTNAME").style.display = "none";
+			
+		if(idget("WAN_TYPE_2").checked == true)
+			idget("TR_SETTING_CONNECTION_TYPE_STATIC_IP_ADDRESS").style.display = "";
+		else
+			idget("TR_SETTING_CONNECTION_TYPE_STATIC_IP_ADDRESS").style.display = "none";
+			
+		if(idget("WAN_TYPE_3").checked == true) 
+			idget("TR_SETTING_CONNECTION_TYPE_PPPOE").style.display = "";	
+		else
+			idget("TR_SETTING_CONNECTION_TYPE_PPPOE").style.display = "none";	
+					
+	}
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		try { err0 = top.GetXmlLangTagByName("SETTING_HOST_NAME_ERR") ; } catch(e) {}
+		try { err1 = top.GetXmlLangTagByName("SETTING_CONNECTION_TYPE_STATIC_IP_ERR") ; } catch(e) {}
+		try { err2 = top.GetXmlLangTagByName("SETTING_CONNECTION_TYPE_SUBNET_MASK_ERR") ; } catch(e) {}
+		try { err3 = top.GetXmlLangTagByName("SETTING_CONNECTION_TYPE_ISP_GATEWAY_ERR") ; } catch(e) {}		
+		GetWANSettings();
+		
+		ConnectTypeUISettingChange();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

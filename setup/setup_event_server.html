@@ -1,0 +1,409 @@
+<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_EVENT_SERVER">Event Server</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td align="center" >
+					<table border="0" cellspacing="0" cellpadding="0" width="95%" class="event_server_table_style table_th" style="word-break:break-all">
+							<tr>
+								<th align="center" width="190"><label id="SETTING_EVENT_SERVER_TYPE">Type</label></th>
+								<th align="center" width="120"><label id="SETTING_EVENT_SERVER_NETWORK_ADDRESS">Network Address</label></th>
+								<th align="center" width="50"><label id="SETTING_EVENT_SERVER_PORTS">Ports</label></th>
+								<th align="center"><label id="SETTING_EVENT_SERVER_USER_NAME">User Name</label></th>
+							</tr>
+							<tr>
+								<td align="center"><input type="button" name="BUTTON_FTPd" id="LABEL_BUTTON_FTPd" value="FTP Server Configuration" class="button3" onclick="toClick('FTPd');" style="width:175px;"></td>
+								<td align="center" ><label id="FTPd_NW_ADDR"></label></td>
+								<td align="center" ><label id="FTPd_PORTS"></label></td>
+								<td align="center" ><label id="FTPd_USER"></label></td>
+							</tr>
+							<tr>
+								<td align="center"><input type="button" name="BUTTON_SMTP" id="LABEL_BUTTON_SMTP" value="SMTP Server Configuration" class="button3" onclick="toClick('SMTP');" style="width:175px;"></td>
+								<td align="center"><label id="SMTP_NW_ADDR"></label></td>
+								<td align="center"><label id="SMTP_PORTS"></label></td>
+								<td align="center"><label id="SMTP_USER"></label></td>
+							</tr>
+							<tr>
+								<td align="center"><input type="button" name="BUTTON_HTTPd1" id="LABEL_BUTTON_HTTPd1" value="HTTP Server 1 Configuration" class="button3" onclick="toClick('HTTPd1');" style="width:175px;"></td>
+								<td align="center"><label id="HTTPd1_NW_ADDR"></label></td>
+								<td align="center"><label id="HTTPd1_PORTS"></label></td>
+								<td align="center"><label id="HTTPd1_USER"></label></td>
+							</tr>
+							<tr>
+								<td align="center"><input type="button" name="BUTTON_HTTPd2" id="LABEL_BUTTON_HTTPd2" value="HTTP Server 2 Configuration" class="button3" onclick="toClick('HTTPd2');" style="width:175px;"></td>
+								<td align="center"><label id="HTTPd2_NW_ADDR"></td>
+								<td align="center"><label id="HTTPd2_PORTS"></td>
+								<td align="center"><label id="HTTPd2_USER"></td>
+							</tr>
+							<tr>								
+								<td rowspan="2" align="center" width="190px"><input type="button" name="BUTTON_NOTIFICATION_SERVER" id="LABEL_BUTTON_NOTIFICATION_SERVER" value="" class="button3" onclick="toClick('ANS');" style="width:175px;"></td>
+								<td align="center"><label id="ANS_NW_ADDR"></td>
+								<td align="center"><label id="ANS_PORTS"></td>
+								<td align="center"><label id="ANS_USER"></td>
+							</tr>	
+							<tr>
+								<td colspan=3 align="left">
+									<input name="BUTTON_CONNECT" style="margin-left:10px;" class="button2" type="button" id="BUTTON_CONNECT" value="Connect" onclick="DoConnect()" />
+									<input name="BUTTON_DISCONNECT" style="margin-left:10px;" class="button2" type="button" id="BUTTON_DISCONNECT" value="Disconnect" onclick="DoDisconnect()"/>
+									<input type="text" id="AnsTopicCode" style="margin-left:15px; width:334px;" readonly="readonly" />
+								</td>	
+							</tr>
+						</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>				
+			
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+	<div id="event" style="position:absolute;top:0px;left:0px; width:595px;height:640px;display:none" >			
+			<iframe width="100%" height="100%"  id="event_setup_page" frameborder="0" scrolling="no"></iframe>		
+	</div>	
+	
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	var HTTPd = '1' ;
+	
+	function clean_result(state){
+		//alert("state="+state)
+		if(state==2)
+		{
+			idget("BUTTON_CONNECT").disabled = false ;
+			idget("BUTTON_CONNECT").value = top.GetXmlLangTagByName("BUTTON_CONNECT") ;
+		}
+		if(state==3)
+		{
+			idget("BUTTON_DISCONNECT").disabled = false ;
+			idget("BUTTON_DISCONNECT").value = top.GetXmlLangTagByName("BUTTON_DISCONNECT") ;
+		}	
+		doGetSetting();	
+	} 
+	
+	function send_ANS(value)
+	{
+		var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&ANS_NOTIFICATION_STATE="+value  ;
+		var szReturn = top.doRequest(szSystem) ;
+		if(szReturn.indexOf("OK")!=-1)
+		{
+			if(value==2)
+				window.setTimeout("clean_result(2);", 1000 );
+			if(value==3)
+				window.setTimeout("clean_result(3);", 1000 );
+		}
+	}
+	
+	function DoConnect()
+	{
+		if(idget("BUTTON_CONNECT").disabled == true){
+			return;}	
+		idget("BUTTON_CONNECT").value = top.GetXmlLangTagByName("BUTTON_CONNECTING") ; 
+		idget("BUTTON_CONNECT").disabled = true ;
+		
+		window.setTimeout("send_ANS(2);", 50 );	
+	}
+	
+	function DoDisconnect()
+	{
+		if(idget("BUTTON_DISCONNECT").disabled == true){
+			return;}
+		idget("BUTTON_DISCONNECT").value = top.GetXmlLangTagByName("BUTTON_DISCONNECTING") ; 
+		idget("BUTTON_DISCONNECT").disabled = true ;
+		
+		window.setTimeout("send_ANS(3);", 50 );
+	}
+	
+	function Close()
+	{
+		idget("event").style.display="none";
+	}
+	
+	function toClick(type)
+	{		
+		idget("event").style.display="";			
+		switch ( type ) {
+			case 'FTPd' :				
+				idget("event_setup_page").src = 'setup_event_server_ftp.html';																				
+				break;
+				
+			case 'SMTP' :
+				idget("event_setup_page").src = 'setup_event_server_smtp.html';														
+				break;
+				
+			case 'HTTPd1' :
+				HTTPd = 1 ;
+				idget("event_setup_page").src = 'setup_event_server_http.html';										
+				break;
+				
+			case 'HTTPd2' :
+				HTTPd = 2 ;
+				idget("event_setup_page").src = 'setup_event_server_http.html';										
+				break;
+				
+			case 'ANS' :
+				idget("event_setup_page").src = 'setup_event_server_ans.html';	
+		}		
+		
+	}
+	
+	    function doGetSetting() {
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&" ;
+    
+        szSystem = szSystem + "FTP_SERVER&HTTP_SERVER&SMTP_SEC&SMTP_PRI&ANS_NOTIFICATION_STATE&ANS_NOTIFICATION_SERVER";
+        var szReturn = top.doRequest(szSystem) ;
+		//alert(szReturn);
+		szReturn = szReturn.split('\n') ;
+			
+		var SMTP_SEC = 0 ;
+		var ftp_state = 0;
+		var left='',right='';
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            left='',right='';
+            switch ( szTmp[0] ) {
+                case 'FTP_SERVER' :
+					var value = szTmp[1].split(',');
+					if(value[0]==''  || value[1]=='' || value[2]=='')					
+						ftp_state = 0;
+					else	
+						ftp_state = 1;
+						
+					if(ftp_state == 0){
+						left = '<font style="color:grey">' ;
+						right = '</font>' ;
+					}
+					//Network Address
+					if(value[0]==''){
+						document.getElementById('FTPd_NW_ADDR').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('FTPd_NW_ADDR').innerHTML = value[0] ;
+					}
+					//ports
+					if(value[3]==''){
+						document.getElementById('FTPd_PORTS').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						if(ftp_state == 0)
+							document.getElementById('FTPd_PORTS').innerHTML = left + value[3] + right;
+						else
+							document.getElementById('FTPd_PORTS').innerHTML = value[3] ;
+					}
+					//user name
+					if(value[1]==''){
+						document.getElementById('FTPd_USER').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('FTPd_USER').innerHTML = value[1] ;
+					}
+
+                    break;
+				
+				case 'HTTP_SERVER' :
+					var value = szTmp[1].split(',');
+					var id = value[0] ;
+					var state = value[1] ;					
+					if(state == 0){
+						left = '<font style="color:grey">' ;
+						right = '</font>' ;
+					}
+					
+					//Network Address
+					if(value[2]==''){
+						document.getElementById('HTTPd'+ id +'_NW_ADDR').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('HTTPd'+ id +'_NW_ADDR').innerHTML = left + value[2] + right ;
+					}
+					//ports
+					if(value[3]==''){
+						document.getElementById('HTTPd'+ id +'_PORTS').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('HTTPd'+ id +'_PORTS').innerHTML = left + value[3] + right ;
+					}
+					//user name
+					if(value[4]==''){
+						document.getElementById('HTTPd'+ id +'_USER').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('HTTPd'+ id +'_USER').innerHTML = left + value[4] + right ;
+					}
+					
+                    break;
+					
+                case 'SMTP_SEC' :
+					var value = szTmp[1].split(',');
+					var state = value[0] ;
+					
+					if(state == '1'){
+						//Network Address
+						if(value[5]==''){
+							document.getElementById('SMTP_NW_ADDR').innerHTML = '<font style="color:grey">none</font>' ;
+						}
+						else
+						{
+							document.getElementById('SMTP_NW_ADDR').innerHTML = value[5] ;
+						}
+						//ports
+						if(value[6]==''){
+							document.getElementById('SMTP_PORTS').innerHTML = '<font style="color:grey">none</font>' ;
+						}
+						else
+						{
+							document.getElementById('SMTP_PORTS').innerHTML = value[6] +'/'+ value[7] ;
+						}
+						//user name
+						if(value[2]==''){
+							document.getElementById('SMTP_USER').innerHTML = '<font style="color:grey">none</font>' ;
+						}
+						else
+						{
+							document.getElementById('SMTP_USER').innerHTML = value[2] ;
+						}
+						
+						SMTP_SEC = 1 ;
+					}
+                    break;
+					
+				case 'SMTP_PRI' :
+					var value = szTmp[1].split(',');
+					var state = value[0] ;
+					
+					if(state == '1'){
+						//Network Address
+						if(value[5]==''){
+							document.getElementById('SMTP_NW_ADDR').innerHTML = '<font style="color:grey">none</font>' ;
+						}
+						else
+						{
+							document.getElementById('SMTP_NW_ADDR').innerHTML = value[5] ;
+						}
+						//ports
+						if(value[6]==''){
+							document.getElementById('SMTP_PORTS').innerHTML = '<font style="color:grey">none</font>' ;
+						}
+						else
+						{
+							document.getElementById('SMTP_PORTS').innerHTML = value[6] +'/'+ value[7] ;
+						}
+						//user name
+						if(value[2]==''){
+							document.getElementById('SMTP_USER').innerHTML = '<font style="color:grey">none</font>' ;
+						}
+						else
+						{
+							document.getElementById('SMTP_USER').innerHTML = value[2] ;
+						}
+					}
+					else{
+						
+						if(SMTP_SEC == 0)
+						{
+							document.getElementById('SMTP_NW_ADDR').innerHTML = '<font style="color:grey">none</font>' ;
+							document.getElementById('SMTP_PORTS').innerHTML = '<font style="color:grey">none</font>' ;
+							document.getElementById('SMTP_USER').innerHTML = '<font style="color:grey">none</font>' ;
+						}
+						
+					}
+					
+                    break;
+				
+				case 'ANS_NOTIFICATION_SERVER':
+					var value = szTmp[1].split(',');
+					var state = value[0] ;					
+					if(state == 0){
+						left = '<font style="color:grey">' ;
+						right = '</font>' ;
+					}
+					//Network Address
+					if(value[1]==''){
+						document.getElementById('ANS_NW_ADDR').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('ANS_NW_ADDR').innerHTML = left + value[1] + right ;
+					}
+					//ports
+					if(value[2]==''){
+						document.getElementById('ANS_PORTS').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('ANS_PORTS').innerHTML = left + value[2] + right ;
+					}
+					//user name
+					if(value[3]==''){
+						document.getElementById('ANS_USER').innerHTML = '<font style="color:grey">none</font>' ;
+					}
+					else
+					{
+						document.getElementById('ANS_USER').innerHTML = left + value[3] + right ;
+					}
+					
+					break;
+					
+				case  'ANS_NOTIFICATION_STATE':
+					var tmp = szTmp[1].split(',') ;
+					if(tmp[0]==0)
+					{
+						idget("BUTTON_DISCONNECT").style.display="none";
+						idget("BUTTON_CONNECT").style.display="";
+						idget("AnsTopicCode").value = "";
+					}	
+					if(tmp[0]==1)
+					{
+						idget("BUTTON_CONNECT").style.display="none";
+						idget("BUTTON_DISCONNECT").style.display="";
+						idget("AnsTopicCode").value = tmp[1];
+					}	
+					break;	
+            }
+        }
+    }
+	
+	function Page_onLoad()
+	{
+		top.update_language(this);
+		doGetSetting();
+		if(top.IsIE() == false)		
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;					
+		else				
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

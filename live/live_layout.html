@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=8;" />
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+	<link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+	<script type="text/javascript" src="/js/utility.js"></script>
+    <title>Web Configurator</title>
+</head>
+
+<body id="mainbody" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no">
+	<XML id="xmlLang" ></XML>
+
+	<div class="background" id="BG" style="width:100%">
+		<div class="titlebar">	
+			<div  class="banner" >			
+				<div class="logo_img" >
+					&nbsp;
+				</div>
+			</div>		
+		</div>
+		<div id="functionbar">		
+			<div id="Fcontent">
+				<div id="pager">
+					<div id="LIVE" class="live" title="Live" onclick="top.load_iframe('/live/live_layout.html')" ></div>
+					<div id="SETUP" class="setup" title="Setup" onclick="EnterSetup()"></div>
+				</div>
+				<div id="toolbar">
+					<div  id="media_line" class="line" style="left:130px"></div>
+					<div id="function_line" class="line" style="left:285px"></div>
+					<div id="size_line" class="line" style="left:400px"></div>
+					<div id="ptz_line" class="line" style="left:470px"></div>
+					<div id="fisheye_line" class="line" style="left:590px"></div>
+					<div id="do_line" class="line" style="left:705px"></div>
+					<div id="media">
+						<div  id="m1" class="media1_on" title="Play video stream 1" onclick="M1ClickHandler()"></div>
+						<div  id="m2" class="media2_off" title="Play video stream 2" onclick="M2ClickHandler()" ></div>					
+					</div>
+					
+					<div id="function">
+						<div  id="Fullscreen" class="fullscreen" title="Full Screen" onclick="FullScreen()"></div>
+						<div id="Snapshot" class="snapshot"  title="Get a snapshot" onclick="Snapshot()"></div>
+						<div id="mic" class="mic_off" title="Talk to camera" onclick="MicHandler()"></div>					
+					</div>
+					
+					<div id="size">
+						<div id="ZoomIn" class="sizeup" title="Zoom In" onclick="SizeUp()"></div>
+						<div id="ZoomOut" class="sizedown" title="Zoom out" onclick="SizeDown()"></div>
+					</div>
+					<div id="ptz" style="display:none">
+						<div id="ptz_icon" class="ptz_off" title="Open PTZ control panel" onclick="PTZHandler()"></div>							
+						<div id="PTZMode">
+							<div id="SubPTZ" class="Sub-ptz" style="z-index:2;width:50px;display:none">
+								<div id="ptz_icon1" class="Ptz"  onclick="PTZSeletcHandler('0')"></div>
+								<div id="ptz_icon2" class="BoxPtz" onclick="PTZSeletcHandler('1')"></div>	
+							</div>	
+							<div id="current_ptz" style="display:none" class="ptz_mode_off" title="Ptz mode options" onclick="PtzClickHandler()"></div>	
+						</div>
+					</div>
+					
+					<div id="FisheyeMode" >
+						<div id="SubMode" class="Sub-mode" style="z-index:2;width:50px;display:none">
+							<div id="sub_mode1" class="ePtz" style="display:none" onclick="ModeSeletcHandler('0')"></div>
+							<div id="sub_mode2" class="PanoramaWall" style="display:none" onclick="ModeSeletcHandler('1')"></div>					
+							<div id="sub_mode3" class="fisheye" style="display:none" onclick="ModeSeletcHandler('2')"></div>
+							<div id="sub_mode4" class="PanoramaCeil" style="display:none" onclick="ModeSeletcHandler('1')"></div>	
+						</div>     				
+						<div id="current_mode" style="display:none" class="mode_off" title="View mode options" onclick="FisheyeModeClickHandler()"></div>
+						<div id="MiniatureMode" class="miniature_off" title="Miniature fisheye-view window" onclick="MiniatureViewhandler()"></div>
+						
+					</div>
+					<div id="DO">
+						<div id="SubDO" class="Sub-do" style="z-index:2;width:50px;display:none">						
+							<div id="sub_do1" class="DO1" style="display:none" onclick="DoSeletcHandler('1')"></div>
+							<div id="sub_do2" class="DO2" style="display:none" onclick="DoSeletcHandler('2')"></div>
+							<div id="sub_do3" class="DO3" style="display:none" onclick="DoSeletcHandler('3')"></div>
+							<div id="sub_do4" class="DO4" style="display:none" onclick="DoSeletcHandler('4')"></div>
+							<div id="sub_do5" class="DO5" style="display:none" onclick="DoSeletcHandler('5')"></div>
+							<div id="sub_do6" class="DO6" style="display:none" onclick="DoSeletcHandler('6')"></div>
+							<div id="sub_do7" class="DO7" style="display:none" onclick="DoSeletcHandler('7')"></div>
+							<div id="sub_do8" class="DO8" style="display:none" onclick="DoSeletcHandler('8')"></div>
+						</div>     					
+						<div id="current_do" class="do_off" title="Select DO ports" onclick="DoClickHandler()"></div>
+						<div id="DO_HIGH" class="high" title="Set DO port to output high level" onclick="SetDO('1')"></div>
+						<div id="DO_LOW" class="low" title="Set DO port to output low level" onclick="SetDO('0')"></div>
+					</div>
+					<div id="trigger" style="display:none">
+						<div id="trigger_icon" class="trigger_off" title="Trigger manual event" onclick="TriggerHandler()"></div>					
+					</div>
+					<div id="volume"> <!--audio_in-->
+						<div id="volume_icon" class="volume_mute" ></div>					
+						<div  id="bar" class="volume_bar" title="Tune PC speaker/headsets volume" onmousedown="VolCtrl()">
+							<div id="ball" class="volume_control" >
+							</div>
+						</div>					
+					</div>
+					
+				</div>
+			</div>
+		</div>			
+		<div id="ECM">	
+			<object id="oMedia" name="oMedia"  style="padding-top:10px" classid="CLSID:E19E79EC-F62E-40A0-952D-E49AEC7BEC2F" codebase="/control/nvA1Media.cab#Version=1,0,0,106"></object>
+		</div>	
+		<div id="player">		
+		</div>	
+		<script type="text/javascript" src="/js/ptz_layout.js"></script>
+		<div id="divError" style="display:none">
+			<label id="SNAPSHOT_ERROR">Error. Get a snapshot</label>&nbsp;&nbsp;&nbsp;
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/js/enhance.js"></script>
+</html>
+
+<Script type="text/javascript" language="javascript">
+	//---1st section of scripts ---//		
+</Script>

@@ -1,0 +1,136 @@
+<html>
+
+<head>    
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_EVENT_LIST">Event List</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td align="center" >
+					<div id="ListTable">
+						
+					</div>
+<!--					<table border="0" cellspacing="0" cellpadding="0" width="90%" class="event_server_table_style">
+							
+					</table>-->
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>				
+			
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+	<div id="event" style="position:absolute;top:0px;left:0px; width:595px;height:640px;display:none" >			
+			<iframe width="100%" height="100%"  id="event_setup_page" frameborder="0" scrolling="no"></iframe>		
+	</div>	
+	
+	
+	<div id="parking" style="display:none">
+		
+	</div>
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+	
+	var listId = '' ;
+	
+	function Close()
+	{
+		idget("event").style.display="none";		
+		top.update_language(this);
+	}
+	
+	
+    function toClick(x)
+	{
+		listId = x ;
+		idget("event").style.display="";				
+		idget("event_setup_page").src = 'setup_event_list_detail.html';										
+	}	
+	
+	function doGetSetting() {
+        var szSystem = "/cgi-bin/encoder?USER="+ top.gAccount +"&PWD="+ top.gPwd +"&" ;
+    
+        szSystem = szSystem + "EVENT_CONFIG" ;
+        var szReturn = top.doRequest(szSystem) ;
+        szReturn = szReturn.split('\n') ;
+		
+		var sb = [] ;
+		sb[sb.length] = '<table border="0" cellspacing="0" cellpadding="0" width="97%" class="event_server_table_style table_th">' ;
+		sb[sb.length] = '<tr>';
+		sb[sb.length] = '<th align="center" width="50"><label id="SETTING_EVENT_LIST_ID">ID</label></th>';
+		sb[sb.length] = '<th align="center" width="100"><label id="SETTING_EVENT_LIST_WEEKDAY">Week Day</label></th>';
+		sb[sb.length] = '<th align="center" width="50"><label id="SETTING_EVENT_LIST_START">Start</label></th>';
+		sb[sb.length] = '<th align="center" width="50"><label id="SETTING_EVENT_EVENT_DURATION">Duration</label></th>';
+		sb[sb.length] = '<th align="center" width="100"><label id="SETTING_EVENT_SERVER_EVENT_SOURCE">Source</label></th>';
+		sb[sb.length] = '<th align="center" ><label id="SETTING_EVENT_SERVER_EVENT_ACTION">Action</label></th>';
+		sb[sb.length] = '</tr>';
+		sb[sb.length] = document.getElementById('parking').innerHTML ;
+		
+        for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+            szTmp = top.doSplitValue( szReturn[nIdx] ) ;
+            
+            switch ( szTmp[0] ) {
+                case 'EVENT_CONFIG' :
+					var value = szTmp[1].split(',');
+					var disabled = '' ;
+					if(value[1] == '0')
+					{
+						disabled = 'style="color:grey"' ;
+					}
+					
+					sb[sb.length] = '<tr>' ; 
+					sb[sb.length] = '<td align="center"><input type="button" name="btn'+ value[0] +'" value="'+ value[0] +'" onclick="toClick('+ value[0] +')" class="button3" style="width:28px"></td>' ;
+					sb[sb.length] = '<td align="center"><label '+disabled+'>'+ value[2] +'</label></td>' ;
+					sb[sb.length] = '<td align="center"><label '+disabled+'>'+ value[3] +'</label></td>' ;
+					sb[sb.length] = '<td align="center"><label '+disabled+'>'+ value[4] +'</label></td>' ;
+					sb[sb.length] = '<td align="center"><label '+disabled+'>'+ value[5] +'</label></td>' ;
+					sb[sb.length] = '<td align="center"><label '+disabled+'>'+ value[6] +'</label></td>' ;
+					sb[sb.length] = '</tr>' ;
+					
+                    break;
+            }
+        }
+		
+		sb[sb.length] = '</table>' ;
+		
+		document.getElementById('ListTable').innerHTML = sb.join('');
+		
+    }
+	
+	function Page_onLoad()
+	{
+		
+		doGetSetting();
+		top.update_language(this);
+		if(top.IsIE() == false)		
+			document.styleSheets[0].cssRules[89].style.backgroundColor = document.styleSheets[0].cssRules[0].styleSheet.cssRules[5].style.backgroundColor;					
+		else
+			document.styleSheets[0].rules[88].style.backgroundColor = document.styleSheets[0].imports[0].rules[5].style.backgroundColor;
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

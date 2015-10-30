@@ -1,0 +1,133 @@
+﻿<html>
+
+<head>  
+	<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+    <link rel="stylesheet" type="text/css" href='/css/style.css'>
+    <script type="text/javascript" src="/js/js.js"></script>
+    
+</head>
+
+<body  topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" scroll="no" onload="frame_extent()" >
+	<p>&nbsp;</p>
+	<table  class="setup_table" align="center" >
+		<tr>
+			<td class="setup_item"  >
+				<label id="SETTING_NETWORK_RTP">RTP</label>
+			</td>
+			<tr>
+				<td>
+					<p>&nbsp;</p>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<table border="0" align="center" width="100%">
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_RTSP_AUTHEN">RTSP Authentication</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="rtsp_authen">
+									<option value="2" id="SELECT_COMMON_ENABLED">Enabled</option>
+									<option value="1" id="SELECT_COMMON_DISABLED">Disabled</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">
+								<label id="SETTING_RTP_B2">RTP B2 Frame</label>&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left" width="50%">
+								<select id="rtp_b2">
+									<option value="2" id="SELECT_COMMON_ENABLED_2">Enabled</option>
+									<option value="1" id="SELECT_COMMON_DISABLED_2">Disabled</option>
+								</select>
+							</td>
+                       </tr>                       			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>		
+						<tr>
+							<td align="right">
+								<input name="BUTTON_APPLY" class="button2" type="button" id="BUTTON_APPLY" value="Apply" onclick="DoRTPApply()" />&nbsp;&nbsp;&nbsp; 
+							</td>
+							<td align="left">
+								&nbsp;&nbsp;&nbsp; <input name="BUTTON_RESET" class="button2" type="button" id="BUTTON_RESET" value="Reset" onclick="GetRTPSettings()"/>
+							</td> 
+						</tr>			
+						<tr>
+							<td  colspan="2" align="center" >
+								<p>&nbsp;</p>
+							</td>
+						</tr>											   
+					</table>
+				</td>
+			</tr>
+		</tr>				
+	</table>
+	<div  class="setup_bg">	
+	</div>			
+</body>
+
+</html>
+
+<Script type="text/javascript" language="javascript">
+
+	function DoRTPApply()
+	{
+		
+		BUTTON_APPLY.value = "Saving..." ;
+		BUTTON_APPLY.disabled = true ;			
+			
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd+"&";
+		
+		szSystem +=  "RTSP_AUTHEN=" + idget("rtsp_authen").value +"&";				
+		szSystem +=  "RTP_B2=" + idget("rtp_b2").value ;		
+	        	       
+        var szReturn = doRequest(szSystem) ;		
+		window.setTimeout("top.clean_result(this);", 2000 );	
+		GetRTPSettings();
+	}
+	
+	function GetRTPSettings()
+	{
+		var szSystem = "/cgi-bin/system?USER="+ top.gAccount +"&PWD="+ top.gPwd;
+		
+		szSystem = szSystem + "&RTSP_AUTHEN&RTP_B2" ;
+		
+		var szReturn = doRequest(szSystem) ;
+		szReturn = szReturn.split('\n') ;
+		for (nIdx=0; nIdx< szReturn.length; nIdx++) {
+			szTmp = doSplitValue( szReturn[nIdx] ) ;
+			switch ( szTmp[0] ) {
+				case 'RTSP_AUTHEN' :					
+					idget("rtsp_authen").value = szTmp[1] ;					
+					break;									
+				case 'RTP_B2' :					
+					idget("rtp_b2").value = szTmp[1] ;					
+					break;														
+			}
+		}	
+		
+	}
+	
+	function Page_onLoad()
+	{
+		var str_enable = "Enabled";
+		var str_disable = "Disabled";
+		try { str_enable = top.GetXmlLangTagByName("SELECT_COMMON_ENABLED") ; } catch(e) {}
+		try { str_disable = top.GetXmlLangTagByName("SELECT_COMMON_DISABLED") ; } catch(e) {}
+		
+		top.update_language(this);
+		idget("SELECT_COMMON_ENABLED_2").text = str_enable;
+		idget("SELECT_COMMON_DISABLED_2").text = str_disable;
+		GetRTPSettings();
+		
+	}
+	
+	Page_onLoad();
+	
+	
+</Script>

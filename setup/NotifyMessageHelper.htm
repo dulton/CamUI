@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate"></meta>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>How to send notification</title>
+
+<link rel="stylesheet" type="text/css" href='../css/style.css'>
+
+</head>
+
+<body style="text-align:left;">
+<h1 align="left">How to send notification</h1>
+
+Two types of notifications are in this page. The first one is sending notification to E-Mail.
+The other one is sending notification to HTTP server 1 or 2. The "Test" button helps you to varify if the settings in this
+page is correct or not.
+
+<h3 align="left">Send Notification to E-Mail</h3>
+<blockquote align="left">
+    <p>
+        Three settings are needed in this function.
+        <table border="1" width="900" cellpadding="5" class="event_server_table_style table_th">
+            <tr>
+                <th scope="col"><font size="-1">Setting</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+                <th scope="col"><font size="-1">Example</font></th>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">E-Mail Recipients</font></td>
+                <td align="left"><font size="-1">
+                    Recipient E-Mail address. This field could not be empty.<br>
+                    It chould be the multiple recipients.<br>
+                    The ';' is used to seperate recipient E-Mail addresses.<br>
+                    No space character is in front of the recipient E-Mail address.<br>
+                    The max. length is 63 bytes.
+                </font></td>
+                <td align="left"><font size="-1">
+                    user1@test.com;user2@test.com;tester@company.com
+                </font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Subject</font></td>
+                <td align="left"><font size="-1">
+                    Subject of notification. This field could not be empty.<br>
+                    The max. length of subject is 31 bytes.
+                </font></td>
+                <td align="left"><font size="-1">
+                    Testing Message
+                </font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Message</font></td>
+                <td align="left"><font size="-1">
+                    Notification message. This field could not be empty.<br>
+                    The max. length of subject is 151 bytes.
+                </font></td>
+                <td align="left"><font size="-1">
+                    motion region 1 was triggered!!
+                </font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Send Notification to HTTP Server</h3>
+<blockquote align="left">
+    <p>
+        Three settings are needed in this function.
+        <table border="1" width="900" cellpadding="5" class="event_server_table_style table_th">
+            <tr>
+                <th scope="col"><font size="-1">Setting</font></th>
+                <th scope="col"><font size="-1">Description</font></th>
+                <th scope="col"><font size="-1">Example</font></th>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">CGI Path & Program</font></td>
+                <td align="left"><font size="-1">
+                    The CGI program in the remote HTTP server to response this notification message<br>
+                    The CGI path form the HTTP server root has to be included here.<br>
+                    This field could not be empty and the max. length is 63 bytes.
+                </font></td>
+                <td align="left"><font size="-1">
+                    /cgi-bin/MsgHandle.cgi<br>
+                    where<br>
+                    /cgi-bin is the path of CGI program, MsgHandle.cgi. It starts from HTTP server root.
+                </font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">URL Command</font></td>
+                <td align="left"><font size="-1">
+                    URL command with notification message. This field could be ignored if no URL command is specified.<br>
+                    The max. length of subject is 31 bytes.
+                </font></td>
+                <td align="left"><font size="-1">
+                    DIO_OUTPUT=0x01
+                </font></td>
+            </tr>
+            <tr>
+                <td align="left"><font size="-1">Message</font></td>
+                <td align="left"><font size="-1">
+                    Notification message. This field could not be empty.<br>
+                    The max. length of subject is 151 bytes. The message will be sent in URL command format.
+                    The "Message" is the URL command to carry this notification message.
+                    The space character in the message will be transferred to "+".
+                </font></td>
+                <td align="left"><font size="-1">
+                    motion region 1 was triggered!!
+                </font></td>
+            </tr>
+            <tr>
+                <td align="left" colspan="3"><font size="-1">
+                    The notification in above example will be composed like this in HTTP URI.<br>
+                    http://xxx.xxx.xx.xx/cgi-bin/MsgHandle.cgi?DIO_OUTPUT=0x01&Message=motion+region+1+was+triggered!!
+                </font></td>
+            </tr>
+        </table>
+    </p>
+</blockquote>
+
+<h3 align="left">Test Button</h3>
+<blockquote align="left">
+    <p>
+       The Test Button helps you to check if the settings in the page is correct or not.<br>
+       The device will sent the testing notification message to the remote server. Here is the format of testing notification message.
+       <ul><li>Send test message to E-Mail</li></ul>
+       <blockquote align="left">
+            1. E-Mail Recipients are the settings in the E-Mail Recipients field.<br>
+            2. Subject is "Event Test" + the setting of Subject<br>
+            3. Message is "Event Test" + the setting of Message
+       </blockquote>
+       
+       <ul><li>Send test message to HTTP Server</li></ul>
+       <blockquote align="left">
+            1. CGI Path & Program are the settings in the CGI Path & Program field<br>
+            2. URL Command is not used.<br>
+            3. Message is "Event Test" + the setting of Message
+       </blockquote>
+    </p>
+</blockquote>
+<br/>
+<div style="text-align:center">
+<input type="button" class="button3" id="BUTTON_BUTTON_CLOSE" value="Close" onclick="window.close();"/>
+</div>
+</body>
+</html>
